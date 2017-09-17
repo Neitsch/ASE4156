@@ -54,10 +54,16 @@ MIDDLEWARE_CLASSES = [
 
 ROOT_URLCONF = 'BuyBitcoin.urls'
 
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY=os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET=os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
+LOGIN_REDIRECT_URL = '/'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            './BuyBitcoin'
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
