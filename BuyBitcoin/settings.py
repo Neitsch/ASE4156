@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'social_django',
-    'BuyBitcoin',
+    
+    'stocks',
+    'trading',
 ]
 
 MIDDLEWARE_CLASSES = [

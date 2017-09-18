@@ -1,5 +1,9 @@
 from django.db import models
-from .Stock import Stock
+
+
+class Stock(models.Model):
+    name = models.CharField(max_length=255)
+    ticker = models.CharField(max_length=10)
 
 
 class DailyStockQuote(models.Model):

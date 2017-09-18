@@ -1,6 +1,11 @@
 from django.db import models
-from .TradingAccount import TradingAccount
-from .Stock import Stock
+from django.contrib.auth.models import User
+from stocks.models import Stock
+
+
+class TradingAccount(models.Model):
+    account_name = models.CharField(max_length=30)
+    user = models.ForeignKey(User, related_name='trading_accounts')
 
 
 class Trade(models.Model):
