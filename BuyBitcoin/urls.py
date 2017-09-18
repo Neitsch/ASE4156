@@ -20,7 +20,10 @@ from django.contrib import admin
 from django.shortcuts import render_to_response
 
 
-def login(request):
+def login():
+    """
+    Dummy function to render login page
+    """
     return render_to_response('auth.html')
 # --END--
 
