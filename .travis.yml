@@ -10,7 +10,8 @@ before_script:
   - ./manage.py migrate
 install:
   - pip install -r requirements.txt
-  - pip install flake8
+  - pip install flake8 pylint
 script:
   - flake8 .
+  - pylint BuyBitcoin
   - pytest
