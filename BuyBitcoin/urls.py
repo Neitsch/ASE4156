@@ -16,22 +16,14 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.views.generic import TemplateView
-
-# Move this later --START--
-from django.shortcuts import render_to_response
-
-
-def login():
-    """
-    Dummy function to render login page
-    """
-    return render_to_response('auth.html')
-# --END--
+from graphene_django.views import GraphQLView
+from authentication.views import login
 
 
 urlpatterns = [
     url(r'^auth$', login),
     url(r'^admin/', admin.site.urls),
     url('', include('social_django.urls', namespace='social')),
-    url(r'^home$', TemplateView.as_view(template_name="home.html"))
+    url(r'^home$', TemplateView.as_view(template_name="home.html")),
+    url(r'^graphql', GraphQLView.as_view(graphiql=True)),
 ]
