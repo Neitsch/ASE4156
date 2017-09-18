@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'social_django',
-    
+    # Our apps
     'stocks',
     'trading',
 ]
@@ -57,8 +57,9 @@ MIDDLEWARE_CLASSES = [
 
 ROOT_URLCONF = 'BuyBitcoin.urls'
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY=os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET=os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get(
+    'SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
 LOGIN_REDIRECT_URL = '/'
 
 TEMPLATES = [
@@ -100,7 +101,8 @@ if 'TRAVIS' in os.environ:
         'PORT':     '',
     }
 else:
-    DATABASES['default'] = dj_database_url.config(default="postgres://bitcoin:stupid_pw@localhost/buy_bitcoin")
+    DATABASES['default'] = dj_database_url.config(
+        default="postgres://bitcoin:stupid_pw@localhost/buy_bitcoin")
 
 
 # Password validation
