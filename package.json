@@ -6,7 +6,9 @@
   "author": "Nigel Schuster <nigel.schusters@googlemail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "eslint . && webpack --config webpack.config.js --progress --colors"
+    "eslint": "eslint .",
+    "webpack": "webpack --config webpack.config.js --progress --colors",
+    "postinstall": "yarn run webpack"
   },
   "dependencies": {
     "babel": "^6.23.0",
