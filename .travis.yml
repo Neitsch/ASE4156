@@ -11,5 +11,8 @@ before_script:
   - ./manage.py migrate
 install:
   - pip install -r requirements.txt
+  - pip install flake8 pylint pylint_django
 script:
+  - flake8 .
+  - pylint --load-plugins pylint_django BuyBitcoin
   - pytest
