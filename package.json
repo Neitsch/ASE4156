@@ -1,0 +1,33 @@
+{
+  "name": "ASE4156",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Neitsch/ASE4156",
+  "author": "Nigel Schuster <nigel.schusters@googlemail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "eslint . && webpack --config webpack.config.js --progress --colors"
+  },
+  "dependencies": {
+    "babel": "^6.23.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-es2015-spread": "^6.22.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "eslint": "^4.7.1",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "webpack": "^3.6.0",
+    "webpack-bundle-tracker": "^0.2.0"
+  },
+  "devDependencies": {
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-react": "^7.3.0"
+  }
+}

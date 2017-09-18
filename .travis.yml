@@ -3,16 +3,24 @@ cache: pip
 python:
   - "3.6"
 
+addons:
+  apt:
+    packages:
+      - libssl-dev
+      - build-essential
 services:
   - postgresql
 
 before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
   - ./manage.py migrate
+  - nvm install node && nvm use node && npm i -g yarn
 install:
   - pip install -r requirements.txt
   - pip install flake8 pylint pylint_django
+  - yarn install
 script:
   - flake8 .
   - pylint --load-plugins pylint_django BuyBitcoin
   - pytest
+  - yarn build
