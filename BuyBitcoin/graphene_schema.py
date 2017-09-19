@@ -19,7 +19,11 @@ class Query(
     Combination of all queries of all apps
     """
     pass
+
+
+class Mutation(graphene.ObjectType):
+    add_trading_account = authentication.graphene.AddTradingAccount.Field()
 # pylint: enable=too-few-public-methods
 
 
-SCHEMA = graphene.Schema(query=Query)
+SCHEMA = graphene.Schema(query=Query, mutation=Mutation)
