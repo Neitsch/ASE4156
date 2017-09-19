@@ -17,7 +17,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='DailyStockQuote',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('value', models.DecimalField(decimal_places=2, max_digits=16)),
                 ('date', models.DateField()),
             ],
@@ -25,7 +26,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Stock',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=255)),
                 ('ticker', models.CharField(max_length=10)),
             ],
@@ -33,6 +35,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='dailystockquote',
             name='stock',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='daily_quote', to='stocks.Stock'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                    related_name='daily_quote', to='stocks.Stock'),
         ),
     ]
