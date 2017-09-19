@@ -6,9 +6,11 @@
   "author": "Nigel Schuster <nigel.schusters@googlemail.com>",
   "license": "MIT",
   "scripts": {
+    "eslint": "eslint .",
     "relay": "relay-compiler --extensions js --extensions jsx --src web/js --schema ./schema.json",
     "build": "eslint . && yarn run relay && webpack --config webpack.config.js --progress --colors",
-    "postinstall": "yarn run relay"
+    "postinstall": "yarn run relay && yarn run webpack",
+    "webpack": "webpack --config webpack.config.js --progress --colors"
   },
   "dependencies": {
     "babel": "^6.23.0",
