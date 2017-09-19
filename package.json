@@ -7,7 +7,8 @@
   "license": "MIT",
   "scripts": {
     "relay": "relay-compiler --extensions js --extensions jsx --src web/js --schema ./schema.json",
-    "build": "eslint . && webpack --config webpack.config.js --progress --colors"
+    "build": "eslint . && yarn run relay && webpack --config webpack.config.js --progress --colors",
+    "postinstall": "yarn run relay"
   },
   "dependencies": {
     "babel": "^6.23.0",
