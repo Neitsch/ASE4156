@@ -23,6 +23,6 @@ install:
   - yarn install
 script:
   - flake8 .
-  - pylint --load-plugins pylint_django BuyBitcoin
+  - find . ! -path "./node_modules/*" ! -path "./env/*" ! -path "*/migrations/*" -iname "*.py" | xargs pylint --load-plugins pylint_django
   - pytest
   - yarn run eslint && yarn run webpack
