@@ -107,3 +107,4 @@ ENV/
 webpack-stats.json
 node_modules
 assets
+__generated__
