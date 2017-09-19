@@ -25,4 +25,4 @@ script:
   - flake8 .
   - pylint --load-plugins pylint_django BuyBitcoin
   - pytest
-  - yarn build
+  - yarn run eslint && yarn run webpack
