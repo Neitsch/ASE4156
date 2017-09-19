@@ -108,3 +108,4 @@ webpack-stats.json
 node_modules
 assets
 __generated__
+schema.json

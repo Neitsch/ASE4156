@@ -1,3 +1,6 @@
+"""
+This module helps us import WF data as admin
+"""
 import csv
 from .models import (
     DailyCreditCard,
@@ -7,6 +10,9 @@ from .models import (
 
 
 def create(filename, model):
+    """
+    Reades the CSV and creates DB entries for the CSV data
+    """
     with open('wf/fake_data/{}.csv'.format(filename)) as csvfile:
         reader = csv.reader(csvfile)
         headers = next(reader)
@@ -26,7 +32,10 @@ def create(filename, model):
         model.objects.bulk_create(rows, batch_size=500)
 
 
-def import_data(request):
+def import_data(_):
+    """
+    Imports all the CSV data WF provided
+    """
     create("DailyInteractions", DailyInteractions)
     create("DailyCreditCard", DailyCreditCard)
     create("DailyWebsiteTraffic", DailyWebsiteTraffic)
