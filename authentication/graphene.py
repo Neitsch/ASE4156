@@ -56,7 +56,8 @@ class AddTradingAccount(graphene.Mutation):
         name = graphene.String()
     account = graphene.Field(lambda: GTradingAccount)
 
-    def mutate(self, args, context, info):
+    @staticmethod
+    def mutate(_, args, context, __):
         t = TradingAccount(
             profile=context.user.profile,
             account_name=args['name']
