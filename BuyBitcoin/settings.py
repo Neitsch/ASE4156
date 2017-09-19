@@ -40,8 +40,9 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
 
     'django.contrib.staticfiles',
-    'social_django',
     'graphene_django',
+    'social_django',
+    'webpack_loader',
     # Our apps
     'authentication',
     'stocks',
@@ -71,7 +72,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            './BuyBitcoin'
+            './BuyBitcoin/templates'
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -150,10 +151,17 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/static/'
 
-# Extra places for collectstatic to find static files.
-STATICFILES_DIRS = [
+STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'static'),
-]
+    os.path.join(BASE_DIR, 'assets'),
+)
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': '/',
+        'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
+    }
+}
+
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
