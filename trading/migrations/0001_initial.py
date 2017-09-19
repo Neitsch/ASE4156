@@ -20,7 +20,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Trade',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('ts', models.DateTimeField(auto_now_add=True)),
                 ('quantity', models.IntegerField()),
             ],
@@ -28,19 +29,23 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='TradingAccount',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('account_name', models.CharField(max_length=30)),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='trading_accounts', to=settings.AUTH_USER_MODEL)),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                           related_name='trading_accounts', to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.AddField(
             model_name='trade',
             name='account',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='trades', to='trading.TradingAccount'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                    related_name='trades', to='trading.TradingAccount'),
         ),
         migrations.AddField(
             model_name='trade',
             name='stock',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='trades', to='stocks.Stock'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, related_name='trades', to='stocks.Stock'),
         ),
     ]
