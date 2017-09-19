@@ -7,13 +7,16 @@
   "license": "MIT",
   "scripts": {
     "eslint": "eslint .",
-    "webpack": "webpack --config webpack.config.js --progress --colors",
-    "postinstall": "yarn run webpack"
+    "relay": "relay-compiler --extensions js --extensions jsx --src web/js --schema ./schema.json",
+    "build": "eslint . && yarn run relay && webpack --config webpack.config.js --progress --colors",
+    "postinstall": "yarn run relay && yarn run webpack",
+    "webpack": "webpack --config webpack.config.js --progress --colors"
   },
   "dependencies": {
     "babel": "^6.23.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
+    "babel-plugin-relay": "^1.3.0",
     "babel-plugin-transform-es2015-spread": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
@@ -21,10 +24,15 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "eslint": "^4.7.1",
+    "js-cookie": "^2.1.4",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-relay": "^1.3.0",
+    "relay-compiler": "^1.3.0",
+    "relay-runtime": "^1.3.0",
     "webpack": "^3.6.0",
-    "webpack-bundle-tracker": "^0.2.0"
+    "webpack-bundle-tracker": "^0.2.0",
+    "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
     "eslint-config-airbnb": "^15.1.0",
