@@ -8,5 +8,6 @@
     "transform-es2015-spread",
     "transform-object-rest-spread",
     "transform-react-jsx",
+    ["relay", {"schema": "./schema.json"}],
   ],
 }

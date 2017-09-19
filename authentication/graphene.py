@@ -33,6 +33,7 @@ class Query(AbstractType):
         """
         The viewer represents the current logged in user
         """
+        print(context.user)
         if not context.user.is_authenticated():
             return None
         return context.user
