@@ -2,21 +2,21 @@
 GraphQL definitions for the Stocks App
 """
 from graphene_django import DjangoObjectType
-from graphene import AbstractType, relay
 from trading.models import Trade
+from graphene import AbstractType, Argument, List, NonNull, String, relay
 from .models import DailyStockQuote, Stock
 
 
 # pylint: disable=too-few-public-methods
-class GStock(DjangoObjectType):
+class GDailyStockQuote(DjangoObjectType):
     """
-    GraphQL representation of a Stock
+    GraphQL representation of a DailyStockQuote
     """
     class Meta:
         """
-        Meta Model for Stock
+        Meta Model for DailyStockQuote
         """
-        model = Stock
+        model = DailyStockQuote
         interfaces = (relay.Node, )
 
     @staticmethod
@@ -30,16 +30,30 @@ class GStock(DjangoObjectType):
                 .filter(account__profile_id=context.user.profile.id))
 
 
-class GDailyStockQuote(DjangoObjectType):
+class GStock(DjangoObjectType):
     """
-    GraphQL representation of a DailyStockQuote
+    GraphQL representation of a Stock
     """
+    quote_in_range = List(GDailyStockQuote, args={'start': Argument(
+        NonNull(String)), 'end': Argument(NonNull(String))})
+
     class Meta:
         """
-        Meta Model for DailyStockQuote
+        Meta Model for Stock
         """
-        model = DailyStockQuote
+        model = Stock
         interfaces = (relay.Node, )
+
+    @staticmethod
+    def resolve_quote_in_range(data, args, _, __):
+        """
+        Finds the stock quotes for the stock within a time range
+        """
+        return (DailyStockQuote
+                .objects
+                .filter(stock_id=data.id)
+                .filter(date__gte=args['start'])
+                .filter(date__lte=args['end']))
 
 
 # pylint: disable=no-init

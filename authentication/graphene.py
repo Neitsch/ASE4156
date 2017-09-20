@@ -3,10 +3,12 @@ GraphQL definitions for the Authentication App
 """
 from graphene_django import DjangoObjectType
 from django.contrib.auth.models import User
-from graphene import AbstractType, Field, relay
+from graphene import AbstractType, Field, List, String, relay
 import graphene
 from trading.models import TradingAccount
 from trading.graphene import GTradingAccount
+from stocks.graphene import GStock
+from stocks.models import Stock
 from .models import Profile
 
 
@@ -29,12 +31,21 @@ class GProfile(DjangoObjectType):
     """
     GraphQL representation of a Profile
     """
+    stock_find = List(GStock, args={'text': graphene.Argument(graphene.NonNull(String))})
+
     class Meta:
         """
         Meta Model for Profile
         """
         model = Profile
-        only_fields = ('id', 'trading_accounts')
+        only_fields = ('id', 'trading_accounts', 'stock_find')
+
+    @staticmethod
+    def resolve_stock_find(_, args, __, ___):
+        """
+        Finds a stock given a case insensitive name
+        """
+        return Stock.objects.filter(name__icontains=args['text'])
 
 
 # pylint: disable=no-init
