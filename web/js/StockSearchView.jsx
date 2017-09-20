@@ -21,7 +21,7 @@ class StockGraph extends React.Component {
           chartType="LineChart"
           data={[['Date', 'Value'], ...data]}
           options={{}}
-          graph_id="LineChart"
+          graph_id={this.props.id}
           width="400px"
           height="400px"
           legend_toggle
@@ -37,16 +37,24 @@ class StockSearchView extends React.Component {
     super();
     this.state = { text: 'Google', startDate: null, startDate: null, focusedInput: null };
   }
+  setStateCallback = () => {
+    this.props.relay.refetch(vars => {
+      if(this.state.startDate == null || this.state.endDate == null) {
+        return vars;
+      }
+      return {
+        ...vars,
+        text: this.state.text,
+        start: this.state.startDate.format('YYYY-MM-DD'),
+        end: this.state.endDate.format('YYYY-MM-DD'),
+      }
+    });
+  }
   handleChange = (fieldName) => (e) => {
     e.preventDefault()
     let state = this.state;
     state[fieldName] = e.target.value;
-    this.setState(state);
-    this.props.relay.refetch(vars => {
-      let data = e.target.value;
-      vars[fieldName] = data;
-      return vars;
-    }, null);
+    this.setState(state, this.setStateCallback);
   }
   render() {
     return (
@@ -66,7 +74,7 @@ class StockSearchView extends React.Component {
                   <tr key={stock.id}>
                     <td>{stock.name}</td>
                     <td>{(stock.quoteInRange.map(d => d.value).reduce((s, v) => s + v, 0)/stock.quoteInRange.length).toFixed(2)}</td>
-                    <td><StockGraph quotes={stock.quoteInRange} /></td>
+                    <td><StockGraph id={stock.id} quotes={stock.quoteInRange} /></td>
                   </tr>
                 )
               )
@@ -81,15 +89,7 @@ class StockSearchView extends React.Component {
           startDate={this.state.startDate}
           endDate={this.state.endDate}
           onDatesChange={({ startDate, endDate }) => {
-            this.setState({ startDate, endDate });
-            if(startDate == null || endDate == null) {
-              return;
-            }
-            this.props.relay.refetch((prev) => ({
-              ...prev,
-              start: startDate.format('YYYY-MM-DD'),
-              end: endDate.format('YYYY-MM-DD'),
-            }));
+            this.setState({ startDate, endDate }, this.setStateCallback);
           }}
           focusedInput={this.state.focusedInput}
           onFocusChange={focusedInput => this.setState({ focusedInput })}
