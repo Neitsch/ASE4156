@@ -48,6 +48,16 @@ class GStock(DjangoObjectType):
                 .filter(date__lte=args['end'])
                 .order_by('date'))
 
+    @staticmethod
+    def resolve_trades(stock, _, context, __):
+        """
+        We need to apply permission checks to trades
+        """
+        return (Trade
+                .objects
+                .filter(stock_id=stock.id)
+                .filter(account__profile_id=context.user.profile.id))
+
 
 class AddStock(graphene.Mutation):
     """
@@ -68,15 +78,6 @@ class AddStock(graphene.Mutation):
         """
         return AddStock(stock=create_new_stock(args['ticker'], args['name']))
 
-    @staticmethod
-    def resolve_trades(stock, _, context, __):
-        """
-        We need to apply permission checks to trades
-        """
-        return (Trade
-                .objects
-                .filter(stock_id=stock.id)
-                .filter(account__profile_id=context.user.profile.id))
 
 
 # pylint: disable=no-init
