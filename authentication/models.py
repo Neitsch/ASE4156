@@ -19,7 +19,7 @@ class Profile(models.Model):
 
 
 @receiver(post_save, sender=User)
-def create_user_profile(_, instance, created, **__):
+def create_user_profile(instance, created, **_):
     """
     Creates a linked profile when a user account is created
     """
@@ -28,7 +28,7 @@ def create_user_profile(_, instance, created, **__):
 
 
 @receiver(post_save, sender=User)
-def save_user_profile(_, instance, **__):
+def save_user_profile(instance, **_):
     """
     To be safe, whenever the user profile is saved, we also save the profile
     """
