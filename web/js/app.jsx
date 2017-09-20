@@ -24,6 +24,7 @@ export default class App extends React.Component {
               return (<div>
                 {props.viewer.username} is great!
                 <StockSearchView user={props.viewer} />
+                <a href="/logout">Logout</a>
               </div>);
             }
             window.location.href = '/auth';
