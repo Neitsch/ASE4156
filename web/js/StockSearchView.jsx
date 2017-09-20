@@ -1,6 +1,8 @@
 import React from 'react';
 import { graphql, createRefetchContainer } from 'react-relay';
 import { Chart } from 'react-google-charts';
+import { DateRangePicker } from 'react-dates';
+import 'react-dates/lib/css/_datepicker.css';
 
 
 class StockGraph extends React.Component {
@@ -33,7 +35,7 @@ class StockGraph extends React.Component {
 class StockSearchView extends React.Component {
   constructor() {
     super();
-    this.state = { text: 'Google', start: '2016-08-20', end: '2016-09-20' };
+    this.state = { text: 'Google', startDate: null, startDate: null, focusedInput: null };
   }
   handleChange = (fieldName) => (e) => {
     e.preventDefault()
@@ -42,14 +44,6 @@ class StockSearchView extends React.Component {
     this.setState(state);
     this.props.relay.refetch(vars => {
       let data = e.target.value;
-      try {
-        if(fieldName === 'start' || fieldName === 'end') {
-          const dateParts = data.split("-");
-          data = (new Date(dateParts[0], dateParts[1], dateParts[2])).toISOString().slice(0,10);
-        }
-      } catch(e) {
-        return vars;
-      }
       vars[fieldName] = data;
       return vars;
     }, null);
@@ -83,14 +77,24 @@ class StockSearchView extends React.Component {
           Name:
           <input type="text" value={this.state.text} onChange={this.handleChange('text')} />
         </label>
-        <label>
-          Start:
-          <input type="text" value={this.state.start} onChange={this.handleChange('start')} />
-        </label>
-        <label>
-          End:
-          <input type="text" value={this.state.end} onChange={this.handleChange('end')} />
-        </label>
+        <DateRangePicker
+          startDate={this.state.startDate}
+          endDate={this.state.endDate}
+          onDatesChange={({ startDate, endDate }) => {
+            this.setState({ startDate, endDate });
+            if(startDate == null || endDate == null) {
+              return;
+            }
+            this.props.relay.refetch((prev) => ({
+              ...prev,
+              start: startDate.format('YYYY-MM-DD'),
+              end: endDate.format('YYYY-MM-DD'),
+            }));
+          }}
+          focusedInput={this.state.focusedInput}
+          onFocusChange={focusedInput => this.setState({ focusedInput })}
+          isOutsideRange={() => false}
+        />
       </div>
     );
   }
