@@ -16,12 +16,14 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.views.generic import TemplateView
+from django.contrib.auth import logout
 from graphene_django.views import GraphQLView
 from authentication.views import login
 from stocks import historical
 
 urlpatterns = [
     url(r'^auth$', login),
+    url(r'^logout$', logout),
     url(r'^admin/', admin.site.urls),
     url('', include('social_django.urls', namespace='social')),
     url(r'^home$', TemplateView.as_view(template_name="home.html")),
