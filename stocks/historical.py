@@ -6,6 +6,15 @@ import arrow
 from .models import Stock, DailyStockQuote
 
 
+def create_new_stock(ticker, name):
+    """
+    Function simply creates a new stock
+    """
+    stock = Stock(name=name, ticker=ticker)
+    stock.save()
+    return stock
+
+
 def fill_quote_history(stock):
     """
     Given a stock, it fills in the last 10 years of historical data
@@ -33,8 +42,7 @@ def data_ten_years_back_for_stock(request):
         body = request.POST
         name = body['name']
         ticker = body['ticker']
-        stock = Stock(name=name, ticker=ticker)
-        stock.save()
+        create_new_stock(ticker, name)
 
 
 def get_date_array_for_fetcher(arrow_date):

@@ -4,6 +4,7 @@ GraphQL definitions for the Stocks App
 from graphene_django import DjangoObjectType
 from graphene import AbstractType, relay
 import graphene
+from .historical import create_new_stock
 from .models import DailyStockQuote, Stock
 
 
@@ -49,12 +50,7 @@ class AddStock(graphene.Mutation):
         """
         Creates a Stock and saves it to the DB
         """
-        stock = Stock(
-            ticker=args['ticker'],
-            name=args['name']
-        )
-        stock.save()
-        return AddStock(stock=stock)
+        return AddStock(stock=create_new_stock(args['ticker'], args['name']))
 
 
 # pylint: disable=no-init
