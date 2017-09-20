@@ -1,8 +1,8 @@
 """This module is for loading historical data for stocks"""
 from yahoo_historical import Fetcher
+import arrow
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-import arrow
 from django.db.models import Max
 from .models import Stock, DailyStockQuote
 
