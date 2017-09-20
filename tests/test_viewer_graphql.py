@@ -5,27 +5,31 @@ import pytest
 from graphene.test import Client
 from BuyBitcoin.graphene_schema import SCHEMA
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
 from trading.models import TradingAccount, Trade
 from stocks.models import Stock
+from stocks.historical import create_stock
 
 
 def request_create(request):
     """
     Creates a fully functional environment that we can test on
     """
-    request.user = User.objects.create(username='testuser2', password='pwd')
-    account = TradingAccount(profile=request.user.profile, account_name="testAccount2")
-    account.save()
+    post_save.disconnect(receiver=create_stock, sender=Stock)
     stock = Stock(name="Google", ticker="GOOGL")
     stock.save()
-    trade = Trade(quantity=2, account=account, stock=stock)
-    trade.save()
+
+    user2 = User.objects.create(username='testuser2', password='pwd')
+    account2 = TradingAccount(profile=user2.profile, account_name="testAccount2")
+    account2.save()
+    trade2 = Trade(quantity=2, account=account2, stock=stock)
+    trade2.save()
 
     request.user = User.objects.create(username='testuser1', password='pwd')
-    account = TradingAccount(profile=request.user.profile, account_name="testAccount1")
-    account.save()
-    trade = Trade(quantity=1, account=account, stock=stock)
-    trade.save()
+    account1 = TradingAccount(profile=request.user.profile, account_name="testAccount1")
+    account1.save()
+    trade1 = Trade(quantity=1, account=account1, stock=stock)
+    trade1.save()
     return request
 
 

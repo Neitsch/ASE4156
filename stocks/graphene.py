@@ -19,16 +19,6 @@ class GDailyStockQuote(DjangoObjectType):
         model = DailyStockQuote
         interfaces = (relay.Node, )
 
-    @staticmethod
-    def resolve_trades(stock, _, context, __):
-        """
-        We need to apply permission checks to trades
-        """
-        return (Trade
-                .objects
-                .filter(stock_id=stock.id)
-                .filter(account__profile_id=context.user.profile.id))
-
 
 class GStock(DjangoObjectType):
     """
@@ -54,6 +44,16 @@ class GStock(DjangoObjectType):
                 .filter(stock_id=data.id)
                 .filter(date__gte=args['start'])
                 .filter(date__lte=args['end']))
+
+    @staticmethod
+    def resolve_trades(stock, _, context, __):
+        """
+        We need to apply permission checks to trades
+        """
+        return (Trade
+                .objects
+                .filter(stock_id=stock.id)
+                .filter(account__profile_id=context.user.profile.id))
 
 
 # pylint: disable=no-init
