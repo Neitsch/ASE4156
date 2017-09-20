@@ -79,7 +79,6 @@ class AddStock(graphene.Mutation):
         return AddStock(stock=create_new_stock(args['ticker'], args['name']))
 
 
-
 # pylint: disable=no-init
 class Query(AbstractType):
     """

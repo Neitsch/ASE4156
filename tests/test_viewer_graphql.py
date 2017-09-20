@@ -1,6 +1,8 @@
 """
 This file helps to test graphql queries and verify that the "big picture" works
 """
+import string
+import random
 import pytest
 from graphene.test import Client
 from BuyBitcoin.graphene_schema import SCHEMA
@@ -19,13 +21,15 @@ def request_create(request):
     stock = Stock(name="Google", ticker="GOOGL")
     stock.save()
 
-    user2 = User.objects.create(username='testuser2', password='pwd')
+    pw2 = ''.join(random.choices(string.ascii_uppercase + string.digits, k=9))
+    user2 = User.objects.create(username='testuser2', password=pw2)
     account2 = TradingAccount(profile=user2.profile, account_name="testAccount2")
     account2.save()
     trade2 = Trade(quantity=2, account=account2, stock=stock)
     trade2.save()
 
-    request.user = User.objects.create(username='testuser1', password='pwd')
+    pw1 = ''.join(random.choices(string.ascii_uppercase + string.digits, k=9))
+    request.user = User.objects.create(username='testuser1', password=pw1)
     account1 = TradingAccount(profile=request.user.profile, account_name="testAccount1")
     account1.save()
     trade1 = Trade(quantity=1, account=account1, stock=stock)
