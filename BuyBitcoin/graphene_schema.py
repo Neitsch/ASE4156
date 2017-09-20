@@ -27,6 +27,7 @@ class Mutation(graphene.ObjectType):
     """
     # pylint: disable=no-member
     add_trading_account = authentication.graphene.AddTradingAccount.Field()
+    add_stock = stocks.graphene.AddStock.Field()
     # pylint: enable=no-member
 # pylint: enable=too-few-public-methods
 
