@@ -34,7 +34,7 @@ class GStock(DjangoObjectType):
     """
     GraphQL representation of a Stock
     """
-    quote_in_range = List(GDailyStockQuote, args={'start': Argument(
+    quote_in_range = NonNull(List(GDailyStockQuote), args={'start': Argument(
         NonNull(String)), 'end': Argument(NonNull(String))})
 
     class Meta:
@@ -53,7 +53,8 @@ class GStock(DjangoObjectType):
                 .objects
                 .filter(stock_id=data.id)
                 .filter(date__gte=args['start'])
-                .filter(date__lte=args['end']))
+                .filter(date__lte=args['end'])
+                .order_by('date'))
 
 
 # pylint: disable=no-init

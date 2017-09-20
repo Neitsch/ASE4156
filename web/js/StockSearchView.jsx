@@ -1,5 +1,34 @@
 import React from 'react';
 import { graphql, createRefetchContainer } from 'react-relay';
+import { Chart } from 'react-google-charts';
+
+
+class StockGraph extends React.Component {
+  makeDate(date) {
+    const dateParts = date.split("-")
+    return new Date(dateParts[0], dateParts[1], dateParts[2])
+  }
+  render() {
+    const data = this.props.quotes.map(q => [this.makeDate(q.date), q.value])
+    if(data.length === 0) {
+      return <div>No data</div>
+    }
+    return (
+      <div className={'my-pretty-chart-container'}>
+        <Chart
+          chartType="LineChart"
+          data={[['Date', 'Value'], ...data]}
+          options={{}}
+          graph_id="LineChart"
+          width="400px"
+          height="400px"
+          legend_toggle
+        />
+      </div>
+    );
+  }
+}
+
 
 class StockSearchView extends React.Component {
   constructor() {
@@ -12,24 +41,38 @@ class StockSearchView extends React.Component {
     state[fieldName] = e.target.value;
     this.setState(state);
     this.props.relay.refetch(vars => {
-      vars[fieldName] = e.target.value;
+      let data = e.target.value;
+      try {
+        if(fieldName === 'start' || fieldName === 'end') {
+          const dateParts = data.split("-");
+          data = (new Date(dateParts[0], dateParts[1], dateParts[2])).toISOString().slice(0,10);
+        }
+      } catch(e) {
+        return vars;
+      }
+      vars[fieldName] = data;
       return vars;
     }, null);
   }
   render() {
-    console.log(this.props);
     return (
       <div>
         <table style={{border: "1px solid black"}}>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Average</th>
+              <th>Chart</th>
+            </tr>
+          </thead>
           <tbody>
-            <th>Name</th>
-            <th>Average</th>
             {
               this.props.user.profile.stockFind.map(
                 stock => (
-                  <tr>
+                  <tr key={stock.id}>
                     <td>{stock.name}</td>
                     <td>{(stock.quoteInRange.map(d => d.value).reduce((s, v) => s + v, 0)/stock.quoteInRange.length).toFixed(2)}</td>
+                    <td><StockGraph quotes={stock.quoteInRange} /></td>
                   </tr>
                 )
               )
@@ -63,8 +106,10 @@ export default createRefetchContainer(StockSearchView, {
     ) {
       profile {
         stockFind(text: $text) {
+          id
           name
           quoteInRange(start: $start, end: $end) {
+            date
             value
           }
         }
