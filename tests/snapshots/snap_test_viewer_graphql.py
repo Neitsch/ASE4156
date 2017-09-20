@@ -7,7 +7,7 @@ from snapshottest import Snapshot
 
 snapshots = Snapshot()
 
-snapshots['test_trading_account 1'] = {
+snapshots['test_big_gql 1'] = {
     'data': {
         'viewer': {
             'profile': {
@@ -15,13 +15,37 @@ snapshots['test_trading_account 1'] = {
                     'edges': [
                         {
                             'node': {
-                                'accountName': 'testAccount'
+                                'accountName': 'testAccount1',
+                                'trades': {
+                                    'edges': [
+                                        {
+                                            'node': {
+                                                'quantity': 1,
+                                                'stock': {
+                                                    'name': 'Google',
+                                                    'ticker': 'GOOGL',
+                                                    'trades': {
+                                                        'edges': [
+                                                            {
+                                                                'node': {
+                                                                    'account': {
+                                                                        'accountName': 'testAccount1'
+                                                                    }
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
                             }
                         }
                     ]
                 }
             },
-            'username': 'testuser'
+            'username': 'testuser1'
         }
     }
 }
