@@ -13,6 +13,9 @@ class TradingAccount(models.Model):
     account_name = models.CharField(max_length=30)
     profile = models.ForeignKey(Profile, related_name='trading_accounts')
 
+    class Meta:
+        unique_together = ('profile', 'account_name')
+
 
 class Trade(models.Model):
     """
