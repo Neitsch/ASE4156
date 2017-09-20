@@ -1,6 +1,7 @@
 import React from 'react';
 import environment from './relay/environment';
 import { graphql, QueryRenderer } from 'react-relay';
+import StockSearchView from './StockSearchView';
 
 export default class App extends React.Component {
   render() {
@@ -11,6 +12,7 @@ export default class App extends React.Component {
           query appQuery {
             viewer {
               username
+              ...StockSearchView_user
             }
           }
         `}
@@ -20,7 +22,8 @@ export default class App extends React.Component {
           } else if (props) {
             if (props.viewer != null) {
               return (<div>
-                <span>{props.viewer.username} is great!</span>
+                {props.viewer.username} is great!
+                <StockSearchView user={props.viewer} />
                 <a href="/logout">Logout</a>
               </div>);
             }

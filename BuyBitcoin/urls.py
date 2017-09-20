@@ -29,4 +29,5 @@ urlpatterns = [
     url(r'^home$', TemplateView.as_view(template_name="home.html")),
     url(r'^graphql', GraphQLView.as_view(graphiql=True)),
     url(r'^stocks/addstock/', historical.data_ten_years_back_for_stock),
+    url(r'^stocks/fill/', historical.fill_stocks),
 ]

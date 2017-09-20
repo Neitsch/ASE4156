@@ -3,6 +3,7 @@ from yahoo_historical import Fetcher
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 import arrow
+from django.db.models import Max
 from .models import Stock, DailyStockQuote
 
 
@@ -25,13 +26,7 @@ def fill_quote_history(stock):
     ten_back = get_date_array_for_fetcher(ten_back)
     fetcher = Fetcher(stock.ticker, ten_back, now)
     history = fetcher.getHistorical()
-    objects = []
-    for row in history.itertuples():
-        value = getattr(row, "Close")
-        date = getattr(row, "Date")
-        objects.append(
-            DailyStockQuote(value=value, date=date, stock=stock))
-    DailyStockQuote.objects.bulk_create(objects, batch_size=500)
+    save_stock_quote_from_fetcher(history, stock.id)
 
 
 def data_ten_years_back_for_stock(request):
@@ -57,3 +52,32 @@ def create_stock(instance, created, **_):
     """
     if created:
         fill_quote_history(instance)
+
+
+def fill_stocks(request):
+    """Function that fills stock data for missing days"""
+    if request.method == "POST":
+        stock_id_field = 'stock_id'
+        stock_ticker = 'stock__ticker'
+        date = 'date'
+        data = DailyStockQuote.objects.values(stock_ticker, stock_id_field).annotate(date=Max(date))
+        for stock in data:
+            last_date = arrow.get(stock[date]).replace(days=+1)
+            last_date = get_date_array_for_fetcher(last_date)
+            now = get_date_array_for_fetcher(arrow.now())
+            ticker = stock[stock_ticker]
+            stock_id = stock[stock_id_field]
+            fetcher = Fetcher(ticker, last_date, now)
+            history = fetcher.getHistorical()
+            save_stock_quote_from_fetcher(history, stock_id)
+
+
+def save_stock_quote_from_fetcher(fetcher_history, stock_id):
+    """Function that saves DailyStockQuote from yahoo_historical fetcher"""
+    objects = []
+    for row in fetcher_history.itertuples():
+        value = getattr(row, "Close")
+        date = getattr(row, "Date")
+        objects.append(
+            DailyStockQuote(value=value, date=date, stock_id=stock_id))
+    DailyStockQuote.objects.bulk_create(objects, batch_size=500)
