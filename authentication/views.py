@@ -55,5 +55,6 @@ def get_access_token(request):
 			)
 		u.save()
 		request.user.profile.has_bank_linked = True
+		request.user.save()
 		return HttpResponseRedirect("/home")
 	return HttpResponse("Please don't sniff urls")
