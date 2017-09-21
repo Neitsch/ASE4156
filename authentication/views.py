@@ -30,6 +30,7 @@ def logout(request):
     log_out(request)
     return HttpResponseRedirect("/")
 
+
 @login_required
 def setup_bank(request):
     """
