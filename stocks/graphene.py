@@ -2,9 +2,11 @@
 GraphQL definitions for the Stocks App
 """
 from graphene_django import DjangoObjectType
-from trading.models import Trade
 from graphene import AbstractType, Argument, List, NonNull, String, relay
+import graphene
+from trading.models import Trade
 from .models import DailyStockQuote, Stock
+from .historical import create_new_stock
 
 
 # pylint: disable=too-few-public-methods
@@ -19,22 +21,12 @@ class GDailyStockQuote(DjangoObjectType):
         model = DailyStockQuote
         interfaces = (relay.Node, )
 
-    @staticmethod
-    def resolve_trades(stock, _, context, __):
-        """
-        We need to apply permission checks to trades
-        """
-        return (Trade
-                .objects
-                .filter(stock_id=stock.id)
-                .filter(account__profile_id=context.user.profile.id))
-
 
 class GStock(DjangoObjectType):
     """
     GraphQL representation of a Stock
     """
-    quote_in_range = List(GDailyStockQuote, args={'start': Argument(
+    quote_in_range = NonNull(List(GDailyStockQuote), args={'start': Argument(
         NonNull(String)), 'end': Argument(NonNull(String))})
 
     class Meta:
@@ -53,7 +45,38 @@ class GStock(DjangoObjectType):
                 .objects
                 .filter(stock_id=data.id)
                 .filter(date__gte=args['start'])
-                .filter(date__lte=args['end']))
+                .filter(date__lte=args['end'])
+                .order_by('date'))
+
+    @staticmethod
+    def resolve_trades(stock, _, context, __):
+        """
+        We need to apply permission checks to trades
+        """
+        return (Trade
+                .objects
+                .filter(stock_id=stock.id)
+                .filter(account__profile_id=context.user.profile.id))
+
+
+class AddStock(graphene.Mutation):
+    """
+    AddStock creates a new Stock that is tracked
+    """
+    class Input:
+        """
+        Input to create a stock. We only need the ticker.
+        """
+        ticker = graphene.NonNull(graphene.String)
+        name = graphene.NonNull(graphene.String)
+    stock = graphene.Field(lambda: GStock)
+
+    @staticmethod
+    def mutate(_, args, __, ___):
+        """
+        Creates a Stock and saves it to the DB
+        """
+        return AddStock(stock=create_new_stock(args['ticker'], args['name']))
 
 
 # pylint: disable=no-init

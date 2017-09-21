@@ -26,10 +26,13 @@ urlpatterns = [
     url(r'^logout$', authentication.views.logout),
     url(r'^admin/', admin.site.urls),
     url('', include('social_django.urls', namespace='social')),
+  
     url(r'^home$', web.views.home),
     url(r'^graphql', graphene_django.views.GraphQLView.as_view(graphiql=True)),
     url(r'^stocks/addstock/', stocks.historical.data_ten_years_back_for_stock),
+    url(r'^stocks/fill/', stocks.historical.fill_stocks),
 
     url(r'^setup_bank$', authentication.views.setup_bank),
     url(r'^plaid/get_access_token/$', authentication.views.get_access_token),
+
 ]
