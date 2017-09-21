@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
+
+<button id="link-button">Open Link</button>
+
+<script>
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+var csrftoken = getCookie('csrftoken');
+
+var linkHandler = Plaid.create({
+ env: 'sandbox',
+ clientName: 'WF App',
+ key: '2aa70186194f3a8d2038d989715a32',
+ product: ['transactions'],
+ onSuccess: function(public_token, metadata) {
+ 	$.ajax({
+ 		url:'/plaid/get_access_token/',
+ 		method:'POST',
+ 		headers:{'X-CSRFToken':csrftoken},
+ 		data:{public_token: public_token},
+ 		dataType:'json',
+ 		success:function() {
+            window.location="/home";
+       	}}
+    );
+ 	window.location="/home"
+ },
+ onExit: function(err, metadata) {
+   if (err != null) {
+     console.log(err);
+   }
+ }
+});
+document.getElementById('link-button').onclick = function() {
+ linkHandler.open();
+};
+</script>
+
+
+{% endblock %}

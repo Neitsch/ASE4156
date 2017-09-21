@@ -15,19 +15,20 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from django.views.generic import TemplateView
-from django.contrib.auth import logout
-from graphene_django.views import GraphQLView
-from authentication.views import login
-from stocks import historical
+import graphene_django.views
+import authentication.views
+import web.views
+import stocks.historical
 
 urlpatterns = [
-    url(r'^auth$', login),
-    url(r'^logout$', logout),
+    url(r'^login$', authentication.views.login),
+    url(r'^logout$', authentication.views.logout),
     url(r'^admin/', admin.site.urls),
     url('', include('social_django.urls', namespace='social')),
-    url(r'^home$', TemplateView.as_view(template_name="home.html")),
-    url(r'^graphql', GraphQLView.as_view(graphiql=True)),
-    url(r'^stocks/addstock/', historical.data_ten_years_back_for_stock),
-    url(r'^stocks/fill/', historical.fill_stocks),
+    url(r'^home$', web.views.home),
+    url(r'^graphql', graphene_django.views.GraphQLView.as_view(graphiql=True)),
+    url(r'^stocks/addstock/', stocks.historical.data_ten_years_back_for_stock),
+    url(r'^stocks/fill/', stocks.historical.fill_stocks),
+    url(r'^setup_bank$', authentication.views.setup_bank),
+    url(r'^plaid/get_access_token/$', authentication.views.get_access_token),
 ]

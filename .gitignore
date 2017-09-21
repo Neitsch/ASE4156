@@ -1,4 +1,5 @@
 fake_data
+db.sqlite3
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

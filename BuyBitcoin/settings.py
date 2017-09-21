@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True if os.environ.get('DEBUG') == "TRUE" else False
 
-ALLOWED_HOSTS = ['trading-stuff.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['trading-stuff.herokuapp.com', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -148,6 +148,8 @@ USE_L10N = True
 
 USE_TZ = True
 
+LOGIN_URL = "/login"
+LOGOUT_URL = "/logout"
 
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/static/'
