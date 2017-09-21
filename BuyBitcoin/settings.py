@@ -148,8 +148,8 @@ USE_L10N = True
 
 USE_TZ = True
 
-LOGIN_URL="/login"
-LOGOUT_URL="/logout"
+LOGIN_URL = "/login"
+LOGOUT_URL = "/logout"
 
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/static/'

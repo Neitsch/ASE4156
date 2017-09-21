@@ -12,8 +12,7 @@ from authentication.models import UserBank
 PLAID_CLIENT_ID = '59c3248dbdc6a40ac87ed3e8'
 PLAID_SECRET = 'ee7f10de9feb7d6408d1f5bd980f2a'
 PLAID_PUBLIC_KEY = '2aa70186194f3a8d2038d989715a32'
-PLAID_ENV='sandbox'
-
+PLAID_ENV = 'sandbox'
 
 
 def login(request):
@@ -24,28 +23,30 @@ def login(request):
 
 
 def logout(request):
-	log_out(request)
-	return HttpResponseRedirect("/")
+    log_out(request)
+    return HttpResponseRedirect("/")
+
 
 @login_required
 def setup_bank(request):
-	return render(request, "setup_bank.html", {})
+    return render(request, "setup_bank.html", {})
+
 
 @login_required
 def get_access_token(request):
-	if request.method=="POST":
-		client = plaid.Client(client_id = PLAID_CLIENT_ID, secret=PLAID_SECRET,
-	                  public_key=PLAID_PUBLIC_KEY, environment=PLAID_ENV)
-		public_token = request.POST.get('public_token')
-		exchange_response = client.Item.public_token.exchange(public_token)
-		access_token = exchange_response['access_token']
-		u = UserBank(
-			user = request.user,
-			item_id = exchange_response['item_id'],
-			access_token = exchange_response['access_token']
-		)
-		u.save()
-		request.user.profile.has_bank_linked=True
-		return HttpResponseRedirect("/home")
-	else:
-		return HttpResponse("Please don't sniff urls")
+    if request.method == "POST":
+        client = plaid.Client(client_id=PLAID_CLIENT_ID, secret=PLAID_SECRET,
+                              public_key=PLAID_PUBLIC_KEY, environment=PLAID_ENV)
+        public_token = request.POST.get('public_token')
+        exchange_response = client.Item.public_token.exchange(public_token)
+        access_token = exchange_response['access_token']
+        u = UserBank(
+            user=request.user,
+            item_id=exchange_response['item_id'],
+            access_token=exchange_response['access_token']
+        )
+        u.save()
+        request.user.profile.has_bank_linked = True
+        return HttpResponseRedirect("/home")
+    else:
+        return HttpResponse("Please don't sniff urls")

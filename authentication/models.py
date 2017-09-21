@@ -16,7 +16,8 @@ class Profile(models.Model):
         on_delete=models.CASCADE,
         related_name='profile'
     )
-    has_bank_linked = models.NullBooleanField(blank=True, default=False, null=True)
+    has_bank_linked = models.NullBooleanField(
+        blank=True, default=False, null=True)
 
 
 @receiver(post_save, sender=User)
@@ -35,9 +36,10 @@ def save_user_profile(instance, **_):
     """
     instance.profile.save()
 
+
 class UserBank(models.Model):
     user = models.ForeignKey(
-        User, 
+        User,
         on_delete=models.CASCADE
     )
     item_id = models.CharField(max_length=1000)
