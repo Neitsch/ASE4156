@@ -16,7 +16,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='DailyCreditCard',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('masked_id', models.IntegerField()),
                 ('Date', models.DateField()),
                 ('Des1', models.CharField(max_length=255)),
@@ -28,7 +29,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='DailyInteractions',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('masked_id', models.IntegerField()),
                 ('Date', models.DateField()),
                 ('des1', models.CharField(max_length=255)),
@@ -39,7 +41,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='DailyWebsiteTraffic',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('masked_id', models.IntegerField()),
                 ('Date', models.DateField()),
                 ('wf_page', models.CharField(max_length=255)),
@@ -48,11 +51,13 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='MonthEndBalances',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('masked_id', models.IntegerField()),
                 ('asof_yyyymm', models.DateField()),
                 ('age', models.IntegerField()),
-                ('tenure_altered', models.DecimalField(decimal_places=2, max_digits=16)),
+                ('tenure_altered', models.DecimalField(
+                    decimal_places=2, max_digits=16)),
                 ('checking_acct', models.IntegerField()),
                 ('savings_acct_ct', models.IntegerField()),
                 ('mortgage_flag', models.BooleanField()),
@@ -60,11 +65,16 @@ class Migration(migrations.Migration):
                 ('personal_loan_flag', models.BooleanField()),
                 ('cc_flag', models.BooleanField()),
                 ('prot_acct_flag', models.BooleanField()),
-                ('check_bal_altered', models.DecimalField(decimal_places=2, max_digits=16)),
-                ('sav_bal_altered', models.DecimalField(decimal_places=2, max_digits=16)),
-                ('mortgage_bal_altered', models.DecimalField(decimal_places=2, max_digits=16)),
-                ('heloc_bal_altered', models.DecimalField(decimal_places=2, max_digits=16)),
-                ('personal_loan_bal_altered', models.DecimalField(decimal_places=2, max_digits=16)),
+                ('check_bal_altered', models.DecimalField(
+                    decimal_places=2, max_digits=16)),
+                ('sav_bal_altered', models.DecimalField(
+                    decimal_places=2, max_digits=16)),
+                ('mortgage_bal_altered', models.DecimalField(
+                    decimal_places=2, max_digits=16)),
+                ('heloc_bal_altered', models.DecimalField(
+                    decimal_places=2, max_digits=16)),
+                ('personal_loan_bal_altered', models.DecimalField(
+                    decimal_places=2, max_digits=16)),
                 ('atm_withdrawls_cnt', models.IntegerField()),
                 ('atm_deposits_cnt', models.IntegerField()),
                 ('branch_visit_cnt', models.IntegerField()),
