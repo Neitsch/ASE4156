@@ -8,9 +8,9 @@ from django.http import HttpResponseRedirect
 
 @login_required
 def home(request):
-	"""
-	Serves the home page
-	"""
+    """
+    Serves the home page
+    """
     if request.user.profile.has_bank_linked is not True:
         return HttpResponseRedirect('/setup_bank')
     else:
