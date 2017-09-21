@@ -23,23 +23,31 @@ def login(request):
 
 
 def logout(request):
+	"""
+	Function to logout
+	"""
     log_out(request)
     return HttpResponseRedirect("/")
 
 
 @login_required
 def setup_bank(request):
+	"""
+	Function to serve bank setup page
+	"""
     return render(request, "setup_bank.html", {})
 
 
 @login_required
 def get_access_token(request):
+	"""
+	Function to retrieve plaid access token
+	"""
     if request.method == "POST":
         client = plaid.Client(client_id=PLAID_CLIENT_ID, secret=PLAID_SECRET,
                               public_key=PLAID_PUBLIC_KEY, environment=PLAID_ENV)
         public_token = request.POST.get('public_token')
         exchange_response = client.Item.public_token.exchange(public_token)
-        access_token = exchange_response['access_token']
         u = UserBank(
             user=request.user,
             item_id=exchange_response['item_id'],
@@ -48,5 +56,4 @@ def get_access_token(request):
         u.save()
         request.user.profile.has_bank_linked = True
         return HttpResponseRedirect("/home")
-    else:
-        return HttpResponse("Please don't sniff urls")
+    return HttpResponse("Please don't sniff urls")

@@ -38,6 +38,9 @@ def save_user_profile(instance, **_):
 
 
 class UserBank(models.Model):
+    """
+    Contains all the user's bank access data
+    """
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE

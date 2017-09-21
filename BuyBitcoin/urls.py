@@ -15,7 +15,6 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from django.views.generic import TemplateView
 import graphene_django.views
 import authentication.views
 import web.views
@@ -29,7 +28,6 @@ urlpatterns = [
     url(r'^home$', web.views.home),
     url(r'^graphql', graphene_django.views.GraphQLView.as_view(graphiql=True)),
     url(r'^stocks/addstock/', stocks.historical.data_ten_years_back_for_stock),
-
     url(r'^setup_bank$', authentication.views.setup_bank),
     url(r'^plaid/get_access_token/$', authentication.views.get_access_token),
 ]
