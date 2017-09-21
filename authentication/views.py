@@ -48,12 +48,12 @@ def get_access_token(request):
                               public_key=PLAID_PUBLIC_KEY, environment=PLAID_ENV)
         public_token = request.POST.get('public_token')
         exchange_response = client.Item.public_token.exchange(public_token)
-        u = UserBank(
+        bank_user = UserBank(
             user=request.user,
             item_id=exchange_response['item_id'],
             access_token=exchange_response['access_token']
             )
-        u.save()
+        bank_user.save()
         request.user.profile.has_bank_linked = True
         request.user.save()
         return HttpResponseRedirect("/home")

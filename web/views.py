@@ -13,5 +13,4 @@ def home(request):
     """
     if request.user.profile.has_bank_linked is not True:
         return HttpResponseRedirect('/setup_bank')
-    else:
-        return render(request, "home.html", {})
+    return render(request, "home.html", {})
