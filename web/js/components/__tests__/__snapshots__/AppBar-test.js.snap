@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AppBar renders 1`] = `
+<AppBar
+  iconClassNameRight="muidocs-icon-navigation-expand-more"
+  showMenuIconButton={true}
+  title="Wells Fargo"
+  zDepth={1}
+/>
+`;
