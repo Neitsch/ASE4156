@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
-import {Card, CardText, CardHeader,} from 'material-ui/Card';
-import {Table, TableBody, TableRow, TableRowColumn,} from 'material-ui/Table';
+import {Card, CardText, CardHeader} from 'material-ui/Card';
+import {Table, TableBody, TableRow, TableRowColumn} from 'material-ui/Table';
 import FlatButton from 'material-ui/FlatButton';
 import {translate} from 'react-i18next';
 import PropTypes from 'prop-types';
@@ -13,10 +13,18 @@ const formatMoney : (string, number) => string = function(currency : string, num
 
 type valueShape = {
   name: string,
-  value: number,
+  value: number
 }
 
 class Shares extends React.Component {
+  static defaultProps = {
+    currency: "$",
+    values: [],
+  }
+  static propTypes = {
+    currency: PropTypes.string,
+    values: PropTypes.arrayOf(PropTypes.shape({name: PropTypes.string.isRequired, value: PropTypes.number.isRequired,})),
+  };
   constructor() : void {
     super();
     this.collectRow = this.collectRow.bind(this);
@@ -69,10 +77,5 @@ class Shares extends React.Component {
     return this.renderCard(this.valueRows(this.props.values), this.collectRow(this.props.values), < FlatButton backgroundColor = "#a4c639" label = "Sell Shares" fullWidth />);
   }
 }
-
-Shares.propTypes = {
-  currency: PropTypes.string.isRequired,
-  values: PropTypes.arrayOf(PropTypes.shape({name: PropTypes.string.isRequired, value: PropTypes.number.isRequired})).isRequired
-};
 
 export default translate()(Shares);

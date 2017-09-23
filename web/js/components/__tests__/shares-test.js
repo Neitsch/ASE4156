@@ -1,9 +1,9 @@
 /* @lazyspec (remove to manage manually) */
 /* eslint-disable */
-import shares from '../shares.jsx';
+import Shares from '../Shares.jsx';
 
-describe('shares', () => {
+describe('Shares', () => {
   it('exists', () => {
-    expect(shares).toBeTruthy();
+    expect(Shares).toBeTruthy();
   });
 });
