@@ -4,18 +4,19 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
 
-import { muiTheme } from 'storybook-addon-material-ui';
+import { number, text } from '@storybook/addon-knobs';
 
 import { Button, Welcome } from '@storybook/react/demo';
 
 import Shares from '../web/js/components/shares';
 
-storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
-
-storiesOf('Button', module)
-  .add('with text', () => <Button onClick={action('clicked')}>Hello Button</Button>)
-  .add('with some emoji', () => <Button onClick={action('clicked')}>😀 😎 👍 💯</Button>);
-
 storiesOf('Shares', module)
-  .addDecorator(muiTheme())
-  .add('simple', () => <Shares />);
+  .add('simple', () => {
+    const values = [
+      { name: 'investedSharesValue', value: number('Invested Shares Value', 700.00) },
+      { name: 'earnedSharesValue', value: number('Earned Shares Value', 74.93) },
+      { name: 'bonusSharesValue', value: number('Bonus Shares Value', 0.0) },
+      { name: 'reinvestedSharesValue', value: number('Reinvested Shares Value', 0.0) },
+    ];
+    return (<Shares values={values} currency={text('Currency sign', '$')} />);
+  });
