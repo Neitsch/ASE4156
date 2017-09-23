@@ -12,6 +12,9 @@ class Stock(models.Model):
     name = models.CharField(max_length=255)
     ticker = models.CharField(max_length=10, unique=True)
 
+    def __str__(self):
+        return "{}, {}, {}".format(self.id, self.name, self.ticker)
+
 
 class DailyStockQuote(models.Model):
     """
@@ -27,3 +30,9 @@ class DailyStockQuote(models.Model):
         We use this to define our uniqueness constraint
         """
         unique_together = ('stock', 'date',)
+
+    def __str__(self):
+        return "{}, {}, {}, {}".format(self.id,
+                                       self.value,
+                                       self.date,
+                                       self.stock_id)

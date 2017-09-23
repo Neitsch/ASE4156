@@ -19,6 +19,9 @@ class Profile(models.Model):
     has_bank_linked = models.NullBooleanField(
         blank=True, default=False, null=True)
 
+    def __str__(self):
+        return "{}, {}, {}".format(self.id, self.user_id, self.has_bank_linked)
+
 
 @receiver(post_save, sender=User)
 def create_user_profile(instance, created, **_):
@@ -47,3 +50,6 @@ class UserBank(models.Model):
     )
     item_id = models.CharField(max_length=1000)
     access_token = models.CharField(max_length=1000)
+
+    def __str__(self):
+        return "{}, {}".format(self.id, self.user_id)

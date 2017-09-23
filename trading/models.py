@@ -16,6 +16,9 @@ class TradingAccount(models.Model):
     class Meta(object):
         unique_together = ('profile', 'account_name')
 
+    def __str__(self):
+        return "{}, {}, {}".format(self.id, self.account_name, self.profile_id)
+
 
 class Trade(models.Model):
     """
@@ -25,3 +28,10 @@ class Trade(models.Model):
     quantity = models.IntegerField()
     account = models.ForeignKey(TradingAccount, related_name='trades')
     stock = models.ForeignKey(Stock, related_name='trades')
+
+    def __str__(self):
+        return "{}, {}, {}, {}, {}".format(self.id,
+                                           self.timestamp,
+                                           self.quantity,
+                                           self.account_id,
+                                           self.stock_id)
