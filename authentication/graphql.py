@@ -3,11 +3,11 @@ GraphQL definitions for the Authentication App
 """
 from graphene_django import DjangoObjectType
 from django.contrib.auth.models import User
-from graphene import AbstractType, Field, List, String, relay
-import graphene
+from graphene import AbstractType, Argument, Field, List, Mutation, NonNull, \
+    String, relay
 from trading.models import TradingAccount
-from trading.graphene import GTradingAccount
-from stocks.graphene import GStock
+from trading.graphql import GTradingAccount
+from stocks.graphql import GStock
 from stocks.models import Stock
 from .models import Profile
 
@@ -17,7 +17,7 @@ class GUser(DjangoObjectType):
     """
     GraphQL representation of a User
     """
-    class Meta:
+    class Meta(object):
         """
         Meta Model for User. We must make sure to not expose
         the whole usere object
@@ -34,7 +34,7 @@ class GProfile(DjangoObjectType):
     stock_find = List(
         GStock, args={'text': graphene.Argument(graphene.NonNull(String))})
 
-    class Meta:
+    class Meta(object):
         """
         Meta Model for Profile
         """
@@ -42,7 +42,7 @@ class GProfile(DjangoObjectType):
         only_fields = ('id', 'trading_accounts', 'stock_find')
 
     @staticmethod
-    def resolve_stock_find(_, args, __, ___):
+    def resolve_stock_find(_self, args, _context, _info):
         """
         Finds a stock given a case insensitive name
         """
@@ -57,7 +57,7 @@ class Query(AbstractType):
     viewer = Field(GUser, )
 
     @staticmethod
-    def resolve_viewer(_, __, context, ____):
+    def resolve_viewer(_self, _args, context, _info):
         """
         The viewer represents the current logged in user
         """
@@ -67,19 +67,19 @@ class Query(AbstractType):
 # pylint: enable=no-init
 
 
-class AddTradingAccount(graphene.Mutation):
+class AddTradingAccount(Mutation):
     """
     AddTradingAccount creates a new TradingAccount for the user
     """
-    class Input:
+    class Input(object):
         """
         Input to create a trading account. Right now it's only a name.
         """
-        name = graphene.String()
-    account = graphene.Field(lambda: GTradingAccount)
+        name = String()
+    account = Field(lambda: GTradingAccount)
 
     @staticmethod
-    def mutate(_, args, context, __):
+    def mutate(_self, args, context, _info):
         """
         Creates a TradingAccount and saves it to the DB
         """

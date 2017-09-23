@@ -19,6 +19,14 @@ class DailyInteractions(models.Model):
     # Most detailed description of interaction
     Des3 = models.CharField(max_length=255)
 
+    def __str__(self):
+        return "{}, {}, {}, {}, {}, {}".format(self.id,
+                                               self.masked_id,
+                                               self.Date,
+                                               self.Des1,
+                                               self.Des2,
+                                               self.Des3)
+
 
 class DailyCreditCard(models.Model):
     """
@@ -37,6 +45,15 @@ class DailyCreditCard(models.Model):
     # Dollar amount of purchase
     Payment = models.IntegerField()  # Base data only has ints
 
+    def __str__(self):
+        return "{}, {}, {}, {}, {}, {}, {}".format(self.id,
+                                                   self.masked_id,
+                                                   self.Date,
+                                                   self.Des1,
+                                                   self.Des2,
+                                                   self.Des3,
+                                                   self.Payment)
+
 
 class DailyWebsiteTraffic(models.Model):
     """
@@ -48,6 +65,11 @@ class DailyWebsiteTraffic(models.Model):
     Date = models.DateField()
     # wellsfargo.com URL
     wf_page = models.CharField(max_length=255)
+
+    def __str__(self):
+        return "{}, {}, {}".format(self.id,
+                                   self.masked_id,
+                                   self.wf_page)
 
 
 class MonthEndBalances(models.Model):
@@ -109,5 +131,10 @@ class MonthEndBalances(models.Model):
     # number of times the customer called WF over the month
     direct_phone_cnt = models.IntegerField()
 
-    class Meta:
+    class Meta(object):
         unique_together = ('masked_id', 'asof_yyyymm',)
+
+    def __str__(self):
+        return "{}, {}, {}".format(self.id,
+                                   self.masked_id,
+                                   self.asof_yyyymm)

@@ -20,6 +20,7 @@ import authentication.views
 import web.views
 import stocks.historical
 
+# pylint: disable=invalid-name
 urlpatterns = [
     url(r'^login$', authentication.views.login),
     url(r'^logout$', authentication.views.logout),
@@ -32,3 +33,4 @@ urlpatterns = [
     url(r'^setup_bank$', authentication.views.setup_bank),
     url(r'^plaid/get_access_token/$', authentication.views.get_access_token),
 ]
+# pylint: enable=invalid-name
