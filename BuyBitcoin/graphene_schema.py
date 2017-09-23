@@ -4,16 +4,16 @@ to form one schema
 """
 import graphene
 
-import stocks.graphene
-import trading.graphene
-import authentication.graphene
+import stocks.graphql
+import trading.graphql
+import authentication.graphql
 
 
 # pylint: disable=too-few-public-methods
 class Query(
-        authentication.graphene.Query,
-        stocks.graphene.Query,
-        trading.graphene.Query,
+        authentication.graphql.Query,
+        stocks.graphql.Query,
+        trading.graphql.Query,
         graphene.ObjectType):
     """
     Combination of all queries of all apps
@@ -26,8 +26,8 @@ class Mutation(graphene.ObjectType):
     List of all mutations we can perform
     """
     # pylint: disable=no-member
-    add_trading_account = authentication.graphene.AddTradingAccount.Field()
-    add_stock = stocks.graphene.AddStock.Field()
+    add_trading_account = authentication.graphql.AddTradingAccount.Field()
+    add_stock = stocks.graphql.AddStock.Field()
     # pylint: enable=no-member
 # pylint: enable=too-few-public-methods
 

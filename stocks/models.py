@@ -22,7 +22,7 @@ class DailyStockQuote(models.Model):
     date = models.DateField()
     stock = models.ForeignKey(Stock, related_name='daily_quote')
 
-    class Meta:
+    class Meta(object):
         """
         We use this to define our uniqueness constraint
         """

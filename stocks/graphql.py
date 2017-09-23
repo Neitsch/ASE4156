@@ -2,8 +2,8 @@
 GraphQL definitions for the Stocks App
 """
 from graphene_django import DjangoObjectType
-from graphene import AbstractType, Argument, List, NonNull, String, relay
-import graphene
+from graphene import AbstractType, Argument, Field, List, Mutation, NonNull, \
+    String, relay
 from trading.models import Trade
 from .models import DailyStockQuote, Stock
 from .historical import create_new_stock
@@ -29,7 +29,7 @@ class GStock(DjangoObjectType):
     quote_in_range = NonNull(List(GDailyStockQuote), args={'start': Argument(
         NonNull(String)), 'end': Argument(NonNull(String))})
 
-    class Meta:
+    class Meta(object):
         """
         Meta Model for Stock
         """
@@ -37,7 +37,7 @@ class GStock(DjangoObjectType):
         interfaces = (relay.Node, )
 
     @staticmethod
-    def resolve_quote_in_range(data, args, _, __):
+    def resolve_quote_in_range(data, args, _context, _info):
         """
         Finds the stock quotes for the stock within a time range
         """
@@ -49,7 +49,7 @@ class GStock(DjangoObjectType):
                 .order_by('date'))
 
     @staticmethod
-    def resolve_trades(stock, _, context, __):
+    def resolve_trades(stock, _args, context, _info):
         """
         We need to apply permission checks to trades
         """
@@ -59,20 +59,20 @@ class GStock(DjangoObjectType):
                 .filter(account__profile_id=context.user.profile.id))
 
 
-class AddStock(graphene.Mutation):
+class AddStock(Mutation):
     """
     AddStock creates a new Stock that is tracked
     """
-    class Input:
+    class Input(object):
         """
         Input to create a stock. We only need the ticker.
         """
-        ticker = graphene.NonNull(graphene.String)
-        name = graphene.NonNull(graphene.String)
-    stock = graphene.Field(lambda: GStock)
+        ticker = NonNull(String)
+        name = NonNull(String)
+    stock = Field(lambda: GStock)
 
     @staticmethod
-    def mutate(_, args, __, ___):
+    def mutate(_self, args, _context, _info):
         """
         Creates a Stock and saves it to the DB
         """

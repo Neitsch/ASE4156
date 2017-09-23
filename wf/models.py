@@ -109,5 +109,5 @@ class MonthEndBalances(models.Model):
     # number of times the customer called WF over the month
     direct_phone_cnt = models.IntegerField()
 
-    class Meta:
+    class Meta(object):
         unique_together = ('masked_id', 'asof_yyyymm',)

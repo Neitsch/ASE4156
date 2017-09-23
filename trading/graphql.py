@@ -12,7 +12,7 @@ class GTrade(DjangoObjectType):
     """
     Exposing the whole Trade object to GraphQL
     """
-    class Meta:
+    class Meta(object):
         """
         Meta Model for Trade
         """
@@ -24,7 +24,7 @@ class GTradingAccount(DjangoObjectType):
     """
     Exposing the whole TradingAccount to GraphQL
     """
-    class Meta:
+    class Meta(object):
         """
         Meta Model for TradingAccount
         """
