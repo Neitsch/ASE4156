@@ -50,9 +50,6 @@ class UserBank(models.Model):
     )
     item_id = models.CharField(max_length=1000)
     access_token = models.CharField(max_length=1000)
-<<<<<<< HEAD
-=======
 
     def __str__(self):
         return "{}, {}".format(self.id, self.user_id)
->>>>>>> 890cc265b7763022d096c7cef286401161f67ebc
