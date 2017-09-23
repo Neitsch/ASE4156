@@ -3,8 +3,6 @@ import { Card, CardText, CardHeader } from 'material-ui/Card';
 import { Table, TableBody, TableRow, TableRowColumn } from 'material-ui/Table';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import FlatButton from 'material-ui/FlatButton';
-import muiTheme from '../theme/muiTheme';
-
 
 export default class Shares extends React.Component {
   render() {

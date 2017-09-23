@@ -1,8 +1,12 @@
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import { fullBlack } from 'material-ui/styles/colors';
 
-export default getMuiTheme({
+const appTheme = {
+  themeName: 'App Theme',
   palette: {
-    textColor: fullBlack,
+    primary1Color: '#CD1309',
   },
-});
+  appBar: {
+    textColor: '#FFFF00',
+  },
+};
+
+export default appTheme;
