@@ -32,5 +32,6 @@ urlpatterns = [
     url(r'^stocks/fill/', stocks.historical.fill_stocks),
     url(r'^setup_bank$', authentication.views.setup_bank),
     url(r'^plaid/get_access_token/$', authentication.views.get_access_token),
+    url(r'^plaid/list_transactions/$', authentication.views.list_transactions),
 ]
 # pylint: enable=invalid-name
