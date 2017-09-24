@@ -64,22 +64,22 @@ def get_access_token(request):
 
 @login_required
 def list_transactions(request):
-	"""
-	A demo view to list all of a user's transactions
-	"""
-	if request.method=="POST":
-		user_bank_id = request.POST.get('id')
-		user_bank = UserBank.objects.get(pk=user_bank_id)
-		if user_bank.user == request.user:
-			client = plaid.Client(client_id=PLAID_CLIENT_ID, secret=PLAID_SECRET,
-	        	public_key=PLAID_PUBLIC_KEY, environment=PLAID_ENV)
-			response = client.Transactions.get(user_bank.access_token, start_date='2016-07-12', end_date='2017-01-09')
-			transactions = response['transactions']
-			c = {'tx': transactions}
-			return render(request, "list_transactions.html", c)
-		else:
-			return HttpResponse("You don't have permission to view that.")
-	else:
-		userbank = request.user.userbank_set.all()
-		c = {'ub': userbank}
-		return render(request, 'bank_select_form.html', c)
+    """
+    A demo view to list all of a user's transactions
+    """
+    if request.method=="POST":
+        user_bank_id = request.POST.get('id')
+        user_bank = UserBank.objects.get(pk=user_bank_id)
+        if user_bank.user == request.user:
+            client = plaid.Client(client_id=PLAID_CLIENT_ID, secret=PLAID_SECRET,
+            	public_key=PLAID_PUBLIC_KEY, environment=PLAID_ENV)
+            response = client.Transactions.get(user_bank.access_token, start_date='2016-07-12', end_date='2017-01-09')
+            transactions = response['transactions']
+            c = {'tx': transactions}
+            return render(request, "list_transactions.html", c)
+        else:
+        	return HttpResponse("You don't have permission to view that.")
+    else:
+    	userbank = request.user.userbank_set.all()
+    	c = {'ub': userbank}
+    	return render(request, 'bank_select_form.html', c)
