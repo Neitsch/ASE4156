@@ -32,7 +32,7 @@ class GProfile(DjangoObjectType):
     GraphQL representation of a Profile
     """
     stock_find = List(
-        GStock, args={'text': GStock, args={'text': Argument(NonNull(String))}})
+        GStock, args={'text': Argument(NonNull(String))})
 
     class Meta(object):
         """
