@@ -53,4 +53,4 @@ class UserBank(models.Model):
     institution_name = models.CharField(max_length=1000)
 
     def __str__(self):
-        return "Institution: {}. IDs:{}, {}".format(self.institution_name, self.id, self.user_id)
+        return "IDs:{}, {}, Institution: {}. ".format(self.institution_name, self.id, self.user_id)

@@ -3,8 +3,9 @@
 {% block content %}
 
 Transactions:<br>
-	{% for x in tx %}
-		{{x.name}}: ${{x.amount}}
-		<br>
+	{% for transaction in tx %}
+		<p>
+			{{transaction.name}}: ${{transaction.amount}}
+		</p>
 	{% endfor %}
 {% endblock %}

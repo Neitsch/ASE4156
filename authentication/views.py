@@ -49,12 +49,12 @@ def get_access_token(request):
                               public_key=PLAID_PUBLIC_KEY, environment=PLAID_ENV)
         public_token = request.POST.get('public_token')
         exchange_response = client.Item.public_token.exchange(public_token)
-        r = client.Item.get(exchange_response['access_token'])
+        plaidrequest = client.Item.get(exchange_response['access_token'])
         bank_user = UserBank(
             user=request.user,
             item_id=exchange_response['item_id'],
             access_token=exchange_response['access_token'],
-            institution_name=r['item']['institution_id']
+            institution_name=plaidrequest['item']['institution_id'],
             )
         bank_user.save()
         request.user.profile.has_bank_linked = True
@@ -74,14 +74,12 @@ def list_transactions(request):
         if user_bank.user == request.user:
             client = plaid.Client(client_id=PLAID_CLIENT_ID, secret=PLAID_SECRET,
                                   public_key=PLAID_PUBLIC_KEY, environment=PLAID_ENV)
-            response = client.Transactions.get(user_bank.access_token, 
-                                  start_date='2016-07-12', end_date='2017-01-09')
+            response = client.Transactions.get(user_bank.access_token,
+                                               start_date='2016-07-12', end_date='2017-01-09')
             transactions = response['transactions']
-            c = {'tx': transactions}
-            return render(request, "list_transactions.html", c)
-        else:
-            return HttpResponse("You don't have permission to view that.")
-    else:
-        userbank = request.user.userbank_set.all()
-        c = {'ub': userbank}
-        return render(request, 'bank_select_form.html', c)
+            context = {'tx': transactions}
+            return render(request, "list_transactions.html", context)
+        return HttpResponse("You don't have permission to view that.")
+    userbank = request.user.userbank_set.all()
+    context = {'userbank': userbank}
+    return render(request, 'bank_select_form.html', context)

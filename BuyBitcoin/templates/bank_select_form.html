@@ -3,11 +3,11 @@
 {% block content %}
 
 Select a bank:
-	{% for x in ub %}
+	{% for bank in userbank %}
 		<form method="post"> 
 			{% csrf_token %}
-			<input type="hidden" name="id" value="{{x.id}}">
-			<input type="submit" value="{{x.institution_name}}" />
+			<input type="hidden" name="id" value="{{bank.id}}">
+			<input type="submit" value="{{bank.institution_name}}" />
 		</form>
 	{% endfor %}
 <a href="/setup_bank"> Add a new one </a>
