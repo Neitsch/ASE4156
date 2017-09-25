@@ -559,7 +559,7 @@ exports[`Storyshots Cards Simple card 1`] = `
 </div>
 `;
 
-exports[`Storyshots Shares simple 1`] = `
+exports[`Storyshots Saldo Playground 1`] = `
 <div
   style={
     Object {
@@ -662,7 +662,7 @@ exports[`Storyshots Shares simple 1`] = `
                     }
                   }
                 >
-                  Shares
+                  Saldo
                 </span>
                 <span
                   style={
@@ -777,7 +777,7 @@ exports[`Storyshots Shares simple 1`] = `
                             }
                           }
                         >
-                          Invested Shares
+                          investedSharesValue
                         </td>
                         <td
                           className={undefined}
@@ -833,7 +833,7 @@ exports[`Storyshots Shares simple 1`] = `
                             }
                           }
                         >
-                          Earned Shares
+                          earnedSharesValue
                         </td>
                         <td
                           className={undefined}
@@ -889,7 +889,7 @@ exports[`Storyshots Shares simple 1`] = `
                             }
                           }
                         >
-                          Bonus Shares
+                          bonusSharesValue
                         </td>
                         <td
                           className={undefined}
@@ -945,7 +945,7 @@ exports[`Storyshots Shares simple 1`] = `
                             }
                           }
                         >
-                          Reinvested Shares
+                          reinvestedSharesValue
                         </td>
                         <td
                           className={undefined}
@@ -1001,7 +1001,7 @@ exports[`Storyshots Shares simple 1`] = `
                             }
                           }
                         >
-                          Total Shares
+                          totalSharesValue
                         </td>
                         <td
                           className={undefined}

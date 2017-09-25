@@ -1,9 +1,9 @@
 /* @lazyspec (remove to manage manually) */
 /* eslint-disable */
-import Shares from '../Shares.jsx';
+import Saldo from '../Saldo.jsx';
 
-describe('Shares', () => {
+describe('Saldo', () => {
   it('exists', () => {
-    expect(Shares).toBeTruthy();
+    expect(Saldo).toBeTruthy();
   });
 });

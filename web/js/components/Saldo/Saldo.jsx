@@ -1,9 +1,8 @@
 // @flow
 import React from 'react';
-import {Card, CardText, CardHeader} from 'material-ui/Card';
-import {Table, TableBody, TableRow, TableRowColumn} from 'material-ui/Table';
+import {Card, CardText, CardHeader,} from 'material-ui/Card';
+import {Table, TableBody, TableRow, TableRowColumn,} from 'material-ui/Table';
 import FlatButton from 'material-ui/FlatButton';
-import {translate} from 'react-i18next';
 import PropTypes from 'prop-types';
 import numeral from 'numeral';
 
@@ -13,17 +12,21 @@ const formatMoney : (string, number) => string = function(currency : string, num
 
 type valueShape = {
   name: string,
-  value: number
+  value: number,
 }
 
-class Shares extends React.Component {
+class Saldo extends React.Component {
   static defaultProps = {
     currency: "$",
     values: [],
-  }
+    t: w => w,
+    showTotal: true,
+  };
   static propTypes = {
+    t: PropTypes.func,
     currency: PropTypes.string,
-    values: PropTypes.arrayOf(PropTypes.shape({name: PropTypes.string.isRequired, value: PropTypes.number.isRequired,})),
+    values: PropTypes.arrayOf(PropTypes.shape({name: PropTypes.string.isRequired, value: PropTypes.number.isRequired})),
+    showTotal: PropTypes.bool,
   };
   constructor() : void {
     super();
@@ -60,7 +63,7 @@ class Shares extends React.Component {
   renderCard(values : Array < React$Element < {} >>, bottom : React$Element < {} >, button : React$Element <*>) : React$Element < {} > {
     return(
       <Card>
-        <CardHeader title="Shares"/>
+        <CardHeader title="Saldo"/>
         <CardText>
           <Table>
             <TableBody displayRowCheckbox={false}>
@@ -74,8 +77,12 @@ class Shares extends React.Component {
     )
   }
   render() : React$Element < {} > {
-    return this.renderCard(this.valueRows(this.props.values), this.collectRow(this.props.values), < FlatButton backgroundColor = "#a4c639" label = "Sell Shares" fullWidth />);
+    let collectRow = null;
+    if (this.props.showTotal) {
+      collectRow = this.collectRow(this.props.values);
+    }
+    return this.renderCard(this.valueRows(this.props.values), collectRow, < FlatButton backgroundColor = "#a4c639" label = "Sell Shares" fullWidth />);
   }
 }
 
-export default translate()(Shares);
+export default Saldo;
