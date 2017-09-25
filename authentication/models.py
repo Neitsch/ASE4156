@@ -42,7 +42,7 @@ def save_user_profile(instance, **_):
 
 class UserBank(models.Model):
     """
-    Contains all the user's bank access data
+    Contains all the user's bank access data (via plaid)
     """
     user = models.ForeignKey(
         User,
@@ -50,6 +50,7 @@ class UserBank(models.Model):
     )
     item_id = models.CharField(max_length=1000)
     access_token = models.CharField(max_length=1000)
+    institution_name = models.CharField(max_length=1000)
 
     def __str__(self):
-        return "{}, {}".format(self.id, self.user_id)
+        return "IDs:{}, {}, Institution: {}. ".format(self.institution_name, self.id, self.user_id)
