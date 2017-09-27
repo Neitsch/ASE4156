@@ -559,7 +559,7 @@ exports[`Storyshots Cards Simple card 1`] = `
 </div>
 `;
 
-exports[`Storyshots Saldo Playground 1`] = `
+exports[`Storyshots HighlightBox Account Total 1`] = `
 <div
   style={
     Object {
@@ -613,6 +613,1325 @@ exports[`Storyshots Saldo Playground 1`] = `
               "borderRadius": 2,
               "boxShadow": "0 1px 6px rgba(0, 0, 0, 0.12),
          0 1px 4px rgba(0, 0, 0, 0.12)",
+              "boxSizing": "border-box",
+              "color": "rgba(0, 0, 0, 0.87)",
+              "fontFamily": "Roboto, sans-serif",
+              "muiPrepared": true,
+              "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+              "zIndex": 1,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "border": "1px solid black",
+                "paddingBottom": 8,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "boxSizing": "border-box",
+                  "fontWeight": 500,
+                  "muiPrepared": true,
+                  "padding": 16,
+                  "position": "relative",
+                  "whiteSpace": "nowrap",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "display": "inline-block",
+                    "muiPrepared": true,
+                    "paddingRight": "90px",
+                    "verticalAlign": "top",
+                    "whiteSpace": "normal",
+                  }
+                }
+              >
+                <span
+                  style={
+                    Object {
+                      "color": "rgba(0, 0, 0, 0.87)",
+                      "display": "block",
+                      "fontSize": 15,
+                      "muiPrepared": true,
+                    }
+                  }
+                >
+                  Account Total
+                </span>
+                <span
+                  style={
+                    Object {
+                      "color": "rgba(0, 0, 0, 0.54)",
+                      "display": "block",
+                      "fontSize": 14,
+                      "muiPrepared": true,
+                    }
+                  }
+                />
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "color": "rgba(0, 0, 0, 0.87)",
+                  "fontSize": 14,
+                  "muiPrepared": true,
+                  "padding": 16,
+                }
+              }
+            >
+              <h1>
+                $7,749.34
+              </h1>
+              <hr
+                style={
+                  Object {
+                    "backgroundColor": "#e0e0e0",
+                    "border": "none",
+                    "height": 1,
+                    "margin": 0,
+                    "marginLeft": 0,
+                    "marginTop": -1,
+                    "muiPrepared": true,
+                  }
+                }
+              />
+              <div
+                style={
+                  Object {
+                    "muiPrepared": true,
+                    "padding": "8px 0px 8px 0px",
+                  }
+                }
+              >
+                <div>
+                  <span
+                    disabled={false}
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onKeyUp={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    onTouchEnd={[Function]}
+                    onTouchStart={[Function]}
+                    open={null}
+                    style={
+                      Object {
+                        "WebkitTapHighlightColor": "rgba(0, 0, 0, 0)",
+                        "background": "none",
+                        "backgroundColor": null,
+                        "border": 10,
+                        "boxSizing": "border-box",
+                        "color": "rgba(0, 0, 0, 0.87)",
+                        "cursor": "pointer",
+                        "display": "block",
+                        "fontFamily": "Roboto, sans-serif",
+                        "fontSize": 16,
+                        "fontWeight": "inherit",
+                        "lineHeight": "16px",
+                        "margin": 0,
+                        "muiPrepared": true,
+                        "outline": "none",
+                        "padding": 0,
+                        "position": "relative",
+                        "textDecoration": "none",
+                        "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                        "verticalAlign": null,
+                        "zIndex": 1,
+                      }
+                    }
+                    tabIndex={0}
+                  >
+                    <div
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchStart={[Function]}
+                    >
+                      <div
+                        style={
+                          Object {
+                            "marginLeft": 0,
+                            "muiPrepared": true,
+                            "paddingBottom": 16,
+                            "paddingLeft": 16,
+                            "paddingRight": 16,
+                            "paddingTop": 16,
+                            "position": "relative",
+                          }
+                        }
+                      >
+                        <div
+                          style={
+                            Object {
+                              "muiPrepared": true,
+                            }
+                          }
+                        >
+                          $7,000.00 Invested Total
+                        </div>
+                      </div>
+                    </div>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <span
+      className="Resizer vertical "
+      onClick={[Function]}
+      onDoubleClick={[Function]}
+      onMouseDown={[Function]}
+      onTouchEnd={[Function]}
+      onTouchStart={[Function]}
+      style={
+        Object {
+          "cursor": "col-resize",
+          "marginRight": -6,
+          "width": 10,
+          "zIndex": 1,
+        }
+      }
+    />
+    <div
+      className="Pane vertical Pane2"
+      style={
+        Object {
+          "flex": "none",
+          "outline": "none",
+          "position": "relative",
+          "width": 0,
+        }
+      }
+    >
+      <div
+        className="sb-addon-material-ui-theme_sidebar"
+        style={
+          Object {
+            "height": "100%",
+            "width": "100%",
+          }
+        }
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots HighlightBox Annulized Percentage Return 1`] = `
+<div
+  style={
+    Object {
+      "background": "#ffffff",
+      "bottom": 0,
+      "left": 0,
+      "position": "absolute",
+      "right": 0,
+      "top": 0,
+    }
+  }
+>
+  <div
+    className="SplitPane  vertical "
+    style={
+      Object {
+        "MozUserSelect": "text",
+        "WebkitUserSelect": "text",
+        "display": "flex",
+        "flex": 1,
+        "flexDirection": "row",
+        "height": "100%",
+        "left": 0,
+        "msUserSelect": "text",
+        "outline": "none",
+        "overflow": "hidden",
+        "position": "absolute",
+        "right": 0,
+        "userSelect": "text",
+      }
+    }
+  >
+    <div
+      className="Pane vertical Pane1"
+      style={
+        Object {
+          "flex": 1,
+          "outline": "none",
+          "overflowX": "auto",
+          "overflowY": "auto",
+          "position": "relative",
+        }
+      }
+    >
+      <div>
+        <div
+          style={
+            Object {
+              "WebkitTapHighlightColor": "rgba(0,0,0,0)",
+              "backgroundColor": "#ffffff",
+              "borderRadius": 2,
+              "boxShadow": "0 1px 6px rgba(0, 0, 0, 0.12),
+         0 1px 4px rgba(0, 0, 0, 0.12)",
+              "boxSizing": "border-box",
+              "color": "rgba(0, 0, 0, 0.87)",
+              "fontFamily": "Roboto, sans-serif",
+              "muiPrepared": true,
+              "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+              "zIndex": 1,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "border": "1px solid black",
+                "paddingBottom": 8,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "boxSizing": "border-box",
+                  "fontWeight": 500,
+                  "muiPrepared": true,
+                  "padding": 16,
+                  "position": "relative",
+                  "whiteSpace": "nowrap",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "display": "inline-block",
+                    "muiPrepared": true,
+                    "paddingRight": "90px",
+                    "verticalAlign": "top",
+                    "whiteSpace": "normal",
+                  }
+                }
+              >
+                <span
+                  style={
+                    Object {
+                      "color": "rgba(0, 0, 0, 0.87)",
+                      "display": "block",
+                      "fontSize": 15,
+                      "muiPrepared": true,
+                    }
+                  }
+                >
+                  Annulized Percentage Return
+                </span>
+                <span
+                  style={
+                    Object {
+                      "color": "rgba(0, 0, 0, 0.54)",
+                      "display": "block",
+                      "fontSize": 14,
+                      "muiPrepared": true,
+                    }
+                  }
+                />
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "color": "rgba(0, 0, 0, 0.87)",
+                  "fontSize": 14,
+                  "muiPrepared": true,
+                  "padding": 16,
+                }
+              }
+            >
+              <h1>
+                3.75%
+              </h1>
+              <hr
+                style={
+                  Object {
+                    "backgroundColor": "#e0e0e0",
+                    "border": "none",
+                    "height": 1,
+                    "margin": 0,
+                    "marginLeft": 0,
+                    "marginTop": -1,
+                    "muiPrepared": true,
+                  }
+                }
+              />
+              <div
+                style={
+                  Object {
+                    "muiPrepared": true,
+                    "padding": "8px 0px 8px 0px",
+                  }
+                }
+              >
+                <div>
+                  <span
+                    disabled={false}
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onKeyUp={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    onTouchEnd={[Function]}
+                    onTouchStart={[Function]}
+                    open={null}
+                    style={
+                      Object {
+                        "WebkitTapHighlightColor": "rgba(0, 0, 0, 0)",
+                        "background": "none",
+                        "backgroundColor": null,
+                        "border": 10,
+                        "boxSizing": "border-box",
+                        "color": "rgba(0, 0, 0, 0.87)",
+                        "cursor": "pointer",
+                        "display": "block",
+                        "fontFamily": "Roboto, sans-serif",
+                        "fontSize": 16,
+                        "fontWeight": "inherit",
+                        "lineHeight": "16px",
+                        "margin": 0,
+                        "muiPrepared": true,
+                        "outline": "none",
+                        "padding": 0,
+                        "position": "relative",
+                        "textDecoration": "none",
+                        "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                        "verticalAlign": null,
+                        "zIndex": 1,
+                      }
+                    }
+                    tabIndex={0}
+                  >
+                    <div
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchStart={[Function]}
+                    >
+                      <div
+                        style={
+                          Object {
+                            "marginLeft": 0,
+                            "muiPrepared": true,
+                            "paddingBottom": 16,
+                            "paddingLeft": 16,
+                            "paddingRight": 16,
+                            "paddingTop": 16,
+                            "position": "relative",
+                          }
+                        }
+                      >
+                        <div
+                          style={
+                            Object {
+                              "muiPrepared": true,
+                            }
+                          }
+                        >
+                          $774.90 Total Shares Owneed
+                        </div>
+                      </div>
+                    </div>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <span
+      className="Resizer vertical "
+      onClick={[Function]}
+      onDoubleClick={[Function]}
+      onMouseDown={[Function]}
+      onTouchEnd={[Function]}
+      onTouchStart={[Function]}
+      style={
+        Object {
+          "cursor": "col-resize",
+          "marginRight": -6,
+          "width": 10,
+          "zIndex": 1,
+        }
+      }
+    />
+    <div
+      className="Pane vertical Pane2"
+      style={
+        Object {
+          "flex": "none",
+          "outline": "none",
+          "position": "relative",
+          "width": 0,
+        }
+      }
+    >
+      <div
+        className="sb-addon-material-ui-theme_sidebar"
+        style={
+          Object {
+            "height": "100%",
+            "width": "100%",
+          }
+        }
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Page Test page 1`] = `
+<div
+  style={
+    Object {
+      "background": "#ffffff",
+      "bottom": 0,
+      "left": 0,
+      "position": "absolute",
+      "right": 0,
+      "top": 0,
+    }
+  }
+>
+  <div
+    className="SplitPane  vertical "
+    style={
+      Object {
+        "MozUserSelect": "text",
+        "WebkitUserSelect": "text",
+        "display": "flex",
+        "flex": 1,
+        "flexDirection": "row",
+        "height": "100%",
+        "left": 0,
+        "msUserSelect": "text",
+        "outline": "none",
+        "overflow": "hidden",
+        "position": "absolute",
+        "right": 0,
+        "userSelect": "text",
+      }
+    }
+  >
+    <div
+      className="Pane vertical Pane1"
+      style={
+        Object {
+          "flex": 1,
+          "outline": "none",
+          "overflowX": "auto",
+          "overflowY": "auto",
+          "position": "relative",
+        }
+      }
+    >
+      <div>
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "flexWrap": "wrap",
+              "margin": -2,
+              "muiPrepared": true,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "boxSizing": "border-box",
+                "height": "auto",
+                "muiPrepared": true,
+                "padding": 2,
+                "width": "33.333333333333336%",
+              }
+            }
+          >
+            <div
+              cols={1}
+              rows={1}
+              style={
+                Object {
+                  "display": "block",
+                  "height": "100%",
+                  "muiPrepared": true,
+                  "overflow": "hidden",
+                  "position": "relative",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "WebkitTapHighlightColor": "rgba(0,0,0,0)",
+                    "backgroundColor": "#ffffff",
+                    "borderRadius": 2,
+                    "boxShadow": "0 1px 6px rgba(0, 0, 0, 0.12),
+         0 1px 4px rgba(0, 0, 0, 0.12)",
+                    "boxSizing": "border-box",
+                    "color": "rgba(0, 0, 0, 0.87)",
+                    "fontFamily": "Roboto, sans-serif",
+                    "muiPrepared": true,
+                    "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                    "zIndex": 1,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "border": "1px solid black",
+                      "paddingBottom": 8,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "fontWeight": 500,
+                        "muiPrepared": true,
+                        "padding": 16,
+                        "position": "relative",
+                        "whiteSpace": "nowrap",
+                      }
+                    }
+                  >
+                    <div
+                      style={
+                        Object {
+                          "display": "inline-block",
+                          "muiPrepared": true,
+                          "paddingRight": "90px",
+                          "verticalAlign": "top",
+                          "whiteSpace": "normal",
+                        }
+                      }
+                    >
+                      <span
+                        style={
+                          Object {
+                            "color": "rgba(0, 0, 0, 0.87)",
+                            "display": "block",
+                            "fontSize": 15,
+                            "muiPrepared": true,
+                          }
+                        }
+                      >
+                        Title 1
+                      </span>
+                      <span
+                        style={
+                          Object {
+                            "color": "rgba(0, 0, 0, 0.54)",
+                            "display": "block",
+                            "fontSize": 14,
+                            "muiPrepared": true,
+                          }
+                        }
+                      />
+                    </div>
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "color": "rgba(0, 0, 0, 0.87)",
+                        "fontSize": 14,
+                        "muiPrepared": true,
+                        "padding": 16,
+                      }
+                    }
+                  >
+                    <h1>
+                      1
+                    </h1>
+                    <hr
+                      style={
+                        Object {
+                          "backgroundColor": "#e0e0e0",
+                          "border": "none",
+                          "height": 1,
+                          "margin": 0,
+                          "marginLeft": 0,
+                          "marginTop": -1,
+                          "muiPrepared": true,
+                        }
+                      }
+                    />
+                    <div
+                      style={
+                        Object {
+                          "muiPrepared": true,
+                          "padding": "8px 0px 8px 0px",
+                        }
+                      }
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "boxSizing": "border-box",
+                "height": "auto",
+                "muiPrepared": true,
+                "padding": 2,
+                "width": "66.66666666666667%",
+              }
+            }
+          >
+            <div
+              cols={2}
+              rows={2}
+              style={
+                Object {
+                  "display": "block",
+                  "height": "100%",
+                  "muiPrepared": true,
+                  "overflow": "hidden",
+                  "position": "relative",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "WebkitTapHighlightColor": "rgba(0,0,0,0)",
+                    "backgroundColor": "#ffffff",
+                    "borderRadius": 2,
+                    "boxShadow": "0 1px 6px rgba(0, 0, 0, 0.12),
+         0 1px 4px rgba(0, 0, 0, 0.12)",
+                    "boxSizing": "border-box",
+                    "color": "rgba(0, 0, 0, 0.87)",
+                    "fontFamily": "Roboto, sans-serif",
+                    "muiPrepared": true,
+                    "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                    "zIndex": 1,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "border": "1px solid black",
+                      "paddingBottom": 8,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "fontWeight": 500,
+                        "muiPrepared": true,
+                        "padding": 16,
+                        "position": "relative",
+                        "whiteSpace": "nowrap",
+                      }
+                    }
+                  >
+                    <div
+                      style={
+                        Object {
+                          "display": "inline-block",
+                          "muiPrepared": true,
+                          "paddingRight": "90px",
+                          "verticalAlign": "top",
+                          "whiteSpace": "normal",
+                        }
+                      }
+                    >
+                      <span
+                        style={
+                          Object {
+                            "color": "rgba(0, 0, 0, 0.87)",
+                            "display": "block",
+                            "fontSize": 15,
+                            "muiPrepared": true,
+                          }
+                        }
+                      >
+                        Title 3
+                      </span>
+                      <span
+                        style={
+                          Object {
+                            "color": "rgba(0, 0, 0, 0.54)",
+                            "display": "block",
+                            "fontSize": 14,
+                            "muiPrepared": true,
+                          }
+                        }
+                      />
+                    </div>
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "color": "rgba(0, 0, 0, 0.87)",
+                        "fontSize": 14,
+                        "muiPrepared": true,
+                        "padding": 16,
+                      }
+                    }
+                  >
+                    <h1>
+                      3
+                    </h1>
+                    <hr
+                      style={
+                        Object {
+                          "backgroundColor": "#e0e0e0",
+                          "border": "none",
+                          "height": 1,
+                          "margin": 0,
+                          "marginLeft": 0,
+                          "marginTop": -1,
+                          "muiPrepared": true,
+                        }
+                      }
+                    />
+                    <div
+                      style={
+                        Object {
+                          "muiPrepared": true,
+                          "padding": "8px 0px 8px 0px",
+                        }
+                      }
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "boxSizing": "border-box",
+                "height": "auto",
+                "muiPrepared": true,
+                "padding": 2,
+                "width": "33.333333333333336%",
+              }
+            }
+          >
+            <div
+              cols={1}
+              rows={1}
+              style={
+                Object {
+                  "display": "block",
+                  "height": "100%",
+                  "muiPrepared": true,
+                  "overflow": "hidden",
+                  "position": "relative",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "WebkitTapHighlightColor": "rgba(0,0,0,0)",
+                    "backgroundColor": "#ffffff",
+                    "borderRadius": 2,
+                    "boxShadow": "0 1px 6px rgba(0, 0, 0, 0.12),
+         0 1px 4px rgba(0, 0, 0, 0.12)",
+                    "boxSizing": "border-box",
+                    "color": "rgba(0, 0, 0, 0.87)",
+                    "fontFamily": "Roboto, sans-serif",
+                    "muiPrepared": true,
+                    "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                    "zIndex": 1,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "border": "1px solid black",
+                      "paddingBottom": 8,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "fontWeight": 500,
+                        "muiPrepared": true,
+                        "padding": 16,
+                        "position": "relative",
+                        "whiteSpace": "nowrap",
+                      }
+                    }
+                  >
+                    <div
+                      style={
+                        Object {
+                          "display": "inline-block",
+                          "muiPrepared": true,
+                          "paddingRight": "90px",
+                          "verticalAlign": "top",
+                          "whiteSpace": "normal",
+                        }
+                      }
+                    >
+                      <span
+                        style={
+                          Object {
+                            "color": "rgba(0, 0, 0, 0.87)",
+                            "display": "block",
+                            "fontSize": 15,
+                            "muiPrepared": true,
+                          }
+                        }
+                      >
+                        Title 2
+                      </span>
+                      <span
+                        style={
+                          Object {
+                            "color": "rgba(0, 0, 0, 0.54)",
+                            "display": "block",
+                            "fontSize": 14,
+                            "muiPrepared": true,
+                          }
+                        }
+                      />
+                    </div>
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "color": "rgba(0, 0, 0, 0.87)",
+                        "fontSize": 14,
+                        "muiPrepared": true,
+                        "padding": 16,
+                      }
+                    }
+                  >
+                    <h1>
+                      2
+                    </h1>
+                    <hr
+                      style={
+                        Object {
+                          "backgroundColor": "#e0e0e0",
+                          "border": "none",
+                          "height": 1,
+                          "margin": 0,
+                          "marginLeft": 0,
+                          "marginTop": -1,
+                          "muiPrepared": true,
+                        }
+                      }
+                    />
+                    <div
+                      style={
+                        Object {
+                          "muiPrepared": true,
+                          "padding": "8px 0px 8px 0px",
+                        }
+                      }
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "boxSizing": "border-box",
+                "height": "auto",
+                "muiPrepared": true,
+                "padding": 2,
+                "width": "33.333333333333336%",
+              }
+            }
+          >
+            <div
+              cols={1}
+              rows={1}
+              style={
+                Object {
+                  "display": "block",
+                  "height": "100%",
+                  "muiPrepared": true,
+                  "overflow": "hidden",
+                  "position": "relative",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "WebkitTapHighlightColor": "rgba(0,0,0,0)",
+                    "backgroundColor": "#ffffff",
+                    "borderRadius": 2,
+                    "boxShadow": "0 1px 6px rgba(0, 0, 0, 0.12),
+         0 1px 4px rgba(0, 0, 0, 0.12)",
+                    "boxSizing": "border-box",
+                    "color": "rgba(0, 0, 0, 0.87)",
+                    "fontFamily": "Roboto, sans-serif",
+                    "muiPrepared": true,
+                    "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                    "zIndex": 1,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "border": "1px solid black",
+                      "paddingBottom": 8,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "fontWeight": 500,
+                        "muiPrepared": true,
+                        "padding": 16,
+                        "position": "relative",
+                        "whiteSpace": "nowrap",
+                      }
+                    }
+                  >
+                    <div
+                      style={
+                        Object {
+                          "display": "inline-block",
+                          "muiPrepared": true,
+                          "paddingRight": "90px",
+                          "verticalAlign": "top",
+                          "whiteSpace": "normal",
+                        }
+                      }
+                    >
+                      <span
+                        style={
+                          Object {
+                            "color": "rgba(0, 0, 0, 0.87)",
+                            "display": "block",
+                            "fontSize": 15,
+                            "muiPrepared": true,
+                          }
+                        }
+                      >
+                        Title 4
+                      </span>
+                      <span
+                        style={
+                          Object {
+                            "color": "rgba(0, 0, 0, 0.54)",
+                            "display": "block",
+                            "fontSize": 14,
+                            "muiPrepared": true,
+                          }
+                        }
+                      />
+                    </div>
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "color": "rgba(0, 0, 0, 0.87)",
+                        "fontSize": 14,
+                        "muiPrepared": true,
+                        "padding": 16,
+                      }
+                    }
+                  >
+                    <h1>
+                      2
+                    </h1>
+                    <hr
+                      style={
+                        Object {
+                          "backgroundColor": "#e0e0e0",
+                          "border": "none",
+                          "height": 1,
+                          "margin": 0,
+                          "marginLeft": 0,
+                          "marginTop": -1,
+                          "muiPrepared": true,
+                        }
+                      }
+                    />
+                    <div
+                      style={
+                        Object {
+                          "muiPrepared": true,
+                          "padding": "8px 0px 8px 0px",
+                        }
+                      }
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "boxSizing": "border-box",
+                "height": "auto",
+                "muiPrepared": true,
+                "padding": 2,
+                "width": "33.333333333333336%",
+              }
+            }
+          >
+            <div
+              cols={1}
+              rows={1}
+              style={
+                Object {
+                  "display": "block",
+                  "height": "100%",
+                  "muiPrepared": true,
+                  "overflow": "hidden",
+                  "position": "relative",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "WebkitTapHighlightColor": "rgba(0,0,0,0)",
+                    "backgroundColor": "#ffffff",
+                    "borderRadius": 2,
+                    "boxShadow": "0 1px 6px rgba(0, 0, 0, 0.12),
+         0 1px 4px rgba(0, 0, 0, 0.12)",
+                    "boxSizing": "border-box",
+                    "color": "rgba(0, 0, 0, 0.87)",
+                    "fontFamily": "Roboto, sans-serif",
+                    "muiPrepared": true,
+                    "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                    "zIndex": 1,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "border": "1px solid black",
+                      "paddingBottom": 8,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "fontWeight": 500,
+                        "muiPrepared": true,
+                        "padding": 16,
+                        "position": "relative",
+                        "whiteSpace": "nowrap",
+                      }
+                    }
+                  >
+                    <div
+                      style={
+                        Object {
+                          "display": "inline-block",
+                          "muiPrepared": true,
+                          "paddingRight": "90px",
+                          "verticalAlign": "top",
+                          "whiteSpace": "normal",
+                        }
+                      }
+                    >
+                      <span
+                        style={
+                          Object {
+                            "color": "rgba(0, 0, 0, 0.87)",
+                            "display": "block",
+                            "fontSize": 15,
+                            "muiPrepared": true,
+                          }
+                        }
+                      >
+                        Title 5
+                      </span>
+                      <span
+                        style={
+                          Object {
+                            "color": "rgba(0, 0, 0, 0.54)",
+                            "display": "block",
+                            "fontSize": 14,
+                            "muiPrepared": true,
+                          }
+                        }
+                      />
+                    </div>
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "color": "rgba(0, 0, 0, 0.87)",
+                        "fontSize": 14,
+                        "muiPrepared": true,
+                        "padding": 16,
+                      }
+                    }
+                  >
+                    <h1>
+                      2
+                    </h1>
+                    <hr
+                      style={
+                        Object {
+                          "backgroundColor": "#e0e0e0",
+                          "border": "none",
+                          "height": 1,
+                          "margin": 0,
+                          "marginLeft": 0,
+                          "marginTop": -1,
+                          "muiPrepared": true,
+                        }
+                      }
+                    />
+                    <div
+                      style={
+                        Object {
+                          "muiPrepared": true,
+                          "padding": "8px 0px 8px 0px",
+                        }
+                      }
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <span
+      className="Resizer vertical "
+      onClick={[Function]}
+      onDoubleClick={[Function]}
+      onMouseDown={[Function]}
+      onTouchEnd={[Function]}
+      onTouchStart={[Function]}
+      style={
+        Object {
+          "cursor": "col-resize",
+          "marginRight": -6,
+          "width": 10,
+          "zIndex": 1,
+        }
+      }
+    />
+    <div
+      className="Pane vertical Pane2"
+      style={
+        Object {
+          "flex": "none",
+          "outline": "none",
+          "position": "relative",
+          "width": 0,
+        }
+      }
+    >
+      <div
+        className="sb-addon-material-ui-theme_sidebar"
+        style={
+          Object {
+            "height": "100%",
+            "width": "100%",
+          }
+        }
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Saldo Playground 1`] = `
+<div
+  style={
+    Object {
+      "background": "#ffffff",
+      "bottom": 0,
+      "left": 0,
+      "position": "absolute",
+      "right": 0,
+      "top": 0,
+    }
+  }
+>
+  <div
+    className="SplitPane  vertical "
+    style={
+      Object {
+        "MozUserSelect": "text",
+        "WebkitUserSelect": "text",
+        "display": "flex",
+        "flex": 1,
+        "flexDirection": "row",
+        "height": "100%",
+        "left": 0,
+        "msUserSelect": "text",
+        "outline": "none",
+        "overflow": "hidden",
+        "position": "absolute",
+        "right": 0,
+        "userSelect": "text",
+      }
+    }
+  >
+    <div
+      className="Pane vertical Pane1"
+      style={
+        Object {
+          "flex": 1,
+          "outline": "none",
+          "overflowX": "auto",
+          "overflowY": "auto",
+          "position": "relative",
+        }
+      }
+    >
+      <div>
+        <div
+          style={
+            Object {
+              "WebkitTapHighlightColor": "rgba(0,0,0,0)",
+              "backgroundColor": "#ffffff",
+              "borderRadius": 2,
+              "boxShadow": "0 10px 30px rgba(0, 0, 0, 0.19),
+         0 6px 10px rgba(0, 0, 0, 0.23)",
               "boxSizing": "border-box",
               "color": "rgba(0, 0, 0, 0.87)",
               "fontFamily": "Roboto, sans-serif",

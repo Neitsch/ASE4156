@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
-import {Card, CardText, CardHeader,} from 'material-ui/Card';
-import {Table, TableBody, TableRow, TableRowColumn,} from 'material-ui/Table';
+import {Card, CardText, CardHeader} from 'material-ui/Card';
+import {Table, TableBody, TableRow, TableRowColumn} from 'material-ui/Table';
 import FlatButton from 'material-ui/FlatButton';
 import PropTypes from 'prop-types';
 import numeral from 'numeral';
@@ -12,7 +12,7 @@ const formatMoney : (string, number) => string = function(currency : string, num
 
 type valueShape = {
   name: string,
-  value: number,
+  value: number
 }
 
 class Saldo extends React.Component {
@@ -20,13 +20,13 @@ class Saldo extends React.Component {
     currency: "$",
     values: [],
     t: w => w,
-    showTotal: true,
+    showTotal: true
   };
   static propTypes = {
     t: PropTypes.func,
     currency: PropTypes.string,
-    values: PropTypes.arrayOf(PropTypes.shape({name: PropTypes.string.isRequired, value: PropTypes.number.isRequired})),
-    showTotal: PropTypes.bool,
+    values: PropTypes.arrayOf(PropTypes.shape({name: PropTypes.string.isRequired, value: PropTypes.number.isRequired,})),
+    showTotal: PropTypes.bool
   };
   constructor() : void {
     super();
@@ -62,7 +62,7 @@ class Saldo extends React.Component {
   }
   renderCard(values : Array < React$Element < {} >>, bottom : React$Element < {} >, button : React$Element <*>) : React$Element < {} > {
     return(
-      <Card>
+      <Card zDepth={3}>
         <CardHeader title="Saldo"/>
         <CardText>
           <Table>
