@@ -1,43 +1,9 @@
 import React from 'react';
-import {graphql, createRefetchContainer,} from 'react-relay';
+import {graphql, createRefetchContainer} from 'react-relay';
 import {Chart} from 'react-google-charts';
 import {DateRangePicker} from 'react-dates';
+import StockGraph from './components/StockGraph/StockGraph'
 import 'react-dates/lib/css/_datepicker.css';
-
-class StockGraph extends React.Component {
-  makeDate(date) {
-    const dateParts = date.split("-")
-    return new Date(dateParts[0], dateParts[1], dateParts[2])
-  }
-  render() {
-    const data = this.props.quotes.map(q => [
-      this.makeDate(q.date),
-      q.value,
-    ])
-    if (data.length === 0) {
-      return <div>No data</div>
-    }
-    return (
-      <div className={'my-pretty-chart-container'}>
-        <Chart
-          chartType="LineChart"
-          data={[
-          [
-            'Date', 'Value',
-          ],
-          ...data,
-        ]}
-          options={{
-          curveType: 'function'
-        }}
-          graph_id={this.props.id}
-          width="400px"
-          height="400px"
-          legend_toggle/>
-      </div>
-    );
-  }
-}
 
 class StockSearchView extends React.Component {
   constructor() {
@@ -46,7 +12,7 @@ class StockSearchView extends React.Component {
       text: 'Google',
       startDate: null,
       startDate: null,
-      focusedInput: null,
+      focusedInput: null
     };
   }
   setStateCallback = () => {
@@ -58,7 +24,7 @@ class StockSearchView extends React.Component {
         ...vars,
         text: this.state.text,
         start: this.state.startDate.format('YYYY-MM-DD'),
-        end: this.state.endDate.format('YYYY-MM-DD')
+        end: this.state.endDate.format('YYYY-MM-DD'),
       }
     });
   }
@@ -67,6 +33,11 @@ class StockSearchView extends React.Component {
     let state = this.state;
     state[fieldName] = e.target.value;
     this.setState(state, this.setStateCallback);
+  }
+  makeDate(date) {
+    const dateParts = date.split("-")
+    const dateResult = new Date(dateParts[0], dateParts[1] - 1, dateParts[2])
+    return dateResult
   }
   render() {
     return (
@@ -86,7 +57,16 @@ class StockSearchView extends React.Component {
               <tr key={stock.id}>
                 <td>{stock.name}</td>
                 <td>{(stock.quoteInRange.map(d => d.value).reduce((s, v) => s + v, 0) / stock.quoteInRange.length).toFixed(2)}</td>
-                <td><StockGraph id={stock.id} quotes={stock.quoteInRange}/></td>
+                <td><StockGraph
+                  id={stock.id}
+                  quotes={[{
+                  name: stock.name,
+                  data: stock.quoteInRange.map(quote => ({
+                    date: this.makeDate(quote.date),
+                    value: quote.value
+                  }))
+                }
+              ]}/></td>
               </tr>
             ))
 }
@@ -102,10 +82,10 @@ class StockSearchView extends React.Component {
         <DateRangePicker
           startDate={this.state.startDate}
           endDate={this.state.endDate}
-          onDatesChange={({startDate, endDate,}) => {
+          onDatesChange={({startDate, endDate}) => {
           this.setState({
             startDate,
-            endDate,
+            endDate
           }, this.setStateCallback);
         }}
           focusedInput={this.state.focusedInput}
