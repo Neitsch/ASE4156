@@ -1,5 +1,5 @@
 import React from 'react';
-import {graphql, createRefetchContainer} from 'react-relay';
+import {graphql, createRefetchContainer,} from 'react-relay';
 import {Chart} from 'react-google-charts';
 import {DateRangePicker} from 'react-dates';
 import StockGraph from './components/StockGraph/StockGraph'
@@ -12,7 +12,7 @@ class StockSearchView extends React.Component {
       text: 'Google',
       startDate: null,
       startDate: null,
-      focusedInput: null
+      focusedInput: null,
     };
   }
   setStateCallback = () => {
@@ -24,7 +24,7 @@ class StockSearchView extends React.Component {
         ...vars,
         text: this.state.text,
         start: this.state.startDate.format('YYYY-MM-DD'),
-        end: this.state.endDate.format('YYYY-MM-DD'),
+        end: this.state.endDate.format('YYYY-MM-DD')
       }
     });
   }
@@ -71,8 +71,8 @@ class StockSearchView extends React.Component {
                   name: stock.name,
                   data: stock.quoteInRange.map(quote => ({
                     date: this.makeDate(quote.date),
-                    value: quote.value
-                  }))
+                    value: quote.value,
+                  })),
                 }
               ]}/></td>
               </tr>
@@ -90,10 +90,10 @@ class StockSearchView extends React.Component {
         <DateRangePicker
           startDate={this.state.startDate}
           endDate={this.state.endDate}
-          onDatesChange={({startDate, endDate}) => {
+          onDatesChange={({startDate, endDate,}) => {
           this.setState({
             startDate,
-            endDate
+            endDate,
           }, this.setStateCallback);
         }}
           focusedInput={this.state.focusedInput}
@@ -105,7 +105,7 @@ class StockSearchView extends React.Component {
 }
 
 export default createRefetchContainer(StockSearchView, {
-  user: graphql.experimental `
+  user: graphql `
     fragment StockSearchView_user on GUser
     @argumentDefinitions(
       text: {type: "String!", defaultValue: "Google"},
@@ -124,7 +124,7 @@ export default createRefetchContainer(StockSearchView, {
       }
     }
   `
-}, graphql.experimental `
+}, graphql `
   query StockSearchViewQuery($text: String!, $start: String!, $end: String!) {
     viewer {
       ...StockSearchView_user @arguments(text: $text, start: $start, end: $end)

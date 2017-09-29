@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Card, CardTitle, CardText,} from 'material-ui/Card';
+import Card, {CardHeader, CardMedia, CardContent, CardActions} from 'material-ui/Card';
 
 export class CardWF extends React.Component {
   static propTypes = {
@@ -10,11 +10,11 @@ export class CardWF extends React.Component {
   }
   render() {
     return (
-      <Card zDepth={3}>
-        <CardTitle title={this.props.title} subtitle={this.props.subtitle}/>
-        <CardText>
+      <Card>
+        <CardHeader title={this.props.title}/>
+        <CardContent>
           {this.props.cardText}
-        </CardText>
+        </CardContent>
       </Card>
     );
   }
@@ -26,7 +26,7 @@ export class MediaCardWF extends React.Component {
   }
   render() {
     return (
-      <Card zDepth={3}>
+      <Card>
         <div>
           {this.props.content}
         </div>
