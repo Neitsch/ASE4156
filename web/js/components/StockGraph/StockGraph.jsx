@@ -23,7 +23,6 @@ class StockGraph extends React.Component {
       const scale = this.props.compare === 'ABSOLUTE'
         ? 1
         : (1.0 / quote.data[0].value)
-      console.log(scale)
       result.names.push(quote.name);
       result.data = quote.data.reduce((result, datapoint) => {
         if (!(datapoint.date in result)) {
@@ -38,7 +37,7 @@ class StockGraph extends React.Component {
       return result;
     }, {
       names: [],
-      data: {}
+      data: {},
     });
     chartData.data = Object.keys(chartData.data).map(k => [
       k, ...chartData.data[k],

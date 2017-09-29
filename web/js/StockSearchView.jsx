@@ -70,8 +70,8 @@ class StockSearchView extends React.Component {
                   quotes={[{
                   name: stock.name,
                   data: stock.quoteInRange.map(quote => ({
-                    ...quote,
-                    date: this.makeDate(quote.date)
+                    date: this.makeDate(quote.date),
+                    value: quote.value
                   }))
                 }
               ]}/></td>
