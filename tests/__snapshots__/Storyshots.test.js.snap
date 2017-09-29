@@ -89,11 +89,11 @@ exports[`Storyshots HighlightBox Account Total 1`] = `
       className="MuiList-root-75 MuiList-padding-76"
     >
       <li
-        className="MuiListItem-root-116 MuiListItem-gutters-123 MuiListItem-default-119"
+        className="MuiListItem-root-117 MuiListItem-gutters-124 MuiListItem-default-120"
         disabled={false}
       >
         <div
-          className="MuiListItemText-root-126"
+          className="MuiListItemText-root-127"
         />
       </li>
     </ul>
@@ -134,11 +134,11 @@ exports[`Storyshots HighlightBox Annulized Percentage Return 1`] = `
       className="MuiList-root-75 MuiList-padding-76"
     >
       <li
-        className="MuiListItem-root-116 MuiListItem-gutters-123 MuiListItem-default-119"
+        className="MuiListItem-root-117 MuiListItem-gutters-124 MuiListItem-default-120"
         disabled={false}
       >
         <div
-          className="MuiListItemText-root-126"
+          className="MuiListItemText-root-127"
         />
       </li>
     </ul>
@@ -431,12 +431,12 @@ exports[`Storyshots Saldo Playground 1`] = `
           className="MuiTableRow-root-81"
         >
           <td
-            className="MuiTableCell-root-86 MuiTableCell-padding-89"
+            className="MuiTableCell-root-87 withStyles-TableCellWrapper--root-86 MuiTableCell-padding-90"
           >
             investedSharesValue
           </td>
           <td
-            className="MuiTableCell-root-86 MuiTableCell-padding-89"
+            className="MuiTableCell-root-87 withStyles-TableCellWrapper--root-86 MuiTableCell-padding-90"
             style={
               Object {
                 "textAlign": "right",
@@ -450,12 +450,12 @@ exports[`Storyshots Saldo Playground 1`] = `
           className="MuiTableRow-root-81"
         >
           <td
-            className="MuiTableCell-root-86 MuiTableCell-padding-89"
+            className="MuiTableCell-root-87 withStyles-TableCellWrapper--root-86 MuiTableCell-padding-90"
           >
             earnedSharesValue
           </td>
           <td
-            className="MuiTableCell-root-86 MuiTableCell-padding-89"
+            className="MuiTableCell-root-87 withStyles-TableCellWrapper--root-86 MuiTableCell-padding-90"
             style={
               Object {
                 "textAlign": "right",
@@ -469,12 +469,12 @@ exports[`Storyshots Saldo Playground 1`] = `
           className="MuiTableRow-root-81"
         >
           <td
-            className="MuiTableCell-root-86 MuiTableCell-padding-89"
+            className="MuiTableCell-root-87 withStyles-TableCellWrapper--root-86 MuiTableCell-padding-90"
           >
             bonusSharesValue
           </td>
           <td
-            className="MuiTableCell-root-86 MuiTableCell-padding-89"
+            className="MuiTableCell-root-87 withStyles-TableCellWrapper--root-86 MuiTableCell-padding-90"
             style={
               Object {
                 "textAlign": "right",
@@ -488,12 +488,12 @@ exports[`Storyshots Saldo Playground 1`] = `
           className="MuiTableRow-root-81"
         >
           <td
-            className="MuiTableCell-root-86 MuiTableCell-padding-89"
+            className="MuiTableCell-root-87 MuiTableCell-padding-90"
           >
             reinvestedSharesValue
           </td>
           <td
-            className="MuiTableCell-root-86 MuiTableCell-padding-89"
+            className="MuiTableCell-root-87 MuiTableCell-padding-90"
             style={
               Object {
                 "textAlign": "right",
@@ -507,12 +507,12 @@ exports[`Storyshots Saldo Playground 1`] = `
           className="MuiTableRow-root-81"
         >
           <td
-            className="MuiTableCell-root-86 MuiTableCell-padding-89"
+            className="MuiTableCell-root-87 withStyles-TableCellWrapper--root-86 MuiTableCell-padding-90"
           >
             totalSharesValue
           </td>
           <td
-            className="MuiTableCell-root-86 MuiTableCell-padding-89"
+            className="MuiTableCell-root-87 withStyles-TableCellWrapper--root-86 MuiTableCell-padding-90"
             style={
               Object {
                 "textAlign": "right",
@@ -525,7 +525,7 @@ exports[`Storyshots Saldo Playground 1`] = `
       </tbody>
     </table>
     <button
-      className="MuiButtonBase-root-107 MuiButton-root-93 MuiButton-raised-100"
+      className="MuiButtonBase-root-108 MuiButton-root-94 MuiButton-raised-101"
       disabled={false}
       onBlur={[Function]}
       onFocus={[Function]}
@@ -541,12 +541,12 @@ exports[`Storyshots Saldo Playground 1`] = `
       type="button"
     >
       <span
-        className="MuiButton-label-95"
+        className="MuiButton-label-96"
       >
         Sell Shares
       </span>
       <span
-        className="MuiTouchRipple-root-109"
+        className="MuiTouchRipple-root-110"
       />
     </button>
   </div>
