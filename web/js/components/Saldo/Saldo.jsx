@@ -1,8 +1,8 @@
 // @flow
 import React from 'react';
-import {Card, CardText, CardHeader,} from 'material-ui/Card';
-import {Table, TableBody, TableRow, TableRowColumn,} from 'material-ui/Table';
-import FlatButton from 'material-ui/FlatButton';
+import Card, {CardHeader, CardMedia, CardContent, CardActions,} from 'material-ui/Card';
+import Table, {TableBody, TableCell, TableHead, TableRow,} from 'material-ui/Table';
+import Button from 'material-ui/Button';
 import PropTypes from 'prop-types';
 import numeral from 'numeral';
 
@@ -38,22 +38,22 @@ class Saldo extends React.Component {
   collectRow() : React$Element < {} > {
     return(
       <TableRow>
-        <TableRowColumn>{this.props.t('totalSharesValue')}</TableRowColumn>
-        <TableRowColumn style={{
+        <TableCell>{this.props.t('totalSharesValue')}</TableCell>
+        <TableCell style={{
           textAlign: 'right'
         }}>
           {formatMoney(this.props.currency, this.props.values.reduce((sum, o) => sum + o.value, 0))}
-        </TableRowColumn>
+        </TableCell>
       </TableRow>
     );
   }
   valueRow(value : valueShape, i : number, a : Array < valueShape >) : React$Element <*> {
     return(
-      <TableRow displayBorder={i == a.length - 1} key={i}>
-        <TableRowColumn>{this.props.t(value.name)}</TableRowColumn>
-        <TableRowColumn style={{
+      <TableRow key={i}>
+        <TableCell>{this.props.t(value.name)}</TableCell>
+        <TableCell style={{
           textAlign: 'right'
-        }}>{formatMoney(this.props.currency, value.value)}</TableRowColumn>
+        }}>{formatMoney(this.props.currency, value.value)}</TableCell>
       </TableRow>
     );
   }
@@ -62,17 +62,17 @@ class Saldo extends React.Component {
   }
   renderCard(values : Array < React$Element < {} >>, bottom : React$Element < {} >, button : React$Element <*>) : React$Element < {} > {
     return(
-      <Card zDepth={3}>
+      <Card>
         <CardHeader title="Saldo"/>
-        <CardText>
+        <CardContent>
           <Table>
-            <TableBody displayRowCheckbox={false}>
+            <TableBody>
               {values}
               {bottom}
             </TableBody>
           </Table>
           {button}
-        </CardText>
+        </CardContent>
       </Card>
     )
   }
@@ -81,7 +81,10 @@ class Saldo extends React.Component {
     if (this.props.showTotal) {
       collectRow = this.collectRow(this.props.values);
     }
-    return this.renderCard(this.valueRows(this.props.values), collectRow, < FlatButton backgroundColor = "#a4c639" label = "Sell Shares" fullWidth />);
+    const button = <Button raised>
+      Sell Shares
+    </Button>;
+    return this.renderCard(this.valueRows(this.props.values), collectRow, button);
   }
 }
 
