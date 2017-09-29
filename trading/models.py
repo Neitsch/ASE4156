@@ -3,7 +3,7 @@ Models here represents any interaction between a user and stocks
 """
 from authentication.models import Profile
 from django.db import models
-from stocks.models import Stock
+from stocks.models import DailyStockQuote, Stock
 
 
 class TradingAccount(models.Model):
@@ -28,6 +28,20 @@ class Trade(models.Model):
     quantity = models.IntegerField()
     account = models.ForeignKey(TradingAccount, related_name='trades')
     stock = models.ForeignKey(Stock, related_name='trades')
+
+    def get_value(self):
+        """
+        Get value calculates the total value of the trade respecting the date
+        """
+        quote_value = (DailyStockQuote
+                       .objects
+                       .filter(stock_id=self.stock.id)
+                       .filter(date__gt=self.timestamp)
+                       .order_by('date')
+                       .values_list('value', flat=True)
+                       .all()[:1]
+                       .get())
+        return quote_value * self.quantity
 
     def __str__(self):
         return "{}, {}, {}, {}, {}".format(self.id,
