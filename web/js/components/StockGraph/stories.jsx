@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { number, text } from '@storybook/addon-knobs';
+import { select } from '@storybook/addon-knobs';
 import StockGraph from './StockGraph';
 
 storiesOf('StockGraph', module).add('Playground', () => {
@@ -41,6 +41,11 @@ storiesOf('StockGraph', module).add('Playground', () => {
       ],
     },
   ];
-  console.log(values);
-  return (<StockGraph id={'chart'} quotes={values} />);
+  return (<StockGraph
+    id={'chart'}
+    compare={select('Compare type', [
+      'PERCENT', 'ABSOLUTE',
+    ], 'ABSOLUTE')}
+    quotes={values}
+  />);
 });

@@ -40,8 +40,16 @@ class StockSearchView extends React.Component {
     return dateResult
   }
   render() {
+    const quotes = this.props.user.profile.stockFind.map(stock => ({
+      name: stock.name,
+      data: stock.quoteInRange.map(quote => ({
+        ...quote,
+        date: this.makeDate(quote.date),
+      })),
+    }))
     return (
       <div>
+        <StockGraph quotes={quotes} compare={'PERCENT'}/>
         <table style={{
           border: "1px solid black"
         }}>
@@ -62,8 +70,8 @@ class StockSearchView extends React.Component {
                   quotes={[{
                   name: stock.name,
                   data: stock.quoteInRange.map(quote => ({
-                    date: this.makeDate(quote.date),
-                    value: quote.value
+                    ...quote,
+                    date: this.makeDate(quote.date)
                   }))
                 }
               ]}/></td>
