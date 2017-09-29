@@ -1,0 +1,10 @@
+{
+  "presets": [
+    "babel-preset-expo",
+    "env",
+  ],
+  "plugins": [
+    "transform-react-jsx-source",
+    ["relay", {"schema": "./schema.json"}],
+  ],
+}
