@@ -1,1878 +1,338 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Storyshots AppBar Main app bar 1`] = `
-<div
-  style={
-    Object {
-      "background": "#ffffff",
-      "bottom": 0,
-      "left": 0,
-      "position": "absolute",
-      "right": 0,
-      "top": 0,
-    }
-  }
+<header
+  className="MuiPaper-root-8 MuiPaper-shadow4-14 MuiAppBar-root-1 MuiAppBar-positionStatic-4 MuiAppBar-colorDefault-5"
 >
   <div
-    className="SplitPane  vertical "
-    style={
-      Object {
-        "MozUserSelect": "text",
-        "WebkitUserSelect": "text",
-        "display": "flex",
-        "flex": 1,
-        "flexDirection": "row",
-        "height": "100%",
-        "left": 0,
-        "msUserSelect": "text",
-        "outline": "none",
-        "overflow": "hidden",
-        "position": "absolute",
-        "right": 0,
-        "userSelect": "text",
-      }
-    }
+    className="MuiToolbar-root-35 MuiToolbar-gutters-36"
   >
-    <div
-      className="Pane vertical Pane1"
-      style={
-        Object {
-          "flex": 1,
-          "outline": "none",
-          "overflowX": "auto",
-          "overflowY": "auto",
-          "position": "relative",
-        }
-      }
+    <p
+      className="MuiTypography-root-37 MuiTypography-body1-46"
     >
-      <div>
-        <div
-          className={undefined}
-          style={
-            Object {
-              "WebkitTapHighlightColor": "rgba(0,0,0,0)",
-              "backgroundColor": "#CD1309",
-              "borderRadius": "0px",
-              "boxShadow": "0 1px 6px rgba(0, 0, 0, 0.12),
-         0 1px 4px rgba(0, 0, 0, 0.12)",
-              "boxSizing": "border-box",
-              "color": "rgba(0, 0, 0, 0.87)",
-              "display": "flex",
-              "fontFamily": "Roboto, sans-serif",
-              "muiPrepared": true,
-              "paddingLeft": 24,
-              "paddingRight": 24,
-              "position": "relative",
-              "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
-              "width": "100%",
-              "zIndex": 1100,
-            }
-          }
-        >
-          <button
-            disabled={false}
-            onBlur={[Function]}
-            onClick={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onMouseOut={[Function]}
-            onTouchStart={[Function]}
-            style={
-              Object {
-                "WebkitTapHighlightColor": "rgba(0, 0, 0, 0)",
-                "background": "none",
-                "border": 10,
-                "boxSizing": "border-box",
-                "cursor": "pointer",
-                "display": "inline-block",
-                "fontFamily": "Roboto, sans-serif",
-                "fontSize": 0,
-                "fontWeight": "inherit",
-                "height": 48,
-                "margin": 0,
-                "marginLeft": -16,
-                "marginRight": 8,
-                "marginTop": 8,
-                "muiPrepared": true,
-                "outline": "none",
-                "overflow": "visible",
-                "padding": 12,
-                "position": "relative",
-                "textDecoration": "none",
-                "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
-                "verticalAlign": null,
-                "width": 48,
-                "zIndex": 1,
-              }
-            }
-            tabIndex={0}
-            type="button"
-          >
-            <div
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              onTouchEnd={[Function]}
-              onTouchStart={[Function]}
-            >
-              <svg
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "color": "#FFFF00",
-                    "display": "inline-block",
-                    "fill": "#FFFF00",
-                    "height": 24,
-                    "muiPrepared": true,
-                    "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
-                    "userSelect": "none",
-                    "width": 24,
-                  }
-                }
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"
-                />
-              </svg>
-            </div>
-          </button>
-          <h1
-            onClick={[Function]}
-            style={
-              Object {
-                "boxFlex": 1,
-                "color": "#FFFF00",
-                "flex": "1",
-                "fontSize": 24,
-                "fontWeight": 400,
-                "height": 64,
-                "letterSpacing": 0,
-                "lineHeight": "64px",
-                "margin": 0,
-                "muiPrepared": true,
-                "overflow": "hidden",
-                "paddingTop": 0,
-                "textOverflow": "ellipsis",
-                "whiteSpace": "nowrap",
-              }
-            }
-          >
-            Wells Fargo
-          </h1>
-          <button
-            disabled={false}
-            onBlur={[Function]}
-            onClick={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onMouseOut={[Function]}
-            onTouchStart={[Function]}
-            style={
-              Object {
-                "WebkitTapHighlightColor": "rgba(0, 0, 0, 0)",
-                "background": "none",
-                "border": 10,
-                "boxSizing": "border-box",
-                "cursor": "pointer",
-                "display": "inline-block",
-                "fontFamily": "Roboto, sans-serif",
-                "fontSize": 0,
-                "fontWeight": "inherit",
-                "height": 48,
-                "margin": 0,
-                "marginLeft": "auto",
-                "marginRight": -16,
-                "marginTop": 8,
-                "muiPrepared": true,
-                "outline": "none",
-                "overflow": "visible",
-                "padding": 12,
-                "position": "relative",
-                "textDecoration": "none",
-                "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
-                "verticalAlign": null,
-                "width": 48,
-                "zIndex": 1,
-              }
-            }
-            tabIndex={0}
-            type="button"
-          >
-            <div
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              onTouchEnd={[Function]}
-              onTouchStart={[Function]}
-            >
-              <span
-                className="muidocs-icon-navigation-expand-more"
-                color="rgba(0, 0, 0, 0.87)"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "color": "#FFFF00",
-                    "display": "inline-block",
-                    "fill": "#FFFF00",
-                    "fontSize": 24,
-                    "muiPrepared": true,
-                    "position": "relative",
-                    "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
-                    "userSelect": "none",
-                  }
-                }
-              />
-            </div>
-          </button>
-        </div>
-      </div>
-    </div>
-    <span
-      className="Resizer vertical "
-      onClick={[Function]}
-      onDoubleClick={[Function]}
-      onMouseDown={[Function]}
-      onTouchEnd={[Function]}
-      onTouchStart={[Function]}
-      style={
-        Object {
-          "cursor": "col-resize",
-          "marginRight": -6,
-          "width": 10,
-          "zIndex": 1,
-        }
-      }
-    />
-    <div
-      className="Pane vertical Pane2"
-      style={
-        Object {
-          "flex": "none",
-          "outline": "none",
-          "position": "relative",
-          "width": 0,
-        }
-      }
-    >
-      <div
-        className="sb-addon-material-ui-theme_sidebar"
-        style={
-          Object {
-            "height": "100%",
-            "width": "100%",
-          }
-        }
-      />
-    </div>
+      Wells Fargo
+    </p>
   </div>
-</div>
+</header>
 `;
 
 exports[`Storyshots Cards Content card 1`] = `
 <div
-  style={
-    Object {
-      "background": "#ffffff",
-      "bottom": 0,
-      "left": 0,
-      "position": "absolute",
-      "right": 0,
-      "top": 0,
-    }
-  }
+  className="MuiPaper-root-8 MuiPaper-shadow2-12 MuiPaper-rounded-9"
 >
-  <div
-    className="SplitPane  vertical "
-    style={
-      Object {
-        "MozUserSelect": "text",
-        "WebkitUserSelect": "text",
-        "display": "flex",
-        "flex": 1,
-        "flexDirection": "row",
-        "height": "100%",
-        "left": 0,
-        "msUserSelect": "text",
-        "outline": "none",
-        "overflow": "hidden",
-        "position": "absolute",
-        "right": 0,
-        "userSelect": "text",
-      }
-    }
-  >
-    <div
-      className="Pane vertical Pane1"
-      style={
-        Object {
-          "flex": 1,
-          "outline": "none",
-          "overflowX": "auto",
-          "overflowY": "auto",
-          "position": "relative",
-        }
-      }
-    >
-      <div>
-        <div
-          style={
-            Object {
-              "WebkitTapHighlightColor": "rgba(0,0,0,0)",
-              "backgroundColor": "#ffffff",
-              "borderRadius": 2,
-              "boxShadow": "0 10px 30px rgba(0, 0, 0, 0.19),
-         0 6px 10px rgba(0, 0, 0, 0.23)",
-              "boxSizing": "border-box",
-              "color": "rgba(0, 0, 0, 0.87)",
-              "fontFamily": "Roboto, sans-serif",
-              "muiPrepared": true,
-              "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
-              "zIndex": 1,
-            }
-          }
-        >
-          <div
-            style={
-              Object {
-                "paddingBottom": 0,
-              }
-            }
-          >
-            <div>
-              <h1>
-                 Content 
-              </h1>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <span
-      className="Resizer vertical "
-      onClick={[Function]}
-      onDoubleClick={[Function]}
-      onMouseDown={[Function]}
-      onTouchEnd={[Function]}
-      onTouchStart={[Function]}
-      style={
-        Object {
-          "cursor": "col-resize",
-          "marginRight": -6,
-          "width": 10,
-          "zIndex": 1,
-        }
-      }
-    />
-    <div
-      className="Pane vertical Pane2"
-      style={
-        Object {
-          "flex": "none",
-          "outline": "none",
-          "position": "relative",
-          "width": 0,
-        }
-      }
-    >
-      <div
-        className="sb-addon-material-ui-theme_sidebar"
-        style={
-          Object {
-            "height": "100%",
-            "width": "100%",
-          }
-        }
-      />
-    </div>
+  <div>
+    <h1>
+       Content 
+    </h1>
   </div>
 </div>
 `;
 
 exports[`Storyshots Cards Simple card 1`] = `
 <div
-  style={
-    Object {
-      "background": "#ffffff",
-      "bottom": 0,
-      "left": 0,
-      "position": "absolute",
-      "right": 0,
-      "top": 0,
-    }
-  }
+  className="MuiPaper-root-8 MuiPaper-shadow2-12 MuiPaper-rounded-9"
 >
   <div
-    className="SplitPane  vertical "
-    style={
-      Object {
-        "MozUserSelect": "text",
-        "WebkitUserSelect": "text",
-        "display": "flex",
-        "flex": 1,
-        "flexDirection": "row",
-        "height": "100%",
-        "left": 0,
-        "msUserSelect": "text",
-        "outline": "none",
-        "overflow": "hidden",
-        "position": "absolute",
-        "right": 0,
-        "userSelect": "text",
-      }
-    }
+    className="MuiCardContent-root-64 MuiCardHeader-root-59"
   >
     <div
-      className="Pane vertical Pane1"
-      style={
-        Object {
-          "flex": 1,
-          "outline": "none",
-          "overflowX": "auto",
-          "overflowY": "auto",
-          "position": "relative",
-        }
-      }
+      className="MuiCardHeader-content-61"
     >
-      <div>
-        <div
-          style={
-            Object {
-              "WebkitTapHighlightColor": "rgba(0,0,0,0)",
-              "backgroundColor": "#ffffff",
-              "borderRadius": 2,
-              "boxShadow": "0 10px 30px rgba(0, 0, 0, 0.19),
-         0 6px 10px rgba(0, 0, 0, 0.23)",
-              "boxSizing": "border-box",
-              "color": "rgba(0, 0, 0, 0.87)",
-              "fontFamily": "Roboto, sans-serif",
-              "muiPrepared": true,
-              "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
-              "zIndex": 1,
-            }
-          }
-        >
-          <div
-            style={
-              Object {
-                "paddingBottom": 8,
-              }
-            }
-          >
-            <div
-              style={
-                Object {
-                  "muiPrepared": true,
-                  "padding": 16,
-                  "position": "relative",
-                }
-              }
-            >
-              <span
-                style={
-                  Object {
-                    "color": "rgba(0, 0, 0, 0.87)",
-                    "display": "block",
-                    "fontSize": 24,
-                    "lineHeight": "36px",
-                    "muiPrepared": true,
-                  }
-                }
-              >
-                Title
-              </span>
-              <span
-                style={
-                  Object {
-                    "color": "rgba(0, 0, 0, 0.54)",
-                    "display": "block",
-                    "fontSize": 14,
-                    "muiPrepared": true,
-                  }
-                }
-              >
-                sub
-              </span>
-            </div>
-            <div
-              style={
-                Object {
-                  "color": "rgba(0, 0, 0, 0.87)",
-                  "fontSize": 14,
-                  "muiPrepared": true,
-                  "padding": 16,
-                }
-              }
-            >
-              fdsa
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <span
-      className="Resizer vertical "
-      onClick={[Function]}
-      onDoubleClick={[Function]}
-      onMouseDown={[Function]}
-      onTouchEnd={[Function]}
-      onTouchStart={[Function]}
-      style={
-        Object {
-          "cursor": "col-resize",
-          "marginRight": -6,
-          "width": 10,
-          "zIndex": 1,
-        }
-      }
-    />
-    <div
-      className="Pane vertical Pane2"
-      style={
-        Object {
-          "flex": "none",
-          "outline": "none",
-          "position": "relative",
-          "width": 0,
-        }
-      }
-    >
-      <div
-        className="sb-addon-material-ui-theme_sidebar"
-        style={
-          Object {
-            "height": "100%",
-            "width": "100%",
-          }
-        }
+      <span
+        className="MuiTypography-root-37 MuiTypography-headline-42 MuiCardHeader-title-62"
+      >
+        Title
+      </span>
+      <span
+        className="MuiTypography-root-37 MuiTypography-body1-46 MuiTypography-colorSecondary-57 MuiCardHeader-subheader-63"
       />
     </div>
+  </div>
+  <div
+    className="MuiCardContent-root-64"
+  >
+    fdsa
   </div>
 </div>
 `;
 
 exports[`Storyshots HighlightBox Account Total 1`] = `
 <div
-  style={
-    Object {
-      "background": "#ffffff",
-      "bottom": 0,
-      "left": 0,
-      "position": "absolute",
-      "right": 0,
-      "top": 0,
-    }
-  }
+  className="MuiPaper-root-8 MuiPaper-shadow2-12 MuiPaper-rounded-9"
 >
   <div
-    className="SplitPane  vertical "
-    style={
-      Object {
-        "MozUserSelect": "text",
-        "WebkitUserSelect": "text",
-        "display": "flex",
-        "flex": 1,
-        "flexDirection": "row",
-        "height": "100%",
-        "left": 0,
-        "msUserSelect": "text",
-        "outline": "none",
-        "overflow": "hidden",
-        "position": "absolute",
-        "right": 0,
-        "userSelect": "text",
-      }
-    }
+    className="MuiCardContent-root-64 MuiCardHeader-root-59"
   >
     <div
-      className="Pane vertical Pane1"
-      style={
-        Object {
-          "flex": 1,
-          "outline": "none",
-          "overflowX": "auto",
-          "overflowY": "auto",
-          "position": "relative",
-        }
-      }
+      className="MuiCardHeader-content-61"
     >
-      <div>
-        <div
-          style={
-            Object {
-              "WebkitTapHighlightColor": "rgba(0,0,0,0)",
-              "backgroundColor": "#ffffff",
-              "borderRadius": 2,
-              "boxShadow": "0 1px 6px rgba(0, 0, 0, 0.12),
-         0 1px 4px rgba(0, 0, 0, 0.12)",
-              "boxSizing": "border-box",
-              "color": "rgba(0, 0, 0, 0.87)",
-              "fontFamily": "Roboto, sans-serif",
-              "muiPrepared": true,
-              "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
-              "zIndex": 1,
-            }
-          }
-        >
-          <div
-            style={
-              Object {
-                "border": "1px solid black",
-                "paddingBottom": 8,
-              }
-            }
-          >
-            <div
-              style={
-                Object {
-                  "boxSizing": "border-box",
-                  "fontWeight": 500,
-                  "muiPrepared": true,
-                  "padding": 16,
-                  "position": "relative",
-                  "whiteSpace": "nowrap",
-                }
-              }
-            >
-              <div
-                style={
-                  Object {
-                    "display": "inline-block",
-                    "muiPrepared": true,
-                    "paddingRight": "90px",
-                    "verticalAlign": "top",
-                    "whiteSpace": "normal",
-                  }
-                }
-              >
-                <span
-                  style={
-                    Object {
-                      "color": "rgba(0, 0, 0, 0.87)",
-                      "display": "block",
-                      "fontSize": 15,
-                      "muiPrepared": true,
-                    }
-                  }
-                >
-                  Account Total
-                </span>
-                <span
-                  style={
-                    Object {
-                      "color": "rgba(0, 0, 0, 0.54)",
-                      "display": "block",
-                      "fontSize": 14,
-                      "muiPrepared": true,
-                    }
-                  }
-                />
-              </div>
-            </div>
-            <div
-              style={
-                Object {
-                  "color": "rgba(0, 0, 0, 0.87)",
-                  "fontSize": 14,
-                  "muiPrepared": true,
-                  "padding": 16,
-                }
-              }
-            >
-              <h1>
-                $7,749.34
-              </h1>
-              <hr
-                style={
-                  Object {
-                    "backgroundColor": "#e0e0e0",
-                    "border": "none",
-                    "height": 1,
-                    "margin": 0,
-                    "marginLeft": 0,
-                    "marginTop": -1,
-                    "muiPrepared": true,
-                  }
-                }
-              />
-              <div
-                style={
-                  Object {
-                    "muiPrepared": true,
-                    "padding": "8px 0px 8px 0px",
-                  }
-                }
-              >
-                <div>
-                  <span
-                    disabled={false}
-                    onBlur={[Function]}
-                    onClick={[Function]}
-                    onFocus={[Function]}
-                    onKeyDown={[Function]}
-                    onKeyUp={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    onTouchEnd={[Function]}
-                    onTouchStart={[Function]}
-                    open={null}
-                    style={
-                      Object {
-                        "WebkitTapHighlightColor": "rgba(0, 0, 0, 0)",
-                        "background": "none",
-                        "backgroundColor": null,
-                        "border": 10,
-                        "boxSizing": "border-box",
-                        "color": "rgba(0, 0, 0, 0.87)",
-                        "cursor": "pointer",
-                        "display": "block",
-                        "fontFamily": "Roboto, sans-serif",
-                        "fontSize": 16,
-                        "fontWeight": "inherit",
-                        "lineHeight": "16px",
-                        "margin": 0,
-                        "muiPrepared": true,
-                        "outline": "none",
-                        "padding": 0,
-                        "position": "relative",
-                        "textDecoration": "none",
-                        "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
-                        "verticalAlign": null,
-                        "zIndex": 1,
-                      }
-                    }
-                    tabIndex={0}
-                  >
-                    <div
-                      onMouseDown={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      onTouchEnd={[Function]}
-                      onTouchStart={[Function]}
-                    >
-                      <div
-                        style={
-                          Object {
-                            "marginLeft": 0,
-                            "muiPrepared": true,
-                            "paddingBottom": 16,
-                            "paddingLeft": 16,
-                            "paddingRight": 16,
-                            "paddingTop": 16,
-                            "position": "relative",
-                          }
-                        }
-                      >
-                        <div
-                          style={
-                            Object {
-                              "muiPrepared": true,
-                            }
-                          }
-                        >
-                          $7,000.00 Invested Total
-                        </div>
-                      </div>
-                    </div>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <span
-      className="Resizer vertical "
-      onClick={[Function]}
-      onDoubleClick={[Function]}
-      onMouseDown={[Function]}
-      onTouchEnd={[Function]}
-      onTouchStart={[Function]}
-      style={
-        Object {
-          "cursor": "col-resize",
-          "marginRight": -6,
-          "width": 10,
-          "zIndex": 1,
-        }
-      }
-    />
-    <div
-      className="Pane vertical Pane2"
-      style={
-        Object {
-          "flex": "none",
-          "outline": "none",
-          "position": "relative",
-          "width": 0,
-        }
-      }
-    >
-      <div
-        className="sb-addon-material-ui-theme_sidebar"
-        style={
-          Object {
-            "height": "100%",
-            "width": "100%",
-          }
-        }
+      <span
+        className="MuiTypography-root-37 MuiTypography-headline-42 MuiCardHeader-title-62"
+      >
+        Account Total
+      </span>
+      <span
+        className="MuiTypography-root-37 MuiTypography-body1-46 MuiTypography-colorSecondary-57 MuiCardHeader-subheader-63"
       />
     </div>
+  </div>
+  <div
+    className="MuiCardContent-root-64"
+  >
+    <h1>
+      $7,749.34
+    </h1>
+    <hr
+      className="MuiDivider-root-148 MuiDivider-default-149"
+    />
+    <ul
+      className="MuiList-root-153 MuiList-padding-154"
+    >
+      <li
+        className="MuiListItem-root-195 MuiListItem-gutters-202 MuiListItem-default-198"
+        disabled={false}
+      >
+        <div
+          className="MuiListItemText-root-205"
+        />
+      </li>
+    </ul>
   </div>
 </div>
 `;
 
 exports[`Storyshots HighlightBox Annulized Percentage Return 1`] = `
 <div
-  style={
-    Object {
-      "background": "#ffffff",
-      "bottom": 0,
-      "left": 0,
-      "position": "absolute",
-      "right": 0,
-      "top": 0,
-    }
-  }
+  className="MuiPaper-root-8 MuiPaper-shadow2-12 MuiPaper-rounded-9"
 >
   <div
-    className="SplitPane  vertical "
-    style={
-      Object {
-        "MozUserSelect": "text",
-        "WebkitUserSelect": "text",
-        "display": "flex",
-        "flex": 1,
-        "flexDirection": "row",
-        "height": "100%",
-        "left": 0,
-        "msUserSelect": "text",
-        "outline": "none",
-        "overflow": "hidden",
-        "position": "absolute",
-        "right": 0,
-        "userSelect": "text",
-      }
-    }
+    className="MuiCardContent-root-64 MuiCardHeader-root-59"
   >
     <div
-      className="Pane vertical Pane1"
-      style={
-        Object {
-          "flex": 1,
-          "outline": "none",
-          "overflowX": "auto",
-          "overflowY": "auto",
-          "position": "relative",
-        }
-      }
+      className="MuiCardHeader-content-61"
     >
-      <div>
-        <div
-          style={
-            Object {
-              "WebkitTapHighlightColor": "rgba(0,0,0,0)",
-              "backgroundColor": "#ffffff",
-              "borderRadius": 2,
-              "boxShadow": "0 1px 6px rgba(0, 0, 0, 0.12),
-         0 1px 4px rgba(0, 0, 0, 0.12)",
-              "boxSizing": "border-box",
-              "color": "rgba(0, 0, 0, 0.87)",
-              "fontFamily": "Roboto, sans-serif",
-              "muiPrepared": true,
-              "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
-              "zIndex": 1,
-            }
-          }
-        >
-          <div
-            style={
-              Object {
-                "border": "1px solid black",
-                "paddingBottom": 8,
-              }
-            }
-          >
-            <div
-              style={
-                Object {
-                  "boxSizing": "border-box",
-                  "fontWeight": 500,
-                  "muiPrepared": true,
-                  "padding": 16,
-                  "position": "relative",
-                  "whiteSpace": "nowrap",
-                }
-              }
-            >
-              <div
-                style={
-                  Object {
-                    "display": "inline-block",
-                    "muiPrepared": true,
-                    "paddingRight": "90px",
-                    "verticalAlign": "top",
-                    "whiteSpace": "normal",
-                  }
-                }
-              >
-                <span
-                  style={
-                    Object {
-                      "color": "rgba(0, 0, 0, 0.87)",
-                      "display": "block",
-                      "fontSize": 15,
-                      "muiPrepared": true,
-                    }
-                  }
-                >
-                  Annulized Percentage Return
-                </span>
-                <span
-                  style={
-                    Object {
-                      "color": "rgba(0, 0, 0, 0.54)",
-                      "display": "block",
-                      "fontSize": 14,
-                      "muiPrepared": true,
-                    }
-                  }
-                />
-              </div>
-            </div>
-            <div
-              style={
-                Object {
-                  "color": "rgba(0, 0, 0, 0.87)",
-                  "fontSize": 14,
-                  "muiPrepared": true,
-                  "padding": 16,
-                }
-              }
-            >
-              <h1>
-                3.75%
-              </h1>
-              <hr
-                style={
-                  Object {
-                    "backgroundColor": "#e0e0e0",
-                    "border": "none",
-                    "height": 1,
-                    "margin": 0,
-                    "marginLeft": 0,
-                    "marginTop": -1,
-                    "muiPrepared": true,
-                  }
-                }
-              />
-              <div
-                style={
-                  Object {
-                    "muiPrepared": true,
-                    "padding": "8px 0px 8px 0px",
-                  }
-                }
-              >
-                <div>
-                  <span
-                    disabled={false}
-                    onBlur={[Function]}
-                    onClick={[Function]}
-                    onFocus={[Function]}
-                    onKeyDown={[Function]}
-                    onKeyUp={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    onTouchEnd={[Function]}
-                    onTouchStart={[Function]}
-                    open={null}
-                    style={
-                      Object {
-                        "WebkitTapHighlightColor": "rgba(0, 0, 0, 0)",
-                        "background": "none",
-                        "backgroundColor": null,
-                        "border": 10,
-                        "boxSizing": "border-box",
-                        "color": "rgba(0, 0, 0, 0.87)",
-                        "cursor": "pointer",
-                        "display": "block",
-                        "fontFamily": "Roboto, sans-serif",
-                        "fontSize": 16,
-                        "fontWeight": "inherit",
-                        "lineHeight": "16px",
-                        "margin": 0,
-                        "muiPrepared": true,
-                        "outline": "none",
-                        "padding": 0,
-                        "position": "relative",
-                        "textDecoration": "none",
-                        "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
-                        "verticalAlign": null,
-                        "zIndex": 1,
-                      }
-                    }
-                    tabIndex={0}
-                  >
-                    <div
-                      onMouseDown={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      onTouchEnd={[Function]}
-                      onTouchStart={[Function]}
-                    >
-                      <div
-                        style={
-                          Object {
-                            "marginLeft": 0,
-                            "muiPrepared": true,
-                            "paddingBottom": 16,
-                            "paddingLeft": 16,
-                            "paddingRight": 16,
-                            "paddingTop": 16,
-                            "position": "relative",
-                          }
-                        }
-                      >
-                        <div
-                          style={
-                            Object {
-                              "muiPrepared": true,
-                            }
-                          }
-                        >
-                          $774.90 Total Shares Owneed
-                        </div>
-                      </div>
-                    </div>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <span
-      className="Resizer vertical "
-      onClick={[Function]}
-      onDoubleClick={[Function]}
-      onMouseDown={[Function]}
-      onTouchEnd={[Function]}
-      onTouchStart={[Function]}
-      style={
-        Object {
-          "cursor": "col-resize",
-          "marginRight": -6,
-          "width": 10,
-          "zIndex": 1,
-        }
-      }
-    />
-    <div
-      className="Pane vertical Pane2"
-      style={
-        Object {
-          "flex": "none",
-          "outline": "none",
-          "position": "relative",
-          "width": 0,
-        }
-      }
-    >
-      <div
-        className="sb-addon-material-ui-theme_sidebar"
-        style={
-          Object {
-            "height": "100%",
-            "width": "100%",
-          }
-        }
+      <span
+        className="MuiTypography-root-37 MuiTypography-headline-42 MuiCardHeader-title-62"
+      >
+        Annulized Percentage Return
+      </span>
+      <span
+        className="MuiTypography-root-37 MuiTypography-body1-46 MuiTypography-colorSecondary-57 MuiCardHeader-subheader-63"
       />
     </div>
+  </div>
+  <div
+    className="MuiCardContent-root-64"
+  >
+    <h1>
+      3.75%
+    </h1>
+    <hr
+      className="MuiDivider-root-148 MuiDivider-default-149"
+    />
+    <ul
+      className="MuiList-root-153 MuiList-padding-154"
+    >
+      <li
+        className="MuiListItem-root-195 MuiListItem-gutters-202 MuiListItem-default-198"
+        disabled={false}
+      >
+        <div
+          className="MuiListItemText-root-205"
+        />
+      </li>
+    </ul>
   </div>
 </div>
 `;
 
 exports[`Storyshots Page Test page 1`] = `
 <div
-  style={
-    Object {
-      "background": "#ffffff",
-      "bottom": 0,
-      "left": 0,
-      "position": "absolute",
-      "right": 0,
-      "top": 0,
-    }
-  }
+  className="MuiGrid-typeContainer-65 MuiGrid-spacing-xs-16-80"
 >
   <div
-    className="SplitPane  vertical "
-    style={
-      Object {
-        "MozUserSelect": "text",
-        "WebkitUserSelect": "text",
-        "display": "flex",
-        "flex": 1,
-        "flexDirection": "row",
-        "height": "100%",
-        "left": 0,
-        "msUserSelect": "text",
-        "outline": "none",
-        "overflow": "hidden",
-        "position": "absolute",
-        "right": 0,
-        "userSelect": "text",
-      }
-    }
+    className="MuiGrid-typeItem-66 MuiGrid-grid-xs-4-87"
   >
     <div
-      className="Pane vertical Pane1"
-      style={
-        Object {
-          "flex": 1,
-          "outline": "none",
-          "overflowX": "auto",
-          "overflowY": "auto",
-          "position": "relative",
-        }
-      }
-    >
-      <div>
-        <div
-          style={
-            Object {
-              "display": "flex",
-              "flexWrap": "wrap",
-              "margin": -2,
-              "muiPrepared": true,
-            }
-          }
-        >
-          <div
-            style={
-              Object {
-                "boxSizing": "border-box",
-                "height": "auto",
-                "muiPrepared": true,
-                "padding": 2,
-                "width": "33.333333333333336%",
-              }
-            }
-          >
-            <div
-              cols={1}
-              rows={1}
-              style={
-                Object {
-                  "display": "block",
-                  "height": "100%",
-                  "muiPrepared": true,
-                  "overflow": "hidden",
-                  "position": "relative",
-                }
-              }
-            >
-              <div
-                style={
-                  Object {
-                    "WebkitTapHighlightColor": "rgba(0,0,0,0)",
-                    "backgroundColor": "#ffffff",
-                    "borderRadius": 2,
-                    "boxShadow": "0 1px 6px rgba(0, 0, 0, 0.12),
-         0 1px 4px rgba(0, 0, 0, 0.12)",
-                    "boxSizing": "border-box",
-                    "color": "rgba(0, 0, 0, 0.87)",
-                    "fontFamily": "Roboto, sans-serif",
-                    "muiPrepared": true,
-                    "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
-                    "zIndex": 1,
-                  }
-                }
-              >
-                <div
-                  style={
-                    Object {
-                      "border": "1px solid black",
-                      "paddingBottom": 8,
-                    }
-                  }
-                >
-                  <div
-                    style={
-                      Object {
-                        "boxSizing": "border-box",
-                        "fontWeight": 500,
-                        "muiPrepared": true,
-                        "padding": 16,
-                        "position": "relative",
-                        "whiteSpace": "nowrap",
-                      }
-                    }
-                  >
-                    <div
-                      style={
-                        Object {
-                          "display": "inline-block",
-                          "muiPrepared": true,
-                          "paddingRight": "90px",
-                          "verticalAlign": "top",
-                          "whiteSpace": "normal",
-                        }
-                      }
-                    >
-                      <span
-                        style={
-                          Object {
-                            "color": "rgba(0, 0, 0, 0.87)",
-                            "display": "block",
-                            "fontSize": 15,
-                            "muiPrepared": true,
-                          }
-                        }
-                      >
-                        Title 1
-                      </span>
-                      <span
-                        style={
-                          Object {
-                            "color": "rgba(0, 0, 0, 0.54)",
-                            "display": "block",
-                            "fontSize": 14,
-                            "muiPrepared": true,
-                          }
-                        }
-                      />
-                    </div>
-                  </div>
-                  <div
-                    style={
-                      Object {
-                        "color": "rgba(0, 0, 0, 0.87)",
-                        "fontSize": 14,
-                        "muiPrepared": true,
-                        "padding": 16,
-                      }
-                    }
-                  >
-                    <h1>
-                      1
-                    </h1>
-                    <hr
-                      style={
-                        Object {
-                          "backgroundColor": "#e0e0e0",
-                          "border": "none",
-                          "height": 1,
-                          "margin": 0,
-                          "marginLeft": 0,
-                          "marginTop": -1,
-                          "muiPrepared": true,
-                        }
-                      }
-                    />
-                    <div
-                      style={
-                        Object {
-                          "muiPrepared": true,
-                          "padding": "8px 0px 8px 0px",
-                        }
-                      }
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            style={
-              Object {
-                "boxSizing": "border-box",
-                "height": "auto",
-                "muiPrepared": true,
-                "padding": 2,
-                "width": "66.66666666666667%",
-              }
-            }
-          >
-            <div
-              cols={2}
-              rows={2}
-              style={
-                Object {
-                  "display": "block",
-                  "height": "100%",
-                  "muiPrepared": true,
-                  "overflow": "hidden",
-                  "position": "relative",
-                }
-              }
-            >
-              <div
-                style={
-                  Object {
-                    "WebkitTapHighlightColor": "rgba(0,0,0,0)",
-                    "backgroundColor": "#ffffff",
-                    "borderRadius": 2,
-                    "boxShadow": "0 1px 6px rgba(0, 0, 0, 0.12),
-         0 1px 4px rgba(0, 0, 0, 0.12)",
-                    "boxSizing": "border-box",
-                    "color": "rgba(0, 0, 0, 0.87)",
-                    "fontFamily": "Roboto, sans-serif",
-                    "muiPrepared": true,
-                    "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
-                    "zIndex": 1,
-                  }
-                }
-              >
-                <div
-                  style={
-                    Object {
-                      "border": "1px solid black",
-                      "paddingBottom": 8,
-                    }
-                  }
-                >
-                  <div
-                    style={
-                      Object {
-                        "boxSizing": "border-box",
-                        "fontWeight": 500,
-                        "muiPrepared": true,
-                        "padding": 16,
-                        "position": "relative",
-                        "whiteSpace": "nowrap",
-                      }
-                    }
-                  >
-                    <div
-                      style={
-                        Object {
-                          "display": "inline-block",
-                          "muiPrepared": true,
-                          "paddingRight": "90px",
-                          "verticalAlign": "top",
-                          "whiteSpace": "normal",
-                        }
-                      }
-                    >
-                      <span
-                        style={
-                          Object {
-                            "color": "rgba(0, 0, 0, 0.87)",
-                            "display": "block",
-                            "fontSize": 15,
-                            "muiPrepared": true,
-                          }
-                        }
-                      >
-                        Title 3
-                      </span>
-                      <span
-                        style={
-                          Object {
-                            "color": "rgba(0, 0, 0, 0.54)",
-                            "display": "block",
-                            "fontSize": 14,
-                            "muiPrepared": true,
-                          }
-                        }
-                      />
-                    </div>
-                  </div>
-                  <div
-                    style={
-                      Object {
-                        "color": "rgba(0, 0, 0, 0.87)",
-                        "fontSize": 14,
-                        "muiPrepared": true,
-                        "padding": 16,
-                      }
-                    }
-                  >
-                    <h1>
-                      3
-                    </h1>
-                    <hr
-                      style={
-                        Object {
-                          "backgroundColor": "#e0e0e0",
-                          "border": "none",
-                          "height": 1,
-                          "margin": 0,
-                          "marginLeft": 0,
-                          "marginTop": -1,
-                          "muiPrepared": true,
-                        }
-                      }
-                    />
-                    <div
-                      style={
-                        Object {
-                          "muiPrepared": true,
-                          "padding": "8px 0px 8px 0px",
-                        }
-                      }
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            style={
-              Object {
-                "boxSizing": "border-box",
-                "height": "auto",
-                "muiPrepared": true,
-                "padding": 2,
-                "width": "33.333333333333336%",
-              }
-            }
-          >
-            <div
-              cols={1}
-              rows={1}
-              style={
-                Object {
-                  "display": "block",
-                  "height": "100%",
-                  "muiPrepared": true,
-                  "overflow": "hidden",
-                  "position": "relative",
-                }
-              }
-            >
-              <div
-                style={
-                  Object {
-                    "WebkitTapHighlightColor": "rgba(0,0,0,0)",
-                    "backgroundColor": "#ffffff",
-                    "borderRadius": 2,
-                    "boxShadow": "0 1px 6px rgba(0, 0, 0, 0.12),
-         0 1px 4px rgba(0, 0, 0, 0.12)",
-                    "boxSizing": "border-box",
-                    "color": "rgba(0, 0, 0, 0.87)",
-                    "fontFamily": "Roboto, sans-serif",
-                    "muiPrepared": true,
-                    "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
-                    "zIndex": 1,
-                  }
-                }
-              >
-                <div
-                  style={
-                    Object {
-                      "border": "1px solid black",
-                      "paddingBottom": 8,
-                    }
-                  }
-                >
-                  <div
-                    style={
-                      Object {
-                        "boxSizing": "border-box",
-                        "fontWeight": 500,
-                        "muiPrepared": true,
-                        "padding": 16,
-                        "position": "relative",
-                        "whiteSpace": "nowrap",
-                      }
-                    }
-                  >
-                    <div
-                      style={
-                        Object {
-                          "display": "inline-block",
-                          "muiPrepared": true,
-                          "paddingRight": "90px",
-                          "verticalAlign": "top",
-                          "whiteSpace": "normal",
-                        }
-                      }
-                    >
-                      <span
-                        style={
-                          Object {
-                            "color": "rgba(0, 0, 0, 0.87)",
-                            "display": "block",
-                            "fontSize": 15,
-                            "muiPrepared": true,
-                          }
-                        }
-                      >
-                        Title 2
-                      </span>
-                      <span
-                        style={
-                          Object {
-                            "color": "rgba(0, 0, 0, 0.54)",
-                            "display": "block",
-                            "fontSize": 14,
-                            "muiPrepared": true,
-                          }
-                        }
-                      />
-                    </div>
-                  </div>
-                  <div
-                    style={
-                      Object {
-                        "color": "rgba(0, 0, 0, 0.87)",
-                        "fontSize": 14,
-                        "muiPrepared": true,
-                        "padding": 16,
-                      }
-                    }
-                  >
-                    <h1>
-                      2
-                    </h1>
-                    <hr
-                      style={
-                        Object {
-                          "backgroundColor": "#e0e0e0",
-                          "border": "none",
-                          "height": 1,
-                          "margin": 0,
-                          "marginLeft": 0,
-                          "marginTop": -1,
-                          "muiPrepared": true,
-                        }
-                      }
-                    />
-                    <div
-                      style={
-                        Object {
-                          "muiPrepared": true,
-                          "padding": "8px 0px 8px 0px",
-                        }
-                      }
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            style={
-              Object {
-                "boxSizing": "border-box",
-                "height": "auto",
-                "muiPrepared": true,
-                "padding": 2,
-                "width": "33.333333333333336%",
-              }
-            }
-          >
-            <div
-              cols={1}
-              rows={1}
-              style={
-                Object {
-                  "display": "block",
-                  "height": "100%",
-                  "muiPrepared": true,
-                  "overflow": "hidden",
-                  "position": "relative",
-                }
-              }
-            >
-              <div
-                style={
-                  Object {
-                    "WebkitTapHighlightColor": "rgba(0,0,0,0)",
-                    "backgroundColor": "#ffffff",
-                    "borderRadius": 2,
-                    "boxShadow": "0 1px 6px rgba(0, 0, 0, 0.12),
-         0 1px 4px rgba(0, 0, 0, 0.12)",
-                    "boxSizing": "border-box",
-                    "color": "rgba(0, 0, 0, 0.87)",
-                    "fontFamily": "Roboto, sans-serif",
-                    "muiPrepared": true,
-                    "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
-                    "zIndex": 1,
-                  }
-                }
-              >
-                <div
-                  style={
-                    Object {
-                      "border": "1px solid black",
-                      "paddingBottom": 8,
-                    }
-                  }
-                >
-                  <div
-                    style={
-                      Object {
-                        "boxSizing": "border-box",
-                        "fontWeight": 500,
-                        "muiPrepared": true,
-                        "padding": 16,
-                        "position": "relative",
-                        "whiteSpace": "nowrap",
-                      }
-                    }
-                  >
-                    <div
-                      style={
-                        Object {
-                          "display": "inline-block",
-                          "muiPrepared": true,
-                          "paddingRight": "90px",
-                          "verticalAlign": "top",
-                          "whiteSpace": "normal",
-                        }
-                      }
-                    >
-                      <span
-                        style={
-                          Object {
-                            "color": "rgba(0, 0, 0, 0.87)",
-                            "display": "block",
-                            "fontSize": 15,
-                            "muiPrepared": true,
-                          }
-                        }
-                      >
-                        Title 4
-                      </span>
-                      <span
-                        style={
-                          Object {
-                            "color": "rgba(0, 0, 0, 0.54)",
-                            "display": "block",
-                            "fontSize": 14,
-                            "muiPrepared": true,
-                          }
-                        }
-                      />
-                    </div>
-                  </div>
-                  <div
-                    style={
-                      Object {
-                        "color": "rgba(0, 0, 0, 0.87)",
-                        "fontSize": 14,
-                        "muiPrepared": true,
-                        "padding": 16,
-                      }
-                    }
-                  >
-                    <h1>
-                      2
-                    </h1>
-                    <hr
-                      style={
-                        Object {
-                          "backgroundColor": "#e0e0e0",
-                          "border": "none",
-                          "height": 1,
-                          "margin": 0,
-                          "marginLeft": 0,
-                          "marginTop": -1,
-                          "muiPrepared": true,
-                        }
-                      }
-                    />
-                    <div
-                      style={
-                        Object {
-                          "muiPrepared": true,
-                          "padding": "8px 0px 8px 0px",
-                        }
-                      }
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            style={
-              Object {
-                "boxSizing": "border-box",
-                "height": "auto",
-                "muiPrepared": true,
-                "padding": 2,
-                "width": "33.333333333333336%",
-              }
-            }
-          >
-            <div
-              cols={1}
-              rows={1}
-              style={
-                Object {
-                  "display": "block",
-                  "height": "100%",
-                  "muiPrepared": true,
-                  "overflow": "hidden",
-                  "position": "relative",
-                }
-              }
-            >
-              <div
-                style={
-                  Object {
-                    "WebkitTapHighlightColor": "rgba(0,0,0,0)",
-                    "backgroundColor": "#ffffff",
-                    "borderRadius": 2,
-                    "boxShadow": "0 1px 6px rgba(0, 0, 0, 0.12),
-         0 1px 4px rgba(0, 0, 0, 0.12)",
-                    "boxSizing": "border-box",
-                    "color": "rgba(0, 0, 0, 0.87)",
-                    "fontFamily": "Roboto, sans-serif",
-                    "muiPrepared": true,
-                    "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
-                    "zIndex": 1,
-                  }
-                }
-              >
-                <div
-                  style={
-                    Object {
-                      "border": "1px solid black",
-                      "paddingBottom": 8,
-                    }
-                  }
-                >
-                  <div
-                    style={
-                      Object {
-                        "boxSizing": "border-box",
-                        "fontWeight": 500,
-                        "muiPrepared": true,
-                        "padding": 16,
-                        "position": "relative",
-                        "whiteSpace": "nowrap",
-                      }
-                    }
-                  >
-                    <div
-                      style={
-                        Object {
-                          "display": "inline-block",
-                          "muiPrepared": true,
-                          "paddingRight": "90px",
-                          "verticalAlign": "top",
-                          "whiteSpace": "normal",
-                        }
-                      }
-                    >
-                      <span
-                        style={
-                          Object {
-                            "color": "rgba(0, 0, 0, 0.87)",
-                            "display": "block",
-                            "fontSize": 15,
-                            "muiPrepared": true,
-                          }
-                        }
-                      >
-                        Title 5
-                      </span>
-                      <span
-                        style={
-                          Object {
-                            "color": "rgba(0, 0, 0, 0.54)",
-                            "display": "block",
-                            "fontSize": 14,
-                            "muiPrepared": true,
-                          }
-                        }
-                      />
-                    </div>
-                  </div>
-                  <div
-                    style={
-                      Object {
-                        "color": "rgba(0, 0, 0, 0.87)",
-                        "fontSize": 14,
-                        "muiPrepared": true,
-                        "padding": 16,
-                      }
-                    }
-                  >
-                    <h1>
-                      2
-                    </h1>
-                    <hr
-                      style={
-                        Object {
-                          "backgroundColor": "#e0e0e0",
-                          "border": "none",
-                          "height": 1,
-                          "margin": 0,
-                          "marginLeft": 0,
-                          "marginTop": -1,
-                          "muiPrepared": true,
-                        }
-                      }
-                    />
-                    <div
-                      style={
-                        Object {
-                          "muiPrepared": true,
-                          "padding": "8px 0px 8px 0px",
-                        }
-                      }
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <span
-      className="Resizer vertical "
-      onClick={[Function]}
-      onDoubleClick={[Function]}
-      onMouseDown={[Function]}
-      onTouchEnd={[Function]}
-      onTouchStart={[Function]}
-      style={
-        Object {
-          "cursor": "col-resize",
-          "marginRight": -6,
-          "width": 10,
-          "zIndex": 1,
-        }
-      }
-    />
-    <div
-      className="Pane vertical Pane2"
-      style={
-        Object {
-          "flex": "none",
-          "outline": "none",
-          "position": "relative",
-          "width": 0,
-        }
-      }
+      className="MuiPaper-root-8 MuiPaper-shadow2-12 MuiPaper-rounded-9"
     >
       <div
-        className="sb-addon-material-ui-theme_sidebar"
-        style={
-          Object {
-            "height": "100%",
-            "width": "100%",
-          }
-        }
-      />
+        className="MuiCardContent-root-64 MuiCardHeader-root-59"
+      >
+        <div
+          className="MuiCardHeader-content-61"
+        >
+          <span
+            className="MuiTypography-root-37 MuiTypography-headline-42 MuiCardHeader-title-62"
+          >
+            Title 1
+          </span>
+          <span
+            className="MuiTypography-root-37 MuiTypography-body1-46 MuiTypography-colorSecondary-57 MuiCardHeader-subheader-63"
+          />
+        </div>
+      </div>
+      <div
+        className="MuiCardContent-root-64"
+      >
+        <h1>
+          1
+        </h1>
+        <hr
+          className="MuiDivider-root-148 MuiDivider-default-149"
+        />
+        <ul
+          className="MuiList-root-153 MuiList-padding-154"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="MuiGrid-typeItem-66 MuiGrid-grid-xs-4-87"
+  >
+    <div
+      className="MuiPaper-root-8 MuiPaper-shadow2-12 MuiPaper-rounded-9"
+    >
+      <div
+        className="MuiCardContent-root-64 MuiCardHeader-root-59"
+      >
+        <div
+          className="MuiCardHeader-content-61"
+        >
+          <span
+            className="MuiTypography-root-37 MuiTypography-headline-42 MuiCardHeader-title-62"
+          >
+            Title 3
+          </span>
+          <span
+            className="MuiTypography-root-37 MuiTypography-body1-46 MuiTypography-colorSecondary-57 MuiCardHeader-subheader-63"
+          />
+        </div>
+      </div>
+      <div
+        className="MuiCardContent-root-64"
+      >
+        <h1>
+          3
+        </h1>
+        <hr
+          className="MuiDivider-root-148 MuiDivider-default-149"
+        />
+        <ul
+          className="MuiList-root-153 MuiList-padding-154"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="MuiGrid-typeItem-66 MuiGrid-grid-xs-4-87"
+  >
+    <div
+      className="MuiPaper-root-8 MuiPaper-shadow2-12 MuiPaper-rounded-9"
+    >
+      <div
+        className="MuiCardContent-root-64 MuiCardHeader-root-59"
+      >
+        <div
+          className="MuiCardHeader-content-61"
+        >
+          <span
+            className="MuiTypography-root-37 MuiTypography-headline-42 MuiCardHeader-title-62"
+          >
+            Title 2
+          </span>
+          <span
+            className="MuiTypography-root-37 MuiTypography-body1-46 MuiTypography-colorSecondary-57 MuiCardHeader-subheader-63"
+          />
+        </div>
+      </div>
+      <div
+        className="MuiCardContent-root-64"
+      >
+        <h1>
+          2
+        </h1>
+        <hr
+          className="MuiDivider-root-148 MuiDivider-default-149"
+        />
+        <ul
+          className="MuiList-root-153 MuiList-padding-154"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="MuiGrid-typeItem-66 MuiGrid-grid-xs-4-87"
+  >
+    <div
+      className="MuiPaper-root-8 MuiPaper-shadow2-12 MuiPaper-rounded-9"
+    >
+      <div
+        className="MuiCardContent-root-64 MuiCardHeader-root-59"
+      >
+        <div
+          className="MuiCardHeader-content-61"
+        >
+          <span
+            className="MuiTypography-root-37 MuiTypography-headline-42 MuiCardHeader-title-62"
+          >
+            Title 4
+          </span>
+          <span
+            className="MuiTypography-root-37 MuiTypography-body1-46 MuiTypography-colorSecondary-57 MuiCardHeader-subheader-63"
+          />
+        </div>
+      </div>
+      <div
+        className="MuiCardContent-root-64"
+      >
+        <h1>
+          2
+        </h1>
+        <hr
+          className="MuiDivider-root-148 MuiDivider-default-149"
+        />
+        <ul
+          className="MuiList-root-153 MuiList-padding-154"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="MuiGrid-typeItem-66 MuiGrid-grid-xs-4-87"
+  >
+    <div
+      className="MuiPaper-root-8 MuiPaper-shadow2-12 MuiPaper-rounded-9"
+    >
+      <div
+        className="MuiCardContent-root-64 MuiCardHeader-root-59"
+      >
+        <div
+          className="MuiCardHeader-content-61"
+        >
+          <span
+            className="MuiTypography-root-37 MuiTypography-headline-42 MuiCardHeader-title-62"
+          >
+            Title 5
+          </span>
+          <span
+            className="MuiTypography-root-37 MuiTypography-body1-46 MuiTypography-colorSecondary-57 MuiCardHeader-subheader-63"
+          />
+        </div>
+      </div>
+      <div
+        className="MuiCardContent-root-64"
+      >
+        <h1>
+          2
+        </h1>
+        <hr
+          className="MuiDivider-root-148 MuiDivider-default-149"
+        />
+        <ul
+          className="MuiList-root-153 MuiList-padding-154"
+        />
+      </div>
     </div>
   </div>
 </div>
@@ -1880,691 +340,174 @@ exports[`Storyshots Page Test page 1`] = `
 
 exports[`Storyshots Saldo Playground 1`] = `
 <div
-  style={
-    Object {
-      "background": "#ffffff",
-      "bottom": 0,
-      "left": 0,
-      "position": "absolute",
-      "right": 0,
-      "top": 0,
-    }
-  }
+  className="MuiPaper-root-8 MuiPaper-shadow2-12 MuiPaper-rounded-9"
 >
   <div
-    className="SplitPane  vertical "
-    style={
-      Object {
-        "MozUserSelect": "text",
-        "WebkitUserSelect": "text",
-        "display": "flex",
-        "flex": 1,
-        "flexDirection": "row",
-        "height": "100%",
-        "left": 0,
-        "msUserSelect": "text",
-        "outline": "none",
-        "overflow": "hidden",
-        "position": "absolute",
-        "right": 0,
-        "userSelect": "text",
-      }
-    }
+    className="MuiCardContent-root-64 MuiCardHeader-root-59"
   >
     <div
-      className="Pane vertical Pane1"
-      style={
-        Object {
-          "flex": 1,
-          "outline": "none",
-          "overflowX": "auto",
-          "overflowY": "auto",
-          "position": "relative",
-        }
-      }
+      className="MuiCardHeader-content-61"
     >
-      <div>
-        <div
-          style={
-            Object {
-              "WebkitTapHighlightColor": "rgba(0,0,0,0)",
-              "backgroundColor": "#ffffff",
-              "borderRadius": 2,
-              "boxShadow": "0 10px 30px rgba(0, 0, 0, 0.19),
-         0 6px 10px rgba(0, 0, 0, 0.23)",
-              "boxSizing": "border-box",
-              "color": "rgba(0, 0, 0, 0.87)",
-              "fontFamily": "Roboto, sans-serif",
-              "muiPrepared": true,
-              "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
-              "zIndex": 1,
-            }
-          }
+      <span
+        className="MuiTypography-root-37 MuiTypography-headline-42 MuiCardHeader-title-62"
+      >
+        Saldo
+      </span>
+      <span
+        className="MuiTypography-root-37 MuiTypography-body1-46 MuiTypography-colorSecondary-57 MuiCardHeader-subheader-63"
+      />
+    </div>
+  </div>
+  <div
+    className="MuiCardContent-root-64"
+  >
+    <table
+      className="MuiTable-root-157"
+    >
+      <tbody
+        className="MuiTableBody-root-158"
+      >
+        <tr
+          className="MuiTableRow-root-159"
         >
-          <div
+          <td
+            className="MuiTableCell-root-165 withStyles-TableCellWrapper--root-164 MuiTableCell-padding-168"
+          >
+            investedSharesValue
+          </td>
+          <td
+            className="MuiTableCell-root-165 withStyles-TableCellWrapper--root-164 MuiTableCell-padding-168"
             style={
               Object {
-                "paddingBottom": 8,
+                "textAlign": "right",
               }
             }
           >
-            <div
-              style={
-                Object {
-                  "boxSizing": "border-box",
-                  "fontWeight": 500,
-                  "muiPrepared": true,
-                  "padding": 16,
-                  "position": "relative",
-                  "whiteSpace": "nowrap",
-                }
+            $700.00
+          </td>
+        </tr>
+        <tr
+          className="MuiTableRow-root-159"
+        >
+          <td
+            className="MuiTableCell-root-165 withStyles-TableCellWrapper--root-164 MuiTableCell-padding-168"
+          >
+            earnedSharesValue
+          </td>
+          <td
+            className="MuiTableCell-root-165 withStyles-TableCellWrapper--root-164 MuiTableCell-padding-168"
+            style={
+              Object {
+                "textAlign": "right",
               }
-            >
-              <div
-                style={
-                  Object {
-                    "display": "inline-block",
-                    "muiPrepared": true,
-                    "paddingRight": "90px",
-                    "verticalAlign": "top",
-                    "whiteSpace": "normal",
-                  }
-                }
-              >
-                <span
-                  style={
-                    Object {
-                      "color": "rgba(0, 0, 0, 0.87)",
-                      "display": "block",
-                      "fontSize": 15,
-                      "muiPrepared": true,
-                    }
-                  }
-                >
-                  Saldo
-                </span>
-                <span
-                  style={
-                    Object {
-                      "color": "rgba(0, 0, 0, 0.54)",
-                      "display": "block",
-                      "fontSize": 14,
-                      "muiPrepared": true,
-                    }
-                  }
-                />
-              </div>
-            </div>
-            <div
-              style={
-                Object {
-                  "color": "rgba(0, 0, 0, 0.87)",
-                  "fontSize": 14,
-                  "muiPrepared": true,
-                  "padding": 16,
-                }
+            }
+          >
+            $74.93
+          </td>
+        </tr>
+        <tr
+          className="MuiTableRow-root-159"
+        >
+          <td
+            className="MuiTableCell-root-165 withStyles-TableCellWrapper--root-164 MuiTableCell-padding-168"
+          >
+            bonusSharesValue
+          </td>
+          <td
+            className="MuiTableCell-root-165 withStyles-TableCellWrapper--root-164 MuiTableCell-padding-168"
+            style={
+              Object {
+                "textAlign": "right",
               }
-            >
-              <div
-                style={
-                  Object {
-                    "height": "auto",
-                    "muiPrepared": true,
-                    "overflow": "auto",
-                  }
-                }
-              >
-                <div
-                  style={
-                    Object {
-                      "muiPrepared": true,
-                    }
-                  }
-                >
-                  <table
-                    className={undefined}
-                    style={
-                      Object {
-                        "backgroundColor": "#ffffff",
-                        "borderCollapse": "collapse",
-                        "borderSpacing": 0,
-                        "fontFamily": "Roboto, sans-serif",
-                        "tableLayout": "fixed",
-                        "width": "100%",
-                      }
-                    }
-                  />
-                </div>
-                <div
-                  style={
-                    Object {
-                      "height": "inherit",
-                      "muiPrepared": true,
-                      "overflowX": "hidden",
-                      "overflowY": "auto",
-                    }
-                  }
-                >
-                  <table
-                    className={undefined}
-                    style={
-                      Object {
-                        "backgroundColor": "#ffffff",
-                        "borderCollapse": "collapse",
-                        "borderSpacing": 0,
-                        "fontFamily": "Roboto, sans-serif",
-                        "tableLayout": "fixed",
-                        "width": "100%",
-                      }
-                    }
-                  >
-                    <tbody
-                      style={
-                        Object {
-                          "muiPrepared": true,
-                        }
-                      }
-                    >
-                      <tr
-                        className={undefined}
-                        style={
-                          Object {
-                            "borderBottom": false,
-                            "color": "rgba(0, 0, 0, 0.87)",
-                            "height": 48,
-                            "muiPrepared": true,
-                          }
-                        }
-                      >
-                        <td
-                          className={undefined}
-                          onClick={[Function]}
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          style={
-                            Object {
-                              "backgroundColor": "inherit",
-                              "fontSize": 13,
-                              "height": 48,
-                              "muiPrepared": true,
-                              "overflow": "hidden",
-                              "paddingLeft": 24,
-                              "paddingRight": 24,
-                              "textAlign": "left",
-                              "textOverflow": "ellipsis",
-                              "whiteSpace": "nowrap",
-                            }
-                          }
-                        >
-                          investedSharesValue
-                        </td>
-                        <td
-                          className={undefined}
-                          onClick={[Function]}
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          style={
-                            Object {
-                              "backgroundColor": "inherit",
-                              "fontSize": 13,
-                              "height": 48,
-                              "muiPrepared": true,
-                              "overflow": "hidden",
-                              "paddingLeft": 24,
-                              "paddingRight": 24,
-                              "textAlign": "right",
-                              "textOverflow": "ellipsis",
-                              "whiteSpace": "nowrap",
-                            }
-                          }
-                        >
-                          $700.00
-                        </td>
-                      </tr>
-                      <tr
-                        className={undefined}
-                        style={
-                          Object {
-                            "borderBottom": false,
-                            "color": "rgba(0, 0, 0, 0.87)",
-                            "height": 48,
-                            "muiPrepared": true,
-                          }
-                        }
-                      >
-                        <td
-                          className={undefined}
-                          onClick={[Function]}
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          style={
-                            Object {
-                              "backgroundColor": "inherit",
-                              "fontSize": 13,
-                              "height": 48,
-                              "muiPrepared": true,
-                              "overflow": "hidden",
-                              "paddingLeft": 24,
-                              "paddingRight": 24,
-                              "textAlign": "left",
-                              "textOverflow": "ellipsis",
-                              "whiteSpace": "nowrap",
-                            }
-                          }
-                        >
-                          earnedSharesValue
-                        </td>
-                        <td
-                          className={undefined}
-                          onClick={[Function]}
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          style={
-                            Object {
-                              "backgroundColor": "inherit",
-                              "fontSize": 13,
-                              "height": 48,
-                              "muiPrepared": true,
-                              "overflow": "hidden",
-                              "paddingLeft": 24,
-                              "paddingRight": 24,
-                              "textAlign": "right",
-                              "textOverflow": "ellipsis",
-                              "whiteSpace": "nowrap",
-                            }
-                          }
-                        >
-                          $74.93
-                        </td>
-                      </tr>
-                      <tr
-                        className={undefined}
-                        style={
-                          Object {
-                            "borderBottom": false,
-                            "color": "rgba(0, 0, 0, 0.87)",
-                            "height": 48,
-                            "muiPrepared": true,
-                          }
-                        }
-                      >
-                        <td
-                          className={undefined}
-                          onClick={[Function]}
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          style={
-                            Object {
-                              "backgroundColor": "inherit",
-                              "fontSize": 13,
-                              "height": 48,
-                              "muiPrepared": true,
-                              "overflow": "hidden",
-                              "paddingLeft": 24,
-                              "paddingRight": 24,
-                              "textAlign": "left",
-                              "textOverflow": "ellipsis",
-                              "whiteSpace": "nowrap",
-                            }
-                          }
-                        >
-                          bonusSharesValue
-                        </td>
-                        <td
-                          className={undefined}
-                          onClick={[Function]}
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          style={
-                            Object {
-                              "backgroundColor": "inherit",
-                              "fontSize": 13,
-                              "height": 48,
-                              "muiPrepared": true,
-                              "overflow": "hidden",
-                              "paddingLeft": 24,
-                              "paddingRight": 24,
-                              "textAlign": "right",
-                              "textOverflow": "ellipsis",
-                              "whiteSpace": "nowrap",
-                            }
-                          }
-                        >
-                          $0.00
-                        </td>
-                      </tr>
-                      <tr
-                        className={undefined}
-                        style={
-                          Object {
-                            "borderBottom": "1px solid #e0e0e0",
-                            "color": "rgba(0, 0, 0, 0.87)",
-                            "height": 48,
-                            "muiPrepared": true,
-                          }
-                        }
-                      >
-                        <td
-                          className={undefined}
-                          onClick={[Function]}
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          style={
-                            Object {
-                              "backgroundColor": "inherit",
-                              "fontSize": 13,
-                              "height": 48,
-                              "muiPrepared": true,
-                              "overflow": "hidden",
-                              "paddingLeft": 24,
-                              "paddingRight": 24,
-                              "textAlign": "left",
-                              "textOverflow": "ellipsis",
-                              "whiteSpace": "nowrap",
-                            }
-                          }
-                        >
-                          reinvestedSharesValue
-                        </td>
-                        <td
-                          className={undefined}
-                          onClick={[Function]}
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          style={
-                            Object {
-                              "backgroundColor": "inherit",
-                              "fontSize": 13,
-                              "height": 48,
-                              "muiPrepared": true,
-                              "overflow": "hidden",
-                              "paddingLeft": 24,
-                              "paddingRight": 24,
-                              "textAlign": "right",
-                              "textOverflow": "ellipsis",
-                              "whiteSpace": "nowrap",
-                            }
-                          }
-                        >
-                          $0.00
-                        </td>
-                      </tr>
-                      <tr
-                        className={undefined}
-                        style={
-                          Object {
-                            "borderBottom": false,
-                            "color": "rgba(0, 0, 0, 0.87)",
-                            "height": 48,
-                            "muiPrepared": true,
-                          }
-                        }
-                      >
-                        <td
-                          className={undefined}
-                          onClick={[Function]}
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          style={
-                            Object {
-                              "backgroundColor": "inherit",
-                              "fontSize": 13,
-                              "height": 48,
-                              "muiPrepared": true,
-                              "overflow": "hidden",
-                              "paddingLeft": 24,
-                              "paddingRight": 24,
-                              "textAlign": "left",
-                              "textOverflow": "ellipsis",
-                              "whiteSpace": "nowrap",
-                            }
-                          }
-                        >
-                          totalSharesValue
-                        </td>
-                        <td
-                          className={undefined}
-                          onClick={[Function]}
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          style={
-                            Object {
-                              "backgroundColor": "inherit",
-                              "fontSize": 13,
-                              "height": 48,
-                              "muiPrepared": true,
-                              "overflow": "hidden",
-                              "paddingLeft": 24,
-                              "paddingRight": 24,
-                              "textAlign": "right",
-                              "textOverflow": "ellipsis",
-                              "whiteSpace": "nowrap",
-                            }
-                          }
-                        >
-                          $774.93
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-              <button
-                disabled={false}
-                onBlur={[Function]}
-                onClick={[Function]}
-                onFocus={[Function]}
-                onKeyDown={[Function]}
-                onKeyUp={[Function]}
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                onTouchStart={[Function]}
-                style={
-                  Object {
-                    "WebkitTapHighlightColor": "rgba(0, 0, 0, 0)",
-                    "backgroundColor": "#a4c639",
-                    "border": 10,
-                    "borderRadius": 2,
-                    "boxSizing": "border-box",
-                    "color": "rgba(0, 0, 0, 0.87)",
-                    "cursor": "pointer",
-                    "display": "inline-block",
-                    "fontFamily": "Roboto, sans-serif",
-                    "fontSize": "inherit",
-                    "fontWeight": "inherit",
-                    "height": 36,
-                    "lineHeight": "36px",
-                    "margin": 0,
-                    "minWidth": "100%",
-                    "muiPrepared": true,
-                    "outline": "none",
-                    "overflow": "hidden",
-                    "padding": 0,
-                    "position": "relative",
-                    "textAlign": "center",
-                    "textDecoration": "none",
-                    "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
-                    "userSelect": "none",
-                    "verticalAlign": null,
-                    "zIndex": 1,
-                  }
-                }
-                tabIndex={0}
-                type="button"
-              >
-                <div
-                  onMouseDown={[Function]}
-                  onMouseLeave={[Function]}
-                  onMouseUp={[Function]}
-                  onTouchEnd={[Function]}
-                  onTouchStart={[Function]}
-                >
-                  <span
-                    style={
-                      Object {
-                        "fontSize": 14,
-                        "fontWeight": 500,
-                        "letterSpacing": 0,
-                        "muiPrepared": true,
-                        "paddingLeft": 16,
-                        "paddingRight": 16,
-                        "position": "relative",
-                        "textTransform": "uppercase",
-                        "verticalAlign": "middle",
-                      }
-                    }
-                  >
-                    Sell Shares
-                  </span>
-                </div>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <span
-      className="Resizer vertical "
-      onClick={[Function]}
-      onDoubleClick={[Function]}
+            }
+          >
+            $0.00
+          </td>
+        </tr>
+        <tr
+          className="MuiTableRow-root-159"
+        >
+          <td
+            className="MuiTableCell-root-165 MuiTableCell-padding-168"
+          >
+            reinvestedSharesValue
+          </td>
+          <td
+            className="MuiTableCell-root-165 MuiTableCell-padding-168"
+            style={
+              Object {
+                "textAlign": "right",
+              }
+            }
+          >
+            $0.00
+          </td>
+        </tr>
+        <tr
+          className="MuiTableRow-root-159"
+        >
+          <td
+            className="MuiTableCell-root-165 withStyles-TableCellWrapper--root-164 MuiTableCell-padding-168"
+          >
+            totalSharesValue
+          </td>
+          <td
+            className="MuiTableCell-root-165 withStyles-TableCellWrapper--root-164 MuiTableCell-padding-168"
+            style={
+              Object {
+                "textAlign": "right",
+              }
+            }
+          >
+            $774.93
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <button
+      className="MuiButtonBase-root-186 MuiButton-root-172 MuiButton-raised-179"
+      disabled={false}
+      onBlur={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
       onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
       onTouchEnd={[Function]}
       onTouchStart={[Function]}
-      style={
-        Object {
-          "cursor": "col-resize",
-          "marginRight": -6,
-          "width": 10,
-          "zIndex": 1,
-        }
-      }
-    />
-    <div
-      className="Pane vertical Pane2"
-      style={
-        Object {
-          "flex": "none",
-          "outline": "none",
-          "position": "relative",
-          "width": 0,
-        }
-      }
+      role="button"
+      tabIndex={0}
+      type="button"
     >
-      <div
-        className="sb-addon-material-ui-theme_sidebar"
-        style={
-          Object {
-            "height": "100%",
-            "width": "100%",
-          }
-        }
+      <span
+        className="MuiButton-label-174"
+      >
+        Sell Shares
+      </span>
+      <span
+        className="MuiTouchRipple-root-188"
       />
-    </div>
+    </button>
   </div>
 </div>
 `;
 
 exports[`Storyshots StockGraph Playground 1`] = `
 <div
-  style={
-    Object {
-      "background": "#ffffff",
-      "bottom": 0,
-      "left": 0,
-      "position": "absolute",
-      "right": 0,
-      "top": 0,
-    }
-  }
+  className="my-pretty-chart-container"
 >
   <div
-    className="SplitPane  vertical "
+    id="chart"
     style={
       Object {
-        "MozUserSelect": "text",
-        "WebkitUserSelect": "text",
-        "display": "flex",
-        "flex": 1,
-        "flexDirection": "row",
-        "height": "100%",
-        "left": 0,
-        "msUserSelect": "text",
-        "outline": "none",
-        "overflow": "hidden",
-        "position": "absolute",
-        "right": 0,
-        "userSelect": "text",
+        "height": "300px",
+        "width": "400px",
       }
     }
   >
-    <div
-      className="Pane vertical Pane1"
-      style={
-        Object {
-          "flex": 1,
-          "outline": "none",
-          "overflowX": "auto",
-          "overflowY": "auto",
-          "position": "relative",
-        }
-      }
-    >
-      <div>
-        <div
-          className="my-pretty-chart-container"
-        >
-          <div
-            id="chart"
-            style={
-              Object {
-                "height": "300px",
-                "width": "400px",
-              }
-            }
-          >
-            <div>
-              Rendering Chart
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <span
-      className="Resizer vertical "
-      onClick={[Function]}
-      onDoubleClick={[Function]}
-      onMouseDown={[Function]}
-      onTouchEnd={[Function]}
-      onTouchStart={[Function]}
-      style={
-        Object {
-          "cursor": "col-resize",
-          "marginRight": -6,
-          "width": 10,
-          "zIndex": 1,
-        }
-      }
-    />
-    <div
-      className="Pane vertical Pane2"
-      style={
-        Object {
-          "flex": "none",
-          "outline": "none",
-          "position": "relative",
-          "width": 0,
-        }
-      }
-    >
-      <div
-        className="sb-addon-material-ui-theme_sidebar"
-        style={
-          Object {
-            "height": "100%",
-            "width": "100%",
-          }
-        }
-      />
+    <div>
+      Rendering Chart
     </div>
   </div>
 </div>

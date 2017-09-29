@@ -1,18 +1,18 @@
 import React from 'react';
 import AppBar from 'material-ui/AppBar';
-import muiTheme from '../theme/muiTheme.js'
-import { appTheme }  from '../theme/muiTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-
-
+import Toolbar from 'material-ui/Toolbar';
+import Typography from 'material-ui/Typography';
 
 export default class App_Bar extends React.Component {
   render() {
     return (
-    <AppBar title="Wells Fargo"
-      iconClassNameRight="muidocs-icon-navigation-expand-more"
-    />
+      <AppBar position="static" color="default">
+        <Toolbar>
+          <Typography>
+            Wells Fargo
+          </Typography>
+        </Toolbar>
+      </AppBar>
     );
   }
 }
