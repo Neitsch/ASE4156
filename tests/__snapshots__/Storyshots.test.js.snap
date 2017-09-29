@@ -83,17 +83,17 @@ exports[`Storyshots HighlightBox Account Total 1`] = `
       $7,749.34
     </h1>
     <hr
-      className="MuiDivider-root-70 MuiDivider-default-71"
+      className="MuiDivider-root-148 MuiDivider-default-149"
     />
     <ul
-      className="MuiList-root-75 MuiList-padding-76"
+      className="MuiList-root-153 MuiList-padding-154"
     >
       <li
-        className="MuiListItem-root-117 MuiListItem-gutters-124 MuiListItem-default-120"
+        className="MuiListItem-root-195 MuiListItem-gutters-202 MuiListItem-default-198"
         disabled={false}
       >
         <div
-          className="MuiListItemText-root-127"
+          className="MuiListItemText-root-205"
         />
       </li>
     </ul>
@@ -128,17 +128,17 @@ exports[`Storyshots HighlightBox Annulized Percentage Return 1`] = `
       3.75%
     </h1>
     <hr
-      className="MuiDivider-root-70 MuiDivider-default-71"
+      className="MuiDivider-root-148 MuiDivider-default-149"
     />
     <ul
-      className="MuiList-root-75 MuiList-padding-76"
+      className="MuiList-root-153 MuiList-padding-154"
     >
       <li
-        className="MuiListItem-root-117 MuiListItem-gutters-124 MuiListItem-default-120"
+        className="MuiListItem-root-195 MuiListItem-gutters-202 MuiListItem-default-198"
         disabled={false}
       >
         <div
-          className="MuiListItemText-root-127"
+          className="MuiListItemText-root-205"
         />
       </li>
     </ul>
@@ -147,255 +147,195 @@ exports[`Storyshots HighlightBox Annulized Percentage Return 1`] = `
 `;
 
 exports[`Storyshots Page Test page 1`] = `
-<ul
-  className="MuiGridList-root-65"
-  style={
-    Object {
-      "margin": -2,
-    }
-  }
+<div
+  className="MuiGrid-typeContainer-65 MuiGrid-spacing-xs-16-80"
 >
-  <li
-    className="MuiGridListTile-root-66"
-    style={
-      Object {
-        "height": "auto",
-        "padding": 2,
-        "width": "33.333333333333336%",
-      }
-    }
+  <div
+    className="MuiGrid-typeItem-66 MuiGrid-grid-xs-4-87"
   >
     <div
-      className="MuiGridListTile-tile-67"
+      className="MuiPaper-root-8 MuiPaper-shadow2-12 MuiPaper-rounded-9"
     >
       <div
-        className="MuiPaper-root-8 MuiPaper-shadow2-12 MuiPaper-rounded-9"
+        className="MuiCardContent-root-64 MuiCardHeader-root-59"
       >
         <div
-          className="MuiCardContent-root-64 MuiCardHeader-root-59"
+          className="MuiCardHeader-content-61"
         >
-          <div
-            className="MuiCardHeader-content-61"
+          <span
+            className="MuiTypography-root-37 MuiTypography-headline-42 MuiCardHeader-title-62"
           >
-            <span
-              className="MuiTypography-root-37 MuiTypography-headline-42 MuiCardHeader-title-62"
-            >
-              Title 1
-            </span>
-            <span
-              className="MuiTypography-root-37 MuiTypography-body1-46 MuiTypography-colorSecondary-57 MuiCardHeader-subheader-63"
-            />
-          </div>
-        </div>
-        <div
-          className="MuiCardContent-root-64"
-        >
-          <h1>
-            1
-          </h1>
-          <hr
-            className="MuiDivider-root-70 MuiDivider-default-71"
-          />
-          <ul
-            className="MuiList-root-75 MuiList-padding-76"
+            Title 1
+          </span>
+          <span
+            className="MuiTypography-root-37 MuiTypography-body1-46 MuiTypography-colorSecondary-57 MuiCardHeader-subheader-63"
           />
         </div>
       </div>
+      <div
+        className="MuiCardContent-root-64"
+      >
+        <h1>
+          1
+        </h1>
+        <hr
+          className="MuiDivider-root-148 MuiDivider-default-149"
+        />
+        <ul
+          className="MuiList-root-153 MuiList-padding-154"
+        />
+      </div>
     </div>
-  </li>
-  <li
-    className="MuiGridListTile-root-66"
-    style={
-      Object {
-        "height": "auto",
-        "padding": 2,
-        "width": "66.66666666666667%",
-      }
-    }
+  </div>
+  <div
+    className="MuiGrid-typeItem-66 MuiGrid-grid-xs-4-87"
   >
     <div
-      className="MuiGridListTile-tile-67"
+      className="MuiPaper-root-8 MuiPaper-shadow2-12 MuiPaper-rounded-9"
     >
       <div
-        className="MuiPaper-root-8 MuiPaper-shadow2-12 MuiPaper-rounded-9"
+        className="MuiCardContent-root-64 MuiCardHeader-root-59"
       >
         <div
-          className="MuiCardContent-root-64 MuiCardHeader-root-59"
+          className="MuiCardHeader-content-61"
         >
-          <div
-            className="MuiCardHeader-content-61"
+          <span
+            className="MuiTypography-root-37 MuiTypography-headline-42 MuiCardHeader-title-62"
           >
-            <span
-              className="MuiTypography-root-37 MuiTypography-headline-42 MuiCardHeader-title-62"
-            >
-              Title 3
-            </span>
-            <span
-              className="MuiTypography-root-37 MuiTypography-body1-46 MuiTypography-colorSecondary-57 MuiCardHeader-subheader-63"
-            />
-          </div>
-        </div>
-        <div
-          className="MuiCardContent-root-64"
-        >
-          <h1>
-            3
-          </h1>
-          <hr
-            className="MuiDivider-root-70 MuiDivider-default-71"
-          />
-          <ul
-            className="MuiList-root-75 MuiList-padding-76"
+            Title 3
+          </span>
+          <span
+            className="MuiTypography-root-37 MuiTypography-body1-46 MuiTypography-colorSecondary-57 MuiCardHeader-subheader-63"
           />
         </div>
       </div>
+      <div
+        className="MuiCardContent-root-64"
+      >
+        <h1>
+          3
+        </h1>
+        <hr
+          className="MuiDivider-root-148 MuiDivider-default-149"
+        />
+        <ul
+          className="MuiList-root-153 MuiList-padding-154"
+        />
+      </div>
     </div>
-  </li>
-  <li
-    className="MuiGridListTile-root-66"
-    style={
-      Object {
-        "height": "auto",
-        "padding": 2,
-        "width": "33.333333333333336%",
-      }
-    }
+  </div>
+  <div
+    className="MuiGrid-typeItem-66 MuiGrid-grid-xs-4-87"
   >
     <div
-      className="MuiGridListTile-tile-67"
+      className="MuiPaper-root-8 MuiPaper-shadow2-12 MuiPaper-rounded-9"
     >
       <div
-        className="MuiPaper-root-8 MuiPaper-shadow2-12 MuiPaper-rounded-9"
+        className="MuiCardContent-root-64 MuiCardHeader-root-59"
       >
         <div
-          className="MuiCardContent-root-64 MuiCardHeader-root-59"
+          className="MuiCardHeader-content-61"
         >
-          <div
-            className="MuiCardHeader-content-61"
+          <span
+            className="MuiTypography-root-37 MuiTypography-headline-42 MuiCardHeader-title-62"
           >
-            <span
-              className="MuiTypography-root-37 MuiTypography-headline-42 MuiCardHeader-title-62"
-            >
-              Title 2
-            </span>
-            <span
-              className="MuiTypography-root-37 MuiTypography-body1-46 MuiTypography-colorSecondary-57 MuiCardHeader-subheader-63"
-            />
-          </div>
-        </div>
-        <div
-          className="MuiCardContent-root-64"
-        >
-          <h1>
-            2
-          </h1>
-          <hr
-            className="MuiDivider-root-70 MuiDivider-default-71"
-          />
-          <ul
-            className="MuiList-root-75 MuiList-padding-76"
+            Title 2
+          </span>
+          <span
+            className="MuiTypography-root-37 MuiTypography-body1-46 MuiTypography-colorSecondary-57 MuiCardHeader-subheader-63"
           />
         </div>
       </div>
+      <div
+        className="MuiCardContent-root-64"
+      >
+        <h1>
+          2
+        </h1>
+        <hr
+          className="MuiDivider-root-148 MuiDivider-default-149"
+        />
+        <ul
+          className="MuiList-root-153 MuiList-padding-154"
+        />
+      </div>
     </div>
-  </li>
-  <li
-    className="MuiGridListTile-root-66"
-    style={
-      Object {
-        "height": "auto",
-        "padding": 2,
-        "width": "33.333333333333336%",
-      }
-    }
+  </div>
+  <div
+    className="MuiGrid-typeItem-66 MuiGrid-grid-xs-4-87"
   >
     <div
-      className="MuiGridListTile-tile-67"
+      className="MuiPaper-root-8 MuiPaper-shadow2-12 MuiPaper-rounded-9"
     >
       <div
-        className="MuiPaper-root-8 MuiPaper-shadow2-12 MuiPaper-rounded-9"
+        className="MuiCardContent-root-64 MuiCardHeader-root-59"
       >
         <div
-          className="MuiCardContent-root-64 MuiCardHeader-root-59"
+          className="MuiCardHeader-content-61"
         >
-          <div
-            className="MuiCardHeader-content-61"
+          <span
+            className="MuiTypography-root-37 MuiTypography-headline-42 MuiCardHeader-title-62"
           >
-            <span
-              className="MuiTypography-root-37 MuiTypography-headline-42 MuiCardHeader-title-62"
-            >
-              Title 4
-            </span>
-            <span
-              className="MuiTypography-root-37 MuiTypography-body1-46 MuiTypography-colorSecondary-57 MuiCardHeader-subheader-63"
-            />
-          </div>
-        </div>
-        <div
-          className="MuiCardContent-root-64"
-        >
-          <h1>
-            2
-          </h1>
-          <hr
-            className="MuiDivider-root-70 MuiDivider-default-71"
-          />
-          <ul
-            className="MuiList-root-75 MuiList-padding-76"
+            Title 4
+          </span>
+          <span
+            className="MuiTypography-root-37 MuiTypography-body1-46 MuiTypography-colorSecondary-57 MuiCardHeader-subheader-63"
           />
         </div>
       </div>
+      <div
+        className="MuiCardContent-root-64"
+      >
+        <h1>
+          2
+        </h1>
+        <hr
+          className="MuiDivider-root-148 MuiDivider-default-149"
+        />
+        <ul
+          className="MuiList-root-153 MuiList-padding-154"
+        />
+      </div>
     </div>
-  </li>
-  <li
-    className="MuiGridListTile-root-66"
-    style={
-      Object {
-        "height": "auto",
-        "padding": 2,
-        "width": "33.333333333333336%",
-      }
-    }
+  </div>
+  <div
+    className="MuiGrid-typeItem-66 MuiGrid-grid-xs-4-87"
   >
     <div
-      className="MuiGridListTile-tile-67"
+      className="MuiPaper-root-8 MuiPaper-shadow2-12 MuiPaper-rounded-9"
     >
       <div
-        className="MuiPaper-root-8 MuiPaper-shadow2-12 MuiPaper-rounded-9"
+        className="MuiCardContent-root-64 MuiCardHeader-root-59"
       >
         <div
-          className="MuiCardContent-root-64 MuiCardHeader-root-59"
+          className="MuiCardHeader-content-61"
         >
-          <div
-            className="MuiCardHeader-content-61"
+          <span
+            className="MuiTypography-root-37 MuiTypography-headline-42 MuiCardHeader-title-62"
           >
-            <span
-              className="MuiTypography-root-37 MuiTypography-headline-42 MuiCardHeader-title-62"
-            >
-              Title 5
-            </span>
-            <span
-              className="MuiTypography-root-37 MuiTypography-body1-46 MuiTypography-colorSecondary-57 MuiCardHeader-subheader-63"
-            />
-          </div>
-        </div>
-        <div
-          className="MuiCardContent-root-64"
-        >
-          <h1>
-            2
-          </h1>
-          <hr
-            className="MuiDivider-root-70 MuiDivider-default-71"
-          />
-          <ul
-            className="MuiList-root-75 MuiList-padding-76"
+            Title 5
+          </span>
+          <span
+            className="MuiTypography-root-37 MuiTypography-body1-46 MuiTypography-colorSecondary-57 MuiCardHeader-subheader-63"
           />
         </div>
       </div>
+      <div
+        className="MuiCardContent-root-64"
+      >
+        <h1>
+          2
+        </h1>
+        <hr
+          className="MuiDivider-root-148 MuiDivider-default-149"
+        />
+        <ul
+          className="MuiList-root-153 MuiList-padding-154"
+        />
+      </div>
     </div>
-  </li>
-</ul>
+  </div>
+</div>
 `;
 
 exports[`Storyshots Saldo Playground 1`] = `
@@ -422,21 +362,21 @@ exports[`Storyshots Saldo Playground 1`] = `
     className="MuiCardContent-root-64"
   >
     <table
-      className="MuiTable-root-79"
+      className="MuiTable-root-157"
     >
       <tbody
-        className="MuiTableBody-root-80"
+        className="MuiTableBody-root-158"
       >
         <tr
-          className="MuiTableRow-root-81"
+          className="MuiTableRow-root-159"
         >
           <td
-            className="MuiTableCell-root-87 withStyles-TableCellWrapper--root-86 MuiTableCell-padding-90"
+            className="MuiTableCell-root-165 withStyles-TableCellWrapper--root-164 MuiTableCell-padding-168"
           >
             investedSharesValue
           </td>
           <td
-            className="MuiTableCell-root-87 withStyles-TableCellWrapper--root-86 MuiTableCell-padding-90"
+            className="MuiTableCell-root-165 withStyles-TableCellWrapper--root-164 MuiTableCell-padding-168"
             style={
               Object {
                 "textAlign": "right",
@@ -447,15 +387,15 @@ exports[`Storyshots Saldo Playground 1`] = `
           </td>
         </tr>
         <tr
-          className="MuiTableRow-root-81"
+          className="MuiTableRow-root-159"
         >
           <td
-            className="MuiTableCell-root-87 withStyles-TableCellWrapper--root-86 MuiTableCell-padding-90"
+            className="MuiTableCell-root-165 withStyles-TableCellWrapper--root-164 MuiTableCell-padding-168"
           >
             earnedSharesValue
           </td>
           <td
-            className="MuiTableCell-root-87 withStyles-TableCellWrapper--root-86 MuiTableCell-padding-90"
+            className="MuiTableCell-root-165 withStyles-TableCellWrapper--root-164 MuiTableCell-padding-168"
             style={
               Object {
                 "textAlign": "right",
@@ -466,15 +406,15 @@ exports[`Storyshots Saldo Playground 1`] = `
           </td>
         </tr>
         <tr
-          className="MuiTableRow-root-81"
+          className="MuiTableRow-root-159"
         >
           <td
-            className="MuiTableCell-root-87 withStyles-TableCellWrapper--root-86 MuiTableCell-padding-90"
+            className="MuiTableCell-root-165 withStyles-TableCellWrapper--root-164 MuiTableCell-padding-168"
           >
             bonusSharesValue
           </td>
           <td
-            className="MuiTableCell-root-87 withStyles-TableCellWrapper--root-86 MuiTableCell-padding-90"
+            className="MuiTableCell-root-165 withStyles-TableCellWrapper--root-164 MuiTableCell-padding-168"
             style={
               Object {
                 "textAlign": "right",
@@ -485,15 +425,15 @@ exports[`Storyshots Saldo Playground 1`] = `
           </td>
         </tr>
         <tr
-          className="MuiTableRow-root-81"
+          className="MuiTableRow-root-159"
         >
           <td
-            className="MuiTableCell-root-87 MuiTableCell-padding-90"
+            className="MuiTableCell-root-165 MuiTableCell-padding-168"
           >
             reinvestedSharesValue
           </td>
           <td
-            className="MuiTableCell-root-87 MuiTableCell-padding-90"
+            className="MuiTableCell-root-165 MuiTableCell-padding-168"
             style={
               Object {
                 "textAlign": "right",
@@ -504,15 +444,15 @@ exports[`Storyshots Saldo Playground 1`] = `
           </td>
         </tr>
         <tr
-          className="MuiTableRow-root-81"
+          className="MuiTableRow-root-159"
         >
           <td
-            className="MuiTableCell-root-87 withStyles-TableCellWrapper--root-86 MuiTableCell-padding-90"
+            className="MuiTableCell-root-165 withStyles-TableCellWrapper--root-164 MuiTableCell-padding-168"
           >
             totalSharesValue
           </td>
           <td
-            className="MuiTableCell-root-87 withStyles-TableCellWrapper--root-86 MuiTableCell-padding-90"
+            className="MuiTableCell-root-165 withStyles-TableCellWrapper--root-164 MuiTableCell-padding-168"
             style={
               Object {
                 "textAlign": "right",
@@ -525,7 +465,7 @@ exports[`Storyshots Saldo Playground 1`] = `
       </tbody>
     </table>
     <button
-      className="MuiButtonBase-root-108 MuiButton-root-94 MuiButton-raised-101"
+      className="MuiButtonBase-root-186 MuiButton-root-172 MuiButton-raised-179"
       disabled={false}
       onBlur={[Function]}
       onFocus={[Function]}
@@ -541,12 +481,12 @@ exports[`Storyshots Saldo Playground 1`] = `
       type="button"
     >
       <span
-        className="MuiButton-label-96"
+        className="MuiButton-label-174"
       >
         Sell Shares
       </span>
       <span
-        className="MuiTouchRipple-root-110"
+        className="MuiTouchRipple-root-188"
       />
     </button>
   </div>
