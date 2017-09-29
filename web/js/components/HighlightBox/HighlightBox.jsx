@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Card, CardHeader, CardText} from 'material-ui/Card';
+import {Card, CardHeader, CardText,} from 'material-ui/Card';
 import Divider from 'material-ui/Divider';
-import {List, ListItem,} from 'material-ui/List';
+import {List, ListItem} from 'material-ui/List';
 
 class HighlightBox extends React.Component {
   static propTypes = {
     title: PropTypes.any.isRequired,
     value: PropTypes.any.isRequired,
-    secondaryInfo: PropTypes.arrayOf(PropTypes.shape({value: PropTypes.any.isRequired, text: PropTypes.any.isRequired,})),
+    secondaryInfo: PropTypes.arrayOf(PropTypes.shape({value: PropTypes.any.isRequired, text: PropTypes.any.isRequired}))
   }
   render() {
     console.log("Render");
@@ -23,7 +23,9 @@ class HighlightBox extends React.Component {
           <List>
             {this.props.secondaryInfo
               ? this.props.secondaryInfo.map(secondary => {
-                return (<ListItem primaryText={secondary.value + " " + secondary.text}/>);
+                return (<ListItem
+                  key={secondary.text}
+                  primaryText={secondary.value + " " + secondary.text}/>);
               })
               : null
 }</List>
