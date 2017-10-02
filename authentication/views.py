@@ -1,14 +1,14 @@
 """
 Views for authentication. Basically supports login/logout.
 """
+import datetime
+import os
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.contrib.auth import logout as log_out
 from django.contrib.auth.decorators import login_required
 import plaid
 from authentication.models import UserBank
-import datetime
-import os
 
 
 PLAID_CLIENT_ID = os.environ.get('PLAID_CLIENT_ID')
