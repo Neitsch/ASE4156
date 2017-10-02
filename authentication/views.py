@@ -100,7 +100,9 @@ def get_balance(request):
                 if account['subtype'] == 'cd':
                     dic[account['official_name']] = account['balances']['current']
                 elif account['subtype'] == 'credit card':
-                    dic[account['official_name']] = "-{}".format(account['balances']['current'])
+                    dic[account['official_name']] = (
+                        int("-{}".format(account['balances']['current']))
+                        )
                 else:
                     dic[account['official_name']] = account['balances']['available']
             return JsonResponse(dic)
