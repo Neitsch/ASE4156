@@ -92,19 +92,21 @@ def get_balance(request):
     """
     client = plaid.Client(client_id=PLAID_CLIENT_ID, secret=PLAID_SECRET,
                           public_key=PLAID_PUBLIC_KEY, environment=PLAID_ENV)
-    dic = {}
     for user_bank in request.user.userbank_set.all():
         if user_bank.user == request.user:
             response = client.Accounts.balance.get(user_bank.access_token)
+            json_response = []
             for account in response['accounts']:
+                dic = {}
+                dic['name'] = account['official_name']
                 if account['subtype'] == 'cd':
-                    dic[account['official_name']] = account['balances']['current']
+                    dic['balance'] = account['balances']['current']
                 elif account['subtype'] == 'credit card':
-                    dic[account['official_name']] = (
-                        int("-{}".format(account['balances']['current']))
-                        )
+                    dic['balance'] = int("-{}".format(account['balances']['current']))
                 else:
-                    dic[account['official_name']] = account['balances']['available']
-            return JsonResponse(dic)
+                    dic['balance'] = account['balances']['available']
+                dic['type'] = account['subtype']
+                json_response.append(dic)
+            return JsonResponse(json_response, safe=False)
         return HttpResponse("You don't have permission to view that.")
     return HttpResponse("No user signed in/bank selected")
