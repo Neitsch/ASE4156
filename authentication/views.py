@@ -84,8 +84,12 @@ def list_transactions(request):
     context = {'userbank': userbank}
     return render(request, 'bank_select_form.html', context)
 
+
 @login_required
 def get_balance(request):
+    """
+    A view that gets all balances for a user and returns as json
+    """
     client = plaid.Client(client_id=PLAID_CLIENT_ID, secret=PLAID_SECRET,
                           public_key=PLAID_PUBLIC_KEY, environment=PLAID_ENV)
     dic = {}
