@@ -9,10 +9,10 @@ import plaid
 from authentication.models import UserBank
 
 
-PLAID_CLIENT_ID = '59c3248dbdc6a40ac87ed3e8'
-PLAID_SECRET = 'ee7f10de9feb7d6408d1f5bd980f2a'
-PLAID_PUBLIC_KEY = '2aa70186194f3a8d2038d989715a32'
-PLAID_ENV = 'sandbox'
+PLAID_CLIENT_ID = os.environ.get('PLAID_CLIENT_ID')
+PLAID_SECRET = os.environ.get('PLAID_SECRET')
+PLAID_PUBLIC_KEY = os.environ.get('PLAID_PUBLIC_KEY')
+PLAID_ENV = 'sandbox' if os.environ.get('DEBUG') == "TRUE" else 'development'
 
 
 def login(request):
