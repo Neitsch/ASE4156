@@ -5,7 +5,8 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.db.models import Max
 from .models import Stock, DailyStockQuote
-from django.http import  HttpResponse
+from django.http import HttpResponse
+
 
 def create_new_stock(ticker, name):
     """
@@ -52,7 +53,10 @@ def create_stock(instance, created, **_):
     Queries stock quotes when stock is created
     """
     if created:
-        fill_quote_history(instance)
+        try:
+            fill_quote_history(instance)
+        except KeyError:
+            print("error")
 
 
 def fill_stocks(request):
