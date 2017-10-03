@@ -35,5 +35,6 @@ urlpatterns = [
     url(r'^setup_bank$', authentication.views.setup_bank),
     url(r'^plaid/get_access_token/$', authentication.views.get_access_token),
     url(r'^plaid/list_transactions/$', authentication.views.list_transactions),
+    url(r'^plaid/get_balance/$', authentication.views.get_balance),
 ]
 # pylint: enable=invalid-name
