@@ -113,7 +113,7 @@ if 'TRAVIS' in os.environ:
         'PORT':     '',
     }
 else:
-    DATABASES['default'] = dj_database_url.config(default="postgres://bitcoin:stupid_pw@localhost/buy_bitcoin")
+    DATABASES['default'].update(dj_database_url.config(conn_max_age=500))
 
 
 # Password validation
