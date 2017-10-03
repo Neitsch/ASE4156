@@ -54,8 +54,7 @@ def create_stock(instance, created, **_):
     Queries stock quotes when stock is created
     """
     if created:
-        try:
-            fill_quote_history(instance)
+        fill_quote_history(instance)
 
 
 def fill_stocks(request):
