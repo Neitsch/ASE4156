@@ -65,7 +65,6 @@ class StockGraph extends React.Component {
     return (
       <div className={'my-pretty-chart-container'}>
         <Chart
-         width="100%"
           chartType="LineChart"
           data={[
           [
