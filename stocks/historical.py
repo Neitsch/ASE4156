@@ -12,9 +12,11 @@ def create_new_stock(ticker, name):
     """
     Function simply creates a new stock
     """
-    stock = Stock(name=name, ticker=ticker)
-    stock.save()
-    return stock
+    if(validate_ticker(ticker) is True):
+        stock = Stock(name=name, ticker=ticker)
+        stock.save()
+        return stock
+    return False
 
 
 def fill_quote_history(stock):
@@ -39,7 +41,11 @@ def data_ten_years_back_for_stock(request):
         name = body['name']
         ticker = body['ticker']
         stock = create_new_stock(ticker, name)
-        return HttpResponse(stock.name, status=200)
+        if(stock is not False):
+            return HttpResponse(stock.id, status=200)
+        else:
+            msg = "500 Internal Server Error, stock doesnt exist"
+            return HttpResponse(msg, status=500)
     return HttpResponse("405 Method Not Allowed", status=405)
 
 
@@ -84,3 +90,14 @@ def save_stock_quote_from_fetcher(fetcher_history, stock_id):
         objects.append(
             DailyStockQuote(value=value, date=date, stock_id=stock_id))
     DailyStockQuote.objects.bulk_create(objects, batch_size=500)
+
+
+def validate_ticker(ticker):
+    now = arrow.now()
+    now = get_date_array_for_fetcher(now)
+    try:
+        fetcher = Fetcher(ticker, now, now)
+        fetcher.getHistorical()
+    except KeyError:
+        return False
+    return True

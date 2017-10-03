@@ -29,7 +29,7 @@ class StocksViewTests(TestCase):
         name = "Julian"
         data = {'name': name, 'ticker': ticker}
         request = self.client.post('/stocks/addstock/', data)
-        self.assertEqual(request.status_code, 200)
+        self.assertEqual(request.status_code, 500)
         data = DailyStockQuote.objects.all()
         self.assertEqual(len(data), 0)
 
@@ -38,7 +38,7 @@ class StocksViewTests(TestCase):
         Endpoint only works with POST
         """
         request = self.client.get('/stocks/addstock/')
-        self.assertEqual(request.status_code, 503)
+        self.assertEqual(request.status_code, 405)
 
     def test_fill_quote_history(self):
         """
@@ -47,6 +47,9 @@ class StocksViewTests(TestCase):
         ticker = "ibm"
         name = "IBM"
         data = {'name': name, 'ticker': ticker}
-        stock = self.client.post('/stocks/addstock/', data)
-        data = DailyStockQuote.filter(stock_id=stock.id).objects.all()
+        request = self.client.post('/stocks/addstock/', data)
+        id = request.content
+        data = DailyStockQuote.objects.filter(stock_id=id)
+        stockData = Stock.objects.filter(id=id)
         self.assertGreater(len(data), 0)
+        self.assertEqual(len(stockData), 1)
