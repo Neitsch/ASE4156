@@ -19,8 +19,6 @@ import graphene_django.views
 import authentication.views
 import web.views
 import stocks.historical
-from django.views.decorators.csrf import csrf_exempt
-
 
 # pylint: disable=invalid-name
 urlpatterns = [
@@ -30,7 +28,7 @@ urlpatterns = [
     url('', include('social_django.urls', namespace='social')),
     url(r'^home$', web.views.home),
     url(r'^graphql', graphene_django.views.GraphQLView.as_view(graphiql=True)),
-    url(r'^stocks/addstock/', csrf_exempt(stocks.historical.data_ten_years_back_for_stock)),
+    url(r'^stocks/addstock/', stocks.historical.data_ten_years_back_for_stock),
     url(r'^stocks/fill/', stocks.historical.fill_stocks),
     url(r'^setup_bank$', authentication.views.setup_bank),
     url(r'^plaid/get_access_token/$', authentication.views.get_access_token),
