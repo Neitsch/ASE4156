@@ -40,7 +40,7 @@ def data_ten_years_back_for_stock(request):
         ticker = body['ticker']
         stock = create_new_stock(ticker, name)
         return HttpResponse(stock.name, status=200)
-    return HttpResponse("Service Unavailable 503", status=503)
+    return HttpResponse("405 Method Not Allowed", status=405)
 
 
 def get_date_array_for_fetcher(arrow_date):
@@ -56,8 +56,6 @@ def create_stock(instance, created, **_):
     if created:
         try:
             fill_quote_history(instance)
-        except KeyError:
-            print("error")
 
 
 def fill_stocks(request):

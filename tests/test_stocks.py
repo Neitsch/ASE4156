@@ -38,7 +38,7 @@ class StocksViewTests(TestCase):
         Endpoint only works with POST
         """
         request = self.client.get('/stocks/addstock/')
-        self.assertEqual(request.status_code, 503)
+        self.assertEqual(request.status_code, 405)
 
     def test_fill_quote_history(self):
         """
