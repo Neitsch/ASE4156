@@ -1,13 +1,32 @@
 """This module is for testing stocks"""
+from unittest import mock
 from django.test import TestCase
 from stocks.models import Stock, DailyStockQuote
+import pandas as pd
+from yahoo_historical import Fetcher
 
 
 class StocksViewTests(TestCase):
     """
     Testing Stocks Model
     """
+    @classmethod
+    def setup_class(cls):
+        cls._original_init_method = Fetcher.__init__
+        Fetcher.__init__ = mock.Mock(return_value=None)
 
+    @classmethod
+    def teardown_class(cls):
+        Fetcher.__init__ = cls._original_init_method
+
+    @mock.patch.object(
+        Fetcher,
+        'getHistorical',
+        mock.MagicMock(return_value=pd.DataFrame({
+            'Close': [1.5, 2.5],
+            'Date': ["2017-05-05", "2017-05-06"],
+        }))
+    )
     def test_api_for_real_stock(self):
         """
         Testing adding stock via endpoint, asserting stock is inserted
@@ -20,6 +39,11 @@ class StocksViewTests(TestCase):
         data = Stock.objects.all()
         self.assertEqual(len(data), 1)
 
+    @mock.patch.object(
+        Fetcher,
+        'getHistorical',
+        mock.MagicMock(side_effect=KeyError('abc'))
+    )
     def test_api_for_invalid_ticker(self):
         """
         Testing adding stock via endpoint, asserting stock is inserted but no
@@ -40,6 +64,14 @@ class StocksViewTests(TestCase):
         request = self.client.get('/stocks/addstock/')
         self.assertEqual(request.status_code, 405)
 
+    @mock.patch.object(
+        Fetcher,
+        'getHistorical',
+        mock.MagicMock(return_value=pd.DataFrame({
+            'Close': [1.5, 2.5],
+            'Date': ["2017-05-05", "2017-05-06"],
+        }))
+    )
     def test_fill_quote_history(self):
         """
         Filling data for Stock
