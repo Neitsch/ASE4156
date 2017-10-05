@@ -39,6 +39,33 @@ def request_create(request):
 
 @pytest.mark.django_db
 # pylint: disable=invalid-name
+def test_mutation_add_trading_account(rf, snapshot):
+    """
+    This submits a massive graphql query to verify all fields work
+    """
+    # pylint: enable=invalid-name
+    request = rf.post('/graphql')
+    pw1 = ''.join(random.choices(string.ascii_uppercase + string.digits, k=9))
+    request.user = User.objects.create(username='testuser1', password=pw1)
+    client = Client(SCHEMA)
+    acc_name = "Test 1"
+    executed = client.execute("""
+        mutation {{
+          addTradingAccount(name: "{}") {{
+            account {{
+              accountName
+            }}
+          }}
+        }}
+    """.format(acc_name), context_value=request)
+    snapshot.assert_match(executed)
+    acc = TradingAccount.objects.get(profile__user__id=request.user.id)
+    ex_acc = executed['data']['addTradingAccount']['account']['accountName']
+    assert ex_acc == acc.account_name
+
+
+@pytest.mark.django_db
+# pylint: disable=invalid-name
 def test_big_gql(rf, snapshot):
     """
     This submits a massive graphql query to verify all fields work
