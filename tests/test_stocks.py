@@ -12,11 +12,13 @@ class StocksViewTests(TestCase):
     """
     @classmethod
     def setup_class(cls):
+        """Setting up testing"""
         cls._original_init_method = Fetcher.__init__
         Fetcher.__init__ = mock.Mock(return_value=None)
 
     @classmethod
     def teardown_class(cls):
+        """Teardown testing"""
         Fetcher.__init__ = cls._original_init_method
 
     @mock.patch.object(
@@ -80,8 +82,8 @@ class StocksViewTests(TestCase):
         name = "IBM"
         data = {'name': name, 'ticker': ticker}
         request = self.client.post('/stocks/addstock/', data)
-        id = request.content
-        data = DailyStockQuote.objects.filter(stock_id=id)
-        stockData = Stock.objects.filter(id=id)
+        stock_id = request.content
+        data = DailyStockQuote.objects.filter(stock_id=stock_id)
+        stock_data = Stock.objects.filter(id=stock_id)
         self.assertGreater(len(data), 0)
-        self.assertEqual(len(stockData), 1)
+        self.assertEqual(len(stock_data), 1)

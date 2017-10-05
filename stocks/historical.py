@@ -12,7 +12,7 @@ def create_new_stock(ticker, name):
     """
     Function simply creates a new stock
     """
-    if(validate_ticker(ticker) is True):
+    if validate_ticker(ticker) is True:
         stock = Stock(name=name, ticker=ticker)
         stock.save()
         return stock
@@ -41,11 +41,10 @@ def data_ten_years_back_for_stock(request):
         name = body['name']
         ticker = body['ticker']
         stock = create_new_stock(ticker, name)
-        if(stock is not False):
+        if stock is not False:
             return HttpResponse(stock.id, status=200)
-        else:
-            msg = "500 Internal Server Error, stock doesnt exist"
-            return HttpResponse(msg, status=500)
+        msg = "500 Internal Server Error, stock doesnt exist"
+        return HttpResponse(msg, status=500)
     return HttpResponse("405 Method Not Allowed", status=405)
 
 
@@ -93,6 +92,7 @@ def save_stock_quote_from_fetcher(fetcher_history, stock_id):
 
 
 def validate_ticker(ticker):
+    """Function that validates ticker from yahoo_historical api"""
     now = arrow.now()
     now = get_date_array_for_fetcher(now)
     try:
