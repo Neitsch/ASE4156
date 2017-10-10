@@ -1,5 +1,9 @@
 [ignore]
-.*/node_modules/config-chain/*
+.*/node_modules/jss/.*
+.*/node_modules/graphql/.*
+.*/node_modules/material-ui/styles/createGenerateClassName.js.flow
+.*/node_modules/podda/.*
+.*/node_modules/radium/.*
 
 [include]
 

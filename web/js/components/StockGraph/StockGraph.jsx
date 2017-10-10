@@ -1,8 +1,9 @@
+// @flow
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Chart} from 'react-google-charts';
 
-class StockGraph extends React.Component {
+class StockGraph extends React.Component <*> {
   static defaultProps = {
     id: 'line-chart',
     compare: 'ABSOLUTE',

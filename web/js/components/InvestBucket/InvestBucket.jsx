@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import PropTypes from 'prop-types'
 import Card, {CardHeader, CardMedia, CardContent, CardActions} from 'material-ui/Card';
@@ -8,7 +9,7 @@ import Button from 'material-ui/Button';
 
 const propAttrShape = PropTypes.shape({shortDesc: PropTypes.string.isRequired})
 
-class InvestBucket extends React.Component {
+class InvestBucket extends React.Component <*> {
   static propTypes = {
     title: PropTypes.string.isRequired,
     attributes: PropTypes.shape({
@@ -22,7 +23,9 @@ class InvestBucket extends React.Component {
       bad: [],
     }
   }
-  renderAttr(attr, isGood) {
+  renderAttr(attr : {
+    shortDesc: string
+  }, isGood : bool) {
     let indicator = null;
     if (isGood) {
       indicator = <TrendingUpIcon/>;

@@ -1,10 +1,11 @@
+// @flow
 import React from 'react';
 import PropTypes from 'prop-types'
 import Card, {CardHeader, CardMedia, CardContent, CardActions} from 'material-ui/Card';
 import Divider from 'material-ui/Divider';
 import List, {ListItem, ListItemText,} from 'material-ui/List';
 
-class HighlightBox extends React.Component {
+class HighlightBox extends React.Component<*> {
   static propTypes = {
     title: PropTypes.any.isRequired,
     value: PropTypes.any.isRequired,

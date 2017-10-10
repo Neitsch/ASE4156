@@ -1,48 +1,43 @@
+// @flow
+
 import React from 'react';
-import { createFragmentContainer, graphql } from 'react-relay';
+import {createFragmentContainer, graphql} from 'react-relay';
 import Grid from 'material-ui/Grid';
 
-import HighlightBox from '../components/HighlightBox/HighlightBox';
+import PersonalStatusRelay from '../components/PersonalStatus/PersonalStatusRelay';
 
-class Home extends React.Component {
+import type {Home_user}
+from './__generated__/Home_user.graphql';
+
+type Props = {
+  user: Home_user
+}
+
+class Home extends React.Component < Props > {
   render() {
-    if (this.props.user.userbank.edges.length === 0) {
+    if (!this.props.user.userbank || this.props.user.userbank.edges.length === 0) {
       return null;
     }
     return (
       <Grid container spacing={16}>
         <Grid item xs={12} sm={6}>
-          <Grid container spacing={16} align="stretch">
-            <Grid item xs={12} sm={6}>
-              <HighlightBox
-                title={'Current balance'}
-                value={this.props.user.userbank.edges[0].node.balance}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <HighlightBox title={'Total Income'} value={'$300'} />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <HighlightBox title={'Total Expenditures'} value={'$250'} />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <HighlightBox title={'Another box'} value={'$1000'} />
-            </Grid>
-          </Grid>
+          {this.props.user.userbank.edges[0]
+            ? <PersonalStatusRelay bank={this.props.user.userbank.edges[0].node}/>
+            : null}
         </Grid>
       </Grid>
     );
   }
 }
 
-export default createFragmentContainer(Home, { user: graphql `
+export default createFragmentContainer(Home, {user: graphql `
     fragment Home_user on GUser {
       userbank {
         edges {
           node {
-            balance
+            ...PersonalStatusRelay_bank
           }
         }
       }
     }
-` });
+`});

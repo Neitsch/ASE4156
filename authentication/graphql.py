@@ -1,6 +1,7 @@
 """
 GraphQL definitions for the Authentication App
 """
+import datetime
 import os
 from django.contrib.auth.models import User
 from graphene import AbstractType, Argument, Field, Float, List, Mutation, \
@@ -62,13 +63,15 @@ class GUserBank(DjangoObjectType):
     GraphQL representation of a UserBank
     """
     balance = Float()
+    income = Float()
+    outcome = Float()
 
     class Meta(object):
         """
         Meta Model for UserBank
         """
         model = UserBank
-        only_fields = ('id', 'balance')
+        only_fields = ('id', 'balance', 'income', 'outcome')
         interfaces = (relay.Node, )
 
     @staticmethod
@@ -80,6 +83,36 @@ class GUserBank(DjangoObjectType):
                               public_key=PLAID_PUBLIC_KEY, environment=PLAID_ENV)
         balance = client.Accounts.get(data.access_token)['accounts'][0]['balances']['available']
         return float(balance)
+
+    @staticmethod
+    def resolve_income(data, _args, _context, _info):
+        """
+        Finds a stock given a case insensitive name
+        """
+        client = plaid.Client(client_id=PLAID_CLIENT_ID, secret=PLAID_SECRET,
+                              public_key=PLAID_PUBLIC_KEY, environment=PLAID_ENV)
+        start = (datetime.datetime.now() - datetime.timedelta(days=30)).strftime("%Y-%m-%d")
+        end = datetime.datetime.now().strftime("%Y-%m-%d")
+        response = client.Transactions.get(data.access_token,
+                                           start_date=start, end_date=end)
+        transactions = response['transactions']
+        plus = sum(filter(lambda x: x > 0, [tx['amount'] for tx in transactions]))
+        return float(plus)
+
+    @staticmethod
+    def resolve_outcome(data, _args, _context, _info):
+        """
+        Finds a stock given a case insensitive name
+        """
+        client = plaid.Client(client_id=PLAID_CLIENT_ID, secret=PLAID_SECRET,
+                              public_key=PLAID_PUBLIC_KEY, environment=PLAID_ENV)
+        start = (datetime.datetime.now() - datetime.timedelta(days=30)).strftime("%Y-%m-%d")
+        end = datetime.datetime.now().strftime("%Y-%m-%d")
+        response = client.Transactions.get(data.access_token,
+                                           start_date=start, end_date=end)
+        transactions = response['transactions']
+        plus = sum(filter(lambda x: x < 0, [tx['amount'] for tx in transactions]))
+        return float(plus)
 
 
 # pylint: disable=no-init
