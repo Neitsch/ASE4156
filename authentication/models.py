@@ -46,7 +46,8 @@ class UserBank(models.Model):
     """
     user = models.ForeignKey(
         User,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name='userbank'
     )
     item_id = models.CharField(max_length=1000)
     access_token = models.CharField(max_length=1000)

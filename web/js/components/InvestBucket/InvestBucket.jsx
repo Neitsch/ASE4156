@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types'
-import Card, {CardHeader, CardMedia, CardContent, CardActions,} from 'material-ui/Card';
-import List, {ListItem, ListItemIcon, ListItemText,} from 'material-ui/List';
+import Card, {CardHeader, CardMedia, CardContent, CardActions} from 'material-ui/Card';
+import List, {ListItem, ListItemIcon, ListItemText} from 'material-ui/List';
 import TrendingUpIcon from 'material-ui-icons/TrendingUp';
 import TrendingDownIcon from 'material-ui-icons/TrendingDown';
 import Button from 'material-ui/Button';
@@ -13,13 +13,13 @@ class InvestBucket extends React.Component {
     title: PropTypes.string.isRequired,
     attributes: PropTypes.shape({
       good: PropTypes.arrayOf(propAttrShape.isRequired),
-      bad: PropTypes.arrayOf(propAttrShape.isRequired),
-    }),
+      bad: PropTypes.arrayOf(propAttrShape.isRequired)
+    })
   }
   static defaultProps = {
     attributes: {
       good: [],
-      bad: []
+      bad: [],
     }
   }
   renderAttr(attr, isGood) {
@@ -30,7 +30,7 @@ class InvestBucket extends React.Component {
       indicator = <TrendingDownIcon/>
     }
     return (
-      <ListItem>
+      <ListItem key={attr.shortDesc}>
         <ListItemIcon>
           {indicator}
         </ListItemIcon>

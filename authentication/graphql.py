@@ -1,15 +1,22 @@
 """
 GraphQL definitions for the Authentication App
 """
-from graphene_django import DjangoObjectType
+import os
 from django.contrib.auth.models import User
-from graphene import AbstractType, Argument, Field, List, Mutation, NonNull, \
-    String, relay
+from graphene import AbstractType, Argument, Field, Float, List, Mutation, \
+    NonNull, String, relay
+from graphene_django import DjangoObjectType
 from trading.models import TradingAccount
 from trading.graphql import GTradingAccount
 from stocks.graphql import GStock
 from stocks.models import Stock
-from .models import Profile
+import plaid
+from .models import Profile, UserBank
+
+PLAID_CLIENT_ID = os.environ.get('PLAID_CLIENT_ID')
+PLAID_SECRET = os.environ.get('PLAID_SECRET')
+PLAID_PUBLIC_KEY = os.environ.get('PLAID_PUBLIC_KEY')
+PLAID_ENV = 'sandbox' if os.environ.get('DEBUG') == "TRUE" else 'development'
 
 
 # pylint: disable=too-few-public-methods
@@ -23,7 +30,7 @@ class GUser(DjangoObjectType):
         the whole usere object
         """
         model = User
-        only_fields = ('id', 'profile', 'username')
+        only_fields = ('id', 'profile', 'username', 'userbank')
         interfaces = (relay.Node, )
 
 
@@ -40,6 +47,7 @@ class GProfile(DjangoObjectType):
         """
         model = Profile
         only_fields = ('id', 'trading_accounts', 'stock_find')
+        interfaces = (relay.Node, )
 
     @staticmethod
     def resolve_stock_find(_self, args, _context, _info):
@@ -47,6 +55,31 @@ class GProfile(DjangoObjectType):
         Finds a stock given a case insensitive name
         """
         return Stock.objects.filter(name__icontains=args['text'])
+
+
+class GUserBank(DjangoObjectType):
+    """
+    GraphQL representation of a UserBank
+    """
+    balance = Float()
+
+    class Meta(object):
+        """
+        Meta Model for UserBank
+        """
+        model = UserBank
+        only_fields = ('id', 'balance')
+        interfaces = (relay.Node, )
+
+    @staticmethod
+    def resolve_balance(data, _args, _context, _info):
+        """
+        Finds a stock given a case insensitive name
+        """
+        client = plaid.Client(client_id=PLAID_CLIENT_ID, secret=PLAID_SECRET,
+                              public_key=PLAID_PUBLIC_KEY, environment=PLAID_ENV)
+        balance = client.Accounts.get(data.access_token)['accounts'][0]['balances']['available']
+        return float(balance)
 
 
 # pylint: disable=no-init
