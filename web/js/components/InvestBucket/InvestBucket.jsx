@@ -14,8 +14,8 @@ class InvestBucket extends React.Component <*> {
     title: PropTypes.string.isRequired,
     attributes: PropTypes.shape({
       good: PropTypes.arrayOf(propAttrShape.isRequired),
-      bad: PropTypes.arrayOf(propAttrShape.isRequired)
-    })
+      bad: PropTypes.arrayOf(propAttrShape.isRequired),
+    }),
   }
   static defaultProps = {
     attributes: {
