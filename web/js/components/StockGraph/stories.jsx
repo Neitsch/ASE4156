@@ -46,6 +46,7 @@ storiesOf('StockGraph', module).add('Playground', () => {
     compare={select('Compare type', [
       'PERCENT', 'ABSOLUTE',
     ], 'ABSOLUTE')}
+    title={'Test Chart'}
     quotes={values}
   />);
 });

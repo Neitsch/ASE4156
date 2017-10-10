@@ -4056,6 +4056,10 @@ hoist-non-react-statics@1.2.0, hoist-non-react-statics@1.x.x, hoist-non-react-st
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-1.2.0.tgz#aa448cf0986d55cc40773b17174b7dd066cb7cfb"
 
+hoist-non-react-statics@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.3.1.tgz#343db84c6018c650778898240135a1420ee22ce0"
+
 home-or-tmp@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/home-or-tmp/-/home-or-tmp-2.0.0.tgz#e36c3f2d2cae7d746a857e38d18d5f32a7882db8"
@@ -5523,6 +5527,12 @@ map-visit@^1.0.0:
 material-colors@^1.2.1:
   version "1.2.5"
   resolved "https://registry.yarnpkg.com/material-colors/-/material-colors-1.2.5.tgz#5292593e6754cb1bcc2b98030e4e0d6a3afc9ea1"
+
+material-ui-icons@^1.0.0-beta.15:
+  version "1.0.0-beta.15"
+  resolved "https://registry.yarnpkg.com/material-ui-icons/-/material-ui-icons-1.0.0-beta.15.tgz#fa6c2481517d380a0c2d0daebb7aacf39c2c68a0"
+  dependencies:
+    recompose "^0.25.1"
 
 material-ui@next:
   version "1.0.0-beta.12"
@@ -7149,6 +7159,15 @@ recompose@^0.24.0:
     change-emitter "^0.1.2"
     fbjs "^0.8.1"
     hoist-non-react-statics "^1.0.0"
+    symbol-observable "^1.0.4"
+
+recompose@^0.25.1:
+  version "0.25.1"
+  resolved "https://registry.yarnpkg.com/recompose/-/recompose-0.25.1.tgz#5eb9d6cf6e25a9ffad73cbbae5658b5b55d6e728"
+  dependencies:
+    change-emitter "^0.1.2"
+    fbjs "^0.8.1"
+    hoist-non-react-statics "^2.3.1"
     symbol-observable "^1.0.4"
 
 redent@^1.0.0:
