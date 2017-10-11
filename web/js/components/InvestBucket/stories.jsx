@@ -1,8 +1,9 @@
 // @flow
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { number, text } from '@storybook/addon-knobs';
+import { text } from '@storybook/addon-knobs';
 import InvestBucket from './InvestBucket';
+import { action } from '@storybook/addon-actions';
 
 storiesOf('InvestBucket', module).add('Playground', () => {
   const title = text('Title of the risk section', 'Risk 1');
@@ -20,5 +21,5 @@ storiesOf('InvestBucket', module).add('Playground', () => {
       },
     ],
   };
-  return (<InvestBucket title={title} attributes={riskList} />);
+  return (<InvestBucket title={title} attributes={riskList} editFunc={action('edit')} />);
 });

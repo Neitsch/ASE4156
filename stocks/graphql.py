@@ -194,20 +194,27 @@ class AddAttributeToInvestment(Mutation):
         """
         desc = NonNull(String)
         bucket = NonNull(String)
-    bucket = Field(lambda: GInvestmentBucket)
+        is_good = NonNull(Boolean)
+    bucket_attr = Field(lambda: GInvestmentBucketAttribute)
 
     @staticmethod
     def mutate(_self, args, context, _info):
         """
         Executes the mutation to add the attribute
         """
-        bucket = InvestmentBucket.objects.get(name=args['bucket'])
-        if not bucket.owner.id == context.user.profile.id:
+        bucket = InvestmentBucket.objects.get(
+            name=args['bucket'],
+            owner__id=context.user.profile.id,
+        )
+        if not bucket or (not bucket.owner.id == context.user.profile.id):
             raise Exception("You don't own the bucket!")
-        attribute = InvestmentBucketDescription(text=args['desc'], bucket=bucket)
+        attribute = InvestmentBucketDescription(
+            text=args['desc'],
+            bucket=bucket,
+            is_good=args['is_good'],
+        )
         attribute.save()
-        bucket.refresh_from_db()
-        return AddAttributeToInvestment(bucket=bucket)
+        return AddAttributeToInvestment(bucket_attr=attribute)
 
 
 # pylint: disable=no-init

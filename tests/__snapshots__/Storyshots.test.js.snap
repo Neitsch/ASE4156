@@ -245,6 +245,42 @@ exports[`Storyshots InvestBucket Playground 1`] = `
         </div>
       </li>
     </ul>
+    <button
+      aria-label="add"
+      className="MuiButtonBase-root-190 MuiButton-root-176 MuiButton-raised-183 MuiButton-fab-189 MuiButton-raisedPrimary-185"
+      disabled={false}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchStart={[Function]}
+      role="button"
+      tabIndex={0}
+      type="button"
+    >
+      <span
+        className="MuiButton-label-178"
+      >
+        <svg
+          aria-hidden="true"
+          className="MuiSvgIcon-root-168"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
+          />
+        </svg>
+      </span>
+      <span
+        className="MuiTouchRipple-root-192"
+      />
+    </button>
   </div>
   <div
     className="MuiCardActions-root-174"

@@ -27,11 +27,11 @@ export default class EditBucket extends React.Component<Props, State> {
     save: PropTypes.func.isRequired,
   }
   constructor() {
-    super()
+    super();
     this.state = {
       public: false,
       bucketName: '',
-    }
+    };
   }
   clickCheckbox = () => this.setState((state, props) => ({
     ...state,
@@ -40,16 +40,15 @@ export default class EditBucket extends React.Component<Props, State> {
   bucketNameChange = (e: SyntheticInputEvent<>) => {
     const text = e.target.value;
     this.setState((state, props) => ({
-      ...state,
       bucketName: text,
-    }))
+    }));
   }
   save = () => {
     this.props.save(this.state.bucketName, this.state.public);
   }
   render() {
     return (
-      <Dialog open={true} onRequestClose={this.props.cancel}>
+      <Dialog open onRequestClose={this.props.cancel}>
         <DialogTitle>Subscribe</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -86,6 +85,6 @@ export default class EditBucket extends React.Component<Props, State> {
           </Button>
         </DialogActions>
       </Dialog>
-    )
+    );
   }
 }

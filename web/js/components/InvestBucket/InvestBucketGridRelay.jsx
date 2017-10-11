@@ -62,7 +62,6 @@ class InvestBucketGridRelay extends React.Component<Props, State> {
     )(this.props.relay.environment)(name, publicBucket);
   }
   render() {
-    console.log(this.props);
     if (!this.props.profile.investSuggestions) {
       return null;
     }
