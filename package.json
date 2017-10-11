@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "eslint": "eslint .",
-    "relay": "relay-compiler --extensions js --extensions jsx --src web/js --schema ./schema.json",
+    "relay": "relay-compiler --extensions js --extensions jsx --src web/js/ --schema ./schema.json",
     "build": "python manage.py graphql_schema && yarn run relay && yarn run webpack",
     "postinstall": "yarn run build",
     "webpack": "webpack --config webpack.config.js --progress --colors",

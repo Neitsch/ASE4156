@@ -51,6 +51,7 @@ class InvestmentBucketDescription(models.Model):
     """
     text = models.CharField(max_length=255)
     bucket = models.ForeignKey(InvestmentBucket, related_name='description')
+    is_good = models.BooleanField()
 
 
 class InvestmentStockConfiguration(models.Model):

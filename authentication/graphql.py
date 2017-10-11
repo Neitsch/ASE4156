@@ -4,12 +4,13 @@ GraphQL definitions for the Authentication App
 import datetime
 import os
 from django.contrib.auth.models import User
-from graphene import AbstractType, Argument, Field, Float, List, Mutation, \
-    NonNull, ObjectType, String, relay
+from graphene import AbstractType, Argument, Connection, Field, Float, List, \
+    Mutation, NonNull, ObjectType, String, relay
 from graphene_django import DjangoObjectType
+from graphene_django.filter import DjangoFilterConnectionField
 from trading.models import TradingAccount
 from trading.graphql import GTradingAccount
-from stocks.graphql import GStock
+from stocks.graphql import GInvestmentBucket, GStock
 from stocks.models import Stock
 import plaid
 from .models import Profile, UserBank
@@ -41,6 +42,7 @@ class GProfile(DjangoObjectType):
     """
     stock_find = List(
         GStock, args={'text': Argument(NonNull(String))})
+    invest_suggestions = DjangoFilterConnectionField(GInvestmentBucket)
 
     class Meta(object):
         """

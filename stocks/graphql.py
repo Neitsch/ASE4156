@@ -26,7 +26,7 @@ class GDailyStockQuote(DjangoObjectType):
 class GInvestmentBucketAttribute(DjangoObjectType):
     class Meta:
         model = InvestmentBucketDescription
-        #interfaces = (relay.Node, )
+        interfaces = (relay.Node, )
 
 
 class GInvestmentBucket(DjangoObjectType):
@@ -38,7 +38,8 @@ class GInvestmentBucket(DjangoObjectType):
         Meta Model for InvestmentBucket
         """
         model = InvestmentBucket
-        #interfaces = (relay.Node, )
+        filter_fields = []
+        interfaces = (relay.Node, )
 
 
 class GInvestmentStockConfiguration(DjangoObjectType):

@@ -6,6 +6,7 @@ import Grid from 'material-ui/Grid';
 
 import PersonalStatusRelay from '../components/PersonalStatus/PersonalStatusRelay';
 import BankAccountRelay from '../components/StockGraph/BankAccountRelay';
+import InvestBucketGridRelay from '../components/InvestBucket/InvestBucketGridRelay';
 
 import type {Home_user}
 from './__generated__/Home_user.graphql';
@@ -31,6 +32,9 @@ class Home extends React.Component < Props > {
             ? <BankAccountRelay bank={this.props.user.userbank.edges[0].node}/>
             : null}
         </Grid>
+        <Grid item xs={12} sm={6}>
+          <InvestBucketGridRelay profile={this.props.user.profile}/>
+        </Grid>
       </Grid>
     );
   }
@@ -38,6 +42,9 @@ class Home extends React.Component < Props > {
 
 export default createFragmentContainer(Home, {user: graphql `
     fragment Home_user on GUser {
+      profile {
+        ...InvestBucketGridRelay_profile
+      }
       userbank {
         edges {
           node {
