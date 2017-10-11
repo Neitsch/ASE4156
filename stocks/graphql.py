@@ -39,12 +39,22 @@ class GInvestmentBucket(DjangoObjectType):
     """
     GraphQL representation of a InvestmentBucket
     """
+    is_owner = Boolean()
+
     class Meta:
         """
         Meta Model for InvestmentBucket
         """
         model = InvestmentBucket
         interfaces = (relay.Node, )
+        only_fields = ('id', 'name', 'public', 'description', 'stocks')
+
+    @staticmethod
+    def resolve_is_owner(data, _args, context, _info):
+        """
+        Returns whether the user ownes the investment bucket
+        """
+        return data.owner.id == context.user.profile.id
 
 
 class GInvestmentStockConfiguration(DjangoObjectType):

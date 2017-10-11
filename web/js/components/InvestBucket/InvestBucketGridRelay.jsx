@@ -33,19 +33,22 @@ class InvestBucketGridRelay extends React.Component<Props, State> {
     }));
   }
   dialogSave = (name: string, publicBucket: bool) => {
-    const updater = (store) => {
-      const connection = ConnectionHandler.getConnection(
-        store.get(this.props.profile.id),
-        'InvestBucketGridRelay_investSuggestions',
-      );
-      const newEdge = ConnectionHandler.createEdge(
-        store,
-        connection,
-        store.getRootField('addBucket').getLinkedRecord('bucket'),
-        'GInvestmentBucketConnection',
-      );
-      ConnectionHandler.insertEdgeBefore(connection, newEdge);
-    };
+    let updater = null;
+    if (publicBucket) {
+      updater = (store) => {
+        const connection = ConnectionHandler.getConnection(
+          store.get(this.props.profile.id),
+          'InvestBucketGridRelay_investSuggestions',
+        );
+        const newEdge = ConnectionHandler.createEdge(
+          store,
+          connection,
+          store.getRootField('addBucket').getLinkedRecord('bucket'),
+          'GInvestmentBucketConnection',
+        );
+        ConnectionHandler.insertEdgeAfter(connection, newEdge);
+      };
+    }
     createBucket(
       updater,
       updater,
