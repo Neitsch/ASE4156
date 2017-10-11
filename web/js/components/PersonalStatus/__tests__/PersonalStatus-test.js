@@ -11,12 +11,4 @@ describe('PersonalStatus', () => {
   it('exists', () => {
     expect(PersonalStatus).toBeTruthy();
   });
-
-  it('renders', () => {
-    const props = fakeProps('web/js/components/PersonalStatus/PersonalStatus.jsx');
-    console.log(props);
-    const comp = <PersonalStatus {...props} />;
-    const wrapper = shallow(comp);
-    expect(shallowToJson(wrapper)).toMatchSnapshot();
-  });
 });
