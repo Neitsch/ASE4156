@@ -4,8 +4,8 @@ GraphQL definitions for the Authentication App
 import datetime
 import os
 from django.contrib.auth.models import User
-from graphene import AbstractType, Argument, Connection, Field, Float, List, \
-    Mutation, NonNull, ObjectType, String, relay
+from graphene import AbstractType, Argument, Field, Float, List, Mutation, \
+    NonNull, ObjectType, String, relay
 from graphene_django import DjangoObjectType
 from graphene_django.filter import DjangoFilterConnectionField
 from trading.models import TradingAccount

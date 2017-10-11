@@ -24,7 +24,13 @@ class GDailyStockQuote(DjangoObjectType):
 
 
 class GInvestmentBucketAttribute(DjangoObjectType):
+    """
+    GraphQL representation of a InvestmentBucketDescription
+    """
     class Meta:
+        """
+        Meta Model for InvestmentBucketDescription
+        """
         model = InvestmentBucketDescription
         interfaces = (relay.Node, )
 
@@ -112,14 +118,20 @@ class AddStock(Mutation):
 
 
 class AddBucket(Mutation):
+    """
+    Creates a new InvestmentBucket and returns the new bucket
+    """
     class Input(object):
+        """
+        We only need the name of the new bucket to create it
+        """
         name = NonNull(String)
     bucket = Field(lambda: GInvestmentBucket)
 
     @staticmethod
     def mutate(_self, args, _context, _info):
         """
-        Creates a Stock and saves it to the DB
+        Creates a new InvestmentBucket and saves it to the DB
         """
         bucket = InvestmentBucket(name=args['name'])
         bucket.save()
@@ -127,7 +139,13 @@ class AddBucket(Mutation):
 
 
 class AddStockToBucket(Mutation):
+    """
+    Adds a new stock to a specific bucket and returns the bucket
+    """
     class Input(object):
+        """
+        We need the ticker, bucket and quantity to create the connection
+        """
         ticker = NonNull(String)
         bucket_name = NonNull(String)
         quantity = NonNull(Float)
@@ -136,7 +154,7 @@ class AddStockToBucket(Mutation):
     @staticmethod
     def mutate(_self, args, _context, _info):
         """
-        Creates a Stock and saves it to the DB
+        Adds a new stock to a specific bucket
         """
         bucket = InvestmentBucket.objects.get(name=args['bucket_name'])
         stock = Stock.objects.get(ticker=args['ticker'])
@@ -151,13 +169,22 @@ class AddStockToBucket(Mutation):
 
 
 class AddAttributeToInvestment(Mutation):
+    """
+    Adds a description to an Investment Bucket and returns the bucket
+    """
     class Input(object):
+        """
+        We need the description and the bucket as input
+        """
         desc = NonNull(String)
         bucket = NonNull(String)
     bucket = Field(lambda: GInvestmentBucket)
 
     @staticmethod
     def mutate(_self, args, _context, _info):
+        """
+        Executes the mutation to add the attribute
+        """
         bucket = InvestmentBucket.objects.get(name=args['bucket'])
         attribute = InvestmentBucketDescription(text=args['desc'], bucket=bucket)
         attribute.save()
