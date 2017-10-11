@@ -166,11 +166,13 @@ class AddStockToBucket(Mutation):
     bucket = Field(lambda: GInvestmentBucket)
 
     @staticmethod
-    def mutate(_self, args, _context, _info):
+    def mutate(_self, args, context, _info):
         """
         Adds a new stock to a specific bucket
         """
         bucket = InvestmentBucket.objects.get(name=args['bucket_name'])
+        if not bucket.owner.id == context.user.profile.id:
+            raise Exception("You don't own the bucket!")
         stock = Stock.objects.get(ticker=args['ticker'])
         investment = InvestmentStockConfiguration(
             bucket=bucket,
@@ -195,11 +197,13 @@ class AddAttributeToInvestment(Mutation):
     bucket = Field(lambda: GInvestmentBucket)
 
     @staticmethod
-    def mutate(_self, args, _context, _info):
+    def mutate(_self, args, context, _info):
         """
         Executes the mutation to add the attribute
         """
         bucket = InvestmentBucket.objects.get(name=args['bucket'])
+        if not bucket.owner.id == context.user.profile.id:
+            raise Exception("You don't own the bucket!")
         attribute = InvestmentBucketDescription(text=args['desc'], bucket=bucket)
         attribute.save()
         bucket.refresh_from_db()
