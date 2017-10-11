@@ -44,7 +44,6 @@ class GInvestmentBucket(DjangoObjectType):
         Meta Model for InvestmentBucket
         """
         model = InvestmentBucket
-        filter_fields = []
         interfaces = (relay.Node, )
 
 
