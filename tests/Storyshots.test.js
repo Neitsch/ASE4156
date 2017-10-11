@@ -3,5 +3,7 @@ import initStoryshots from '@storybook/addon-storyshots';
 
 console.log = jest.fn();
 
-initStoryshots();
+initStoryshots({
+  storyKindRegex:/^((?!.*?DontTest).)*$/
+});
 /* eslint-enable */

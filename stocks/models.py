@@ -3,6 +3,7 @@ Models keeps track of all the persistent data around stocks
 """
 
 from django.db import models
+from authentication.models import Profile
 
 
 class Stock(models.Model):
@@ -43,6 +44,8 @@ class InvestmentBucket(models.Model):
     An investment bucket represents a collection of stocks to invest in
     """
     name = models.CharField(max_length=255)
+    owner = models.ForeignKey(Profile, related_name='owned_bucket')
+    public = models.BooleanField()
 
 
 class InvestmentBucketDescription(models.Model):

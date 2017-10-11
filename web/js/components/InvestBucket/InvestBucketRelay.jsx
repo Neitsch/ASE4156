@@ -1,5 +1,6 @@
+// @flow
 import React from 'react';
-import {createFragmentContainer, grahpql} from 'react-relay';
+import {createFragmentContainer, graphql} from 'react-relay';
 import InvestBucket from './InvestBucket';
 
 import type {InvestBucketRelay_bucket} from './__generated__/InvestBucketRelay_bucket.graphql';
@@ -10,7 +11,16 @@ type Props = {
 
 class InvestBucketRelay extends React.Component<Props> {
   render() {
-    const attributes = this.props.bucket.description.edges.reduce((all, item) => {
+    let data;
+    if(!this.props.bucket.description) {
+      data = []
+    } else {
+      data = this.props.bucket.description.edges;
+    }
+    const attributes = data.reduce((all, item) => {
+      if(!item || !item.node) {
+        return all;
+      }
       all[item.node.isGood ? 'good' : 'bad'].push({shortDesc: item.node.text});
       return all;
     }, {

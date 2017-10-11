@@ -2,8 +2,8 @@
 GraphQL definitions for the Stocks App
 """
 from graphene_django import DjangoObjectType
-from graphene import AbstractType, Argument, Field, Float, List, Mutation, \
-    NonNull, String, relay
+from graphene import AbstractType, Argument, Boolean, Field, Float, List, \
+    Mutation, NonNull, String, relay
 from trading.models import Trade
 from .models import DailyStockQuote, InvestmentBucket, \
     InvestmentBucketDescription, InvestmentStockConfiguration, Stock
@@ -125,14 +125,19 @@ class AddBucket(Mutation):
         We only need the name of the new bucket to create it
         """
         name = NonNull(String)
+        public = NonNull(Boolean)
     bucket = Field(lambda: GInvestmentBucket)
 
     @staticmethod
-    def mutate(_self, args, _context, _info):
+    def mutate(_self, args, context, _info):
         """
         Creates a new InvestmentBucket and saves it to the DB
         """
-        bucket = InvestmentBucket(name=args['name'])
+        bucket = InvestmentBucket(
+            name=args['name'],
+            public=args['public'],
+            owner=context.user.profile,
+        )
         bucket.save()
         return AddBucket(bucket=bucket)
 
