@@ -112,7 +112,8 @@ class GUserBank(DjangoObjectType):
             if not value_list[-1].date == transaction['date']:
                 value_list.append(DataPoint(transaction['date'], value))
         return value_list
- 
+
+    @staticmethod
     def resolve_balance(data, _args, _context, _info):
         """
         Finds a stock given a case insensitive name
