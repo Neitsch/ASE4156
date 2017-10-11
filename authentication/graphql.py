@@ -7,11 +7,13 @@ from django.contrib.auth.models import User
 from graphene import AbstractType, Argument, Field, Float, List, Mutation, \
     NonNull, ObjectType, String, relay
 from graphene_django import DjangoObjectType
+from graphene_django.filter import DjangoFilterConnectionField
 from trading.models import TradingAccount
 from trading.graphql import GTradingAccount
-from stocks.graphql import GStock
-from stocks.models import Stock
+from stocks.graphql import GInvestmentBucket, GStock
+from stocks.models import InvestmentBucket, Stock
 import plaid
+import django_filters
 from .models import Profile, UserBank
 
 PLAID_CLIENT_ID = os.environ.get('PLAID_CLIENT_ID')
@@ -35,12 +37,29 @@ class GUser(DjangoObjectType):
         interfaces = (relay.Node, )
 
 
+class GInvestmentBucketFilter(django_filters.FilterSet):
+    """
+    Filterset to exclude private buckets
+    """
+    def __init__(self, *args, **kwargs):
+        kwargs['queryset'] = kwargs['queryset'].filter(public=True)
+        super(GInvestmentBucketFilter, self).__init__(*args, **kwargs)
+
+    class Meta:
+        model = InvestmentBucket
+        fields = []
+
+
 class GProfile(DjangoObjectType):
     """
     GraphQL representation of a Profile
     """
     stock_find = List(
         GStock, args={'text': Argument(NonNull(String))})
+    invest_suggestions = DjangoFilterConnectionField(
+        GInvestmentBucket,
+        filterset_class=GInvestmentBucketFilter,
+    )
 
     class Meta(object):
         """
