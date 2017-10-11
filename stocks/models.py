@@ -45,6 +45,14 @@ class InvestmentBucket(models.Model):
     name = models.CharField(max_length=255)
 
 
+class InvestmentBucketDescription(models.Model):
+    """
+    An investment bucket represents a collection of stocks to invest in
+    """
+    text = models.CharField(max_length=255)
+    bucket = models.ForeignKey(InvestmentBucket, related_name='description')
+
+
 class InvestmentStockConfiguration(models.Model):
     """
     Represents the configuration of how much of a stock to invest for a bucket

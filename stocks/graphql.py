@@ -6,7 +6,7 @@ from graphene import AbstractType, Argument, Field, Float, List, Mutation, \
     NonNull, String, relay
 from trading.models import Trade
 from .models import DailyStockQuote, InvestmentBucket, \
-    InvestmentStockConfiguration, Stock
+    InvestmentBucketDescription, InvestmentStockConfiguration, Stock
 from .historical import create_new_stock
 
 
@@ -23,6 +23,12 @@ class GDailyStockQuote(DjangoObjectType):
         interfaces = (relay.Node, )
 
 
+class GInvestmentBucketAttribute(DjangoObjectType):
+    class Meta:
+        model = InvestmentBucketDescription
+        #interfaces = (relay.Node, )
+
+
 class GInvestmentBucket(DjangoObjectType):
     """
     GraphQL representation of a InvestmentBucket
@@ -32,7 +38,7 @@ class GInvestmentBucket(DjangoObjectType):
         Meta Model for InvestmentBucket
         """
         model = InvestmentBucket
-        interfaces = (relay.Node, )
+        #interfaces = (relay.Node, )
 
 
 class GInvestmentStockConfiguration(DjangoObjectType):
@@ -139,7 +145,23 @@ class AddStockToBucket(Mutation):
             quantity=args['quantity']
         )
         investment.save()
-        return investment.bucket
+        bucket.refresh_from_db()
+        return AddStockToBucket(bucket=bucket)
+
+
+class AddAttributeToInvestment(Mutation):
+    class Input(object):
+        desc = NonNull(String)
+        bucket = NonNull(String)
+    bucket = Field(lambda: GInvestmentBucket)
+
+    @staticmethod
+    def mutate(_self, args, _context, _info):
+        bucket = InvestmentBucket.objects.get(name=args['bucket'])
+        attribute = InvestmentBucketDescription(text=args['desc'], bucket=bucket)
+        attribute.save()
+        bucket.refresh_from_db()
+        return AddAttributeToInvestment(bucket=bucket)
 
 
 # pylint: disable=no-init
