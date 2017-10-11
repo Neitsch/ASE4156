@@ -2,10 +2,11 @@
 GraphQL definitions for the Stocks App
 """
 from graphene_django import DjangoObjectType
-from graphene import AbstractType, Argument, Field, List, Mutation, NonNull, \
-    String, relay
+from graphene import AbstractType, Argument, Field, Float, List, Mutation, \
+    NonNull, String, relay
 from trading.models import Trade
-from .models import DailyStockQuote, Stock
+from .models import DailyStockQuote, InvestmentBucket, \
+    InvestmentStockConfiguration, Stock
 from .historical import create_new_stock
 
 
@@ -19,6 +20,30 @@ class GDailyStockQuote(DjangoObjectType):
         Meta Model for DailyStockQuote
         """
         model = DailyStockQuote
+        interfaces = (relay.Node, )
+
+
+class GInvestmentBucket(DjangoObjectType):
+    """
+    GraphQL representation of a InvestmentBucket
+    """
+    class Meta:
+        """
+        Meta Model for InvestmentBucket
+        """
+        model = InvestmentBucket
+        interfaces = (relay.Node, )
+
+
+class GInvestmentStockConfiguration(DjangoObjectType):
+    """
+    GraphQL representation of a InvestmentStockConfiguration
+    """
+    class Meta:
+        """
+        Meta Model for InvestmentStockConfiguration
+        """
+        model = InvestmentStockConfiguration
         interfaces = (relay.Node, )
 
 
@@ -77,6 +102,44 @@ class AddStock(Mutation):
         Creates a Stock and saves it to the DB
         """
         return AddStock(stock=create_new_stock(args['ticker'], args['name']))
+
+
+class AddBucket(Mutation):
+    class Input(object):
+        name = NonNull(String)
+    bucket = Field(lambda: GInvestmentBucket)
+
+    @staticmethod
+    def mutate(_self, args, _context, _info):
+        """
+        Creates a Stock and saves it to the DB
+        """
+        bucket = InvestmentBucket(name=args['name'])
+        bucket.save()
+        return AddBucket(bucket=bucket)
+
+
+class AddStockToBucket(Mutation):
+    class Input(object):
+        ticker = NonNull(String)
+        bucket_name = NonNull(String)
+        quantity = NonNull(Float)
+    bucket = Field(lambda: GInvestmentBucket)
+
+    @staticmethod
+    def mutate(_self, args, _context, _info):
+        """
+        Creates a Stock and saves it to the DB
+        """
+        bucket = InvestmentBucket.objects.get(name=args['bucket_name'])
+        stock = Stock.objects.get(ticker=args['ticker'])
+        investment = InvestmentStockConfiguration(
+            bucket=bucket,
+            stock=stock,
+            quantity=args['quantity']
+        )
+        investment.save()
+        return investment.bucket
 
 
 # pylint: disable=no-init
