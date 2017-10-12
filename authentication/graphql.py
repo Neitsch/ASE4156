@@ -139,7 +139,16 @@ class GUserBank(DjangoObjectType):
         """
         client = plaid.Client(client_id=PLAID_CLIENT_ID, secret=PLAID_SECRET,
                               public_key=PLAID_PUBLIC_KEY, environment=PLAID_ENV)
-        balance = client.Accounts.get(data.access_token)['accounts'][0]['balances']['available']
+        balances = client.Accounts.balance.get(data.access_token)['accounts']
+        print(balances)
+        extracted_balances = [((b['balances']['available']
+                                if b['balances']['available'] is not None else
+                                b['balances']['current']) *
+                               (1
+                                if b['subtype'] == 'credit card' else -1))
+                              for b in balances]
+        print(extracted_balances)
+        balance = sum(extracted_balances)
         return float(balance)
 
     @staticmethod
