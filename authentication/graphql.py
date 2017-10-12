@@ -14,7 +14,6 @@ from trading.graphql import GTradingAccount
 from stocks.graphql import GInvestmentBucket, GStock
 from stocks.models import InvestmentBucket, Stock
 import plaid
-import django_filters
 from .models import Profile, UserBank
 
 PLAID_CLIENT_ID = os.environ.get('PLAID_CLIENT_ID')
@@ -64,7 +63,10 @@ class GProfile(DjangoObjectType):
         return Stock.objects.filter(name__icontains=args['text'])
 
     @staticmethod
-    def resolve_invest_suggestions(data, args, context, info):
+    def resolve_invest_suggestions(_data, _args, context, _info):
+        """
+        Finds all the investment suggestions available to the user
+        """
         return InvestmentBucket.objects.filter(Q(owner=context.user.profile) | Q(public=True))
 
 

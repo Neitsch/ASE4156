@@ -146,6 +146,51 @@ exports[`Storyshots HighlightBox Annulized Percentage Return 1`] = `
 </div>
 `;
 
+exports[`Storyshots HighlightBox Playground 1`] = `
+<div
+  className="MuiPaper-root-8 MuiPaper-shadow2-12 MuiPaper-rounded-9"
+>
+  <div
+    className="MuiCardContent-root-64 MuiCardHeader-root-59"
+  >
+    <div
+      className="MuiCardHeader-content-61"
+    >
+      <span
+        className="MuiTypography-root-37 MuiTypography-headline-42 MuiCardHeader-title-62"
+      >
+        Account Total
+      </span>
+      <span
+        className="MuiTypography-root-37 MuiTypography-body1-46 MuiTypography-colorSecondary-57 MuiCardHeader-subheader-63"
+      />
+    </div>
+  </div>
+  <div
+    className="MuiCardContent-root-64"
+  >
+    <h1>
+      $1234.56
+    </h1>
+    <hr
+      className="MuiDivider-root-148 MuiDivider-default-149"
+    />
+    <ul
+      className="MuiList-root-153 MuiList-padding-154"
+    >
+      <li
+        className="MuiListItem-root-157 MuiListItem-gutters-164 MuiListItem-default-160"
+        disabled={false}
+      >
+        <div
+          className="MuiListItemText-root-169"
+        />
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
 exports[`Storyshots InvestBucket Playground 1`] = `
 <div
   className="MuiPaper-root-8 MuiPaper-shadow2-12 MuiPaper-rounded-9"
