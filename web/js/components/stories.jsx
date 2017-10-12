@@ -1,3 +1,5 @@
-require('./Saldo/stories.jsx');
-require('./HighlightBox/stories.jsx');
-require('./StockGraph/stories.jsx');
+require('./Saldo/stories');
+require('./HighlightBox/stories');
+require('./StockGraph/stories');
+require('./InvestBucket/stories');
+require('./EditBucket/stories');

@@ -26,9 +26,12 @@ class Mutation(graphene.ObjectType):
     List of all mutations we can perform
     """
     # pylint: disable=no-member
+    add_bucket = stocks.graphql.AddBucket.Field()
     add_trading_account = authentication.graphql.AddTradingAccount.Field()
     add_trade = trading.graphql.AddTrade.Field()
     add_stock = stocks.graphql.AddStock.Field()
+    add_stock_to_bucket = stocks.graphql.AddStockToBucket.Field()
+    add_attribute_to_bucket = stocks.graphql.AddAttributeToInvestment.Field()
     # pylint: enable=no-member
 # pylint: enable=too-few-public-methods
 
