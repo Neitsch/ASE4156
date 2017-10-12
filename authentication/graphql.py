@@ -145,7 +145,7 @@ class GUserBank(DjangoObjectType):
                                 if b['balances']['available'] is not None else
                                 b['balances']['current']) *
                                (1
-                                if b['subtype'] is not 'credit card' else -1))
+                                if b['subtype'] == 'credit card' else -1))
                               for b in balances]
         print(extracted_balances)
         balance = sum(extracted_balances)
