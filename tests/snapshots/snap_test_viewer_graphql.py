@@ -50,16 +50,6 @@ snapshots['test_big_gql 1'] = {
     }
 }
 
-snapshots['test_mutation 1'] = {
-    'data': {
-        'addTradingAccount': {
-            'account': {
-                'accountName': 'Test 1'
-            }
-        }
-    }
-}
-
 snapshots['test_mutation_add_trading_account 1'] = {
     'data': {
         'addTradingAccount': {
