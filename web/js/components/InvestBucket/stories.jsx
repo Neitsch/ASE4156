@@ -10,14 +10,38 @@ storiesOf('InvestBucket', module).add('Playground', () => {
   const riskList = {
     good: [
       {
+        id: '1',
         shortDesc: 'Good to get started',
+        editMode: false,
+        text: {
+          onClick: action('click1'),
+        },
+        icon: {
+          onClick: action('click3'),
+        },
       }, {
+        id: '2',
         shortDesc: 'Low risk',
+        editMode: true,
+        text: {
+          onClick: action('click2'),
+        },
+        icon: {
+          onClick: action('click3'),
+        },
       },
     ],
     bad: [
       {
+        id: '3',
         shortDesc: 'Low reward',
+        editMode: false,
+        text: {
+          onClick: action('click3'),
+        },
+        icon: {
+          onClick: action('click3'),
+        },
       },
     ],
   };
