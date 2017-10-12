@@ -3,6 +3,7 @@ GraphQL definitions for the Authentication App
 """
 import datetime
 import os
+from django.db.models import Q
 from django.contrib.auth.models import User
 from graphene import AbstractType, Argument, Field, Float, List, Mutation, \
     NonNull, ObjectType, String, relay
@@ -37,19 +38,6 @@ class GUser(DjangoObjectType):
         interfaces = (relay.Node, )
 
 
-class GInvestmentBucketFilter(django_filters.FilterSet):
-    """
-    Filterset to exclude private buckets
-    """
-    def __init__(self, *args, **kwargs):
-        kwargs['queryset'] = kwargs['queryset'].filter(public=True)
-        super(GInvestmentBucketFilter, self).__init__(*args, **kwargs)
-
-    class Meta:
-        model = InvestmentBucket
-        fields = []
-
-
 class GProfile(DjangoObjectType):
     """
     GraphQL representation of a Profile
@@ -58,7 +46,6 @@ class GProfile(DjangoObjectType):
         GStock, args={'text': Argument(NonNull(String))})
     invest_suggestions = DjangoFilterConnectionField(
         GInvestmentBucket,
-        filterset_class=GInvestmentBucketFilter,
     )
 
     class Meta(object):
@@ -75,6 +62,10 @@ class GProfile(DjangoObjectType):
         Finds a stock given a case insensitive name
         """
         return Stock.objects.filter(name__icontains=args['text'])
+
+    @staticmethod
+    def resolve_invest_suggestions(data, args, context, info):
+        return InvestmentBucket.objects.filter(Q(owner=context.user.profile) | Q(public=True))
 
 
 class DataPoint(object):
@@ -140,14 +131,12 @@ class GUserBank(DjangoObjectType):
         client = plaid.Client(client_id=PLAID_CLIENT_ID, secret=PLAID_SECRET,
                               public_key=PLAID_PUBLIC_KEY, environment=PLAID_ENV)
         balances = client.Accounts.balance.get(data.access_token)['accounts']
-        print(balances)
         extracted_balances = [((b['balances']['available']
                                 if b['balances']['available'] is not None else
                                 b['balances']['current']) *
                                (1
                                 if b['subtype'] == 'credit card' else -1))
                               for b in balances]
-        print(extracted_balances)
         balance = sum(extracted_balances)
         return float(balance)
 

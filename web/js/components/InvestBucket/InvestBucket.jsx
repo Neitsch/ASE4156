@@ -42,6 +42,7 @@ class InvestBucket extends React.Component <Props, State> {
       good: [],
       bad: [],
     },
+    editFunc: null,
   }
   constructor() {
     super();
