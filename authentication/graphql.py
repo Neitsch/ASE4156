@@ -135,18 +135,18 @@ class GUserBank(DjangoObjectType):
     @staticmethod
     def resolve_balance(data, _args, _context, _info):
         """
-        Finds a stock given a case insensitive name
+        Finds the current balance of the user
         """
         client = plaid.Client(client_id=PLAID_CLIENT_ID, secret=PLAID_SECRET,
                               public_key=PLAID_PUBLIC_KEY, environment=PLAID_ENV)
         balances = client.Accounts.balance.get(data.access_token)['accounts']
         print(balances)
-        extracted_balances = [
-            (b['balances']['available']
-             if b['balances']['available'] is not None
-             else b['balances']['current'])
-            for b in balances
-        ]
+        extracted_balances = [((b['balances']['available']
+                                if b['balances']['available'] is not None else
+                                b['balances']['current']) *
+                               (1
+                                if b['subtype'] is not 'credit card' else -1))
+                              for b in balances]
         print(extracted_balances)
         balance = sum(extracted_balances)
         return float(balance)
