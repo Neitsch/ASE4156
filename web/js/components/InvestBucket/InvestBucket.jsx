@@ -25,7 +25,8 @@ type Props = {
     good: Array<ItemObj>,
     bad: Array<ItemObj>,
   },
-  editFunc: ?(text: string, isGood: bool) => void,
+  editFunc?: ?(text: string, isGood: bool) => void,
+  seeMoreFunc?: ?() => void,
 }
 
 class InvestBucket extends React.Component <Props, State> {
@@ -36,6 +37,7 @@ class InvestBucket extends React.Component <Props, State> {
       bad: PropTypes.arrayOf(propAttrShape.isRequired),
     }),
     editFunc: PropTypes.func,
+    seeMoreFunc: PropTypes.func,
   }
   static defaultProps = {
     attributes: {
@@ -43,6 +45,7 @@ class InvestBucket extends React.Component <Props, State> {
       bad: [],
     },
     editFunc: null,
+    seeMoreFunc: null,
   }
   constructor() {
     super();
@@ -118,6 +121,13 @@ class InvestBucket extends React.Component <Props, State> {
                 ? this.props.attributes.bad.map(b => this.renderAttr(b, false))
                 : [])
               : null
+            }
+            {
+              this.props.seeMoreFunc ?
+                <ListItem>
+                  <Button onClick={this.props.seeMoreFunc}>More</Button>
+                </ListItem>
+                : null
             }
             {
               this.state.editMode ?
