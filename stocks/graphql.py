@@ -1,9 +1,11 @@
 """
 GraphQL definitions for the Stocks App
 """
+from django.db.models import Q
 from graphene_django import DjangoObjectType
-from graphene import AbstractType, Argument, Boolean, Field, Float, List, \
+from graphene import AbstractType, Argument, Boolean, Field, Float, ID, List, \
     Mutation, NonNull, String, relay
+from graphql_relay.node.node import from_global_id
 from trading.models import Trade
 from .models import DailyStockQuote, InvestmentBucket, \
     InvestmentBucketDescription, InvestmentStockConfiguration, Stock
@@ -222,6 +224,19 @@ class Query(AbstractType):
     """
     We don't want to have any root queries here
     """
-    pass
+    invest_bucket = Field(GInvestmentBucket, args={'id': Argument(ID)})
+
+    @staticmethod
+    def resolve_invest_bucket(_self, args, context, _info):
+        """
+        The viewer represents the current logged in user
+        """
+        if not context.user.is_authenticated():
+            return None
+
+        return InvestmentBucket.objects.filter(
+            Q(public=True) | Q(owner=context.user.profile)).get(
+                id=from_global_id(args['id'])[1])
+
 # pylint: enable=too-few-public-methods
 # pylint: enable=no-init

@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { createFragmentContainer, graphql } from 'react-relay';
+import { createRefetchContainer, graphql } from 'react-relay';
 import { ConnectionHandler } from 'relay-runtime';
 import InvestBucket from './InvestBucket';
 import addDescription from '../../mutations/BucketEdit/AddDescription';
@@ -8,12 +8,21 @@ import addDescription from '../../mutations/BucketEdit/AddDescription';
 import type { InvestBucketRelay_bucket } from './__generated__/InvestBucketRelay_bucket.graphql';
 import type { RelayContext } from 'react-relay';
 
+type State = {
+  itemCount: number,
+}
 type Props = {
   bucket: InvestBucketRelay_bucket,
   relay: RelayContext,
 }
 
-class InvestBucketRelay extends React.Component<Props> {
+class InvestBucketRelay extends React.Component<Props, State> {
+  constructor() {
+    super();
+    this.state = {
+      itemCount: 2,
+    };
+  }
   render() {
     let data;
     if (!this.props.bucket.description) {
@@ -54,30 +63,55 @@ class InvestBucketRelay extends React.Component<Props> {
         text, this.props.bucket.name, isGood,
       );
     }
+    let seeMoreFunc = null;
+    if (this.props.bucket.description && this.props.bucket.description.pageInfo.hasNextPage) {
+      seeMoreFunc = () => {
+        this.setState(
+          state => ({ itemCount: state.itemCount + 2 }),
+          () => this.props.relay.refetch(() => ({
+            id: this.props.bucket.id,
+            first: this.state.itemCount,
+          })))
+        ;
+      };
+    }
     return (
       <InvestBucket
         title={this.props.bucket.name}
         attributes={attributes}
         editFunc={editFunc}
+        seeMoreFunc={seeMoreFunc}
       />
     );
   }
 }
 
-export default createFragmentContainer(InvestBucketRelay, {
+export default createRefetchContainer(InvestBucketRelay, {
   bucket: graphql`
-    fragment InvestBucketRelay_bucket on GInvestmentBucket {
+    fragment InvestBucketRelay_bucket on GInvestmentBucket
+    @argumentDefinitions(
+      first: {type: "Int!", defaultValue: 2}
+    ) {
       id
       name
       isOwner
-      description(first: 3) @connection(key: "InvestBucketRelay_description") {
+      description(first: $first) @connection(key: "InvestBucketRelay_description") {
         edges {
           node {
             text
             isGood
           }
         }
+        pageInfo {
+          hasNextPage
+        }
       }
     }
   `,
-});
+}, graphql`
+  query InvestBucketRelayQuery($id: ID!, $first: Int!) {
+    investBucket(id: $id) {
+      ...InvestBucketRelay_bucket @arguments(first: $first)
+    }
+  }
+`);
