@@ -15,6 +15,7 @@ import { FormGroup, FormControlLabel } from 'material-ui/Form';
 type Props = {
   cancel: () => void,
   save: (string, bool) => void,
+  errors?: ?Array<Error>,
 }
 type State = {
   public: bool,
@@ -54,6 +55,11 @@ export default class EditBucket extends React.Component<Props, State> {
           <DialogContentText>
             Create a new risk bucket that people can invest in
           </DialogContentText>
+          {
+            this.props.errors ? this.props.errors.map(e => (
+              <DialogContentText key={e.message}>{e.message}</DialogContentText>
+            )) : null
+          }
           <FormGroup row>
             <TextField
               autoFocus

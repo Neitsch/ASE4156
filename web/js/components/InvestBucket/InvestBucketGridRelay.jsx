@@ -18,6 +18,7 @@ type Props = {
 }
 type State = {
   showDialog: bool,
+  errors: ?Array<Error>,
 }
 
 class InvestBucketGridRelay extends React.Component<Props, State> {
@@ -25,6 +26,7 @@ class InvestBucketGridRelay extends React.Component<Props, State> {
     super();
     this.state = {
       showDialog: false,
+      errors: [],
     };
   }
   dialogAction = diagState => () => {
@@ -54,7 +56,8 @@ class InvestBucketGridRelay extends React.Component<Props, State> {
       updater,
       (response: ?Object, errors: ?[Error]) => {
         if (errors) {
-          alert(errors);
+          const e = errors[0];
+          this.setState(() => ({ errors: [e] }));
         } else {
           this.dialogAction(false)();
         }
@@ -81,7 +84,7 @@ class InvestBucketGridRelay extends React.Component<Props, State> {
         </Grid>
         {
           this.state.showDialog ?
-            <EditBucket save={this.dialogSave} cancel={this.dialogAction(false)} /> :
+            <EditBucket save={this.dialogSave} cancel={this.dialogAction(false)} errors={this.state.errors} /> :
             null
         }
       </Grid>
