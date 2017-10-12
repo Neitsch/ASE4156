@@ -3,13 +3,12 @@
     "env",
     "react",
     "stage-0",
+    "flow",
   ],
   "plugins": [
     "syntax-dynamic-import",
     "transform-es2015-spread",
     "transform-object-rest-spread",
-    "transform-react-jsx",
     ["relay", {"schema": "./schema.json"}],
-    "transform-flow-strip-types",
   ],
 }

@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
-import Card, {CardHeader, CardMedia, CardContent, CardActions} from 'material-ui/Card';
-import Table, {TableBody, TableCell, TableHead, TableRow} from 'material-ui/Table';
+import Card, {CardHeader, CardMedia, CardContent, CardActions,} from 'material-ui/Card';
+import Table, {TableBody, TableCell, TableHead, TableRow,} from 'material-ui/Table';
 import Button from 'material-ui/Button';
 import PropTypes from 'prop-types';
 import numeral from 'numeral';
@@ -13,7 +13,7 @@ const formatMoney : (string, number) => string = function(currency : string, num
 
 type valueShape = {
   name: string,
-  value: number
+  value: number,
 }
 
 const MyTableCell = withStyles(theme => ({
@@ -22,28 +22,27 @@ const MyTableCell = withStyles(theme => ({
   }
 }))(TableCell);
 
-class Saldo extends React.Component {
+class Saldo extends React.Component <*> {
   static defaultProps = {
     currency: "$",
     values: [],
     t: w => w,
-    showTotal: true
+    showTotal: true,
   };
   static propTypes = {
     t: PropTypes.func,
     currency: PropTypes.string,
-    values: PropTypes.arrayOf(PropTypes.shape({name: PropTypes.string.isRequired, value: PropTypes.number.isRequired,})),
-    showTotal: PropTypes.bool
+    values: PropTypes.arrayOf(PropTypes.shape({name: PropTypes.string.isRequired, value: PropTypes.number.isRequired})),
+    showTotal: PropTypes.bool,
   };
   constructor() : void {
     super();
-    this.collectRow = this.collectRow.bind(this);
-    this.valueRow = this.valueRow.bind(this);
-    this.valueRows = this.valueRows.bind(this);
-    this.renderCard = this.renderCard.bind(this);
+    // this.collectRow = this.collectRow.bind(this); this.valueRow =
+    // this.valueRow.bind(this); this.valueRows = this.valueRows.bind(this);
+    // this.renderCard = this.renderCard.bind(this);
   }
-  collectRow() : React$Element < {} > {
-    return(
+  collectRow = () => {
+    return (
       <TableRow>
         <MyTableCell>{this.props.t('totalSharesValue')}</MyTableCell>
         <MyTableCell style={{
@@ -54,7 +53,7 @@ class Saldo extends React.Component {
       </TableRow>
     );
   }
-  valueRow(value : valueShape, i : number, a : Array < valueShape >) : React$Element <*> {
+  valueRow = (value : valueShape, i : number, a : Array < valueShape >) => {
     const Comp = i == a.length - 1
       ? TableCell
       : MyTableCell;
@@ -67,11 +66,12 @@ class Saldo extends React.Component {
       </TableRow>
     );
   }
-  valueRows(values : Array < valueShape >) : Array < React$Element < {} >> {
+  valueRows = (values : Array < valueShape >) => {
     return values.map(this.valueRow);
   }
-  renderCard(values : Array < React$Element < {} >>, bottom : React$Element < {} >, button : React$Element <*>) : React$Element < {} > {
-    return(
+  renderCard = (values : Array < React$Element < *>>, bottom :
+    ? React$Element < * >, button : React$Element <*>) => {
+    return (
       <Card>
         <CardHeader title="Saldo"/>
         <CardContent>
@@ -86,10 +86,10 @@ class Saldo extends React.Component {
       </Card>
     )
   }
-  render() : React$Element < {} > {
+  render() : React$Element < * > {
     let collectRow = null;
     if (this.props.showTotal) {
-      collectRow = this.collectRow(this.props.values);
+      collectRow = this.collectRow();
     }
     const button = <Button raised>
       Sell Shares

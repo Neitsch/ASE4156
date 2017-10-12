@@ -3,5 +3,6 @@ module.exports = {
     "plugins": [
       "react"
     ],
+    "parser": "babel-eslint",
     "globals": { "fetch": false }
 };

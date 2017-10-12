@@ -10,7 +10,7 @@ export class CardWF extends React.Component {
   }
   render() {
     return (
-      <Card>
+      <Card >
         <CardHeader title={this.props.title}/>
         <CardContent>
           {this.props.cardText}

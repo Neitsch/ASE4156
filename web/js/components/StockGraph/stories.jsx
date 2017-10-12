@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { select } from '@storybook/addon-knobs';
@@ -46,6 +47,7 @@ storiesOf('StockGraph', module).add('Playground', () => {
     compare={select('Compare type', [
       'PERCENT', 'ABSOLUTE',
     ], 'ABSOLUTE')}
+    title={'Test Chart'}
     quotes={values}
   />);
 });

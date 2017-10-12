@@ -4,6 +4,7 @@ import arrow
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.db.models import Max
+from django.http import HttpResponse
 from .models import Stock, DailyStockQuote
 
 
@@ -11,9 +12,11 @@ def create_new_stock(ticker, name):
     """
     Function simply creates a new stock
     """
-    stock = Stock(name=name, ticker=ticker)
-    stock.save()
-    return stock
+    if validate_ticker(ticker) is True:
+        stock = Stock(name=name, ticker=ticker)
+        stock.save()
+        return stock
+    return False
 
 
 def fill_quote_history(stock):
@@ -37,7 +40,12 @@ def data_ten_years_back_for_stock(request):
         body = request.POST
         name = body['name']
         ticker = body['ticker']
-        create_new_stock(ticker, name)
+        stock = create_new_stock(ticker, name)
+        if stock is not False:
+            return HttpResponse(stock.id, status=200)
+        msg = "500 Internal Server Error, stock doesnt exist"
+        return HttpResponse(msg, status=500)
+    return HttpResponse("405 Method Not Allowed", status=405)
 
 
 def get_date_array_for_fetcher(arrow_date):
@@ -81,3 +89,15 @@ def save_stock_quote_from_fetcher(fetcher_history, stock_id):
         objects.append(
             DailyStockQuote(value=value, date=date, stock_id=stock_id))
     DailyStockQuote.objects.bulk_create(objects, batch_size=500)
+
+
+def validate_ticker(ticker):
+    """Function that validates ticker from yahoo_historical api"""
+    now = arrow.now()
+    now = get_date_array_for_fetcher(now)
+    try:
+        fetcher = Fetcher(ticker, now, now)
+        fetcher.getHistorical()
+    except KeyError:
+        return False
+    return True

@@ -1,1 +1,1 @@
-web: gunicorn BuyBitcoin.wsgi
+web: python manage.py migrate && gunicorn BuyBitcoin.wsgi
