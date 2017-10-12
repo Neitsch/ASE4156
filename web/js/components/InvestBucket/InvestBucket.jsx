@@ -27,6 +27,7 @@ type Props = {
   },
   editFunc?: ?(text: string, isGood: bool) => void,
   seeMoreFunc?: ?() => void,
+  editCompositionFunc?: () => void,
 }
 
 class InvestBucket extends React.Component <Props, State> {
@@ -150,6 +151,13 @@ class InvestBucket extends React.Component <Props, State> {
           <Button dense color="primary">
             Learn More
           </Button>
+          {
+            this.props.editCompositionFunc ? (
+              <Button dense color="primary" onClick={this.props.editCompositionFunc}>
+                Composition
+              </Button>
+            ) : null
+          }
         </CardActions>
       </Card>
     );

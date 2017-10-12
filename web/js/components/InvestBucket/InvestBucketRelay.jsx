@@ -3,6 +3,7 @@ import React from 'react';
 import { createRefetchContainer, graphql } from 'react-relay';
 import { ConnectionHandler } from 'relay-runtime';
 import InvestBucket from './InvestBucket';
+import InvestCompositionRelay from './InvestCompositionRelay';
 import addDescription from '../../mutations/BucketEdit/AddDescription';
 
 import type { InvestBucketRelay_bucket } from './__generated__/InvestBucketRelay_bucket.graphql';
@@ -10,6 +11,7 @@ import type { RelayContext } from 'react-relay';
 
 type State = {
   itemCount: number,
+  compositionDialog: bool,
 }
 type Props = {
   bucket: InvestBucketRelay_bucket,
@@ -21,6 +23,7 @@ class InvestBucketRelay extends React.Component<Props, State> {
     super();
     this.state = {
       itemCount: 2,
+      compositionDialog: false,
     };
   }
   render() {
@@ -76,12 +79,24 @@ class InvestBucketRelay extends React.Component<Props, State> {
       };
     }
     return (
-      <InvestBucket
-        title={this.props.bucket.name}
-        attributes={attributes}
-        editFunc={editFunc}
-        seeMoreFunc={seeMoreFunc}
-      />
+      <div>
+        {
+          this.state.compositionDialog ?
+            <InvestCompositionRelay
+              close={() => this.setState(() => ({ compositionDialog: false }))}
+              bucket={this.props.bucket}
+              save={chunks => console.log(chunks)}
+            /> :
+            null
+        }
+        <InvestBucket
+          title={this.props.bucket.name}
+          attributes={attributes}
+          editFunc={editFunc}
+          seeMoreFunc={seeMoreFunc}
+          editCompositionFunc={() => this.setState(() => ({ compositionDialog: true }))}
+        />
+      </div>
     );
   }
 }
@@ -106,6 +121,7 @@ export default createRefetchContainer(InvestBucketRelay, {
           hasNextPage
         }
       }
+      ...InvestCompositionRelay_bucket
     }
   `,
 }, graphql`
