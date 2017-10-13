@@ -230,6 +230,60 @@ class AddAttributeToInvestment(Mutation):
         return AddAttributeToInvestment(bucket_attr=attribute)
 
 
+class EditAttribute(Mutation):
+    """
+    Allows to edit an attribute description
+    """
+    class Input(object):
+        """
+        Description and ID for the mutation
+        """
+        desc = NonNull(String)
+        id_value = NonNull(ID)
+    bucket_attr = Field(lambda: GInvestmentBucketAttribute)
+
+    @staticmethod
+    def mutate(_self, args, context, _info):
+        """
+        Executes the mutation to change the attribute
+        """
+        bucket_attr = InvestmentBucketDescription.objects.get(
+            id=from_global_id(args['id'])[1],
+            bucket__owner__id=context.user.profile.id,
+        )
+        if not bucket_attr:
+            raise Exception("You don't own the bucket!")
+        bucket_attr.text = args['desc']
+        bucket_attr.save()
+        return EditAttribute(bucket_attr=bucket_attr)
+
+
+class DeleteAttribute(Mutation):
+    """
+    Deletes an attribute from a bucket
+    """
+    class Input(object):
+        """
+        We just need the ID to delete it
+        """
+        id_value = NonNull(ID)
+    is_ok = Field(lambda: Boolean)
+
+    @staticmethod
+    def mutate(_self, args, context, _info):
+        """
+        Executes the mutation by deleting the attribute
+        """
+        bucket_attr = InvestmentBucketDescription.objects.get(
+            id=from_global_id(args['id'])[1],
+            bucket__owner__id=context.user.profile.id,
+        )
+        if not bucket_attr:
+            raise Exception("You don't own the bucket!")
+        bucket_attr.delete()
+        return DeleteAttribute(ok=True)
+
+
 # pylint: disable=no-init
 class Query(AbstractType):
     """

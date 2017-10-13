@@ -5,13 +5,21 @@ import { ConnectionHandler } from 'relay-runtime';
 import InvestBucket from './InvestBucket';
 import InvestCompositionRelay from './InvestCompositionRelay';
 import addDescription from '../../mutations/BucketEdit/AddDescription';
+import editDescription from '../../mutations/BucketEdit/EditDescription';
+import deleteDescription from '../../mutations/BucketEdit/DeleteDescription';
+import LockIcon from 'material-ui-icons/Lock';
 
 import type { InvestBucketRelay_bucket } from './__generated__/InvestBucketRelay_bucket.graphql';
 import type { RelayContext } from 'react-relay';
 
+type EditObj = {
+  shortDesc: string,
+}
 type State = {
   itemCount: number,
   compositionDialog: bool,
+  editMode: ?string,
+  editState: EditObj,
 }
 type Props = {
   bucket: InvestBucketRelay_bucket,
@@ -24,7 +32,26 @@ class InvestBucketRelay extends React.Component<Props, State> {
     this.state = {
       itemCount: 2,
       compositionDialog: false,
+      editMode: null,
+      editState: { shortDesc: '' },
     };
+  }
+  launchEdit = id => () => {
+    this.setState((state, props) => {
+      if (!props.bucket.description || !props.bucket.description.edges) {
+        return;
+      }
+      const item = props.bucket.description.edges.find(x => x && x.node && x.node.id == id);
+      if (!item || !item.node || !item.node.text) {
+        return;
+      }
+      return {
+        editMode: id,
+        editState: {
+          shortDesc: item.node.text,
+        },
+      };
+    });
   }
   render() {
     let data;
@@ -37,7 +64,70 @@ class InvestBucketRelay extends React.Component<Props, State> {
       if (!item || !item.node) {
         return all;
       }
-      all[item.node.isGood ? 'good' : 'bad'].push({ shortDesc: item.node.text });
+      const textAttr = {};
+      const iconAttr = {};
+      let extra = {};
+      if (!item || !item.node || !item.node.id) {
+        return all;
+      }
+      const id = item.node.id;
+      if (this.props.bucket.isOwner) {
+        if (id == this.state.editMode) {
+          textAttr.onKeyPress = (e) => {
+            if (e.charCode == 13) {
+              this.setState(() => ({
+                editMode: null,
+              }), () => {
+                editDescription(
+                  null, null, null,
+                )(
+                  this.props.relay.environment,
+                )(
+                  this.state.editState.shortDesc, id,
+                );
+              });
+            }
+          };
+          textAttr.onChange = (e: SyntheticInputEvent<>) => {
+            const text = e.target.value;
+            this.setState(state => ({
+              editState: {
+                shortDesc: text,
+              },
+            }));
+          };
+          textAttr.autoFocus = true;
+          iconAttr.onClick = () => {
+            this.setState(() => ({
+              editMode: null,
+            }), () => {
+              const updater = (store) => {
+                store.delete(id);
+              };
+              deleteDescription(
+                updater, updater, null,
+              )(
+                this.props.relay.environment,
+              )(
+                id,
+              );
+            });
+          };
+          extra = this.state.editState;
+        } else {
+          const edit = this.launchEdit(id);
+          textAttr.onClick = edit;
+          iconAttr.onClick = edit;
+        }
+      }
+      all[item.node.isGood ? 'good' : 'bad'].push({
+        ...item.node,
+        text: textAttr,
+        icon: iconAttr,
+        editMode: (id == this.state.editMode),
+        shortDesc: item.node.text,
+        ...extra,
+      });
       return all;
     }, {
       good: [],
@@ -78,6 +168,10 @@ class InvestBucketRelay extends React.Component<Props, State> {
         ;
       };
     }
+    let title = this.props.bucket.name;
+    if (!this.props.bucket.public) {
+      title = <div>{title}<LockIcon /></div>;
+    }
     return (
       <div>
         {
@@ -90,7 +184,7 @@ class InvestBucketRelay extends React.Component<Props, State> {
             null
         }
         <InvestBucket
-          title={this.props.bucket.name}
+          title={title}
           attributes={attributes}
           editFunc={editFunc}
           seeMoreFunc={seeMoreFunc}
@@ -109,10 +203,12 @@ export default createRefetchContainer(InvestBucketRelay, {
     ) {
       id
       name
+      public
       isOwner
       description(first: $first) @connection(key: "InvestBucketRelay_description") {
         edges {
           node {
+            id
             text
             isGood
           }

@@ -8,6 +8,9 @@ import TrendingUpIcon from 'material-ui-icons/TrendingUp';
 import TrendingDownIcon from 'material-ui-icons/TrendingDown';
 import Button from 'material-ui/Button';
 import AddIcon from 'material-ui-icons/Add';
+import DeleteIcon from 'material-ui-icons/DeleteForever';
+
+import type { Node } from 'react';
 
 const propAttrShape = PropTypes.shape({ shortDesc: PropTypes.string.isRequired });
 
@@ -17,10 +20,14 @@ type State = {
   editGood: bool,
 }
 type ItemObj = {
+  id: string,
   shortDesc: string,
+  icon: any,
+  text: any,
+  editMode: bool,
 }
 type Props = {
-  title: string,
+  title: Node,
   attributes: {
     good: Array<ItemObj>,
     bad: Array<ItemObj>,
@@ -91,21 +98,33 @@ class InvestBucket extends React.Component <Props, State> {
       />
     </ListItem>
   )
-  renderAttr(attr : {
-            shortDesc: string
-          }, isGood : bool) {
+  renderAttr(attr : ItemObj, isGood : bool) {
     let indicator = null;
-    if (isGood) {
+    if (attr.editMode) {
+      indicator = <DeleteIcon />;
+    } else if (isGood) {
       indicator = <TrendingUpIcon />;
     } else {
       indicator = <TrendingDownIcon />;
     }
+    let text = null;
+    if (attr.editMode) {
+      text = <TextField value={attr.shortDesc} {...attr.text} />;
+    } else {
+      text = (<ListItemText
+        primary={attr.shortDesc}
+        autoFocus
+        margin="dense"
+        fullWidth
+        {...attr.text}
+      />);
+    }
     return (
-      <ListItem key={attr.shortDesc}>
-        <ListItemIcon>
+      <ListItem key={attr.id}>
+        <ListItemIcon {...attr.icon}>
           {indicator}
         </ListItemIcon>
-        <ListItemText primary={attr.shortDesc} />
+        {text}
       </ListItem>
     );
   }

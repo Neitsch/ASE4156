@@ -225,6 +225,7 @@ exports[`Storyshots InvestBucket Playground 1`] = `
           aria-hidden="true"
           className="MuiSvgIcon-root-170 MuiListItemIcon-root-169"
           focusable="false"
+          onClick={[Function]}
           viewBox="0 0 24 24"
         >
           <path
@@ -232,7 +233,11 @@ exports[`Storyshots InvestBucket Playground 1`] = `
           />
         </svg>
         <div
+          autoFocus={true}
           className="MuiListItemText-root-171"
+          fullWidth={true}
+          margin="dense"
+          onClick={[Function]}
         >
           <h3
             className="MuiTypography-root-37 MuiTypography-subheading-44 MuiListItemText-text-174"
@@ -249,20 +254,44 @@ exports[`Storyshots InvestBucket Playground 1`] = `
           aria-hidden="true"
           className="MuiSvgIcon-root-170 MuiListItemIcon-root-169"
           focusable="false"
+          onClick={[Function]}
           viewBox="0 0 24 24"
         >
           <path
-            d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"
+            d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zm2.46-7.12l1.41-1.41L12 12.59l2.12-2.12 1.41 1.41L13.41 14l2.12 2.12-1.41 1.41L12 15.41l-2.12 2.12-1.41-1.41L10.59 14l-2.13-2.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4z"
           />
         </svg>
         <div
-          className="MuiListItemText-root-171"
+          className="MuiFormControl-root-214"
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          required={false}
         >
-          <h3
-            className="MuiTypography-root-37 MuiTypography-subheading-44 MuiListItemText-text-174"
+          <div
+            className="MuiInput-root-218 MuiInput-formControl-219 MuiInput-inkbar-220 MuiInput-underline-226"
+            onBlur={[Function]}
+            onFocus={[Function]}
           >
-            Low risk
-          </h3>
+            <input
+              autoComplete={undefined}
+              autoFocus={undefined}
+              className="MuiInput-input-222 MuiInput-inputSingleline-229"
+              defaultValue={undefined}
+              disabled={false}
+              id={undefined}
+              name={undefined}
+              onChange={[Function]}
+              onKeyDown={undefined}
+              onKeyUp={undefined}
+              placeholder={undefined}
+              readOnly={undefined}
+              required={undefined}
+              rows={undefined}
+              type="text"
+              value="Low risk"
+            />
+          </div>
         </div>
       </li>
       <li
@@ -273,6 +302,7 @@ exports[`Storyshots InvestBucket Playground 1`] = `
           aria-hidden="true"
           className="MuiSvgIcon-root-170 MuiListItemIcon-root-169"
           focusable="false"
+          onClick={[Function]}
           viewBox="0 0 24 24"
         >
           <path
@@ -280,7 +310,11 @@ exports[`Storyshots InvestBucket Playground 1`] = `
           />
         </svg>
         <div
-          className="MuiListItemText-root-171"
+          autoFocus={true}
+          className="MuiListItemText-root-169"
+          fullWidth={true}
+          margin="dense"
+          onClick={[Function]}
         >
           <h3
             className="MuiTypography-root-37 MuiTypography-subheading-44 MuiListItemText-text-174"
@@ -770,7 +804,10 @@ exports[`Storyshots Page Test page 1`] = `
                   />
                 </svg>
                 <div
-                  className="MuiListItemText-root-171"
+                  autoFocus={true}
+                  className="MuiListItemText-root-169"
+                  fullWidth={true}
+                  margin="dense"
                 >
                   <h3
                     className="MuiTypography-root-37 MuiTypography-subheading-44 MuiListItemText-text-174"
@@ -794,7 +831,10 @@ exports[`Storyshots Page Test page 1`] = `
                   />
                 </svg>
                 <div
-                  className="MuiListItemText-root-171"
+                  autoFocus={true}
+                  className="MuiListItemText-root-169"
+                  fullWidth={true}
+                  margin="dense"
                 >
                   <h3
                     className="MuiTypography-root-37 MuiTypography-subheading-44 MuiListItemText-text-174"
@@ -818,7 +858,10 @@ exports[`Storyshots Page Test page 1`] = `
                   />
                 </svg>
                 <div
-                  className="MuiListItemText-root-171"
+                  autoFocus={true}
+                  className="MuiListItemText-root-169"
+                  fullWidth={true}
+                  margin="dense"
                 >
                   <h3
                     className="MuiTypography-root-37 MuiTypography-subheading-44 MuiListItemText-text-174"
@@ -928,7 +971,10 @@ exports[`Storyshots Page Test page 1`] = `
                   />
                 </svg>
                 <div
-                  className="MuiListItemText-root-171"
+                  autoFocus={true}
+                  className="MuiListItemText-root-169"
+                  fullWidth={true}
+                  margin="dense"
                 >
                   <h3
                     className="MuiTypography-root-37 MuiTypography-subheading-44 MuiListItemText-text-174"
@@ -952,7 +998,10 @@ exports[`Storyshots Page Test page 1`] = `
                   />
                 </svg>
                 <div
-                  className="MuiListItemText-root-171"
+                  autoFocus={true}
+                  className="MuiListItemText-root-169"
+                  fullWidth={true}
+                  margin="dense"
                 >
                   <h3
                     className="MuiTypography-root-37 MuiTypography-subheading-44 MuiListItemText-text-174"
@@ -976,7 +1025,10 @@ exports[`Storyshots Page Test page 1`] = `
                   />
                 </svg>
                 <div
-                  className="MuiListItemText-root-171"
+                  autoFocus={true}
+                  className="MuiListItemText-root-169"
+                  fullWidth={true}
+                  margin="dense"
                 >
                   <h3
                     className="MuiTypography-root-37 MuiTypography-subheading-44 MuiListItemText-text-174"
@@ -1086,7 +1138,10 @@ exports[`Storyshots Page Test page 1`] = `
                   />
                 </svg>
                 <div
-                  className="MuiListItemText-root-171"
+                  autoFocus={true}
+                  className="MuiListItemText-root-169"
+                  fullWidth={true}
+                  margin="dense"
                 >
                   <h3
                     className="MuiTypography-root-37 MuiTypography-subheading-44 MuiListItemText-text-174"
@@ -1110,7 +1165,10 @@ exports[`Storyshots Page Test page 1`] = `
                   />
                 </svg>
                 <div
-                  className="MuiListItemText-root-171"
+                  autoFocus={true}
+                  className="MuiListItemText-root-169"
+                  fullWidth={true}
+                  margin="dense"
                 >
                   <h3
                     className="MuiTypography-root-37 MuiTypography-subheading-44 MuiListItemText-text-174"
@@ -1134,7 +1192,10 @@ exports[`Storyshots Page Test page 1`] = `
                   />
                 </svg>
                 <div
-                  className="MuiListItemText-root-171"
+                  autoFocus={true}
+                  className="MuiListItemText-root-169"
+                  fullWidth={true}
+                  margin="dense"
                 >
                   <h3
                     className="MuiTypography-root-37 MuiTypography-subheading-44 MuiListItemText-text-174"
