@@ -85,7 +85,7 @@ class GStock(DjangoObjectType):
     """
     quote_in_range = NonNull(List(GDailyStockQuote), args={'start': Argument(
         NonNull(String)), 'end': Argument(NonNull(String))})
-    latest_quote = NonNull(GDailyStockQuote)
+    latest_quote = Field(GDailyStockQuote)
 
     class Meta(object):
         """
@@ -99,10 +99,13 @@ class GStock(DjangoObjectType):
         """
         Returns the most recent stock quote
         """
-        return (DailyStockQuote
-                .objects
-                .filter(stock_id=data.id)
-                .order_by('date'))[0]
+        quote_query = (DailyStockQuote
+                       .objects
+                       .filter(stock_id=data.id)
+                       .order_by('date'))
+        if quote_query.count() > 0:
+            return quote_query[0]
+        return None
 
     @staticmethod
     def resolve_quote_in_range(data, args, _context, _info):
@@ -316,7 +319,8 @@ class EditConfiguration(Mutation):
         )
         configs = InvestmentStockConfiguration.objects.filter(bucket=bucket).all()
         for config in configs:
-            quote = DailyStockQuote.objects.filter(stock__id=config.stock_id).order_by('date')[0]
+            quote_query = DailyStockQuote.objects.filter(stock__id=config.stock_id)
+            quote = quote_query.order_by('date')[0]
             bucket.available = bucket.available + quote.value * config.quantity
 
         InvestmentStockConfiguration.objects.filter(bucket=bucket).delete()

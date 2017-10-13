@@ -58,7 +58,7 @@ class InvestCompositionRelay extends React.Component<Props, State> {
     return (
       <InvestComposition
         chunks={this.state.chunks}
-        total={this.props.bucket.available + this.props.bucket.stocks.edges.reduce((sum, item) => sum + (item && item.node ? item.node.quantity * item.node.stock.latestQuote.value : 0), 0)}
+        total={this.props.bucket.available + this.props.bucket.stocks.edges.reduce((sum, item) => sum + (item && item.node && item.node.stock.latestQuote ? item.node.quantity * item.node.stock.latestQuote.value : 0), 0)}
         chunkUpdate={this.updateChunks}
         suggestionFieldChange={(text) => {
           this.props.relay.refetch(() => ({ text }));
