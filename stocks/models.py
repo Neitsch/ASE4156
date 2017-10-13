@@ -22,7 +22,7 @@ class DailyStockQuote(models.Model):
     DailyStockQuote is one day in the performance of a stock,
     for example 2nd July GOOGL value is 281.31$
     """
-    value = models.DecimalField(max_digits=16, decimal_places=2)
+    value = models.FloatField()
     date = models.DateField()
     stock = models.ForeignKey(Stock, related_name='daily_quote')
 
@@ -46,7 +46,7 @@ class InvestmentBucket(models.Model):
     name = models.CharField(max_length=255)
     owner = models.ForeignKey(Profile, related_name='owned_bucket')
     public = models.BooleanField()
-    total = models.FloatField()
+    available = models.FloatField()
 
 
 class InvestmentBucketDescription(models.Model):
@@ -62,6 +62,6 @@ class InvestmentStockConfiguration(models.Model):
     """
     Represents the configuration of how much of a stock to invest for a bucket
     """
-    quantity = models.DecimalField(max_digits=8, decimal_places=2)
+    quantity = models.FloatField()
     stock = models.ForeignKey(Stock, related_name='bucket')
     bucket = models.ForeignKey(InvestmentBucket, related_name='stocks')

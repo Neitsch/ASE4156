@@ -73,7 +73,7 @@ class InvestBucketGridRelay extends React.Component<Props, State> {
         {
           this.props.profile.investSuggestions.edges.map(b => (b && b.node ? (
             <Grid item xs={12} sm={8} lg={4} key={b.node.id}>
-              <InvestBucketRelay bucket={b.node} />
+              <InvestBucketRelay profile={this.props.profile} bucket={b.node} />
             </Grid>
           ) : null))
         }
@@ -104,6 +104,7 @@ export default createFragmentContainer(InvestBucketGridRelay, {
           }
         }
       }
+      ...InvestBucketRelay_profile
     }
   `,
 });

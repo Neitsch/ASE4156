@@ -4,6 +4,8 @@ import { createRefetchContainer, graphql } from 'react-relay';
 import InvestComposition from './InvestComposition';
 
 import type { InvestCompositionRelay_bucket } from './__generated__/InvestCompositionRelay_bucket.graphql';
+import type { InvestCompositionRelay_profile } from './__generated__/InvestCompositionRelay_profile.graphql';
+import type { RelayContext } from 'react-relay';
 
 type ChunkList = Array<{
   id: string,
@@ -14,6 +16,8 @@ type ChunkList = Array<{
 
 type Props = {
   bucket: InvestCompositionRelay_bucket,
+  profile: InvestCompositionRelay_profile,
+  relay: RelayContext,
   save: ChunkList => void,
   close: () => void,
 }
@@ -42,13 +46,30 @@ class InvestCompositionRelay extends React.Component<Props, State> {
   }
   updateChunks = chunks => this.setState(state => ({ chunks }))
   render() {
+    if (
+      !this.props.profile ||
+      !this.props.profile.investSearch ||
+      !this.props.bucket.available ||
+      !this.props.bucket ||
+      !this.props.bucket.stocks
+    ) {
+      return null;
+    }
     return (
       <InvestComposition
         chunks={this.state.chunks}
-        total={this.props.bucket.total}
+        total={this.props.bucket.available + this.props.bucket.stocks.edges.reduce((sum, item) => sum + (item && item.node ? item.node.quantity * item.node.stock.latestQuote.value : 0), 0)}
         chunkUpdate={this.updateChunks}
-        suggestionFieldChange={(text) => {}}
-        suggestions={[{ id: '1', name: 'GOOGL', value: 50 }]}
+        suggestionFieldChange={(text) => {
+          this.props.relay.refetch(() => ({ text }));
+        }}
+        suggestions={
+          // $FlowFixMe
+          this.props.profile.investSearch.map(s => ({
+            value: s && s.latestQuote ? s.latestQuote.value : 0,
+            ...s,
+          }))
+        }
         saveFunc={this.save}
         cancelFunc={this.cancel}
       />
@@ -59,7 +80,7 @@ class InvestCompositionRelay extends React.Component<Props, State> {
 export default createRefetchContainer(InvestCompositionRelay, {
   bucket: graphql`
     fragment InvestCompositionRelay_bucket on GInvestmentBucket {
-      total
+      available
       stocks {
         edges {
           node {
@@ -76,4 +97,27 @@ export default createRefetchContainer(InvestCompositionRelay, {
       }
     }
   `,
-});
+  profile: graphql`
+    fragment InvestCompositionRelay_profile on GProfile
+    @argumentDefinitions(
+      text: {type: "String!", defaultValue: ""}
+    ) {
+      investSearch: stockFind(text: $text) {
+        name
+        id
+        latestQuote {
+          value
+        }
+      }
+    }
+  `,
+}, graphql`
+    query InvestCompositionRelayQuery($text: String!) {
+      viewer {
+        profile {
+          ...InvestCompositionRelay_profile @arguments(text: $text)
+        }
+      }
+    }
+  `,
+);
