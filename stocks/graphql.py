@@ -49,7 +49,7 @@ class GInvestmentBucket(DjangoObjectType):
         """
         model = InvestmentBucket
         interfaces = (relay.Node, )
-        only_fields = ('id', 'name', 'public', 'description', 'stocks')
+        only_fields = ('id', 'name', 'public', 'description', 'stocks', 'total')
 
     @staticmethod
     def resolve_is_owner(data, _args, context, _info):
@@ -77,6 +77,7 @@ class GStock(DjangoObjectType):
     """
     quote_in_range = NonNull(List(GDailyStockQuote), args={'start': Argument(
         NonNull(String)), 'end': Argument(NonNull(String))})
+    latest_quote = NonNull(GDailyStockQuote)
 
     class Meta(object):
         """
@@ -84,6 +85,16 @@ class GStock(DjangoObjectType):
         """
         model = Stock
         interfaces = (relay.Node, )
+
+    @staticmethod
+    def resolve_latest_quote(data, _args, _context, _info):
+        """
+        Returns the most recent stock quote
+        """
+        return (DailyStockQuote
+                .objects
+                .filter(stock_id=data.id)
+                .order_by('date'))[0]
 
     @staticmethod
     def resolve_quote_in_range(data, args, _context, _info):

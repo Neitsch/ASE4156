@@ -46,6 +46,7 @@ class InvestmentBucket(models.Model):
     name = models.CharField(max_length=255)
     owner = models.ForeignKey(Profile, related_name='owned_bucket')
     public = models.BooleanField()
+    total = models.FloatField()
 
 
 class InvestmentBucketDescription(models.Model):
