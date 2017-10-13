@@ -262,21 +262,21 @@ exports[`Storyshots InvestBucket Playground 1`] = `
           />
         </svg>
         <div
-          className="MuiFormControl-root-214"
+          className="MuiFormControl-root-216"
           onBlur={[Function]}
           onClick={[Function]}
           onFocus={[Function]}
           required={false}
         >
           <div
-            className="MuiInput-root-218 MuiInput-formControl-219 MuiInput-inkbar-220 MuiInput-underline-226"
+            className="MuiInput-root-220 MuiInput-formControl-221 MuiInput-inkbar-222 MuiInput-underline-228"
             onBlur={[Function]}
             onFocus={[Function]}
           >
             <input
               autoComplete={undefined}
               autoFocus={undefined}
-              className="MuiInput-input-222 MuiInput-inputSingleline-229"
+              className="MuiInput-input-224 MuiInput-inputSingleline-231"
               defaultValue={undefined}
               disabled={false}
               id={undefined}
@@ -311,7 +311,7 @@ exports[`Storyshots InvestBucket Playground 1`] = `
         </svg>
         <div
           autoFocus={true}
-          className="MuiListItemText-root-169"
+          className="MuiListItemText-root-171"
           fullWidth={true}
           margin="dense"
           onClick={[Function]}
@@ -805,7 +805,7 @@ exports[`Storyshots Page Test page 1`] = `
                 </svg>
                 <div
                   autoFocus={true}
-                  className="MuiListItemText-root-169"
+                  className="MuiListItemText-root-171"
                   fullWidth={true}
                   margin="dense"
                 >
@@ -832,7 +832,7 @@ exports[`Storyshots Page Test page 1`] = `
                 </svg>
                 <div
                   autoFocus={true}
-                  className="MuiListItemText-root-169"
+                  className="MuiListItemText-root-171"
                   fullWidth={true}
                   margin="dense"
                 >
@@ -859,7 +859,7 @@ exports[`Storyshots Page Test page 1`] = `
                 </svg>
                 <div
                   autoFocus={true}
-                  className="MuiListItemText-root-169"
+                  className="MuiListItemText-root-171"
                   fullWidth={true}
                   margin="dense"
                 >
@@ -972,7 +972,7 @@ exports[`Storyshots Page Test page 1`] = `
                 </svg>
                 <div
                   autoFocus={true}
-                  className="MuiListItemText-root-169"
+                  className="MuiListItemText-root-171"
                   fullWidth={true}
                   margin="dense"
                 >
@@ -999,7 +999,7 @@ exports[`Storyshots Page Test page 1`] = `
                 </svg>
                 <div
                   autoFocus={true}
-                  className="MuiListItemText-root-169"
+                  className="MuiListItemText-root-171"
                   fullWidth={true}
                   margin="dense"
                 >
@@ -1026,7 +1026,7 @@ exports[`Storyshots Page Test page 1`] = `
                 </svg>
                 <div
                   autoFocus={true}
-                  className="MuiListItemText-root-169"
+                  className="MuiListItemText-root-171"
                   fullWidth={true}
                   margin="dense"
                 >
@@ -1139,7 +1139,7 @@ exports[`Storyshots Page Test page 1`] = `
                 </svg>
                 <div
                   autoFocus={true}
-                  className="MuiListItemText-root-169"
+                  className="MuiListItemText-root-171"
                   fullWidth={true}
                   margin="dense"
                 >
@@ -1166,7 +1166,7 @@ exports[`Storyshots Page Test page 1`] = `
                 </svg>
                 <div
                   autoFocus={true}
-                  className="MuiListItemText-root-169"
+                  className="MuiListItemText-root-171"
                   fullWidth={true}
                   margin="dense"
                 >
@@ -1193,7 +1193,7 @@ exports[`Storyshots Page Test page 1`] = `
                 </svg>
                 <div
                   autoFocus={true}
-                  className="MuiListItemText-root-169"
+                  className="MuiListItemText-root-171"
                   fullWidth={true}
                   margin="dense"
                 >

@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import TextField from 'material-ui/TextField';
-import Card, { CardHeader, CardMedia, CardContent, CardActions } from 'material-ui/Card';
+import Card, { CardHeader, CardContent, CardActions } from 'material-ui/Card';
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import TrendingUpIcon from 'material-ui-icons/TrendingUp';
 import TrendingDownIcon from 'material-ui-icons/TrendingDown';
