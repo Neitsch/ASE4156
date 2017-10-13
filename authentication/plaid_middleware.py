@@ -21,6 +21,7 @@ class PlaidMiddleware(MiddlewareMixin):
         self.get_response = get_response
 
     def __call__(self, request):
+        print("Enter")
         request.plaid = plaid.Client(
             client_id=PLAID_CLIENT_ID,
             secret=PLAID_SECRET,
