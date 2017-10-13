@@ -27,7 +27,7 @@ export default (
   config: Array<{id: string, quantity: number}>, id: string,
 ) => {
   const variables = {
-    config,
+    config: config.map(c => ({ idValue: c.id, quantity: c.quantity })),
     id,
   };
   const optimisticResponse = {
