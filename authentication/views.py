@@ -47,8 +47,7 @@ def get_access_token(request):
     Function to retrieve plaid access token
     """
     if request.method == "POST":
-        client = plaid.Client(client_id=PLAID_CLIENT_ID, secret=PLAID_SECRET,
-                              public_key=PLAID_PUBLIC_KEY, environment=PLAID_ENV)
+        client = request.plaid
         public_token = request.POST.get('public_token')
         exchange_response = client.Item.public_token.exchange(public_token)
         plaidrequest = client.Item.get(exchange_response['access_token'])
