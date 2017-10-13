@@ -74,8 +74,7 @@ class StockGraph extends React.Component <Props> {
         return d;
       })
     ;
-
-    if (chartData.data.length === 0) {
+    if (graphData.length === 0) {
       return <div>No data</div>;
     }
     let extraOptions = {};

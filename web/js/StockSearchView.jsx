@@ -46,7 +46,7 @@ class StockSearchView extends React.Component {
         ...quote,
         date: this.makeDate(quote.date),
       })),
-    }));
+    })).filter(stock => stock.data.length > 0);
     return (
       <div>
         <StockGraph quotes={quotes} compare={'PERCENT'} />
