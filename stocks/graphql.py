@@ -3,8 +3,8 @@ GraphQL definitions for the Stocks App
 """
 from django.db.models import Q
 from graphene_django import DjangoObjectType
-from graphene import AbstractType, Argument, Boolean, Field, Float, ID, List, \
-    Mutation, NonNull, String, relay
+from graphene import AbstractType, Argument, Boolean, ClientIDMutation, Field, \
+    Float, ID, InputObjectType, List, Mutation, NonNull, ObjectType, String, relay
 from graphql_relay.node.node import from_global_id
 from trading.models import Trade
 from .models import DailyStockQuote, InvestmentBucket, \
@@ -13,6 +13,11 @@ from .historical import create_new_stock
 
 
 # pylint: disable=too-few-public-methods
+class GInvestmentBucketConfigurationUpdate(InputObjectType):
+    id = ID()
+    quantity = Float()
+
+
 class GDailyStockQuote(DjangoObjectType):
     """
     GraphQL representation of a DailyStockQuote
@@ -49,7 +54,7 @@ class GInvestmentBucket(DjangoObjectType):
         """
         model = InvestmentBucket
         interfaces = (relay.Node, )
-        only_fields = ('id', 'name', 'public', 'description', 'stocks', 'total')
+        only_fields = ('id', 'name', 'public', 'description', 'stocks', 'available')
 
     @staticmethod
     def resolve_is_owner(data, _args, context, _info):
@@ -282,6 +287,33 @@ class DeleteAttribute(Mutation):
             raise Exception("You don't own the bucket!")
         bucket_attr.delete()
         return DeleteAttribute(ok=True)
+
+
+class EditConfiguration(Mutation):
+    class Input(object):
+        config = NonNull(List(GInvestmentBucketConfigurationUpdate))
+        id_value = NonNull(ID)
+    bucket = Field(lambda: GInvestmentBucket)
+
+    @staticmethod
+    def mutate(_self, args, context, _info):
+        bucket = InvestmentBucket.objects.get(id=from_global_id(args['id_value'])[1])
+        configs = InvestmentStockConfiguration.objects.filter(bucket=bucket).all()
+        for config in configs:
+            quote = DailyStockQuote.objects.filter(stock__id=config.stock_id).order_by('date')[0]
+            bucket.available = bucket.available + quote.value * config.quantity
+
+        InvestmentStockConfiguration.objects.filter(bucket=bucket).delete()
+
+        new_configs = []
+        for new_config in args['config']:
+            quote = DailyStockQuote.objects.filter(stock__id=from_global_id(new_config['id'])[1]).order_by('date')[0]
+            bucket.available = bucket.available - quote.value * new_config['quantity']
+            new_configs.append(InvestmentStockConfiguration(stock_id=quote.stock_id, quantity=new_config['quantity'], bucket=bucket))
+        InvestmentStockConfiguration.objects.bulk_create(new_configs)
+        bucket.save()
+
+        return EditConfiguration(bucket=bucket)
 
 
 # pylint: disable=no-init

@@ -7,9 +7,11 @@ import InvestCompositionRelay from './InvestCompositionRelay';
 import addDescription from '../../mutations/BucketEdit/AddDescription';
 import editDescription from '../../mutations/BucketEdit/EditDescription';
 import deleteDescription from '../../mutations/BucketEdit/DeleteDescription';
+import changeBucketComposition from '../../mutations/BucketEdit/ChangeBucketComposition';
 import LockIcon from 'material-ui-icons/Lock';
 
 import type { InvestBucketRelay_bucket } from './__generated__/InvestBucketRelay_bucket.graphql';
+import type { InvestBucketRelay_profile } from './__generated__/InvestBucketRelay_profile.graphql';
 import type { RelayContext } from 'react-relay';
 
 type EditObj = {
@@ -23,6 +25,7 @@ type State = {
 }
 type Props = {
   bucket: InvestBucketRelay_bucket,
+  profile: InvestBucketRelay_profile,
   relay: RelayContext,
 }
 
@@ -52,6 +55,16 @@ class InvestBucketRelay extends React.Component<Props, State> {
         },
       };
     });
+  }
+  saveChunks = (chunks) => {
+    changeBucketComposition(
+      null, null, null,
+    )(
+      this.props.relay.environment,
+    )(
+      chunks.map(c => ({ id: c.id, quantity: c.quantity })),
+      this.props.bucket.id,
+    );
   }
   render() {
     let data;
@@ -124,7 +137,7 @@ class InvestBucketRelay extends React.Component<Props, State> {
         ...item.node,
         text: textAttr,
         icon: iconAttr,
-        editMode: (id == this.state.editMode),
+        editMode: (id === this.state.editMode),
         shortDesc: item.node.text,
         ...extra,
       });
@@ -179,7 +192,8 @@ class InvestBucketRelay extends React.Component<Props, State> {
             <InvestCompositionRelay
               close={() => this.setState(() => ({ compositionDialog: false }))}
               bucket={this.props.bucket}
-              save={chunks => console.log(chunks)}
+              save={this.saveChunks}
+              profile={this.props.profile}
             /> :
             null
         }
@@ -220,10 +234,17 @@ export default createRefetchContainer(InvestBucketRelay, {
       ...InvestCompositionRelay_bucket
     }
   `,
-}, graphql`
+  profile: graphql`
+    fragment InvestBucketRelay_profile on GProfile {
+      ...InvestCompositionRelay_profile
+    }
+  `,
+}, {
+  bucket: graphql`
   query InvestBucketRelayQuery($id: ID!, $first: Int!) {
     investBucket(id: $id) {
       ...InvestBucketRelay_bucket @arguments(first: $first)
     }
   }
-`);
+`,
+});

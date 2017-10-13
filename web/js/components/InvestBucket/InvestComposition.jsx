@@ -60,6 +60,7 @@ class InvestComposition extends React.Component<Props, State> {
       quantity: this.calculateAvailable() / addition[0].value,
       ...addition[0],
     });
+    this.setState(() => ({ suggestionText: '' }), () => this.props.suggestionFieldChange(''));
     this.props.chunkUpdate(chunks);
   }
   intervalUpdate = (intervals: Array<number>) => {

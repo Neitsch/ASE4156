@@ -1,8 +1,8 @@
 import React from 'react';
-import {graphql, createRefetchContainer,} from 'react-relay';
-import {Chart} from 'react-google-charts';
-import {DateRangePicker} from 'react-dates';
-import StockGraph from './components/StockGraph/StockGraph'
+import { graphql, createRefetchContainer } from 'react-relay';
+import { Chart } from 'react-google-charts';
+import { DateRangePicker } from 'react-dates';
+import StockGraph from './components/StockGraph/StockGraph';
 import 'react-dates/lib/css/_datepicker.css';
 
 class StockSearchView extends React.Component {
@@ -16,7 +16,7 @@ class StockSearchView extends React.Component {
     };
   }
   setStateCallback = () => {
-    this.props.relay.refetch(vars => {
+    this.props.relay.refetch((vars) => {
       if (this.state.startDate == null || this.state.endDate == null) {
         return vars;
       }
@@ -24,20 +24,20 @@ class StockSearchView extends React.Component {
         ...vars,
         text: this.state.text,
         start: this.state.startDate.format('YYYY-MM-DD'),
-        end: this.state.endDate.format('YYYY-MM-DD')
-      }
+        end: this.state.endDate.format('YYYY-MM-DD'),
+      };
     });
   }
-  handleChange = (fieldName) => (e) => {
-    e.preventDefault()
-    let state = this.state;
+  handleChange = fieldName => (e) => {
+    e.preventDefault();
+    const state = this.state;
     state[fieldName] = e.target.value;
     this.setState(state, this.setStateCallback);
   }
   makeDate(date) {
-    const dateParts = date.split("-")
-    const dateResult = new Date(dateParts[0], dateParts[1] - 1, dateParts[2])
-    return dateResult
+    const dateParts = date.split('-');
+    const dateResult = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+    return dateResult;
   }
   render() {
     const quotes = this.props.user.profile.stockFind.map(stock => ({
@@ -46,13 +46,14 @@ class StockSearchView extends React.Component {
         ...quote,
         date: this.makeDate(quote.date),
       })),
-    }))
+    }));
     return (
       <div>
-        <StockGraph quotes={quotes} compare={'PERCENT'}/>
+        <StockGraph quotes={quotes} compare={'PERCENT'} />
         <table style={{
-          border: "1px solid black"
-        }}>
+          border: '1px solid black',
+        }}
+        >
           <thead>
             <tr>
               <th>Name</th>
@@ -68,16 +69,17 @@ class StockSearchView extends React.Component {
                 <td><StockGraph
                   id={stock.id}
                   quotes={[{
-                  name: stock.name,
-                  data: stock.quoteInRange.map(quote => ({
-                    date: this.makeDate(quote.date),
-                    value: quote.value,
-                  })),
-                }
-              ]}/></td>
+                    name: stock.name,
+                    data: stock.quoteInRange.map(quote => ({
+                      date: this.makeDate(quote.date),
+                      value: quote.value,
+                    })),
+                  },
+                  ]}
+                /></td>
               </tr>
             ))
-}
+            }
           </tbody>
         </table>
         <label>
@@ -85,20 +87,22 @@ class StockSearchView extends React.Component {
           <input
             type="text"
             value={this.state.text}
-            onChange={this.handleChange('text')}/>
+            onChange={this.handleChange('text')}
+          />
         </label>
         <DateRangePicker
           startDate={this.state.startDate}
           endDate={this.state.endDate}
-          onDatesChange={({startDate, endDate,}) => {
-          this.setState({
-            startDate,
-            endDate,
-          }, this.setStateCallback);
-        }}
+          onDatesChange={({ startDate, endDate }) => {
+            this.setState({
+              startDate,
+              endDate,
+            }, this.setStateCallback);
+          }}
           focusedInput={this.state.focusedInput}
-          onFocusChange={focusedInput => this.setState({focusedInput})}
-          isOutsideRange={() => false}/>
+          onFocusChange={focusedInput => this.setState({ focusedInput })}
+          isOutsideRange={() => false}
+        />
       </div>
     );
   }
@@ -108,7 +112,7 @@ export default createRefetchContainer(StockSearchView, {
   user: graphql `
     fragment StockSearchView_user on GUser
     @argumentDefinitions(
-      text: {type: "String!", defaultValue: "Google"},
+      text: {type: "String!", defaultValue: ""},
       start: {type: "String!", defaultValue: "2016-08-20"},
       end: {type: "String!", defaultValue: "2016-09-20"},
     ) {
@@ -123,11 +127,11 @@ export default createRefetchContainer(StockSearchView, {
         }
       }
     }
-  `
+  `,
 }, graphql `
   query StockSearchViewQuery($text: String!, $start: String!, $end: String!) {
     viewer {
       ...StockSearchView_user @arguments(text: $text, start: $start, end: $end)
     }
   }
-`,);
+`);
