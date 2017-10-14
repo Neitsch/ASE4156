@@ -10,7 +10,7 @@ export default class App extends React.Component <*> {
     return (
       <QueryRenderer
         environment={environment}
-        query={graphql ` query appQuery { viewer { username ...StockSearchView_user ...Home_user } } `}
+        query={graphql ` query appQuery { viewer { username ...StockSearchView_user ...Home_viewer } } `}
         render={({ error, props }) => {
           if (error) {
             return <div>{error.message}</div>;
@@ -18,7 +18,7 @@ export default class App extends React.Component <*> {
             if (props.viewer != null) {
               return (
                 <div>
-                  <Home user={props.viewer} />
+                  <Home viewer={props.viewer} />
                   <StockSearchView user={props.viewer} />
                   <a href="/logout">Logout</a>
                 </div>

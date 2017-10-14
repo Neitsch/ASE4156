@@ -8,40 +8,40 @@ import PersonalStatusRelay from '../components/PersonalStatus/PersonalStatusRela
 import BankAccountRelay from '../components/StockGraph/BankAccountRelay';
 import InvestBucketGridRelay from '../components/InvestBucket/InvestBucketGridRelay';
 
-import type { Home_user }
-  from './__generated__/Home_user.graphql';
+import type { Home_viewer }
+  from './__generated__/Home_viewer.graphql';
 
 type Props = {
-  user: Home_user,
+  viewer: Home_viewer,
 }
 
 class Home extends React.Component < Props > {
   render() {
-    if (!this.props.user.userbank || this.props.user.userbank.edges.length === 0) {
+    if (!this.props.viewer.userbank || this.props.viewer.userbank.edges.length === 0) {
       return null;
     }
     return (
       <Grid container spacing={16}>
         <Grid item xs={12} sm={6}>
-          {this.props.user.userbank.edges[0]
-            ? <PersonalStatusRelay bank={this.props.user.userbank.edges[0].node} />
+          {this.props.viewer.userbank.edges[0]
+            ? <PersonalStatusRelay bank={this.props.viewer.userbank.edges[0].node} />
             : null}
         </Grid>
         <Grid item xs={12} sm={6}>
-          {this.props.user.userbank.edges[0]
-            ? <BankAccountRelay bank={this.props.user.userbank.edges[0].node} />
+          {this.props.viewer.userbank.edges[0]
+            ? <BankAccountRelay bank={this.props.viewer.userbank.edges[0].node} />
             : null}
         </Grid>
         <Grid item xs={12} sm={6}>
-          <InvestBucketGridRelay profile={this.props.user.profile} />
+          <InvestBucketGridRelay profile={this.props.viewer.profile} />
         </Grid>
       </Grid>
     );
   }
 }
 
-export default createFragmentContainer(Home, { user: graphql `
-    fragment Home_user on GUser {
+export default createFragmentContainer(Home, { viewer: graphql `
+    fragment Home_viewer on GUser {
       profile {
         ...InvestBucketGridRelay_profile
       }
