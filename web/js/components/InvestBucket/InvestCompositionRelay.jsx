@@ -30,7 +30,7 @@ class InvestCompositionRelay extends React.Component<Props, State> {
     super();
     this.state = {
       chunks: props.bucket.stocks.edges.map(s => ({
-        id: s.node.id,
+        id: s.node.stock.id,
         quantity: s.node.quantity,
         value: s.node.stock.latestQuote.value,
         name: s.node.stock.name,
@@ -84,9 +84,9 @@ export default createRefetchContainer(InvestCompositionRelay, {
       stocks {
         edges {
           node {
-            id
             quantity
             stock {
+              id
               name
               latestQuote {
                 value
