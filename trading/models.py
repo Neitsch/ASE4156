@@ -4,6 +4,7 @@ Models here represents any interaction between a user and stocks
 from authentication.models import Profile
 from django.db import models
 from stocks.models import DailyStockQuote, Stock
+from django.core.validators import MinValueValidator
 
 
 class TradingAccount(models.Model):
@@ -25,7 +26,12 @@ class Trade(models.Model):
     A Trade represents a single exchange of a stock for money
     """
     timestamp = models.DateTimeField(auto_now_add=True)
-    quantity = models.IntegerField()
+    quantity = models.FloatField(
+        validators=[MinValueValidator(
+            0,
+            message="Daily stock quote can not be negative"
+        )]
+    )
     account = models.ForeignKey(TradingAccount, related_name='trades')
     stock = models.ForeignKey(Stock, related_name='trades')
 

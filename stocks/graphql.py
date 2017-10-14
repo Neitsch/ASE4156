@@ -1,7 +1,9 @@
 """
 GraphQL definitions for the Stocks App
 """
+from datetime import datetime
 from django.db.models import Q
+from django.db import transaction
 from graphene_django import DjangoObjectType
 from graphene import AbstractType, Argument, Boolean, Field, Float, ID, \
     InputObjectType, List, Mutation, NonNull, String, relay
@@ -65,6 +67,10 @@ class GInvestmentBucket(DjangoObjectType):
         Returns whether the user ownes the investment bucket
         """
         return data.owner.id == context.user.profile.id
+
+    @staticmethod
+    def resolve_stocks(data, _args, _context, _info):
+        return data.stocks.filter(end=None)
 
 
 class GInvestmentStockConfiguration(DjangoObjectType):
@@ -286,13 +292,13 @@ class DeleteAttribute(Mutation):
         Executes the mutation by deleting the attribute
         """
         bucket_attr = InvestmentBucketDescription.objects.get(
-            id=from_global_id(args['id'])[1],
+            id=from_global_id(args['id_value'])[1],
             bucket__owner__id=context.user.profile.id,
         )
         if not bucket_attr:
             raise Exception("You don't own the bucket!")
         bucket_attr.delete()
-        return DeleteAttribute(ok=True)
+        return DeleteAttribute(is_ok=True)
 
 
 class EditConfiguration(Mutation):
@@ -317,29 +323,41 @@ class EditConfiguration(Mutation):
             id=from_global_id(args['id_value'])[1],
             owner=context.user.profile,
         )
-        configs = InvestmentStockConfiguration.objects.filter(bucket=bucket).all()
-        for config in configs:
-            quote_query = DailyStockQuote.objects.filter(stock__id=config.stock_id)
-            quote = quote_query.order_by('date')[0]
-            bucket.available = bucket.available + quote.value * config.quantity
+        with transaction.atomic():
+            configs = InvestmentStockConfiguration.objects.filter(
+                bucket=bucket,
+                end=None,
+            ).all()
+            print("Initial Available: ", bucket.available)
+            for config in configs:
+                quote_query = DailyStockQuote.objects.filter(stock__id=config.stock_id)
+                quote = quote_query.order_by('date')[0]
+                bucket.available = bucket.available + quote.value * config.quantity
+                print("Available ", bucket.available, ", after adding ", quote.value, config.quantity)
 
-        InvestmentStockConfiguration.objects.filter(bucket=bucket).delete()
+            InvestmentStockConfiguration.objects.filter(
+                bucket=bucket,
+                end=None,
+            ).update(end=datetime.now())
 
-        new_configs = []
-        for new_config in args['config']:
-            quote = DailyStockQuote.objects.filter(
-                stock__id=from_global_id(new_config['id_value'])[1]
-            ).order_by('date')[0]
-            bucket.available = bucket.available - quote.value * new_config['quantity']
-            new_configs.append(
-                InvestmentStockConfiguration(
-                    stock_id=quote.stock_id,
-                    quantity=new_config['quantity'],
-                    bucket=bucket
+            new_configs = []
+            for new_config in args['config']:
+                quote = DailyStockQuote.objects.filter(
+                    stock__id=from_global_id(new_config['id_value'])[1],
+                ).order_by('date')[0]
+                bucket.available = bucket.available - quote.value * new_config['quantity']
+                new_configs.append(
+                    InvestmentStockConfiguration(
+                        stock_id=quote.stock_id,
+                        quantity=new_config['quantity'],
+                        bucket=bucket,
+                        start=datetime.now()
+                    )
                 )
-            )
-        InvestmentStockConfiguration.objects.bulk_create(new_configs)
-        bucket.save()
+                print("Available ", bucket.available, ", after subtracting ", quote.value, new_config['quantity'])
+            InvestmentStockConfiguration.objects.bulk_create(new_configs)
+            bucket.save()
+        print("Final Available: ", bucket.available)
 
         return EditConfiguration(bucket=bucket)
 
