@@ -10,7 +10,7 @@ type Props = {
   children: Node,
 }
 type State = {
-  errorMessages: Map<string, any>,
+  errorMessages: {[key: string]: any},
   nextErrorId: number,
 }
 

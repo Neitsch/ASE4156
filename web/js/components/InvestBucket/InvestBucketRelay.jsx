@@ -104,9 +104,11 @@ class InvestBucketRelay extends React.Component<Props, State> {
                 editMode: null,
               }), () => {
                 editDescription(
-                  null, null, (r, e) => (e ? this.context.errorDisplay({
-                    message: e[0].message,
-                  }) : null),
+                  null, null, (r, e) => {
+                    e ? this.context.errorDisplay({
+                      message: e[0].message,
+                    }) : null;
+                  },
                 )(
                   this.props.relay.environment,
                 )(
@@ -132,9 +134,11 @@ class InvestBucketRelay extends React.Component<Props, State> {
                 store.delete(id);
               };
               deleteDescription(
-                updater, updater, (r, e) => (e ? this.context.errorDisplay({
-                  message: e[0].message,
-                }) : null),
+                updater, updater, (r, e) => {
+                  e ? this.context.errorDisplay({
+                    message: e[0].message,
+                  }) : null;
+                },
               )(
                 this.props.relay.environment,
               )(
@@ -178,9 +182,11 @@ class InvestBucketRelay extends React.Component<Props, State> {
         ConnectionHandler.insertEdgeAfter(connection, newEdge);
       };
       editFunc = (text, isGood) => addDescription(
-        updater, updater, (r, e) => (e ? this.context.errorDisplay({
-          message: e[0].message,
-        }) : null),
+        updater, updater, (r, e) => {
+          e ? this.context.errorDisplay({
+            message: e[0].message,
+          }) : null;
+        },
       )(
         this.props.relay.environment,
       )(
