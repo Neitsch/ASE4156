@@ -235,8 +235,6 @@ exports[`Storyshots InvestBucket Playground 1`] = `
         <div
           autoFocus={true}
           className="MuiListItemText-root-171"
-          fullWidth={true}
-          margin="dense"
           onClick={[Function]}
         >
           <h3
@@ -312,8 +310,6 @@ exports[`Storyshots InvestBucket Playground 1`] = `
         <div
           autoFocus={true}
           className="MuiListItemText-root-171"
-          fullWidth={true}
-          margin="dense"
           onClick={[Function]}
         >
           <h3
@@ -806,8 +802,6 @@ exports[`Storyshots Page Test page 1`] = `
                 <div
                   autoFocus={true}
                   className="MuiListItemText-root-171"
-                  fullWidth={true}
-                  margin="dense"
                 >
                   <h3
                     className="MuiTypography-root-37 MuiTypography-subheading-44 MuiListItemText-text-174"
@@ -833,8 +827,6 @@ exports[`Storyshots Page Test page 1`] = `
                 <div
                   autoFocus={true}
                   className="MuiListItemText-root-171"
-                  fullWidth={true}
-                  margin="dense"
                 >
                   <h3
                     className="MuiTypography-root-37 MuiTypography-subheading-44 MuiListItemText-text-174"
@@ -860,8 +852,6 @@ exports[`Storyshots Page Test page 1`] = `
                 <div
                   autoFocus={true}
                   className="MuiListItemText-root-171"
-                  fullWidth={true}
-                  margin="dense"
                 >
                   <h3
                     className="MuiTypography-root-37 MuiTypography-subheading-44 MuiListItemText-text-174"
@@ -973,8 +963,6 @@ exports[`Storyshots Page Test page 1`] = `
                 <div
                   autoFocus={true}
                   className="MuiListItemText-root-171"
-                  fullWidth={true}
-                  margin="dense"
                 >
                   <h3
                     className="MuiTypography-root-37 MuiTypography-subheading-44 MuiListItemText-text-174"
@@ -1000,8 +988,6 @@ exports[`Storyshots Page Test page 1`] = `
                 <div
                   autoFocus={true}
                   className="MuiListItemText-root-171"
-                  fullWidth={true}
-                  margin="dense"
                 >
                   <h3
                     className="MuiTypography-root-37 MuiTypography-subheading-44 MuiListItemText-text-174"
@@ -1027,8 +1013,6 @@ exports[`Storyshots Page Test page 1`] = `
                 <div
                   autoFocus={true}
                   className="MuiListItemText-root-171"
-                  fullWidth={true}
-                  margin="dense"
                 >
                   <h3
                     className="MuiTypography-root-37 MuiTypography-subheading-44 MuiListItemText-text-174"
@@ -1140,8 +1124,6 @@ exports[`Storyshots Page Test page 1`] = `
                 <div
                   autoFocus={true}
                   className="MuiListItemText-root-171"
-                  fullWidth={true}
-                  margin="dense"
                 >
                   <h3
                     className="MuiTypography-root-37 MuiTypography-subheading-44 MuiListItemText-text-174"
@@ -1167,8 +1149,6 @@ exports[`Storyshots Page Test page 1`] = `
                 <div
                   autoFocus={true}
                   className="MuiListItemText-root-171"
-                  fullWidth={true}
-                  margin="dense"
                 >
                   <h3
                     className="MuiTypography-root-37 MuiTypography-subheading-44 MuiListItemText-text-174"
@@ -1194,8 +1174,6 @@ exports[`Storyshots Page Test page 1`] = `
                 <div
                   autoFocus={true}
                   className="MuiListItemText-root-171"
-                  fullWidth={true}
-                  margin="dense"
                 >
                   <h3
                     className="MuiTypography-root-37 MuiTypography-subheading-44 MuiListItemText-text-174"
