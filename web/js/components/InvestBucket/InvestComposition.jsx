@@ -30,6 +30,12 @@ type State = {
   suggestionText: string,
 }
 
+class TF extends React.Component<any> {
+  render() {
+    return <TextField {...this.props} />;
+  }
+}
+
 class InvestComposition extends React.Component<Props, State> {
   static makeIntervals(chunks: ChunkList): Array<number> {
     return chunks.reduce((all, v) => {
@@ -120,7 +126,7 @@ class InvestComposition extends React.Component<Props, State> {
             <TableBody>
               {
                 this.props.chunks.map(c => (
-                  <TableRow>
+                  <TableRow key={c.id}>
                     <TableCell padding={'dense'}>
                       <IconButton onClick={this.deleteChunk(c.id)}>
                         <DeleteIcon />
@@ -145,7 +151,13 @@ class InvestComposition extends React.Component<Props, State> {
                   <Autocomplete
                     getItemValue={item => item.name}
                     items={this.props.suggestions}
-                    renderInput={props => <TextField {...props} />}
+                    renderInput={(props) => {
+                      const { ref, ...rest } = props;
+                      return (
+                        <TF inputRef={ref} {...rest} />
+                      );
+                    }
+                    }
                     renderItem={(item, isHighlighted) =>
                       (<Paper style={{ background: isHighlighted ? 'lightgray' : 'white' }}>
                         {item.name}
@@ -166,13 +178,13 @@ class InvestComposition extends React.Component<Props, State> {
                   />
                 </TableCell>
                 <TableCell padding={'dense'}>
-                  {selectedStock ? available / selectedStock.value : null}
+                  {selectedStock ? (available / selectedStock.value).toFixed(2) : null}
                 </TableCell>
                 <TableCell padding={'dense'}>
                   {selectedStock ? selectedStock.value : null}
                 </TableCell>
                 <TableCell padding={'dense'}>
-                  {selectedStock ? available : null}
+                  {selectedStock ? available.toFixed(2) : null}
                 </TableCell>
               </TableRow>
               <TableRow>
@@ -190,6 +202,7 @@ class InvestComposition extends React.Component<Props, State> {
             count={this.props.chunks.length}
             value={values}
             max={this.props.total}
+            step={0.01}
           />
         </DialogContent>
         <DialogActions>

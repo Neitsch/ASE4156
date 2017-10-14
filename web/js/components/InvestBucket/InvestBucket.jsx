@@ -39,7 +39,7 @@ type Props = {
 
 class InvestBucket extends React.Component <Props, State> {
   static propTypes = {
-    title: PropTypes.string.isRequired,
+    title: PropTypes.node.isRequired,
     attributes: PropTypes.shape({
       good: PropTypes.arrayOf(propAttrShape.isRequired),
       bad: PropTypes.arrayOf(propAttrShape.isRequired),
@@ -114,8 +114,6 @@ class InvestBucket extends React.Component <Props, State> {
       text = (<ListItemText
         primary={attr.shortDesc}
         autoFocus
-        margin="dense"
-        fullWidth
         {...attr.text}
       />);
     }
