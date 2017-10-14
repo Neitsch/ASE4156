@@ -12,6 +12,7 @@ const mutation = graphql`
     editConfiguration(config: $config, idValue: $id) {
        bucket {
          id
+         ...InvestCompositionRelay_bucket
        }
     }
   }

@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+import PropTypes from 'prop-types';
 import { createRefetchContainer, graphql } from 'react-relay';
 import { ConnectionHandler } from 'relay-runtime';
 import InvestBucket from './InvestBucket';
@@ -30,6 +31,9 @@ type Props = {
 }
 
 class InvestBucketRelay extends React.Component<Props, State> {
+  static contextTypes = {
+    errorDisplay: PropTypes.func.isRequired,
+  };
   constructor() {
     super();
     this.state = {
@@ -57,8 +61,16 @@ class InvestBucketRelay extends React.Component<Props, State> {
     });
   }
   saveChunks = (chunks) => {
+    const updater = (store) => {
+      const data = store.getRootField('editConfiguration').getLinkedRecord('bucket');
+      store.getRoot().copyFieldsFrom(data);
+      store.get(this.props.bucket.id).setValue(data.getValue('available'), 'available');
+      store.get(this.props.bucket.id).setLinkedRecord(data.getLinkedRecord('stocks'), 'stocks');
+    };
     changeBucketComposition(
-      null, null, null,
+      updater, null, (r, e) => this.context.errorDisplay({
+        message: e ? e[0].message : 'Composition successfully changed',
+      }),
     )(
       this.props.relay.environment,
     )(
@@ -85,14 +97,18 @@ class InvestBucketRelay extends React.Component<Props, State> {
       }
       const id = item.node.id;
       if (this.props.bucket.isOwner) {
-        if (id == this.state.editMode) {
+        if (id === this.state.editMode) {
           textAttr.onKeyPress = (e) => {
             if (e.charCode == 13) {
               this.setState(() => ({
                 editMode: null,
               }), () => {
                 editDescription(
-                  null, null, null,
+                  null, null, (r, e) => {
+                    e ? this.context.errorDisplay({
+                      message: e[0].message,
+                    }) : null;
+                  },
                 )(
                   this.props.relay.environment,
                 )(
@@ -118,7 +134,11 @@ class InvestBucketRelay extends React.Component<Props, State> {
                 store.delete(id);
               };
               deleteDescription(
-                updater, updater, null,
+                updater, updater, (r, e) => {
+                  e ? this.context.errorDisplay({
+                    message: e[0].message,
+                  }) : null;
+                },
               )(
                 this.props.relay.environment,
               )(
@@ -162,7 +182,11 @@ class InvestBucketRelay extends React.Component<Props, State> {
         ConnectionHandler.insertEdgeAfter(connection, newEdge);
       };
       editFunc = (text, isGood) => addDescription(
-        updater, updater,
+        updater, updater, (r, e) => {
+          e ? this.context.errorDisplay({
+            message: e[0].message,
+          }) : null;
+        },
       )(
         this.props.relay.environment,
       )(

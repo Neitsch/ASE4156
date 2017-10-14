@@ -7,6 +7,7 @@ import Grid from 'material-ui/Grid';
 import PersonalStatusRelay from '../components/PersonalStatus/PersonalStatusRelay';
 import BankAccountRelay from '../components/StockGraph/BankAccountRelay';
 import InvestBucketGridRelay from '../components/InvestBucket/InvestBucketGridRelay';
+import SnackbarErrorContext from '../components/ErrorReporting/SnackbarErrorContext';
 
 import type { Home_viewer }
   from './__generated__/Home_viewer.graphql';
@@ -20,7 +21,7 @@ class Home extends React.Component < Props > {
     if (!this.props.viewer.userbank || this.props.viewer.userbank.edges.length === 0) {
       return null;
     }
-    return (
+    return (<SnackbarErrorContext>
       <Grid container spacing={16}>
         <Grid item xs={12} sm={6}>
           {this.props.viewer.userbank.edges[0]
@@ -35,7 +36,7 @@ class Home extends React.Component < Props > {
         <Grid item xs={12} sm={6}>
           <InvestBucketGridRelay profile={this.props.viewer.profile} />
         </Grid>
-      </Grid>
+      </Grid></SnackbarErrorContext>
     );
   }
 }
