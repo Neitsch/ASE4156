@@ -3,8 +3,8 @@ Models here represents any interaction between a user and stocks
 """
 from authentication.models import Profile
 from django.db import models
-from stocks.models import DailyStockQuote, Stock
 from django.core.validators import MinValueValidator
+from stocks.models import DailyStockQuote, Stock
 
 
 class TradingAccount(models.Model):

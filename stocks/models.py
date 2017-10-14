@@ -5,6 +5,7 @@ Models keeps track of all the persistent data around stocks
 from django.db import models
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
+from django.core.exceptions import ValidationError
 from django.core.validators import MinLengthValidator, MinValueValidator
 from authentication.models import Profile
 
@@ -122,8 +123,12 @@ class InvestmentStockConfiguration(models.Model):
 
 
 @receiver(pre_save)
-def pre_save_any(sender, instance, *args, **kwargs):
+def pre_save_any(instance, *_args, **_kwargs):
+    """
+    Ensures that all constrains are met
+    """
     try:
         instance.full_clean()
-    except Exception as e:
-        raise Exception(e.messages[0])
+    except ValidationError as ex:
+        print(ex)
+        raise Exception(ex.messages[0])
