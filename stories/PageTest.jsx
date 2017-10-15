@@ -1,13 +1,23 @@
 // @flow
 import React from 'react';
 import Grid from 'material-ui/Grid';
+import { MuiThemeProvider, withStyles } from 'material-ui/styles';
 
 import HighlightBox from '../web/js/components/HighlightBox/HighlightBox';
 import StockGraph from '../web/js/components/StockGraph/StockGraph';
 import InvestBucket from '../web/js/components/InvestBucket/InvestBucket';
-import { withStyles } from 'material-ui/styles';
 import AppBar from '../web/js/components/AppBar';
+import theme from '../web/js/theme/muiTheme';
 
+const styles = ({
+  root: {
+    flexGrow: 3,
+    marginTop: 100,
+  },
+  appBar: {
+    marginBottom: theme.spacing.unit * 100,
+  },
+});
 
 class PageTest extends React.Component<{}> {
   render() {
@@ -51,28 +61,8 @@ class PageTest extends React.Component<{}> {
         ],
       },
     ];
-    return (<StockGraph
-      title="Portfolio Growth"
-      height="450px"
-      id={'chart'}
-      compare={'ABSOLUTE'}
-      quotes={values}
-    />);
-  }
-}
-
-const styles = theme => ({
-  root: {
-    flexGrow: 3,
-    marginTop: 100,
-  },
-  appBar: {
-    marginBottom: theme.spacing.unit * 100,
-  },
-});
-class PageTest extends React.Component {
-  render() {
     return (
+      <MuiThemeProvider theme={theme}>
       <div>
       <AppBar/>
       <div style={{margin:10}}>
@@ -188,8 +178,8 @@ class PageTest extends React.Component {
       </Grid>
       </div>
       </div>
+      </MuiThemeProvider>
     );
   }
 }
-
 export default withStyles(styles)(PageTest);

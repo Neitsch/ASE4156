@@ -19,7 +19,7 @@ type Props = {
   viewer: Home_viewer,
 }
 
-const styles = theme => ({
+const styles = ({
   grid: {
     marginLeft: 5,
     justify: 'space-around',
