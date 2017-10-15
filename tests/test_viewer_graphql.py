@@ -35,6 +35,14 @@ def request_create(request):
     account1.save()
     trade1 = Trade(quantity=1, account=account1, stock=stock)
     trade1.save()
+
+    bucket = InvestmentBucket(name="i1", public=False, available=100, owner=request.user.profile)
+    bucket.save()
+    InvestmentBucketDescription(text="Blabla", is_good=True, bucket=bucket).save()
+    DailyStockQuote(value=9, date="2017-05-08", stock=stock).save()
+    DailyStockQuote(value=10, date="2017-05-10", stock=stock).save()
+    InvestmentStockConfiguration(stock=stock, quantity=1, bucket=bucket, start="2017-05-09").save()
+
     return request
 
 
@@ -275,39 +283,76 @@ def test_big_gql(rf, snapshot):
     request = request_create(rf.post('/graphql'))
     client = Client(SCHEMA)
     executed = client.execute("""
-        {
-            viewer {
-                username
-                profile {
-                    tradingAccounts {
-                        edges {
-                            node {
-                                accountName
-                                trades {
-                                    edges {
-                                        node {
-                                            quantity
-                                            stock {
-                                                ticker
-                                                name
-                                                trades {
-                                                    edges {
-                                                        node {
-                                                            account {
-                                                                accountName
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
+{
+  viewer {
+    id
+    username
+    profile {
+      investSuggestions {
+        edges {
+          node {
+            id
+            name
+            public
+            available
+            isOwner
+            description {
+              edges {
+                node {
+                  id
+                  text
+                  isGood
                 }
+              }
             }
+            stocks {
+              edges {
+                node {
+                  id
+                  quantity
+                  stock {
+                    name
+                    latestQuote {
+                      value
+                    }
+                  }
+                  start
+                  end
+                }
+              }
+            }
+          }
         }
+      }
+      tradingAccounts {
+        edges {
+          node {
+            accountName
+            trades {
+              edges {
+                node {
+                  quantity
+                  stock {
+                    ticker
+                    name
+                    trades {
+                      edges {
+                        node {
+                          account {
+                            accountName
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
     """, context_value=request)
     snapshot.assert_match(executed)

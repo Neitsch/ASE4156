@@ -10,7 +10,50 @@ snapshots = Snapshot()
 snapshots['test_big_gql 1'] = {
     'data': {
         'viewer': {
+            'id': 'R1VzZXI6OQ==',
             'profile': {
+                'investSuggestions': {
+                    'edges': [
+                        {
+                            'node': {
+                                'available': 100.0,
+                                'description': {
+                                    'edges': [
+                                        {
+                                            'node': {
+                                                'id': 'R0ludmVzdG1lbnRCdWNrZXRBdHRyaWJ1dGU6NA==',
+                                                'isGood': True,
+                                                'text': 'Blabla'
+                                            }
+                                        }
+                                    ]
+                                },
+                                'id': 'R0ludmVzdG1lbnRCdWNrZXQ6Nw==',
+                                'isOwner': True,
+                                'name': 'i1',
+                                'public': False,
+                                'stocks': {
+                                    'edges': [
+                                        {
+                                            'node': {
+                                                'end': None,
+                                                'id': 'R0ludmVzdG1lbnRTdG9ja0NvbmZpZ3VyYXRpb246NA==',
+                                                'quantity': 1.0,
+                                                'start': '2017-10-15',
+                                                'stock': {
+                                                    'latestQuote': {
+                                                        'value': 10.0
+                                                    },
+                                                    'name': 'Google'
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    ]
+                },
                 'tradingAccounts': {
                     'edges': [
                         {
