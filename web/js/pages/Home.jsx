@@ -11,6 +11,7 @@ import PersonalStatusRelay from '../components/PersonalStatus/PersonalStatusRela
 import BankAccountRelay from '../components/StockGraph/BankAccountRelay';
 import InvestBucketGridRelay from '../components/InvestBucket/InvestBucketGridRelay';
 import SnackbarErrorContext from '../components/ErrorReporting/SnackbarErrorContext';
+import AppBar from '../components/AppBar';
 
 import type { Home_viewer }
   from './__generated__/Home_viewer.graphql';
@@ -27,6 +28,10 @@ const styles = ({
 });
 
 class Home extends React.Component < Props > {
+  componentWillMount() {
+    document.body.style.margin = 0;
+  }
+
   render() {
     if (!this.props.viewer.userbank || this.props.viewer.userbank.edges.length === 0) {
       return null;

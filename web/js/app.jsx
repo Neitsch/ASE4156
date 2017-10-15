@@ -13,7 +13,6 @@ export default class App extends React.Component <*> {
   componentDidMount() {
     document.body.style.margin = 0;
   }
-
   render() {
     return (
       <QueryRenderer
