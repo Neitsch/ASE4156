@@ -9,7 +9,6 @@ import PersonalStatusRelay from '../components/PersonalStatus/PersonalStatusRela
 import BankAccountRelay from '../components/StockGraph/BankAccountRelay';
 import InvestBucketGridRelay from '../components/InvestBucket/InvestBucketGridRelay';
 import SnackbarErrorContext from '../components/ErrorReporting/SnackbarErrorContext';
-import AppBar from '../components/AppBar';
 
 import type { Home_viewer }
   from './__generated__/Home_viewer.graphql';
