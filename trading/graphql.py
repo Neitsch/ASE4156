@@ -68,7 +68,6 @@ class AddTrade(Mutation):
         """
         Creates a Trade and saves it to the DB
         """
-        print(args)
         stock = Stock.objects.get(ticker=args['ticker'])
         account = TradingAccount.objects.get(
             account_name=args['account_name'],

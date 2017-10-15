@@ -4,7 +4,7 @@ GraphQL definitions for the Authentication App
 import datetime
 from django.db.models import Q
 from django.contrib.auth.models import User
-from graphene import AbstractType, Argument, Field, Float, List, Mutation, \
+from graphene import AbstractType, Argument, Field, Float, Int, List, Mutation, \
     NonNull, ObjectType, String, relay
 from graphene_django import DjangoObjectType
 from graphene_django.filter import DjangoFilterConnectionField
@@ -35,7 +35,7 @@ class GProfile(DjangoObjectType):
     GraphQL representation of a Profile
     """
     stock_find = List(
-        GStock, args={'text': Argument(NonNull(String))})
+        GStock, args={'text': Argument(NonNull(String)), 'first': Argument(Int)})
     invest_suggestions = DjangoFilterConnectionField(
         GInvestmentBucket,
     )
@@ -53,7 +53,10 @@ class GProfile(DjangoObjectType):
         """
         Finds a stock given a case insensitive name
         """
-        return Stock.objects.filter(name__icontains=args['text'])
+        query = Stock.objects.filter(name__icontains=args['text'])
+        if 'first' in args:
+            query = query[:args['first']]
+        return query
 
     @staticmethod
     def resolve_invest_suggestions(_data, _args, context, _info):
