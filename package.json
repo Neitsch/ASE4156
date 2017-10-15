@@ -14,7 +14,7 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "eslint": "eslint . --ext js,jsx",
-    "test": "yarn run eslint && flow && jest"
+    "test": "yarn run relay && yarn run eslint && flow && jest"
   },
   "dependencies": {
     "@storybook/addon-actions": "^3.2.6",

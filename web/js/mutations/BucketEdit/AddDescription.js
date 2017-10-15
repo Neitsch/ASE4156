@@ -8,8 +8,8 @@ import type {
 } from 'react-relay';
 
 const mutation = graphql`
-  mutation AddDescriptionMutation($text: String!, $bucketName: String!, $isGood: Boolean!) {
-    addAttributeToBucket(desc: $text, bucket: $bucketName, isGood: $isGood) {
+  mutation AddDescriptionMutation($text: String!, $bucketId: ID!, $isGood: Boolean!) {
+    addAttributeToBucket(desc: $text, bucketId: $bucketId, isGood: $isGood) {
        bucketAttr {
          text
          isGood
@@ -25,11 +25,11 @@ export default (
 ) => (
   environment: RelayEnvironment,
 ) => (
-  text: string, bucketName: string, isGood: bool,
+  text: string, bucketId: string, isGood: bool,
 ) => {
   const variables = {
     text,
-    bucketName,
+    bucketId,
     isGood,
   };
   const optimisticResponse = {

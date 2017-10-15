@@ -198,7 +198,7 @@ class InvestBucketRelay extends React.Component<Props, State> {
       )(
         this.props.relay.environment,
       )(
-        text, this.props.bucket.name, isGood,
+        text, this.props.bucket.id, isGood,
       );
     }
     let seeMoreFunc = null;
