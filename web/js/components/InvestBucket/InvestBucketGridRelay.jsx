@@ -36,7 +36,7 @@ class InvestBucketGridRelay extends React.Component<Props, State> {
       showDialog: diagState,
     }));
   }
-  dialogSave = (name: string, publicBucket: bool) => {
+  dialogSave = (name: string, publicBucket: bool, investment: number) => {
     let updater = null;
     if (publicBucket) {
       updater = (store) => {
@@ -64,7 +64,11 @@ class InvestBucketGridRelay extends React.Component<Props, State> {
           this.dialogAction(false)();
         }
       },
-    )(this.props.relay.environment)(name, publicBucket);
+    )(
+      this.props.relay.environment,
+    )(
+      name, publicBucket, investment,
+    );
   }
   render() {
     if (!this.props.profile.investSuggestions) {

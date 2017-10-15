@@ -14,12 +14,13 @@ import { FormGroup, FormControlLabel } from 'material-ui/Form';
 
 type Props = {
   cancel: () => void,
-  save: (string, bool) => void,
+  save: (string, bool, number) => void,
   errors?: ?Array<Error>,
 }
 type State = {
   public: bool,
   bucketName: string,
+  investment: number,
 }
 
 export default class EditBucket extends React.Component<Props, State> {
@@ -32,6 +33,7 @@ export default class EditBucket extends React.Component<Props, State> {
     this.state = {
       public: false,
       bucketName: '',
+      investment: 1000,
     };
   }
   clickCheckbox = () => this.setState(state => ({
@@ -44,8 +46,14 @@ export default class EditBucket extends React.Component<Props, State> {
       bucketName: text,
     }));
   }
+  investmentChange = (e: SyntheticInputEvent<>) => {
+    const investment = parseFloat(e.target.value);
+    this.setState(() => ({
+      investment,
+    }));
+  }
   save = () => {
-    this.props.save(this.state.bucketName, this.state.public);
+    this.props.save(this.state.bucketName, this.state.public, this.state.investment);
   }
   render() {
     return (
@@ -71,6 +79,20 @@ export default class EditBucket extends React.Component<Props, State> {
               onChange={this.bucketNameChange}
               fullWidth
             />
+          </FormGroup>
+          <FormGroup row>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="Investment"
+              type="text"
+              value={this.state.investment.toFixed(2)}
+              onChange={this.investmentChange}
+              fullWidth
+            />
+          </FormGroup>
+          <FormGroup row>
             <FormControlLabel
               control={
                 <Checkbox

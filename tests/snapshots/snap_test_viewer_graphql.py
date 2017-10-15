@@ -20,7 +20,7 @@ snapshots['test_big_gql 1'] = {
                                     'edges': [
                                         {
                                             'node': {
-                                                'quantity': 1,
+                                                'quantity': 1.0,
                                                 'stock': {
                                                     'name': 'Google',
                                                     'ticker': 'GOOGL',
@@ -55,6 +55,85 @@ snapshots['test_mutation_add_trading_account 1'] = {
         'addTradingAccount': {
             'account': {
                 'accountName': 'Test 1'
+            }
+        }
+    }
+}
+
+snapshots['test_mutation_add_bucket 1'] = {
+    'data': {
+        'addBucket': {
+            'bucket': {
+                'available': 333.33,
+                'isOwner': True,
+                'name': 'Test 1',
+                'public': True
+            }
+        }
+    }
+}
+
+snapshots['test_mutation_add_stock_to_bucket 1'] = {
+    'data': {
+        'addStockToBucket': {
+            'bucket': {
+                'available': 65.0,
+                'isOwner': True,
+                'name': 'i1',
+                'public': False,
+                'stocks': {
+                    'edges': [
+                        {
+                            'node': {
+                                'quantity': 3.5,
+                                'stock': {
+                                    'ticker': 'GOOGL'
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}
+
+snapshots['test_mutation_add_attribute_to_investment 1'] = {
+    'data': {
+        'addAttributeToBucket': {
+            'bucketAttr': {
+                'isGood': True,
+                'text': 'Test Desc'
+            }
+        }
+    }
+}
+
+snapshots['test_mutation_edit_attribute 1'] = {
+    'data': {
+        'editAttribute': {
+            'bucketAttr': {
+                'isGood': True,
+                'text': 'Test Desc'
+            }
+        }
+    }
+}
+
+snapshots['test_mutation_delete_attribute 1'] = {
+    'data': {
+        'deleteAttribute': {
+            'isOk': True
+        }
+    }
+}
+
+snapshots['test_mutation_edit_configuration 1'] = {
+    'data': {
+        'editConfiguration': {
+            'bucket': {
+                'available': 90.0,
+                'name': 'i1'
             }
         }
     }
