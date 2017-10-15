@@ -1,8 +1,6 @@
 """
 Models keeps track of all the persistent data around stocks
 """
-from datetime import datetime
-
 from django.db import models
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
@@ -32,6 +30,9 @@ class Stock(models.Model):
     )
 
     def latest_quote(self, date=None):
+        """
+        Returns the latest quote for the stock
+        """
         quote_query = self.daily_quote
         if date is not None:
             quote_query = quote_query.filter(date__leq=date)

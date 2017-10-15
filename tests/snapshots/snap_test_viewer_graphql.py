@@ -169,19 +169,13 @@ snapshots['test_mutation_add_attribute_to_investment 1'] = {
 
 snapshots['test_mutation_edit_attribute 1'] = {
     'data': {
-        'editAttribute': None
-    },
-    'errors': [
-        {
-            'locations': [
-                {
-                    'column': 11,
-                    'line': 3
-                }
-            ],
-            'message': "'QuerySet' object has no attribute 'save'"
+        'editAttribute': {
+            'bucketAttr': {
+                'isGood': True,
+                'text': 'Test Desc'
+            }
         }
-    ]
+    }
 }
 
 snapshots['test_mutation_delete_attribute 1'] = {
@@ -228,7 +222,7 @@ snapshots['test_mutation_attribute_permission 2'] = {
         {
             'locations': [
                 {
-                    'column': 11,
+                    'column': 15,
                     'line': 3
                 }
             ],
@@ -262,7 +256,7 @@ snapshots['test_mutation_attribute_permission 4'] = {
         {
             'locations': [
                 {
-                    'column': 11,
+                    'column': 15,
                     'line': 3
                 }
             ],

@@ -204,13 +204,13 @@ class AddStockToBucket(Mutation):
             if not bucket.owner.id == context.user.profile.id:
                 raise Exception("You don't own the bucket!")
             stock = Stock.objects.get(id=from_global_id(args['stock_id'])[1])
-            q = args['quantity']
+            quantity = args['quantity']
             investment = InvestmentStockConfiguration(
                 bucket=bucket,
                 stock=stock,
-                quantity=q
+                quantity=quantity
             )
-            bucket.available = bucket.available - stock.latest_quote().value * q
+            bucket.available = bucket.available - stock.latest_quote().value * quantity
             bucket.save()
             investment.save()
         bucket.refresh_from_db()
@@ -274,6 +274,8 @@ class EditAttribute(Mutation):
         )
         if not bucket_attr:
             raise Exception("You don't own the bucket!")
+        else:
+            bucket_attr = bucket_attr[0]
         bucket_attr.text = args['desc']
         bucket_attr.save()
         return EditAttribute(bucket_attr=bucket_attr)
@@ -301,6 +303,8 @@ class DeleteAttribute(Mutation):
         )
         if not bucket_attr:
             raise Exception("You don't own the bucket!")
+        else:
+            bucket_attr = bucket_attr[0]
         bucket_attr.delete()
         return DeleteAttribute(is_ok=True)
 

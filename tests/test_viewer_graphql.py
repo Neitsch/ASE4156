@@ -9,7 +9,8 @@ from BuyBitcoin.graphene_schema import SCHEMA
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from trading.models import TradingAccount, Trade
-from stocks.models import DailyStockQuote, InvestmentBucket, InvestmentBucketDescription, InvestmentStockConfiguration, Stock
+from stocks.models import DailyStockQuote, InvestmentBucket, \
+    InvestmentBucketDescription, InvestmentStockConfiguration, Stock
 from stocks.historical import create_stock
 from graphql_relay.node.node import to_global_id
 
@@ -101,7 +102,7 @@ def test_mutation_add_bucket(rf, snapshot):
     snapshot.assert_match(executed)
     acc = InvestmentBucket.objects.all()[0]
     ex_acc = executed['data']['addBucket']['bucket']['available']
-    assert ((ex_acc == acc.available) and (investment == ex_acc))
+    assert (ex_acc == acc.available) and (investment == ex_acc)
 
 
 @pytest.mark.django_db
@@ -125,30 +126,32 @@ def test_mutation_add_stock_to_bucket(rf, snapshot):
     client = Client(SCHEMA)
     executed = client.execute(
         """
-        mutation {{
-          addStockToBucket(stockId: "{}", bucketId: "{}", quantity: {}) {{
-            bucket {{
-                available
-                isOwner
-                public
-                name
-                stocks {{
-                    edges {{
-                        node {{
-                            quantity
-                            stock {{
-                                ticker
+            mutation {{
+              addStockToBucket(stockId: "{}", bucketId: "{}", quantity: {}) {{
+                bucket {{
+                    available
+                    isOwner
+                    public
+                    name
+                    stocks {{
+                        edges {{
+                            node {{
+                                quantity
+                                stock {{
+                                    ticker
+                                }}
                             }}
                         }}
                     }}
                 }}
+              }}
             }}
-          }}
-        }}
-    """.format(
+        """.format(
             to_global_id("GStock", stock.id),
-            to_global_id("GInvestmentBucket", bucket.id), 3.5),
-        context_value=request)
+            to_global_id("GInvestmentBucket", bucket.id), 3.5
+        ),
+        context_value=request
+    )
     snapshot.assert_match(executed)
     assert InvestmentStockConfiguration.objects.count() == 1
 
@@ -207,15 +210,21 @@ def test_mutation_attribute_permission(rf, snapshot):
         }}
     """.format("Test Desc", to_global_id("GInvestmentBucket", bucket.id)), context_value=request)
     snapshot.assert_match(executed)
-    executed = client.execute("""
-        mutation {{
-          editAttribute(desc: "{}", idValue: "{}") {{
-            bucketAttr {{
-                isGood
+    executed = client.execute(
+        """
+            mutation {{
+              editAttribute(desc: "{}", idValue: "{}") {{
+                bucketAttr {{
+                    isGood
+                }}
+              }}
             }}
-          }}
-        }}
-    """.format("Test Desc", to_global_id("GInvestmentBucketDescription", attr.id)), context_value=request)
+        """.format(
+            "Test Desc",
+            to_global_id("GInvestmentBucketDescription", attr.id)
+        ),
+        context_value=request
+    )
     snapshot.assert_match(executed)
     executed = client.execute("""
         mutation {{
@@ -227,17 +236,19 @@ def test_mutation_attribute_permission(rf, snapshot):
     snapshot.assert_match(executed)
     executed = client.execute(
         """
-        mutation {{
-          addStockToBucket(stockId: "{}", bucketId: "{}", quantity: {}) {{
-            bucket {{
-              id
+            mutation {{
+              addStockToBucket(stockId: "{}", bucketId: "{}", quantity: {}) {{
+                bucket {{
+                  id
+                }}
+              }}
             }}
-          }}
-        }}
-    """.format(
+        """.format(
             to_global_id("GStock", 1),
-            to_global_id("GInvestmentBucket", bucket.id), 3.5),
-        context_value=request)
+            to_global_id("GInvestmentBucket", bucket.id), 3.5
+        ),
+        context_value=request
+    )
     snapshot.assert_match(executed)
     assert InvestmentBucketDescription.objects.count() == 1
 
@@ -257,16 +268,22 @@ def test_mutation_edit_attribute(rf, snapshot):
     attr = InvestmentBucketDescription(text="Blabla", is_good=True, bucket=bucket)
     attr.save()
     client = Client(SCHEMA)
-    executed = client.execute("""
-        mutation {{
-          editAttribute(desc: "{}", idValue: "{}") {{
-            bucketAttr {{
-                text
-                isGood
+    executed = client.execute(
+        """
+            mutation {{
+              editAttribute(desc: "{}", idValue: "{}") {{
+                bucketAttr {{
+                    text
+                    isGood
+                }}
+              }}
             }}
-          }}
-        }}
-    """.format("Test Desc", to_global_id("GInvestmentBucketDescription", attr.id)), context_value=request)
+        """.format(
+            "Test Desc",
+            to_global_id("GInvestmentBucketDescription", attr.id)
+        ),
+        context_value=request
+    )
     snapshot.assert_match(executed)
 
 
@@ -317,20 +334,23 @@ def test_mutation_edit_configuration(rf, snapshot):
     client = Client(SCHEMA)
     executed = client.execute(
         """
-        mutation {{
-          editConfiguration(idValue: "{}", config: [
-            {{idValue: "{}", quantity: {}}}
-          ]) {{
-            bucket {{
-                name
-                available
+            mutation {{
+              editConfiguration(idValue: "{}", config: [
+                {{idValue: "{}", quantity: {}}}
+              ]) {{
+                bucket {{
+                    name
+                    available
+                }}
+              }}
             }}
-          }}
-        }}
-    """.format(
+        """.format(
             to_global_id("GInvestmentBucket", bucket.id),
-            to_global_id("GStock", stock.id), 2),
-        context_value=request)
+            to_global_id("GStock", stock.id),
+            2
+        ),
+        context_value=request
+    )
     snapshot.assert_match(executed)
     assert InvestmentStockConfiguration.objects.all().count() == 2
 
