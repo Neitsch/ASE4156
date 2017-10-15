@@ -268,7 +268,7 @@ class EditAttribute(Mutation):
         Executes the mutation to change the attribute
         """
         bucket_attr = InvestmentBucketDescription.objects.get(
-            id=from_global_id(args['id'])[1],
+            id=from_global_id(args['id_value'])[1],
             bucket__owner__id=context.user.profile.id,
         )
         if not bucket_attr:
