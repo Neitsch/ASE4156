@@ -3,7 +3,7 @@
 import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
 import Grid from 'material-ui/Grid';
-import { MuiThemeProvider, withStyles } from 'material-ui/styles';
+import { MuiThemeProvider } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
 import theme from '../theme/muiTheme';
 
