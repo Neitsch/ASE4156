@@ -20,6 +20,9 @@ const styles = ({
 });
 
 class PageTest extends React.Component<{}> {
+  componentDidMount() {
+    document.body.style.margin = 0;
+  }
   render() {
     const values = [
       {
