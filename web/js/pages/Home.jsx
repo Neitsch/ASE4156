@@ -4,8 +4,8 @@ import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
 import Grid from 'material-ui/Grid';
 import { MuiThemeProvider, withStyles } from 'material-ui/styles';
-import theme from '../theme/muiTheme';
 import Paper from 'material-ui/Paper';
+import theme from '../theme/muiTheme';
 
 
 import PersonalStatusRelay from '../components/PersonalStatus/PersonalStatusRelay';
@@ -42,8 +42,8 @@ class Home extends React.Component < Props > {
       <MuiThemeProvider theme={theme}>
         <div>
           <AppBar />
-            <div style={{margin:10}}>
-              <SnackbarErrorContext>
+          <div style={{ margin: 10 }}>
+            <SnackbarErrorContext>
               <Grid container spacing={16} className={this.props.grid}>
                 <Grid item xs={12} sm={6}>
                   {this.props.viewer.userbank.edges[0]
@@ -51,20 +51,20 @@ class Home extends React.Component < Props > {
                     : null}
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                <Paper>
-                  {this.props.viewer.userbank.edges[0]
-                    ? <BankAccountRelay bank={this.props.viewer.userbank.edges[0].node} />
-                    : null}
-                </Paper>
+                  <Paper>
+                    {this.props.viewer.userbank.edges[0]
+                      ? <BankAccountRelay bank={this.props.viewer.userbank.edges[0].node} />
+                      : null}
+                  </Paper>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <InvestBucketGridRelay profile={this.props.viewer.profile} />
                 </Grid>
               </Grid>
-              </SnackbarErrorContext>
+            </SnackbarErrorContext>
           </div>
         </div>
-    </MuiThemeProvider>
+      </MuiThemeProvider>
     );
   }
 }

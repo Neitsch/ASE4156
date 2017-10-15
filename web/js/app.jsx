@@ -1,11 +1,11 @@
 // @flow
 import React from 'react';
 import { graphql, QueryRenderer } from 'react-relay';
+import { MuiThemeProvider } from 'material-ui/styles';
 import environment from './relay/environment';
 import StockSearchView from './StockSearchView';
 import Home from './pages/Home';
 import Loading from './components/Loading';
-import { MuiThemeProvider } from 'material-ui/styles';
 import theme from './theme/muiTheme';
 
 
