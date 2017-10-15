@@ -13,7 +13,11 @@ type Props = {
 
 export default class PersonalStatus extends React.Component < Props > {
   static propTypes = {
-    bank: PropTypes.shape({ balance: PropTypes.number.isRequired, income: PropTypes.number.isRequired, outcome: PropTypes.number.isRequired }).isRequired,
+    bank: PropTypes.shape({
+      balance: PropTypes.number.isRequired,
+      income: PropTypes.number.isRequired,
+      outcome: PropTypes.number.isRequired,
+    }).isRequired,
   }
   render() {
     if (!this.props.bank) {

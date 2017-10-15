@@ -1,6 +1,6 @@
 // @flow
-import PersonalStatus from './PersonalStatus';
 import { createFragmentContainer, graphql } from 'react-relay';
+import PersonalStatus from './PersonalStatus';
 
 export default createFragmentContainer(PersonalStatus, {
   bank: graphql`

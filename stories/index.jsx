@@ -1,10 +1,6 @@
 import React from 'react';
 
-import { storiesOf, addDecorator } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
-import { linkTo } from '@storybook/addon-links';
-
-import { number, text } from '@storybook/addon-knobs';
+import { storiesOf } from '@storybook/react';
 
 import AppBar from '../web/js/components/AppBar';
 import { CardWF, MediaCardWF } from '../web/js/components/Cards';

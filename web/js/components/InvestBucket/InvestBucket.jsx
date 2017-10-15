@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import TextField from 'material-ui/TextField';
-import Card, { CardHeader, CardMedia, CardContent, CardActions } from 'material-ui/Card';
+import Card, { CardHeader, CardContent, CardActions } from 'material-ui/Card';
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import TrendingUpIcon from 'material-ui-icons/TrendingUp';
 import TrendingDownIcon from 'material-ui-icons/TrendingDown';
@@ -22,8 +22,8 @@ type State = {
 type ItemObj = {
   id: string,
   shortDesc: string,
-  icon: any,
-  text: any,
+  icon?: any,
+  text?: any,
   editMode: bool,
 }
 type Props = {
@@ -34,11 +34,12 @@ type Props = {
   },
   editFunc?: ?(text: string, isGood: bool) => void,
   seeMoreFunc?: ?() => void,
+  editCompositionFunc?: () => void,
 }
 
 class InvestBucket extends React.Component <Props, State> {
   static propTypes = {
-    title: PropTypes.string.isRequired,
+    title: PropTypes.node.isRequired,
     attributes: PropTypes.shape({
       good: PropTypes.arrayOf(propAttrShape.isRequired),
       bad: PropTypes.arrayOf(propAttrShape.isRequired),
@@ -54,6 +55,35 @@ class InvestBucket extends React.Component <Props, State> {
     editFunc: null,
     seeMoreFunc: null,
   }
+  static renderAttr(attr : ItemObj, isGood : bool) {
+    let indicator = null;
+    if (attr.editMode) {
+      indicator = <DeleteIcon />;
+    } else if (isGood) {
+      indicator = <TrendingUpIcon />;
+    } else {
+      indicator = <TrendingDownIcon />;
+    }
+    let text = null;
+    if (attr.editMode) {
+      text = <TextField value={attr.shortDesc} {...attr.text} />;
+    } else {
+      text = (<ListItemText
+        key={attr.id}
+        primary={attr.shortDesc}
+        autoFocus
+        {...attr.text}
+      />);
+    }
+    return (
+      <ListItem key={attr.id}>
+        <ListItemIcon {...attr.icon}>
+          {indicator}
+        </ListItemIcon>
+        {text}
+      </ListItem>
+    );
+  }
   constructor() {
     super();
     this.state = {
@@ -62,14 +92,8 @@ class InvestBucket extends React.Component <Props, State> {
       editGood: true,
     };
   }
-  updateText = (e: SyntheticInputEvent<>) => {
-    const text = e.target.value;
-    this.setState(() => ({
-      editText: text,
-    }));
-  }
   onEnterPress = (e: SyntheticEvent<>) => {
-    if (e.charCode == 13 && this.props.editFunc) {
+    if (e.charCode === 13 && this.props.editFunc) {
       this.props.editFunc(this.state.editText, this.state.editGood);
       this.setState(() => ({
         editMode: false,
@@ -77,6 +101,12 @@ class InvestBucket extends React.Component <Props, State> {
         editGood: true,
       }));
     }
+  }
+  updateText = (e: SyntheticInputEvent<>) => {
+    const text = e.target.value;
+    this.setState(() => ({
+      editText: text,
+    }));
   }
   launchEdit = (mode: bool) => () => this.setState(() => ({ editMode: mode }))
   editField = () => (
@@ -97,36 +127,6 @@ class InvestBucket extends React.Component <Props, State> {
       />
     </ListItem>
   )
-  renderAttr(attr : ItemObj, isGood : bool) {
-    let indicator = null;
-    if (attr.editMode) {
-      indicator = <DeleteIcon />;
-    } else if (isGood) {
-      indicator = <TrendingUpIcon />;
-    } else {
-      indicator = <TrendingDownIcon />;
-    }
-    let text = null;
-    if (attr.editMode) {
-      text = <TextField value={attr.shortDesc} {...attr.text} />;
-    } else {
-      text = (<ListItemText
-        primary={attr.shortDesc}
-        autoFocus
-        margin="dense"
-        fullWidth
-        {...attr.text}
-      />);
-    }
-    return (
-      <ListItem key={attr.id}>
-        <ListItemIcon {...attr.icon}>
-          {indicator}
-        </ListItemIcon>
-        {text}
-      </ListItem>
-    );
-  }
   render() {
     return (
       <Card>
@@ -134,16 +134,23 @@ class InvestBucket extends React.Component <Props, State> {
         <CardContent>
           <List>
             {this.props.attributes
-              ? (this.props.attributes.good
-                ? this.props.attributes.good.map(g => this.renderAttr(g, true))
-                : []).concat(this.props.attributes.bad
-                ? this.props.attributes.bad.map(b => this.renderAttr(b, false))
-                : [])
-              : null
+              ? (
+                this.props.attributes.good ?
+                  this.props.attributes.good.map(
+                    g => InvestBucket.renderAttr(g, true),
+                  ) :
+                  []
+              ).concat(
+                this.props.attributes.bad ?
+                  this.props.attributes.bad.map(
+                    b => InvestBucket.renderAttr(b, false),
+                  ) :
+                  [],
+              ) : null
             }
             {
               this.props.seeMoreFunc ?
-                <ListItem>
+                <ListItem key="seeMore">
                   <Button onClick={this.props.seeMoreFunc}>More</Button>
                 </ListItem>
                 : null
@@ -169,6 +176,13 @@ class InvestBucket extends React.Component <Props, State> {
           <Button dense color="primary">
             Learn More
           </Button>
+          {
+            this.props.editCompositionFunc ? (
+              <Button dense color="primary" onClick={this.props.editCompositionFunc}>
+                Composition
+              </Button>
+            ) : null
+          }
         </CardActions>
       </Card>
     );

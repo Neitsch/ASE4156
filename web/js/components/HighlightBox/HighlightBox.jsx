@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import PropTypes from 'prop-types';
-import Card, { CardHeader, CardMedia, CardContent, CardActions } from 'material-ui/Card';
+import Card, { CardHeader, CardContent } from 'material-ui/Card';
 import Divider from 'material-ui/Divider';
 import List, { ListItem, ListItemText } from 'material-ui/List';
 
@@ -16,9 +16,17 @@ type Props = {
 
 class HighlightBox extends React.Component<Props> {
   static propTypes = {
-    title: PropTypes.any.isRequired,
-    value: PropTypes.any.isRequired,
-    secondaryInfo: PropTypes.arrayOf(PropTypes.shape({ value: PropTypes.any.isRequired, text: PropTypes.any.isRequired })),
+    title: PropTypes.node.isRequired,
+    value: PropTypes.node.isRequired,
+    secondaryInfo: PropTypes.arrayOf(
+      PropTypes.shape({
+        value: PropTypes.node.isRequired,
+        text: PropTypes.node.isRequired,
+      }),
+    ),
+  }
+  static defaultProps = {
+    secondaryInfo: [],
   }
   render() {
     return (

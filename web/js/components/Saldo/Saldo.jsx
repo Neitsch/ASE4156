@@ -1,13 +1,15 @@
 // @flow
 import React from 'react';
-import Card, {CardHeader, CardMedia, CardContent, CardActions,} from 'material-ui/Card';
-import Table, {TableBody, TableCell, TableHead, TableRow,} from 'material-ui/Table';
+import Card, { CardHeader, CardContent } from 'material-ui/Card';
+import Table, { TableBody, TableCell, TableRow } from 'material-ui/Table';
 import Button from 'material-ui/Button';
 import PropTypes from 'prop-types';
 import numeral from 'numeral';
-import {withStyles} from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 
-const formatMoney : (string, number) => string = function(currency : string, num : number) : string {
+import type { Element } from 'react';
+
+function formatMoney(currency: string, num: number) {
   return currency + numeral(num).format('0,0.00');
 }
 
@@ -16,15 +18,15 @@ type valueShape = {
   value: number,
 }
 
-const MyTableCell = withStyles(theme => ({
+const MyTableCell = withStyles(() => ({
   root: {
-    borderBottom: `0px`
-  }
+    borderBottom: '0px',
+  },
 }))(TableCell);
 
 class Saldo extends React.Component <*> {
   static defaultProps = {
-    currency: "$",
+    currency: '$',
     values: [],
     t: w => w,
     showTotal: true,
@@ -32,68 +34,66 @@ class Saldo extends React.Component <*> {
   static propTypes = {
     t: PropTypes.func,
     currency: PropTypes.string,
-    values: PropTypes.arrayOf(PropTypes.shape({name: PropTypes.string.isRequired, value: PropTypes.number.isRequired})),
+    values: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        value: PropTypes.number.isRequired,
+      }),
+    ),
     showTotal: PropTypes.bool,
   };
-  constructor() : void {
-    super();
-    // this.collectRow = this.collectRow.bind(this); this.valueRow =
-    // this.valueRow.bind(this); this.valueRows = this.valueRows.bind(this);
-    // this.renderCard = this.renderCard.bind(this);
-  }
-  collectRow = () => {
-    return (
-      <TableRow>
-        <MyTableCell>{this.props.t('totalSharesValue')}</MyTableCell>
-        <MyTableCell style={{
-          textAlign: 'right'
-        }}>
-          {formatMoney(this.props.currency, this.props.values.reduce((sum, o) => sum + o.value, 0))}
-        </MyTableCell>
-      </TableRow>
-    );
-  }
-  valueRow = (value : valueShape, i : number, a : Array < valueShape >) => {
-    const Comp = i == a.length - 1
+  collectRow = () => (
+    <TableRow>
+      <MyTableCell>{this.props.t('totalSharesValue')}</MyTableCell>
+      <MyTableCell style={{
+        textAlign: 'right',
+      }}
+      >
+        {formatMoney(this.props.currency, this.props.values.reduce((sum, o) => sum + o.value, 0))}
+      </MyTableCell>
+    </TableRow>
+  )
+  valueRow = (value: valueShape, i: number, a: Array<valueShape>) => {
+    const Comp = i === a.length - 1
       ? TableCell
       : MyTableCell;
     return (
       <TableRow key={i}>
         <Comp>{this.props.t(value.name)}</Comp>
         <Comp style={{
-          textAlign: 'right'
-        }}>{formatMoney(this.props.currency, value.value)}</Comp>
+          textAlign: 'right',
+        }}
+        >{formatMoney(this.props.currency, value.value)}</Comp>
       </TableRow>
     );
   }
-  valueRows = (values : Array < valueShape >) => {
-    return values.map(this.valueRow);
-  }
-  renderCard = (values : Array < React$Element < *>>, bottom :
-    ? React$Element < * >, button : React$Element <*>) => {
-    return (
-      <Card>
-        <CardHeader title="Saldo"/>
-        <CardContent>
-          <Table>
-            <TableBody>
-              {values}
-              {bottom}
-            </TableBody>
-          </Table>
-          {button}
-        </CardContent>
-      </Card>
-    )
-  }
-  render() : React$Element < * > {
+  valueRows = (values: Array<valueShape>) => values.map(this.valueRow)
+  renderCard = (
+    values: Array<Element<*>>,
+    bottom: ?Element<*>,
+    button: Element <*>,
+  ) => (
+    <Card>
+      <CardHeader title="Saldo" />
+      <CardContent>
+        <Table>
+          <TableBody>
+            {values}
+            {bottom}
+          </TableBody>
+        </Table>
+        {button}
+      </CardContent>
+    </Card>
+  )
+  render(): Element<*> {
     let collectRow = null;
     if (this.props.showTotal) {
       collectRow = this.collectRow();
     }
-    const button = <Button raised>
+    const button = (<Button raised>
       Sell Shares
-    </Button>;
+    </Button>);
     return this.renderCard(this.valueRows(this.props.values), collectRow, button);
   }
 }

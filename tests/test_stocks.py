@@ -4,6 +4,7 @@ from django.test import TestCase
 from stocks.models import Stock, DailyStockQuote
 import pandas as pd
 from yahoo_historical import Fetcher
+from authentication.plaid_middleware import PlaidMiddleware
 
 
 class StocksViewTests(TestCase):
@@ -15,6 +16,7 @@ class StocksViewTests(TestCase):
         """Setting up testing"""
         cls._original_init_method = Fetcher.__init__
         Fetcher.__init__ = mock.Mock(return_value=None)
+        PlaidMiddleware.__call__ = lambda self, request: self.get_response(request)
 
     @classmethod
     def teardown_class(cls):

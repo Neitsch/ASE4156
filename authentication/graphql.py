@@ -2,7 +2,6 @@
 GraphQL definitions for the Authentication App
 """
 import datetime
-import os
 from django.db.models import Q
 from django.contrib.auth.models import User
 from graphene import AbstractType, Argument, Field, Float, List, Mutation, \
@@ -13,13 +12,7 @@ from trading.models import TradingAccount
 from trading.graphql import GTradingAccount
 from stocks.graphql import GInvestmentBucket, GStock
 from stocks.models import InvestmentBucket, Stock
-import plaid
 from .models import Profile, UserBank
-
-PLAID_CLIENT_ID = os.environ.get('PLAID_CLIENT_ID')
-PLAID_SECRET = os.environ.get('PLAID_SECRET')
-PLAID_PUBLIC_KEY = os.environ.get('PLAID_PUBLIC_KEY')
-PLAID_ENV = 'sandbox' if os.environ.get('DEBUG') == "TRUE" else 'development'
 
 
 # pylint: disable=too-few-public-methods
@@ -106,18 +99,19 @@ class GUserBank(DjangoObjectType):
         interfaces = (relay.Node, )
 
     @staticmethod
-    def resolve_history(data, args, _context, _info):
+    def resolve_history(data, args, context, _info):
         """
         Builds the financial history for the user
         """
-        client = plaid.Client(client_id=PLAID_CLIENT_ID, secret=PLAID_SECRET,
-                              public_key=PLAID_PUBLIC_KEY, environment=PLAID_ENV)
         start = args['start']
         end = datetime.datetime.now().strftime("%Y-%m-%d")
-        response = client.Transactions.get(data.access_token,
-                                           start_date=start, end_date=end)
+        response = context.plaid.Transactions.get(
+            data.access_token,
+            start_date=start,
+            end_date=end
+        )
         transactions = response['transactions']
-        value = GUserBank.resolve_balance(data, {}, None, None)
+        value = GUserBank.resolve_balance(data, {}, context, None)
         value_list = [DataPoint(end, value)]
         for transaction in transactions:
             value = value - transaction['amount']
@@ -126,13 +120,11 @@ class GUserBank(DjangoObjectType):
         return value_list
 
     @staticmethod
-    def resolve_balance(data, _args, _context, _info):
+    def resolve_balance(data, _args, context, _info):
         """
         Finds the current balance of the user
         """
-        client = plaid.Client(client_id=PLAID_CLIENT_ID, secret=PLAID_SECRET,
-                              public_key=PLAID_PUBLIC_KEY, environment=PLAID_ENV)
-        balances = client.Accounts.balance.get(data.access_token)['accounts']
+        balances = context.plaid.Accounts.balance.get(data.access_token)['accounts']
         extracted_balances = [((b['balances']['available']
                                 if b['balances']['available'] is not None else
                                 b['balances']['current']) *
@@ -143,41 +135,41 @@ class GUserBank(DjangoObjectType):
         return float(balance)
 
     @staticmethod
-    def resolve_name(data, _args, _context, _info):
+    def resolve_name(data, _args, context, _info):
         """
         Returns the name of the bank account
         """
-        client = plaid.Client(client_id=PLAID_CLIENT_ID, secret=PLAID_SECRET,
-                              public_key=PLAID_PUBLIC_KEY, environment=PLAID_ENV)
-        name = client.Accounts.get(data.access_token)['accounts'][0]['name']
+        name = context.plaid.Accounts.get(data.access_token)['accounts'][0]['name']
         return name
 
     @staticmethod
-    def resolve_income(data, _args, _context, _info):
+    def resolve_income(data, _args, context, _info):
         """
         Calculates the income a user has per month
         """
-        client = plaid.Client(client_id=PLAID_CLIENT_ID, secret=PLAID_SECRET,
-                              public_key=PLAID_PUBLIC_KEY, environment=PLAID_ENV)
         start = (datetime.datetime.now() - datetime.timedelta(days=30)).strftime("%Y-%m-%d")
         end = datetime.datetime.now().strftime("%Y-%m-%d")
-        response = client.Transactions.get(data.access_token,
-                                           start_date=start, end_date=end)
+        response = context.plaid.Transactions.get(
+            data.access_token,
+            start_date=start,
+            end_date=end,
+        )
         transactions = response['transactions']
         plus = sum(filter(lambda x: x > 0, [tx['amount'] for tx in transactions]))
         return float(plus)
 
     @staticmethod
-    def resolve_outcome(data, _args, _context, _info):
+    def resolve_outcome(data, _args, context, _info):
         """
         Calculates the expenses a user has
         """
-        client = plaid.Client(client_id=PLAID_CLIENT_ID, secret=PLAID_SECRET,
-                              public_key=PLAID_PUBLIC_KEY, environment=PLAID_ENV)
         start = (datetime.datetime.now() - datetime.timedelta(days=30)).strftime("%Y-%m-%d")
         end = datetime.datetime.now().strftime("%Y-%m-%d")
-        response = client.Transactions.get(data.access_token,
-                                           start_date=start, end_date=end)
+        response = context.plaid.Transactions.get(
+            data.access_token,
+            start_date=start,
+            end_date=end,
+        )
         transactions = response['transactions']
         plus = sum(filter(lambda x: x < 0, [tx['amount'] for tx in transactions]))
         return float(plus)

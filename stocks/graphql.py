@@ -1,10 +1,12 @@
 """
 GraphQL definitions for the Stocks App
 """
+from datetime import datetime
 from django.db.models import Q
+from django.db import transaction
 from graphene_django import DjangoObjectType
-from graphene import AbstractType, Argument, Boolean, Field, Float, ID, List, \
-    Mutation, NonNull, String, relay
+from graphene import AbstractType, Argument, Boolean, Field, Float, ID, \
+    InputObjectType, List, Mutation, NonNull, String, relay
 from graphql_relay.node.node import from_global_id
 from trading.models import Trade
 from .models import DailyStockQuote, InvestmentBucket, \
@@ -13,6 +15,14 @@ from .historical import create_new_stock
 
 
 # pylint: disable=too-few-public-methods
+class GInvestmentBucketConfigurationUpdate(InputObjectType):
+    """
+    Represents one choice of stock for a bucket
+    """
+    id_value = ID()
+    quantity = Float()
+
+
 class GDailyStockQuote(DjangoObjectType):
     """
     GraphQL representation of a DailyStockQuote
@@ -49,7 +59,7 @@ class GInvestmentBucket(DjangoObjectType):
         """
         model = InvestmentBucket
         interfaces = (relay.Node, )
-        only_fields = ('id', 'name', 'public', 'description', 'stocks')
+        only_fields = ('id', 'name', 'public', 'description', 'stocks', 'available')
 
     @staticmethod
     def resolve_is_owner(data, _args, context, _info):
@@ -57,6 +67,13 @@ class GInvestmentBucket(DjangoObjectType):
         Returns whether the user ownes the investment bucket
         """
         return data.owner.id == context.user.profile.id
+
+    @staticmethod
+    def resolve_stocks(data, _args, _context, _info):
+        """
+        Returns the *current* stocks in the bucket
+        """
+        return data.stocks.filter(end=None)
 
 
 class GInvestmentStockConfiguration(DjangoObjectType):
@@ -77,6 +94,7 @@ class GStock(DjangoObjectType):
     """
     quote_in_range = NonNull(List(GDailyStockQuote), args={'start': Argument(
         NonNull(String)), 'end': Argument(NonNull(String))})
+    latest_quote = Field(GDailyStockQuote)
 
     class Meta(object):
         """
@@ -84,6 +102,19 @@ class GStock(DjangoObjectType):
         """
         model = Stock
         interfaces = (relay.Node, )
+
+    @staticmethod
+    def resolve_latest_quote(data, _args, _context, _info):
+        """
+        Returns the most recent stock quote
+        """
+        quote_query = (DailyStockQuote
+                       .objects
+                       .filter(stock_id=data.id)
+                       .order_by('date'))
+        if quote_query.count() > 0:
+            return quote_query[0]
+        return None
 
     @staticmethod
     def resolve_quote_in_range(data, args, _context, _info):
@@ -264,13 +295,80 @@ class DeleteAttribute(Mutation):
         Executes the mutation by deleting the attribute
         """
         bucket_attr = InvestmentBucketDescription.objects.get(
-            id=from_global_id(args['id'])[1],
+            id=from_global_id(args['id_value'])[1],
             bucket__owner__id=context.user.profile.id,
         )
         if not bucket_attr:
             raise Exception("You don't own the bucket!")
         bucket_attr.delete()
-        return DeleteAttribute(ok=True)
+        return DeleteAttribute(is_ok=True)
+
+
+class EditConfiguration(Mutation):
+    """
+    Mutation to change the stock configuration of a bucket
+    """
+    class Input(object):
+        """
+        As input we take the new configuration and the bucket id
+        """
+        config = NonNull(List(GInvestmentBucketConfigurationUpdate))
+        id_value = NonNull(ID)
+    bucket = Field(lambda: GInvestmentBucket)
+
+    @staticmethod
+    def mutate(_self, args, context, _info):
+        """
+        This performs the actual mutation by removing the old configuration and
+        then writing the new one
+        """
+        bucket = InvestmentBucket.objects.get(
+            id=from_global_id(args['id_value'])[1],
+            owner=context.user.profile,
+        )
+        with transaction.atomic():
+            configs = InvestmentStockConfiguration.objects.filter(
+                bucket=bucket,
+                end=None,
+            ).all()
+            for config in configs:
+                quote_query = DailyStockQuote.objects.filter(
+                    stock__id=config.stock_id
+                )
+                quote = quote_query.order_by('date')[0]
+                bucket.available = (
+                    bucket.available +
+                    quote.value *
+                    config.quantity
+                )
+
+            InvestmentStockConfiguration.objects.filter(
+                bucket=bucket,
+                end=None,
+            ).update(end=datetime.now())
+
+            new_configs = []
+            for new_config in args['config']:
+                quote = DailyStockQuote.objects.filter(
+                    stock__id=from_global_id(new_config['id_value'])[1],
+                ).order_by('date')[0]
+                bucket.available = (
+                    bucket.available -
+                    quote.value *
+                    new_config['quantity']
+                )
+                new_configs.append(
+                    InvestmentStockConfiguration(
+                        stock_id=quote.stock_id,
+                        quantity=new_config['quantity'],
+                        bucket=bucket,
+                        start=datetime.now()
+                    )
+                )
+            InvestmentStockConfiguration.objects.bulk_create(new_configs)
+            bucket.save()
+
+        return EditConfiguration(bucket=bucket)
 
 
 # pylint: disable=no-init

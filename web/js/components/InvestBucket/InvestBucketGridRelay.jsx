@@ -5,12 +5,14 @@ import { ConnectionHandler } from 'relay-runtime';
 import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
 import AddIcon from 'material-ui-icons/Add';
+
+import type { RelayContext } from 'react-relay';
+
 import InvestBucketRelay from './InvestBucketRelay';
 import EditBucket from '../EditBucket/EditBucket';
 import createBucket from '../../mutations/BucketEdit/CreateBucket';
 
 import type { InvestBucketGridRelay_profile } from './__generated__/InvestBucketGridRelay_profile.graphql';
-import type { RelayContext } from 'react-relay';
 
 type Props = {
   profile: InvestBucketGridRelay_profile,
@@ -30,7 +32,7 @@ class InvestBucketGridRelay extends React.Component<Props, State> {
     };
   }
   dialogAction = diagState => () => {
-    this.setState((state, props) => ({
+    this.setState(() => ({
       showDialog: diagState,
     }));
   }
@@ -73,7 +75,7 @@ class InvestBucketGridRelay extends React.Component<Props, State> {
         {
           this.props.profile.investSuggestions.edges.map(b => (b && b.node ? (
             <Grid item xs={12} sm={8} lg={4} key={b.node.id}>
-              <InvestBucketRelay bucket={b.node} />
+              <InvestBucketRelay profile={this.props.profile} bucket={b.node} />
             </Grid>
           ) : null))
         }
@@ -84,7 +86,11 @@ class InvestBucketGridRelay extends React.Component<Props, State> {
         </Grid>
         {
           this.state.showDialog ?
-            <EditBucket save={this.dialogSave} cancel={this.dialogAction(false)} errors={this.state.errors} /> :
+            <EditBucket
+              save={this.dialogSave}
+              cancel={this.dialogAction(false)}
+              errors={this.state.errors}
+            /> :
             null
         }
       </Grid>
@@ -104,6 +110,7 @@ export default createFragmentContainer(InvestBucketGridRelay, {
           }
         }
       }
+      ...InvestBucketRelay_profile
     }
   `,
 });
