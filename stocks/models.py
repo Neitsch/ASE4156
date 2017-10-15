@@ -1,7 +1,6 @@
 """
 Models keeps track of all the persistent data around stocks
 """
-
 from django.db import models
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
@@ -29,6 +28,18 @@ class Stock(models.Model):
             message="The ticker should not be empty."
         )],
     )
+
+    def latest_quote(self, date=None):
+        """
+        Returns the latest quote for the stock
+        """
+        quote_query = self.daily_quote
+        if date is not None:
+            quote_query = quote_query.filter(date__leq=date)
+        quote_query = quote_query.order_by('-date')
+        if quote_query:
+            return quote_query[0]
+        return None
 
     def __str__(self):
         return "{}, {}, {}".format(self.id, self.name, self.ticker)
@@ -115,11 +126,8 @@ class InvestmentStockConfiguration(models.Model):
     )
     stock = models.ForeignKey(Stock, related_name='bucket')
     bucket = models.ForeignKey(InvestmentBucket, related_name='stocks')
-    start = models.DateField()
-    end = models.DateField(null=True)
-
-    class Meta(object):
-        unique_together = ('stock', 'bucket', 'start', 'end')
+    start = models.DateField(auto_now_add=True, blank=True)
+    end = models.DateField(null=True, blank=True)
 
 
 @receiver(pre_save)

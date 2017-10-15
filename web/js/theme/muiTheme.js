@@ -1,8 +1,9 @@
 import { createMuiTheme } from 'material-ui/styles';
 import green from 'material-ui/colors/green';
 import red from 'material-ui/colors/red';
-import colors from '../colors/colors';
+import 'typeface-roboto';
 
+import colors from '../colors/colors';
 
 const theme = createMuiTheme({
   palette: {

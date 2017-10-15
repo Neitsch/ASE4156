@@ -108,13 +108,7 @@ class GStock(DjangoObjectType):
         """
         Returns the most recent stock quote
         """
-        quote_query = (DailyStockQuote
-                       .objects
-                       .filter(stock_id=data.id)
-                       .order_by('date'))
-        if quote_query.count() > 0:
-            return quote_query[0]
-        return None
+        return data.latest_quote()
 
     @staticmethod
     def resolve_quote_in_range(data, args, _context, _info):
@@ -126,7 +120,7 @@ class GStock(DjangoObjectType):
                 .filter(stock_id=data.id)
                 .filter(date__gte=args['start'])
                 .filter(date__lte=args['end'])
-                .order_by('date'))
+                .order_by('-date'))
 
     @staticmethod
     def resolve_trades(stock, _args, context, _info):
@@ -168,6 +162,7 @@ class AddBucket(Mutation):
         We only need the name of the new bucket to create it
         """
         name = NonNull(String)
+        investment = NonNull(Float)
         public = NonNull(Boolean)
     bucket = Field(lambda: GInvestmentBucket)
 
@@ -180,6 +175,7 @@ class AddBucket(Mutation):
             name=args['name'],
             public=args['public'],
             owner=context.user.profile,
+            available=args['investment'],
         )
         bucket.save()
         return AddBucket(bucket=bucket)
@@ -193,8 +189,8 @@ class AddStockToBucket(Mutation):
         """
         We need the ticker, bucket and quantity to create the connection
         """
-        ticker = NonNull(String)
-        bucket_name = NonNull(String)
+        stock_id = NonNull(ID)
+        bucket_id = NonNull(ID)
         quantity = NonNull(Float)
     bucket = Field(lambda: GInvestmentBucket)
 
@@ -203,16 +199,20 @@ class AddStockToBucket(Mutation):
         """
         Adds a new stock to a specific bucket
         """
-        bucket = InvestmentBucket.objects.get(name=args['bucket_name'])
-        if not bucket.owner.id == context.user.profile.id:
-            raise Exception("You don't own the bucket!")
-        stock = Stock.objects.get(ticker=args['ticker'])
-        investment = InvestmentStockConfiguration(
-            bucket=bucket,
-            stock=stock,
-            quantity=args['quantity']
-        )
-        investment.save()
+        with transaction.atomic():
+            bucket = InvestmentBucket.objects.get(id=from_global_id(args['bucket_id'])[1])
+            if not bucket.owner.id == context.user.profile.id:
+                raise Exception("You don't own the bucket!")
+            stock = Stock.objects.get(id=from_global_id(args['stock_id'])[1])
+            quantity = args['quantity']
+            investment = InvestmentStockConfiguration(
+                bucket=bucket,
+                stock=stock,
+                quantity=quantity
+            )
+            bucket.available = bucket.available - stock.latest_quote().value * quantity
+            bucket.save()
+            investment.save()
         bucket.refresh_from_db()
         return AddStockToBucket(bucket=bucket)
 
@@ -226,7 +226,7 @@ class AddAttributeToInvestment(Mutation):
         We need the description and the bucket as input
         """
         desc = NonNull(String)
-        bucket = NonNull(String)
+        bucket_id = NonNull(ID)
         is_good = NonNull(Boolean)
     bucket_attr = Field(lambda: GInvestmentBucketAttribute)
 
@@ -236,8 +236,7 @@ class AddAttributeToInvestment(Mutation):
         Executes the mutation to add the attribute
         """
         bucket = InvestmentBucket.objects.get(
-            name=args['bucket'],
-            owner__id=context.user.profile.id,
+            id=from_global_id(args['bucket_id'])[1],
         )
         if not bucket or (not bucket.owner.id == context.user.profile.id):
             raise Exception("You don't own the bucket!")
@@ -267,12 +266,14 @@ class EditAttribute(Mutation):
         """
         Executes the mutation to change the attribute
         """
-        bucket_attr = InvestmentBucketDescription.objects.get(
-            id=from_global_id(args['id'])[1],
+        bucket_attr = InvestmentBucketDescription.objects.filter(
+            id=from_global_id(args['id_value'])[1],
             bucket__owner__id=context.user.profile.id,
         )
         if not bucket_attr:
             raise Exception("You don't own the bucket!")
+        else:
+            bucket_attr = bucket_attr[0]
         bucket_attr.text = args['desc']
         bucket_attr.save()
         return EditAttribute(bucket_attr=bucket_attr)
@@ -294,12 +295,14 @@ class DeleteAttribute(Mutation):
         """
         Executes the mutation by deleting the attribute
         """
-        bucket_attr = InvestmentBucketDescription.objects.get(
+        bucket_attr = InvestmentBucketDescription.objects.filter(
             id=from_global_id(args['id_value'])[1],
             bucket__owner__id=context.user.profile.id,
         )
         if not bucket_attr:
             raise Exception("You don't own the bucket!")
+        else:
+            bucket_attr = bucket_attr[0]
         bucket_attr.delete()
         return DeleteAttribute(is_ok=True)
 
@@ -322,11 +325,11 @@ class EditConfiguration(Mutation):
         This performs the actual mutation by removing the old configuration and
         then writing the new one
         """
-        bucket = InvestmentBucket.objects.get(
-            id=from_global_id(args['id_value'])[1],
-            owner=context.user.profile,
-        )
         with transaction.atomic():
+            bucket = InvestmentBucket.objects.get(
+                id=from_global_id(args['id_value'])[1],
+                owner=context.user.profile,
+            )
             configs = InvestmentStockConfiguration.objects.filter(
                 bucket=bucket,
                 end=None,
@@ -335,7 +338,7 @@ class EditConfiguration(Mutation):
                 quote_query = DailyStockQuote.objects.filter(
                     stock__id=config.stock_id
                 )
-                quote = quote_query.order_by('date')[0]
+                quote = quote_query.order_by('-date')[0]
                 bucket.available = (
                     bucket.available +
                     quote.value *
@@ -351,7 +354,7 @@ class EditConfiguration(Mutation):
             for new_config in args['config']:
                 quote = DailyStockQuote.objects.filter(
                     stock__id=from_global_id(new_config['id_value'])[1],
-                ).order_by('date')[0]
+                ).order_by('-date')[0]
                 bucket.available = (
                     bucket.available -
                     quote.value *
@@ -376,7 +379,7 @@ class Query(AbstractType):
     """
     We don't want to have any root queries here
     """
-    invest_bucket = Field(GInvestmentBucket, args={'id': Argument(ID)})
+    invest_bucket = Field(GInvestmentBucket, args={'id': Argument(NonNull(ID))})
 
     @staticmethod
     def resolve_invest_bucket(_self, args, context, _info):

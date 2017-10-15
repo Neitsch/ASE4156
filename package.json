@@ -13,7 +13,8 @@
     "webpack": "webpack --config webpack.config.js --progress --colors",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "test": "yarn run eslint && flow && jest"
+    "eslint": "eslint . --ext js,jsx",
+    "test": "yarn run relay && yarn run eslint && flow && jest"
   },
   "dependencies": {
     "@storybook/addon-actions": "^3.2.6",

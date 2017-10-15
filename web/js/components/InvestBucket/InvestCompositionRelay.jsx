@@ -115,7 +115,7 @@ export default createRefetchContainer(InvestCompositionRelay, {
     @argumentDefinitions(
       text: {type: "String!", defaultValue: ""}
     ) {
-      investSearch: stockFind(text: $text) {
+      investSearch: stockFind(text: $text, first: 4) {
         name
         id
         latestQuote {

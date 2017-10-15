@@ -8,8 +8,8 @@ import type {
 } from 'react-relay';
 
 const mutation = graphql`
-  mutation CreateBucketMutation($name: String!, $public: Boolean!) {
-    addBucket(name: $name, public: $public) {
+  mutation CreateBucketMutation($name: String!, $public: Boolean!, $investment: Float!) {
+    addBucket(name: $name, public: $public, investment: $investment) {
        bucket {
          id
          ...InvestBucketRelay_bucket
@@ -25,16 +25,18 @@ export default (
 ) => (
   environment: RelayEnvironment,
 ) => (
-  text: string, publicBucket: bool,
+  text: string, publicBucket: bool, investment: number,
 ) => {
   const variables = {
     name: text,
     public: publicBucket,
+    investment,
   };
   const optimisticResponse = {
     addBucket: {
       bucket: {
         name: text,
+        available: investment,
         description: {
           edges: [],
         },

@@ -3,10 +3,7 @@
 import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
 import Grid from 'material-ui/Grid';
-import { MuiThemeProvider } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
-import theme from '../theme/muiTheme';
-
 
 import PersonalStatusRelay from '../components/PersonalStatus/PersonalStatusRelay';
 import BankAccountRelay from '../components/StockGraph/BankAccountRelay';
@@ -32,32 +29,27 @@ class Home extends React.Component < Props > {
       return null;
     }
     return (
-      <MuiThemeProvider theme={theme}>
-        <div>
-          <AppBar />
-          <div style={{ margin: 10 }}>
-            <SnackbarErrorContext>
-              <Grid container spacing={16}>
-                <Grid item xs={12} sm={6}>
-                  {this.props.viewer.userbank.edges[0]
-                    ? <PersonalStatusRelay bank={this.props.viewer.userbank.edges[0].node} />
-                    : null}
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <Paper>
-                    {this.props.viewer.userbank.edges[0]
-                      ? <BankAccountRelay bank={this.props.viewer.userbank.edges[0].node} />
-                      : null}
-                  </Paper>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <InvestBucketGridRelay profile={this.props.viewer.profile} />
-                </Grid>
-              </Grid>
-            </SnackbarErrorContext>
-          </div>
-        </div>
-      </MuiThemeProvider>
+      <div style={{ margin: 10 }}>
+        <SnackbarErrorContext>
+          <Grid container spacing={16}>
+            <Grid item xs={12} sm={6}>
+              {this.props.viewer.userbank.edges[0]
+                ? <PersonalStatusRelay bank={this.props.viewer.userbank.edges[0].node} />
+                : null}
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Paper>
+                {this.props.viewer.userbank.edges[0]
+                  ? <BankAccountRelay bank={this.props.viewer.userbank.edges[0].node} />
+                  : null}
+              </Paper>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <InvestBucketGridRelay profile={this.props.viewer.profile} />
+            </Grid>
+          </Grid>
+        </SnackbarErrorContext>
+      </div>
     );
   }
 }
