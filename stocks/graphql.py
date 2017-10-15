@@ -268,7 +268,7 @@ class EditAttribute(Mutation):
         """
         Executes the mutation to change the attribute
         """
-        bucket_attr = InvestmentBucketDescription.objects.get(
+        bucket_attr = InvestmentBucketDescription.objects.filter(
             id=from_global_id(args['id_value'])[1],
             bucket__owner__id=context.user.profile.id,
         )
@@ -295,7 +295,7 @@ class DeleteAttribute(Mutation):
         """
         Executes the mutation by deleting the attribute
         """
-        bucket_attr = InvestmentBucketDescription.objects.get(
+        bucket_attr = InvestmentBucketDescription.objects.filter(
             id=from_global_id(args['id_value'])[1],
             bucket__owner__id=context.user.profile.id,
         )
@@ -377,7 +377,7 @@ class Query(AbstractType):
     """
     We don't want to have any root queries here
     """
-    invest_bucket = Field(GInvestmentBucket, args={'id': Argument(ID)})
+    invest_bucket = Field(GInvestmentBucket, args={'id': Argument(NonNull(ID))})
 
     @staticmethod
     def resolve_invest_bucket(_self, args, context, _info):

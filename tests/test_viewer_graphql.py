@@ -182,6 +182,68 @@ def test_mutation_add_attribute_to_investment(rf, snapshot):
 
 @pytest.mark.django_db
 # pylint: disable=invalid-name
+def test_mutation_attribute_permission(rf, snapshot):
+    """
+    This submits a massive graphql query to verify all fields work
+    """
+    # pylint: enable=invalid-name
+    request = rf.post('/graphql')
+    pw2 = ''.join(random.choices(string.ascii_uppercase + string.digits, k=9))
+    user2 = User.objects.create(username='testuser2', password=pw2)
+    pw1 = ''.join(random.choices(string.ascii_uppercase + string.digits, k=9))
+    request.user = User.objects.create(username='testuser1', password=pw1)
+    bucket = InvestmentBucket(name="i1", public=False, available=100, owner=user2.profile)
+    bucket.save()
+    attr = InvestmentBucketDescription(text="desc1", bucket=bucket, is_good=True)
+    attr.save()
+    client = Client(SCHEMA)
+    executed = client.execute("""
+        mutation {{
+          addAttributeToBucket(desc: "{}", bucketId: "{}", isGood: true) {{
+            bucketAttr {{
+                isGood
+            }}
+          }}
+        }}
+    """.format("Test Desc", to_global_id("GInvestmentBucket", bucket.id)), context_value=request)
+    snapshot.assert_match(executed)
+    executed = client.execute("""
+        mutation {{
+          editAttribute(desc: "{}", idValue: "{}") {{
+            bucketAttr {{
+                isGood
+            }}
+          }}
+        }}
+    """.format("Test Desc", to_global_id("GInvestmentBucketDescription", attr.id)), context_value=request)
+    snapshot.assert_match(executed)
+    executed = client.execute("""
+        mutation {{
+          deleteAttribute(idValue: "{}") {{
+            isOk
+          }}
+        }}
+    """.format(to_global_id("GInvestmentBucketDescription", attr.id)), context_value=request)
+    snapshot.assert_match(executed)
+    executed = client.execute(
+        """
+        mutation {{
+          addStockToBucket(stockId: "{}", bucketId: "{}", quantity: {}) {{
+            bucket {{
+              id
+            }}
+          }}
+        }}
+    """.format(
+            to_global_id("GStock", 1),
+            to_global_id("GInvestmentBucket", bucket.id), 3.5),
+        context_value=request)
+    snapshot.assert_match(executed)
+    assert InvestmentBucketDescription.objects.count() == 1
+
+
+@pytest.mark.django_db
+# pylint: disable=invalid-name
 def test_mutation_edit_attribute(rf, snapshot):
     """
     This submits a massive graphql query to verify all fields work
@@ -322,6 +384,13 @@ def test_big_gql(rf, snapshot):
               }
             }
           }
+        }
+      }
+      stockFind(text: "GO") {
+        id
+        quoteInRange(start: "2017-05-07", end: "2017-05-11") {
+          value
+          date
         }
       }
       tradingAccounts {
