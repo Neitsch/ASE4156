@@ -1,7 +1,8 @@
 // @flow
 import React from 'react';
 import Grid from 'material-ui/Grid';
-import { MuiThemeProvider, withStyles } from 'material-ui/styles';
+import { MuiThemeProvider } from 'material-ui/styles';
+import Paper from 'material-ui/Paper';
 
 import HighlightBox from '../web/js/components/HighlightBox/HighlightBox';
 import StockGraph from '../web/js/components/StockGraph/StockGraph';
@@ -77,6 +78,7 @@ class PageTest extends React.Component<{}> {
           </Grid>
         </Grid>
         <Grid item xs={12} sm={6}>
+        <Paper>
           <StockGraph
             title="Portfolio Growth"
             height="450px"
@@ -84,6 +86,7 @@ class PageTest extends React.Component<{}> {
             compare={'ABSOLUTE'}
             quotes={values}
           />
+        </Paper>
         </Grid>
         <Grid item xs={12} sm={6}>
           <Grid container spacing={16} align="stretch">
