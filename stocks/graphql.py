@@ -235,8 +235,6 @@ class AddAttributeToInvestment(Mutation):
         """
         Executes the mutation to add the attribute
         """
-        print(args['bucket_id'])
-        print(from_global_id(args['bucket_id']))
         bucket = InvestmentBucket.objects.get(
             id=from_global_id(args['bucket_id'])[1],
         )
