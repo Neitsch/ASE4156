@@ -24,7 +24,7 @@ function LinearIndeterminate(props) {
 }
 
 LinearIndeterminate.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.node.isRequired,
 };
 
 export default withStyles(styles)(LinearIndeterminate);

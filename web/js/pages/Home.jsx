@@ -21,13 +21,6 @@ type Props = {
   viewer: Home_viewer,
 }
 
-const styles = ({
-  grid: {
-    marginLeft: 5,
-    justify: 'space-around',
-  },
-});
-
 class Home extends React.Component < Props > {
   componentWillMount() {
     document.body.style.margin = 0;
@@ -44,7 +37,7 @@ class Home extends React.Component < Props > {
           <AppBar />
           <div style={{ margin: 10 }}>
             <SnackbarErrorContext>
-              <Grid container spacing={16} className={this.props.grid}>
+              <Grid container spacing={16}>
                 <Grid item xs={12} sm={6}>
                   {this.props.viewer.userbank.edges[0]
                     ? <PersonalStatusRelay bank={this.props.viewer.userbank.edges[0].node} />
@@ -68,9 +61,8 @@ class Home extends React.Component < Props > {
     );
   }
 }
-const homeStyled = withStyles(styles)(Home);
 
-export default createFragmentContainer(homeStyled, { viewer: graphql `
+export default createFragmentContainer(Home, { viewer: graphql `
     fragment Home_viewer on GUser {
       profile {
         ...InvestBucketGridRelay_profile
