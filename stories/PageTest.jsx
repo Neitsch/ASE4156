@@ -5,6 +5,8 @@ import Saldo from '../web/js/components/Saldo';
 import HighlightBox from '../web/js/components/HighlightBox/HighlightBox';
 import StockGraph from '../web/js/components/StockGraph/StockGraph';
 import InvestBucket from '../web/js/components/InvestBucket/InvestBucket';
+import { withStyles } from 'material-ui/styles';
+import AppBar from '../web/js/components/AppBar';
 
 class StockComp extends React.Component {
   render() {
@@ -58,9 +60,21 @@ class StockComp extends React.Component {
   }
 }
 
+const styles = theme => ({
+  root: {
+    flexGrow: 3,
+    marginTop: 100,
+  },
+  appBar: {
+    marginBottom: theme.spacing.unit * 100,
+  },
+});
 class PageTest extends React.Component {
   render() {
     return (
+      <div>
+      <AppBar/>
+      <div style={{margin:10}}>
       <Grid container spacing={16}>
         <Grid item xs={12} sm={6}>
           <Grid container spacing={16} align="stretch">
@@ -159,8 +173,10 @@ class PageTest extends React.Component {
           </Grid>
         </Grid>
       </Grid>
+      </div>
+      </div>
     );
   }
 }
 
-export default PageTest;
+export default withStyles(styles)(PageTest);

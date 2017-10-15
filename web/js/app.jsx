@@ -4,8 +4,16 @@ import environment from './relay/environment';
 import { graphql, QueryRenderer } from 'react-relay';
 import StockSearchView from './StockSearchView';
 import Home from './pages/Home';
+import Loading from './components/Loading';
+import { MuiThemeProvider } from 'material-ui/styles';
+import theme from './theme/muiTheme';
+
 
 export default class App extends React.Component <*> {
+  componentDidMount() {
+    document.body.style.margin = 0;
+  }
+
   render() {
     return (
       <QueryRenderer
@@ -27,7 +35,7 @@ export default class App extends React.Component <*> {
             window.location.href = '/auth';
             return <h1>Plz log in</h1>;
           }
-          return <div>Loading</div>;
+          return <MuiThemeProvider theme={theme}><Loading /></MuiThemeProvider>;
         }}
       />
     );

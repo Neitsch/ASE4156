@@ -1,12 +1,34 @@
+import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
+import green from 'material-ui/colors/green';
+import red from 'material-ui/colors/red';
+import colors from '../colors/colors';
 
-const appTheme = {
-  themeName: 'App Theme',
+
+const theme = createMuiTheme({
   palette: {
-    primary1Color: '#CD1309',
+    primary: colors,
+    secondary: {
+      ...green,
+      A400: '#00e677',
+    },
+    error: red,
+    textColor: green,
   },
   appBar: {
-    textColor: '#FFFF00',
+    textColor: green,
+    height: 60,
   },
-};
+  root: {
+    marginTop: 30,
+    width: '100%',
+  },
+  flex: {
+    flex: 1,
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20,
+  },
+});
 
-export default appTheme;
+export default theme;
