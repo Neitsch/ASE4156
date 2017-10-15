@@ -18,11 +18,6 @@ type Props = {
 }
 
 class Home extends React.Component < Props > {
-  componentWillMount() {
-    document.body.style.margin = 0;
-    document.body.style.backgroundColor = '#F5F5F5';
-  }
-
   render() {
     if (!this.props.viewer.userbank || this.props.viewer.userbank.edges.length === 0) {
       return null;

@@ -9,12 +9,9 @@ import StockGraph from '../web/js/components/StockGraph/StockGraph';
 import InvestBucket from '../web/js/components/InvestBucket/InvestBucket';
 import AppBar from '../web/js/components/AppBar';
 import theme from '../web/js/theme/muiTheme';
+import '../web/css/styles.css';
 
 class PageTest extends React.Component<{}> {
-  componentDidMount() {
-    document.body.style.margin = 0;
-    document.body.style.backgroundColor = '#F5F5F5';
-  }
   render() {
     const values = [
       {
