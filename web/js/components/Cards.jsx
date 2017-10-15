@@ -1,17 +1,17 @@
+/* eslint react/no-multi-comp: "off" */
 import React from 'react';
 import PropTypes from 'prop-types';
-import Card, {CardHeader, CardMedia, CardContent, CardActions} from 'material-ui/Card';
+import Card, { CardHeader, CardContent } from 'material-ui/Card';
 
 export class CardWF extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
-    cardText: PropTypes.any.isRequired,
-    subtitle: PropTypes.string,
+    cardText: PropTypes.node.isRequired,
   }
   render() {
     return (
       <Card >
-        <CardHeader title={this.props.title}/>
+        <CardHeader title={this.props.title} />
         <CardContent>
           {this.props.cardText}
         </CardContent>
@@ -22,7 +22,7 @@ export class CardWF extends React.Component {
 
 export class MediaCardWF extends React.Component {
   static propTypes = {
-    content: PropTypes.any.isRequired
+    content: PropTypes.node.isRequired,
   }
   render() {
     return (

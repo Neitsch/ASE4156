@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
-import environment from './relay/environment';
 import { graphql, QueryRenderer } from 'react-relay';
+import environment from './relay/environment';
 import StockSearchView from './StockSearchView';
 import Home from './pages/Home';
 

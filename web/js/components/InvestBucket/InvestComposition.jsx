@@ -30,16 +30,10 @@ type State = {
   suggestionText: string,
 }
 
-class TF extends React.Component<any> {
-  render() {
-    return <TextField {...this.props} />;
-  }
-}
-
 class InvestComposition extends React.Component<Props, State> {
   static makeIntervals(chunks: ChunkList): Array<number> {
     return chunks.reduce((all, v) => {
-      all.push(all[all.length - 1] + v.value * v.quantity);
+      all.push(all[all.length - 1] + (v.value * v.quantity));
       return all;
     }, [0]);
   }
@@ -50,7 +44,7 @@ class InvestComposition extends React.Component<Props, State> {
     };
   }
   selectedStock = () => {
-    const addition = this.props.suggestions.filter(x => x.name == this.state.suggestionText);
+    const addition = this.props.suggestions.filter(x => x.name === this.state.suggestionText);
     if (addition.length === 0) {
       return null;
     }
@@ -58,7 +52,7 @@ class InvestComposition extends React.Component<Props, State> {
   }
   addStock = () => {
     const chunks = this.props.chunks;
-    const addition = this.props.suggestions.filter(x => x.name == this.state.suggestionText);
+    const addition = this.props.suggestions.filter(x => x.name === this.state.suggestionText);
     if (addition.length === 0) {
       return;
     }
@@ -72,7 +66,7 @@ class InvestComposition extends React.Component<Props, State> {
   intervalUpdate = (intervals: Array<number>) => {
     const prevIntervals = InvestComposition.makeIntervals(this.props.chunks);
     let diff = -1;
-    for (let i = 0; i < prevIntervals.length; i++) {
+    for (let i = 0; i < prevIntervals.length; i += 1) {
       if (prevIntervals[i] !== intervals[i]) {
         diff = i;
         break;
@@ -91,7 +85,11 @@ class InvestComposition extends React.Component<Props, State> {
       this.props.chunkUpdate(chunks);
     }
   }
-  calculateAvailable = () => this.props.total - this.props.chunks.reduce((sum, c) => sum + (c.value * c.quantity), 0)
+  calculateAvailable = () =>
+    this.props.total
+    - this.props.chunks.reduce(
+      (sum, c) => sum + (c.value * c.quantity), 0,
+    )
   deleteChunk = (id: string) => () => {
     const chunks = [...this.props.chunks];
     let index = -1;
@@ -154,7 +152,7 @@ class InvestComposition extends React.Component<Props, State> {
                     renderInput={(props) => {
                       const { ref, ...rest } = props;
                       return (
-                        <TF inputRef={ref} {...rest} />
+                        <TextField inputRef={ref} {...rest} />
                       );
                     }
                     }

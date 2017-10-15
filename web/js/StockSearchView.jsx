@@ -1,17 +1,40 @@
 import React from 'react';
 import { graphql, createRefetchContainer } from 'react-relay';
-import { Chart } from 'react-google-charts';
 import { DateRangePicker } from 'react-dates';
-import StockGraph from './components/StockGraph/StockGraph';
 import 'react-dates/lib/css/_datepicker.css';
 
-class StockSearchView extends React.Component {
+import type { RelayContext } from 'react-relay';
+
+import StockGraph from './components/StockGraph/StockGraph';
+
+import type { StockSearchView_user } from './__generated__/StockSearchView_user.graphql';
+
+type Props = {
+  relay: RelayContext,
+  user: StockSearchView_user,
+}
+type State = {
+  text: string,
+  startDate: ?Date,
+  endDate: ?Date,
+  focusedInput: any,
+}
+
+class StockSearchView extends React.Component<Props, State> {
+  static makeDate(date: string): Date {
+    const dateParts = date.split('-');
+    const year = parseInt(dateParts[0], 10);
+    const month = parseInt(dateParts[1], 10) - 1;
+    const day = parseInt(dateParts[2], 10);
+    const dateResult = new Date(Date.UTC(year, month, day));
+    return dateResult;
+  }
   constructor() {
     super();
     this.state = {
       text: 'Google',
       startDate: null,
-      startDate: null,
+      endDate: null,
       focusedInput: null,
     };
   }
@@ -23,7 +46,9 @@ class StockSearchView extends React.Component {
       return {
         ...vars,
         text: this.state.text,
+        // $FlowFixMe
         start: this.state.startDate.format('YYYY-MM-DD'),
+        // $FlowFixMe
         end: this.state.endDate.format('YYYY-MM-DD'),
       };
     });
@@ -34,19 +59,20 @@ class StockSearchView extends React.Component {
     state[fieldName] = e.target.value;
     this.setState(state, this.setStateCallback);
   }
-  makeDate(date) {
-    const dateParts = date.split('-');
-    const dateResult = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
-    return dateResult;
-  }
   render() {
-    const quotes = this.props.user.profile.stockFind.map(stock => ({
+    if (!this.props.user ||
+      !this.props.user.profile ||
+      !this.props.user.profile.stockFind
+    ) {
+      return null;
+    }
+    const quotes = this.props.user.profile.stockFind.map(stock => (stock ? ({
       name: stock.name,
-      data: stock.quoteInRange.map(quote => ({
+      data: stock.quoteInRange.map(quote => (quote ? ({
         ...quote,
-        date: this.makeDate(quote.date),
-      })),
-    })).filter(stock => stock.data.length > 0);
+        date: StockSearchView.makeDate(quote.date),
+      }) : null)).filter(x => x != null),
+    }) : null)).filter(stock => stock && stock.data.length > 0);
     return (
       <div>
         <StockGraph quotes={quotes} compare={'PERCENT'} />
@@ -65,7 +91,15 @@ class StockSearchView extends React.Component {
             {this.props.user.profile.stockFind.map(stock => (
               <tr key={stock.id}>
                 <td>{stock.name}</td>
-                <td>{(stock.quoteInRange.map(d => d.value).reduce((s, v) => s + v, 0) / stock.quoteInRange.length).toFixed(2)}</td>
+                <td>{
+                  (
+                    stock
+                      .quoteInRange
+                      .map(d => d.value)
+                      .reduce((s, v) => s + v, 0)
+                    / stock.quoteInRange.leng
+                  ).toFixed(2)
+                }</td>
                 <td><StockGraph
                   id={stock.id}
                   quotes={[{
@@ -82,14 +116,12 @@ class StockSearchView extends React.Component {
             }
           </tbody>
         </table>
-        <label>
-          Name:
-          <input
-            type="text"
-            value={this.state.text}
-            onChange={this.handleChange('text')}
-          />
-        </label>
+        Name:
+        <input
+          type="text"
+          value={this.state.text}
+          onChange={this.handleChange('text')}
+        />
         <DateRangePicker
           startDate={this.state.startDate}
           endDate={this.state.endDate}

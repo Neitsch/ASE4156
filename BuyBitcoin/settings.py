@@ -149,7 +149,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-LOGIN_URL = "/login"
+LOGIN_URL = "/login/google-oauth2"
 LOGOUT_URL = "/logout"
 
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')

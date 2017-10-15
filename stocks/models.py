@@ -123,12 +123,13 @@ class InvestmentStockConfiguration(models.Model):
 
 
 @receiver(pre_save)
-def pre_save_any(instance, *_args, **_kwargs):
+def pre_save_any(sender, instance, *_args, **_kwargs):
     """
     Ensures that all constrains are met
     """
+    if sender.__name__ == 'Session':
+        return
     try:
         instance.full_clean()
     except ValidationError as ex:
-        print(ex)
         raise Exception(ex.messages[0])

@@ -1,11 +1,13 @@
 // @flow
 import React from 'react';
 import { createRefetchContainer, graphql } from 'react-relay';
+
+import type { RelayContext } from 'react-relay';
+
 import InvestComposition from './InvestComposition';
 
 import type { InvestCompositionRelay_bucket } from './__generated__/InvestCompositionRelay_bucket.graphql';
 import type { InvestCompositionRelay_profile } from './__generated__/InvestCompositionRelay_profile.graphql';
-import type { RelayContext } from 'react-relay';
 
 type ChunkList = Array<{
   id: string,
@@ -44,7 +46,7 @@ class InvestCompositionRelay extends React.Component<Props, State> {
   cancel = () => {
     this.props.close();
   }
-  updateChunks = chunks => this.setState(state => ({ chunks }))
+  updateChunks = chunks => this.setState(() => ({ chunks }))
   render() {
     if (
       !this.props.profile ||
@@ -58,7 +60,18 @@ class InvestCompositionRelay extends React.Component<Props, State> {
     return (
       <InvestComposition
         chunks={this.state.chunks}
-        total={this.props.bucket.available + this.props.bucket.stocks.edges.reduce((sum, item) => sum + (item && item.node && item.node.stock.latestQuote ? item.node.quantity * item.node.stock.latestQuote.value : 0), 0)}
+        total={
+          this.props.bucket.available
+          + this.props.bucket.stocks.edges.reduce(
+            (sum, item) =>
+              sum
+            + (
+              item && item.node && item.node.stock.latestQuote
+                ? item.node.quantity * item.node.stock.latestQuote.value
+                : 0
+            ), 0,
+          )
+        }
         chunkUpdate={this.updateChunks}
         suggestionFieldChange={(text) => {
           this.props.relay.refetch(() => ({ text }));

@@ -1,10 +1,10 @@
 // @flow
 import React from 'react';
-import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
 import { text } from '@storybook/addon-knobs';
+import { storiesOf } from '@storybook/react';
 import InvestBucket from './InvestBucket';
 import InvestComposition from './InvestComposition';
-import { action } from '@storybook/addon-actions';
 
 storiesOf('InvestBucket', module).add('Playground', () => {
   const title = text('Title of the risk section', 'Risk 1');

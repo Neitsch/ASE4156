@@ -34,6 +34,9 @@ const Router = createFarceRouter({
       </div>
     ),
   }),
+  renderError: () => {
+    window.location.href = '/login/google-oauth2';
+  },
 });
 
 ReactDOM.render(

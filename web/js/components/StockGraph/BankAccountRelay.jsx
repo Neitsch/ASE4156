@@ -21,7 +21,6 @@ class BankAccountRelay extends React.Component<Props> {
         date: new Date(dp.date),
       }) : null)).filter(x => !!x),
     }];
-    const typedQuotes = (quotes: Array<{name: string, data: Array<{value: number, date: Date}>}>);
     return <StockGraph id="BAR" compare="ABSOLUTE" title="Your account history" quotes={quotes} />;
   }
 }

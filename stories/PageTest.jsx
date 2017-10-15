@@ -1,12 +1,13 @@
+// @flow
 import React from 'react';
 import Grid from 'material-ui/Grid';
 
-import Saldo from '../web/js/components/Saldo';
 import HighlightBox from '../web/js/components/HighlightBox/HighlightBox';
 import StockGraph from '../web/js/components/StockGraph/StockGraph';
 import InvestBucket from '../web/js/components/InvestBucket/InvestBucket';
 
-class StockComp extends React.Component {
+
+class PageTest extends React.Component<{}> {
   render() {
     const values = [
       {
@@ -48,18 +49,6 @@ class StockComp extends React.Component {
         ],
       },
     ];
-    return (<StockGraph
-      title="Portfolio Growth"
-      height="450px"
-      id={'chart'}
-      compare={'ABSOLUTE'}
-      quotes={values}
-    />);
-  }
-}
-
-class PageTest extends React.Component {
-  render() {
     return (
       <Grid container spacing={16}>
         <Grid item xs={12} sm={6}>
@@ -79,7 +68,13 @@ class PageTest extends React.Component {
           </Grid>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <StockComp />
+          <StockGraph
+            title="Portfolio Growth"
+            height="450px"
+            id={'chart'}
+            compare={'ABSOLUTE'}
+            quotes={values}
+          />
         </Grid>
         <Grid item xs={12} sm={6}>
           <Grid container spacing={16} align="stretch">
@@ -103,18 +98,20 @@ class PageTest extends React.Component {
               <InvestBucket
                 title={'Risk 1'}
                 attributes={{
-                  good: [
-                    {
-                      shortDesc: 'Good to get started',
-                    }, {
-                      shortDesc: 'Low risk',
-                    },
-                  ],
-                  bad: [
-                    {
-                      shortDesc: 'Low reward',
-                    },
-                  ],
+                  good: [{
+                    id: '1',
+                    shortDesc: 'Good to get started',
+                    editMode: false,
+                  }, {
+                    id: '2',
+                    shortDesc: 'Low risk',
+                    editMode: false,
+                  }],
+                  bad: [{
+                    id: '3',
+                    shortDesc: 'Low reward',
+                    editMode: false,
+                  }],
                 }}
               />
             </Grid>
@@ -122,18 +119,20 @@ class PageTest extends React.Component {
               <InvestBucket
                 title={'Risk 2'}
                 attributes={{
-                  good: [
-                    {
-                      shortDesc: 'Allows you to take more risk',
-                    }, {
-                      shortDesc: 'Pays significant rewards',
-                    },
-                  ],
-                  bad: [
-                    {
-                      shortDesc: 'You might lose some money',
-                    },
-                  ],
+                  good: [{
+                    id: '1',
+                    shortDesc: 'Allows you to take more risk',
+                    editMode: false,
+                  }, {
+                    id: '2',
+                    shortDesc: 'Pays significant rewards',
+                    editMode: false,
+                  }],
+                  bad: [{
+                    id: '3',
+                    shortDesc: 'You might lose some money',
+                    editMode: false,
+                  }],
                 }}
               />
             </Grid>
@@ -141,18 +140,20 @@ class PageTest extends React.Component {
               <InvestBucket
                 title={'Risk 3'}
                 attributes={{
-                  good: [
-                    {
-                      shortDesc: '$$$',
-                    }, {
-                      shortDesc: 'More $$$',
-                    },
-                  ],
-                  bad: [
-                    {
-                      shortDesc: 'You\'re fucking insane of you invest in this',
-                    },
-                  ],
+                  good: [{
+                    id: '1',
+                    shortDesc: '$$$',
+                    editMode: false,
+                  }, {
+                    id: '2',
+                    shortDesc: 'More $$$',
+                    editMode: false,
+                  }],
+                  bad: [{
+                    id: '3',
+                    shortDesc: 'You\'re fucking insane of you invest in this',
+                    editMode: false,
+                  }],
                 }}
               />
             </Grid>

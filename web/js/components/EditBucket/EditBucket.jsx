@@ -34,13 +34,13 @@ export default class EditBucket extends React.Component<Props, State> {
       bucketName: '',
     };
   }
-  clickCheckbox = () => this.setState((state, props) => ({
+  clickCheckbox = () => this.setState(state => ({
     ...state,
     public: !state.public,
   }))
   bucketNameChange = (e: SyntheticInputEvent<>) => {
     const text = e.target.value;
-    this.setState((state, props) => ({
+    this.setState(() => ({
       bucketName: text,
     }));
   }

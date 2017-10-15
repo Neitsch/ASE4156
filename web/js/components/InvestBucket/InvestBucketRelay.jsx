@@ -3,17 +3,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { createRefetchContainer, graphql } from 'react-relay';
 import { ConnectionHandler } from 'relay-runtime';
+import LockIcon from 'material-ui-icons/Lock';
+
+import type { RelayContext } from 'react-relay';
+
 import InvestBucket from './InvestBucket';
 import InvestCompositionRelay from './InvestCompositionRelay';
 import addDescription from '../../mutations/BucketEdit/AddDescription';
 import editDescription from '../../mutations/BucketEdit/EditDescription';
 import deleteDescription from '../../mutations/BucketEdit/DeleteDescription';
 import changeBucketComposition from '../../mutations/BucketEdit/ChangeBucketComposition';
-import LockIcon from 'material-ui-icons/Lock';
 
 import type { InvestBucketRelay_bucket } from './__generated__/InvestBucketRelay_bucket.graphql';
 import type { InvestBucketRelay_profile } from './__generated__/InvestBucketRelay_profile.graphql';
-import type { RelayContext } from 'react-relay';
 
 type EditObj = {
   shortDesc: string,
@@ -46,11 +48,11 @@ class InvestBucketRelay extends React.Component<Props, State> {
   launchEdit = id => () => {
     this.setState((state, props) => {
       if (!props.bucket.description || !props.bucket.description.edges) {
-        return;
+        return {};
       }
-      const item = props.bucket.description.edges.find(x => x && x.node && x.node.id == id);
+      const item = props.bucket.description.edges.find(x => x && x.node && x.node.id === id);
       if (!item || !item.node || !item.node.text) {
-        return;
+        return {};
       }
       return {
         editMode: id,
@@ -99,15 +101,17 @@ class InvestBucketRelay extends React.Component<Props, State> {
       if (this.props.bucket.isOwner) {
         if (id === this.state.editMode) {
           textAttr.onKeyPress = (e) => {
-            if (e.charCode == 13) {
+            if (e.charCode === 13) {
               this.setState(() => ({
                 editMode: null,
               }), () => {
                 editDescription(
-                  null, null, (r, e) => {
-                    e ? this.context.errorDisplay({
-                      message: e[0].message,
-                    }) : null;
+                  null, null, (r, error) => {
+                    if (error) {
+                      this.context.errorDisplay({
+                        message: error[0].message,
+                      });
+                    }
                   },
                 )(
                   this.props.relay.environment,
@@ -119,7 +123,7 @@ class InvestBucketRelay extends React.Component<Props, State> {
           };
           textAttr.onChange = (e: SyntheticInputEvent<>) => {
             const text = e.target.value;
-            this.setState(state => ({
+            this.setState(() => ({
               editState: {
                 shortDesc: text,
               },
@@ -134,10 +138,12 @@ class InvestBucketRelay extends React.Component<Props, State> {
                 store.delete(id);
               };
               deleteDescription(
-                updater, updater, (r, e) => {
-                  e ? this.context.errorDisplay({
-                    message: e[0].message,
-                  }) : null;
+                updater, updater, (r, error) => {
+                  if (error) {
+                    this.context.errorDisplay({
+                      message: error[0].message,
+                    });
+                  }
                 },
               )(
                 this.props.relay.environment,
@@ -182,10 +188,12 @@ class InvestBucketRelay extends React.Component<Props, State> {
         ConnectionHandler.insertEdgeAfter(connection, newEdge);
       };
       editFunc = (text, isGood) => addDescription(
-        updater, updater, (r, e) => {
-          e ? this.context.errorDisplay({
-            message: e[0].message,
-          }) : null;
+        updater, updater, (r, error) => {
+          if (error) {
+            this.context.errorDisplay({
+              message: error[0].message,
+            });
+          }
         },
       )(
         this.props.relay.environment,
