@@ -13,6 +13,7 @@ import theme from '../web/js/theme/muiTheme';
 class PageTest extends React.Component<{}> {
   componentDidMount() {
     document.body.style.margin = 0;
+    document.body.style.backgroundColor = '#F5F5F5';
   }
   render() {
     const values = [
