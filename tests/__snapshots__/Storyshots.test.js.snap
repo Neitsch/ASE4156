@@ -1,24 +1,63 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Storyshots AppBar Main app bar 1`] = `
-<header
-  className="MuiPaper-root-8 MuiPaper-shadow4-14 MuiAppBar-root-1 MuiAppBar-positionStatic-4 MuiAppBar-colorDefault-5"
+<div
+  className="ButtonAppBar-root-1"
 >
-  <div
-    className="MuiToolbar-root-35 MuiToolbar-gutters-36"
+  <header
+    className="MuiPaper-root-13 MuiPaper-shadow4-19 MuiAppBar-root-6 MuiAppBar-positionStatic-9 MuiAppBar-colorPrimary-11 ButtonAppBar-appBar-5"
   >
-    <p
-      className="MuiTypography-root-37 MuiTypography-body1-46"
+    <div
+      className="MuiToolbar-root-40 MuiToolbar-gutters-41"
     >
-      Wells Fargo
-    </p>
-  </div>
-</header>
+      <button
+        aria-label="Menu"
+        className="MuiButtonBase-root-51 MuiIconButton-root-42 MuiIconButton-colorContrast-44 ButtonAppBar-menuButton-3"
+        disabled={false}
+        onBlur={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchStart={[Function]}
+        role="button"
+        tabIndex={0}
+        type="button"
+      >
+        <span
+          className="MuiIconButton-label-48"
+        >
+          <svg
+            aria-hidden="true"
+            className="MuiSvgIcon-root-53 MuiIconButton-icon-49"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"
+            />
+          </svg>
+        </span>
+        <span
+          className="MuiTouchRipple-root-54"
+        />
+      </button>
+      <h1
+        className="MuiTypography-root-61 MuiTypography-headline-66 MuiTypography-colorInherit-80 ButtonAppBar-flex-2"
+      >
+        Wells Fargo
+      </h1>
+    </div>
+  </header>
+</div>
 `;
 
 exports[`Storyshots Cards Content card 1`] = `
 <div
-  className="MuiPaper-root-8 MuiPaper-shadow2-12 MuiPaper-rounded-9"
+  className="MuiPaper-root-13 MuiPaper-shadow2-17 MuiPaper-rounded-14"
 >
   <div>
     <h1>
@@ -30,26 +69,26 @@ exports[`Storyshots Cards Content card 1`] = `
 
 exports[`Storyshots Cards Simple card 1`] = `
 <div
-  className="MuiPaper-root-8 MuiPaper-shadow2-12 MuiPaper-rounded-9"
+  className="MuiPaper-root-13 MuiPaper-shadow2-17 MuiPaper-rounded-14"
 >
   <div
-    className="MuiCardContent-root-66 MuiCardHeader-root-61"
+    className="MuiCardContent-root-90 MuiCardHeader-root-85"
   >
     <div
-      className="MuiCardHeader-content-63"
+      className="MuiCardHeader-content-87"
     >
       <span
-        className="MuiTypography-root-37 MuiTypography-headline-42 MuiCardHeader-title-64"
+        className="MuiTypography-root-61 MuiTypography-headline-66 MuiCardHeader-title-88"
       >
         Title
       </span>
       <span
-        className="MuiTypography-root-37 MuiTypography-body1-46 MuiTypography-colorSecondary-58 MuiCardHeader-subheader-65"
+        className="MuiTypography-root-61 MuiTypography-body1-70 MuiTypography-colorSecondary-82 MuiCardHeader-subheader-89"
       />
     </div>
   </div>
   <div
-    className="MuiCardContent-root-66"
+    className="MuiCardContent-root-90"
   >
     fdsa
   </div>
@@ -58,42 +97,42 @@ exports[`Storyshots Cards Simple card 1`] = `
 
 exports[`Storyshots HighlightBox Account Total 1`] = `
 <div
-  className="MuiPaper-root-8 MuiPaper-shadow2-12 MuiPaper-rounded-9"
+  className="MuiPaper-root-13 MuiPaper-shadow2-17 MuiPaper-rounded-14"
 >
   <div
-    className="MuiCardContent-root-66 MuiCardHeader-root-61"
+    className="MuiCardContent-root-90 MuiCardHeader-root-85"
   >
     <div
-      className="MuiCardHeader-content-63"
+      className="MuiCardHeader-content-87"
     >
       <span
-        className="MuiTypography-root-37 MuiTypography-headline-42 MuiCardHeader-title-64"
+        className="MuiTypography-root-61 MuiTypography-headline-66 MuiCardHeader-title-88"
       >
         Account Total
       </span>
       <span
-        className="MuiTypography-root-37 MuiTypography-body1-46 MuiTypography-colorSecondary-58 MuiCardHeader-subheader-65"
+        className="MuiTypography-root-61 MuiTypography-body1-70 MuiTypography-colorSecondary-82 MuiCardHeader-subheader-89"
       />
     </div>
   </div>
   <div
-    className="MuiCardContent-root-66"
+    className="MuiCardContent-root-90"
   >
     <h1>
       $7,749.34
     </h1>
     <hr
-      className="MuiDivider-root-150 MuiDivider-default-151"
+      className="MuiDivider-root-337 MuiDivider-default-338"
     />
     <ul
-      className="MuiList-root-155 MuiList-padding-156"
+      className="MuiList-root-342 MuiList-padding-343"
     >
       <li
-        className="MuiListItem-root-159 MuiListItem-gutters-166 MuiListItem-default-162"
+        className="MuiListItem-root-346 MuiListItem-gutters-353 MuiListItem-default-349"
         disabled={false}
       >
         <div
-          className="MuiListItemText-root-171"
+          className="MuiListItemText-root-356"
         />
       </li>
     </ul>
@@ -103,42 +142,42 @@ exports[`Storyshots HighlightBox Account Total 1`] = `
 
 exports[`Storyshots HighlightBox Annulized Percentage Return 1`] = `
 <div
-  className="MuiPaper-root-8 MuiPaper-shadow2-12 MuiPaper-rounded-9"
+  className="MuiPaper-root-13 MuiPaper-shadow2-17 MuiPaper-rounded-14"
 >
   <div
-    className="MuiCardContent-root-66 MuiCardHeader-root-61"
+    className="MuiCardContent-root-90 MuiCardHeader-root-85"
   >
     <div
-      className="MuiCardHeader-content-63"
+      className="MuiCardHeader-content-87"
     >
       <span
-        className="MuiTypography-root-37 MuiTypography-headline-42 MuiCardHeader-title-64"
+        className="MuiTypography-root-61 MuiTypography-headline-66 MuiCardHeader-title-88"
       >
         Annulized Percentage Return
       </span>
       <span
-        className="MuiTypography-root-37 MuiTypography-body1-46 MuiTypography-colorSecondary-58 MuiCardHeader-subheader-65"
+        className="MuiTypography-root-61 MuiTypography-body1-70 MuiTypography-colorSecondary-82 MuiCardHeader-subheader-89"
       />
     </div>
   </div>
   <div
-    className="MuiCardContent-root-66"
+    className="MuiCardContent-root-90"
   >
     <h1>
       3.75%
     </h1>
     <hr
-      className="MuiDivider-root-150 MuiDivider-default-151"
+      className="MuiDivider-root-337 MuiDivider-default-338"
     />
     <ul
-      className="MuiList-root-155 MuiList-padding-156"
+      className="MuiList-root-342 MuiList-padding-343"
     >
       <li
-        className="MuiListItem-root-159 MuiListItem-gutters-166 MuiListItem-default-162"
+        className="MuiListItem-root-346 MuiListItem-gutters-353 MuiListItem-default-349"
         disabled={false}
       >
         <div
-          className="MuiListItemText-root-171"
+          className="MuiListItemText-root-356"
         />
       </li>
     </ul>
@@ -148,42 +187,42 @@ exports[`Storyshots HighlightBox Annulized Percentage Return 1`] = `
 
 exports[`Storyshots HighlightBox Playground 1`] = `
 <div
-  className="MuiPaper-root-8 MuiPaper-shadow2-12 MuiPaper-rounded-9"
+  className="MuiPaper-root-13 MuiPaper-shadow2-17 MuiPaper-rounded-14"
 >
   <div
-    className="MuiCardContent-root-66 MuiCardHeader-root-61"
+    className="MuiCardContent-root-90 MuiCardHeader-root-85"
   >
     <div
-      className="MuiCardHeader-content-63"
+      className="MuiCardHeader-content-87"
     >
       <span
-        className="MuiTypography-root-37 MuiTypography-headline-42 MuiCardHeader-title-64"
+        className="MuiTypography-root-61 MuiTypography-headline-66 MuiCardHeader-title-88"
       >
         Account Total
       </span>
       <span
-        className="MuiTypography-root-37 MuiTypography-body1-46 MuiTypography-colorSecondary-58 MuiCardHeader-subheader-65"
+        className="MuiTypography-root-61 MuiTypography-body1-70 MuiTypography-colorSecondary-82 MuiCardHeader-subheader-89"
       />
     </div>
   </div>
   <div
-    className="MuiCardContent-root-66"
+    className="MuiCardContent-root-90"
   >
     <h1>
       $1234.56
     </h1>
     <hr
-      className="MuiDivider-root-150 MuiDivider-default-151"
+      className="MuiDivider-root-337 MuiDivider-default-338"
     />
     <ul
-      className="MuiList-root-155 MuiList-padding-156"
+      className="MuiList-root-342 MuiList-padding-343"
     >
       <li
-        className="MuiListItem-root-159 MuiListItem-gutters-166 MuiListItem-default-162"
+        className="MuiListItem-root-346 MuiListItem-gutters-353 MuiListItem-default-349"
         disabled={false}
       >
         <div
-          className="MuiListItemText-root-171"
+          className="MuiListItemText-root-356"
         />
       </li>
     </ul>
@@ -193,37 +232,37 @@ exports[`Storyshots HighlightBox Playground 1`] = `
 
 exports[`Storyshots InvestBucket Playground 1`] = `
 <div
-  className="MuiPaper-root-8 MuiPaper-shadow2-12 MuiPaper-rounded-9"
+  className="MuiPaper-root-13 MuiPaper-shadow2-17 MuiPaper-rounded-14"
 >
   <div
-    className="MuiCardContent-root-66 MuiCardHeader-root-61"
+    className="MuiCardContent-root-90 MuiCardHeader-root-85"
   >
     <div
-      className="MuiCardHeader-content-63"
+      className="MuiCardHeader-content-87"
     >
       <span
-        className="MuiTypography-root-37 MuiTypography-headline-42 MuiCardHeader-title-64"
+        className="MuiTypography-root-61 MuiTypography-headline-66 MuiCardHeader-title-88"
       >
         Risk 1
       </span>
       <span
-        className="MuiTypography-root-37 MuiTypography-body1-46 MuiTypography-colorSecondary-58 MuiCardHeader-subheader-65"
+        className="MuiTypography-root-61 MuiTypography-body1-70 MuiTypography-colorSecondary-82 MuiCardHeader-subheader-89"
       />
     </div>
   </div>
   <div
-    className="MuiCardContent-root-66"
+    className="MuiCardContent-root-90"
   >
     <ul
-      className="MuiList-root-155 MuiList-padding-156"
+      className="MuiList-root-342 MuiList-padding-343"
     >
       <li
-        className="MuiListItem-root-159 MuiListItem-gutters-166 MuiListItem-default-162"
+        className="MuiListItem-root-346 MuiListItem-gutters-353 MuiListItem-default-349"
         disabled={false}
       >
         <svg
           aria-hidden="true"
-          className="MuiSvgIcon-root-170 MuiListItemIcon-root-169"
+          className="MuiSvgIcon-root-53 MuiListItemIcon-root-361"
           focusable="false"
           onClick={[Function]}
           viewBox="0 0 24 24"
@@ -234,23 +273,23 @@ exports[`Storyshots InvestBucket Playground 1`] = `
         </svg>
         <div
           autoFocus={true}
-          className="MuiListItemText-root-171"
+          className="MuiListItemText-root-356"
           onClick={[Function]}
         >
           <h3
-            className="MuiTypography-root-37 MuiTypography-subheading-44 MuiListItemText-text-174"
+            className="MuiTypography-root-61 MuiTypography-subheading-68 MuiListItemText-text-359"
           >
             Good to get started
           </h3>
         </div>
       </li>
       <li
-        className="MuiListItem-root-159 MuiListItem-gutters-166 MuiListItem-default-162"
+        className="MuiListItem-root-346 MuiListItem-gutters-353 MuiListItem-default-349"
         disabled={false}
       >
         <svg
           aria-hidden="true"
-          className="MuiSvgIcon-root-170 MuiListItemIcon-root-169"
+          className="MuiSvgIcon-root-53 MuiListItemIcon-root-361"
           focusable="false"
           onClick={[Function]}
           viewBox="0 0 24 24"
@@ -260,21 +299,21 @@ exports[`Storyshots InvestBucket Playground 1`] = `
           />
         </svg>
         <div
-          className="MuiFormControl-root-216"
+          className="MuiFormControl-root-362"
           onBlur={[Function]}
           onClick={[Function]}
           onFocus={[Function]}
           required={false}
         >
           <div
-            className="MuiInput-root-220 MuiInput-formControl-221 MuiInput-inkbar-222 MuiInput-underline-228"
+            className="MuiInput-root-366 MuiInput-formControl-367 MuiInput-inkbar-368 MuiInput-underline-374"
             onBlur={[Function]}
             onFocus={[Function]}
           >
             <input
               autoComplete={undefined}
               autoFocus={undefined}
-              className="MuiInput-input-224 MuiInput-inputSingleline-231"
+              className="MuiInput-input-370 MuiInput-inputSingleline-377"
               defaultValue={undefined}
               disabled={false}
               id={undefined}
@@ -293,12 +332,12 @@ exports[`Storyshots InvestBucket Playground 1`] = `
         </div>
       </li>
       <li
-        className="MuiListItem-root-159 MuiListItem-gutters-166 MuiListItem-default-162"
+        className="MuiListItem-root-346 MuiListItem-gutters-353 MuiListItem-default-349"
         disabled={false}
       >
         <svg
           aria-hidden="true"
-          className="MuiSvgIcon-root-170 MuiListItemIcon-root-169"
+          className="MuiSvgIcon-root-53 MuiListItemIcon-root-361"
           focusable="false"
           onClick={[Function]}
           viewBox="0 0 24 24"
@@ -309,11 +348,11 @@ exports[`Storyshots InvestBucket Playground 1`] = `
         </svg>
         <div
           autoFocus={true}
-          className="MuiListItemText-root-171"
+          className="MuiListItemText-root-356"
           onClick={[Function]}
         >
           <h3
-            className="MuiTypography-root-37 MuiTypography-subheading-44 MuiListItemText-text-174"
+            className="MuiTypography-root-61 MuiTypography-subheading-68 MuiListItemText-text-359"
           >
             Low reward
           </h3>
@@ -322,7 +361,7 @@ exports[`Storyshots InvestBucket Playground 1`] = `
     </ul>
     <button
       aria-label="add"
-      className="MuiButtonBase-root-192 MuiButton-root-178 MuiButton-raised-185 MuiButton-fab-191 MuiButton-raisedPrimary-187"
+      className="MuiButtonBase-root-51 MuiButton-root-323 MuiButton-raised-330 MuiButton-fab-336 MuiButton-raisedPrimary-332"
       disabled={false}
       onBlur={[Function]}
       onClick={[Function]}
@@ -339,11 +378,11 @@ exports[`Storyshots InvestBucket Playground 1`] = `
       type="button"
     >
       <span
-        className="MuiButton-label-180"
+        className="MuiButton-label-325"
       >
         <svg
           aria-hidden="true"
-          className="MuiSvgIcon-root-170"
+          className="MuiSvgIcon-root-53"
           focusable="false"
           viewBox="0 0 24 24"
         >
@@ -353,15 +392,15 @@ exports[`Storyshots InvestBucket Playground 1`] = `
         </svg>
       </span>
       <span
-        className="MuiTouchRipple-root-194"
+        className="MuiTouchRipple-root-54"
       />
     </button>
   </div>
   <div
-    className="MuiCardActions-root-176"
+    className="MuiCardActions-root-381"
   >
     <button
-      className="MuiButtonBase-root-192 MuiButton-root-178 MuiButton-flatPrimary-181 MuiButton-dense-179 MuiCardActions-actionSpacing-177"
+      className="MuiButtonBase-root-51 MuiButton-root-323 MuiButton-flatPrimary-326 MuiButton-dense-324 MuiCardActions-actionSpacing-382"
       disabled={false}
       onBlur={[Function]}
       onFocus={[Function]}
@@ -377,16 +416,16 @@ exports[`Storyshots InvestBucket Playground 1`] = `
       type="button"
     >
       <span
-        className="MuiButton-label-180"
+        className="MuiButton-label-325"
       >
         Invest
       </span>
       <span
-        className="MuiTouchRipple-root-194"
+        className="MuiTouchRipple-root-54"
       />
     </button>
     <button
-      className="MuiButtonBase-root-192 MuiButton-root-178 MuiButton-flatPrimary-181 MuiButton-dense-179 MuiCardActions-actionSpacing-177"
+      className="MuiButtonBase-root-51 MuiButton-root-323 MuiButton-flatPrimary-326 MuiButton-dense-324 MuiCardActions-actionSpacing-382"
       disabled={false}
       onBlur={[Function]}
       onFocus={[Function]}
@@ -402,841 +441,938 @@ exports[`Storyshots InvestBucket Playground 1`] = `
       type="button"
     >
       <span
-        className="MuiButton-label-180"
+        className="MuiButton-label-325"
       >
         Learn More
       </span>
       <span
-        className="MuiTouchRipple-root-194"
+        className="MuiTouchRipple-root-54"
       />
     </button>
   </div>
 </div>
 `;
 
+exports[`Storyshots Loading Linear 1`] = `
+<div>
+  <div
+    className="MuiCircularProgress-root-300 MuiCircularProgress-primaryColor-301"
+    role="progressbar"
+    style={
+      Object {
+        "height": 100,
+        "width": 100,
+      }
+    }
+  >
+    <svg
+      className="MuiCircularProgress-svg-303 MuiCircularProgress-indeterminateSvg-304"
+      viewBox="0 0 100 100"
+    >
+      <circle
+        className="MuiCircularProgress-circle-305 MuiCircularProgress-indeterminateCircle-306"
+        cx={50}
+        cy={50}
+        fill="none"
+        r={48.2}
+        strokeMiterlimit="20"
+        strokeWidth={3.6}
+        style={Object {}}
+      />
+    </svg>
+  </div>
+</div>
+`;
+
 exports[`Storyshots Page Test page 1`] = `
-<div
-  className="MuiGrid-typeContainer-67 MuiGrid-spacing-xs-16-82"
->
+<div>
   <div
-    className="MuiGrid-typeItem-68 MuiGrid-grid-xs-12-97 MuiGrid-grid-sm-6-104"
+    className="ButtonAppBar-root-1"
   >
-    <div
-      className="MuiGrid-typeContainer-67 MuiGrid-spacing-xs-16-82"
+    <header
+      className="MuiPaper-root-98 MuiPaper-shadow4-104 MuiAppBar-root-91 MuiAppBar-positionStatic-94 MuiAppBar-colorPrimary-96 ButtonAppBar-appBar-5"
     >
       <div
-        className="MuiGrid-typeItem-68 MuiGrid-grid-xs-12-97 MuiGrid-grid-sm-6-104"
+        className="MuiToolbar-root-125 MuiToolbar-gutters-126"
       >
-        <div
-          className="MuiPaper-root-8 MuiPaper-shadow2-12 MuiPaper-rounded-9"
+        <button
+          aria-label="Menu"
+          className="MuiButtonBase-root-136 MuiIconButton-root-127 MuiIconButton-colorContrast-129 ButtonAppBar-menuButton-3"
+          disabled={false}
+          onBlur={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchStart={[Function]}
+          role="button"
+          tabIndex={0}
+          type="button"
         >
-          <div
-            className="MuiCardContent-root-66 MuiCardHeader-root-61"
+          <span
+            className="MuiIconButton-label-133"
           >
-            <div
-              className="MuiCardHeader-content-63"
+            <svg
+              aria-hidden="true"
+              className="MuiSvgIcon-root-138 MuiIconButton-icon-134"
+              focusable="false"
+              viewBox="0 0 24 24"
             >
-              <span
-                className="MuiTypography-root-37 MuiTypography-headline-42 MuiCardHeader-title-64"
-              >
-                Current balance
-              </span>
-              <span
-                className="MuiTypography-root-37 MuiTypography-body1-46 MuiTypography-colorSecondary-58 MuiCardHeader-subheader-65"
+              <path
+                d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"
               />
-            </div>
-          </div>
-          <div
-            className="MuiCardContent-root-66"
-          >
-            <h1>
-              $1300
-            </h1>
-            <hr
-              className="MuiDivider-root-150 MuiDivider-default-151"
-            />
-            <ul
-              className="MuiList-root-155 MuiList-padding-156"
-            />
-          </div>
-        </div>
-      </div>
-      <div
-        className="MuiGrid-typeItem-68 MuiGrid-grid-xs-12-97 MuiGrid-grid-sm-6-104"
-      >
-        <div
-          className="MuiPaper-root-8 MuiPaper-shadow2-12 MuiPaper-rounded-9"
+            </svg>
+          </span>
+          <span
+            className="MuiTouchRipple-root-139"
+          />
+        </button>
+        <h1
+          className="MuiTypography-root-146 MuiTypography-headline-151 MuiTypography-colorInherit-165 ButtonAppBar-flex-2"
         >
-          <div
-            className="MuiCardContent-root-66 MuiCardHeader-root-61"
-          >
-            <div
-              className="MuiCardHeader-content-63"
-            >
-              <span
-                className="MuiTypography-root-37 MuiTypography-headline-42 MuiCardHeader-title-64"
-              >
-                Total Income
-              </span>
-              <span
-                className="MuiTypography-root-37 MuiTypography-body1-46 MuiTypography-colorSecondary-58 MuiCardHeader-subheader-65"
-              />
-            </div>
-          </div>
-          <div
-            className="MuiCardContent-root-66"
-          >
-            <h1>
-              $300
-            </h1>
-            <hr
-              className="MuiDivider-root-150 MuiDivider-default-151"
-            />
-            <ul
-              className="MuiList-root-155 MuiList-padding-156"
-            />
-          </div>
-        </div>
+          Wells Fargo
+        </h1>
       </div>
-      <div
-        className="MuiGrid-typeItem-68 MuiGrid-grid-xs-12-97 MuiGrid-grid-sm-6-104"
-      >
-        <div
-          className="MuiPaper-root-8 MuiPaper-shadow2-12 MuiPaper-rounded-9"
-        >
-          <div
-            className="MuiCardContent-root-66 MuiCardHeader-root-61"
-          >
-            <div
-              className="MuiCardHeader-content-63"
-            >
-              <span
-                className="MuiTypography-root-37 MuiTypography-headline-42 MuiCardHeader-title-64"
-              >
-                Total Expenditures
-              </span>
-              <span
-                className="MuiTypography-root-37 MuiTypography-body1-46 MuiTypography-colorSecondary-58 MuiCardHeader-subheader-65"
-              />
-            </div>
-          </div>
-          <div
-            className="MuiCardContent-root-66"
-          >
-            <h1>
-              $250
-            </h1>
-            <hr
-              className="MuiDivider-root-150 MuiDivider-default-151"
-            />
-            <ul
-              className="MuiList-root-155 MuiList-padding-156"
-            />
-          </div>
-        </div>
-      </div>
-      <div
-        className="MuiGrid-typeItem-68 MuiGrid-grid-xs-12-97 MuiGrid-grid-sm-6-104"
-      >
-        <div
-          className="MuiPaper-root-8 MuiPaper-shadow2-12 MuiPaper-rounded-9"
-        >
-          <div
-            className="MuiCardContent-root-66 MuiCardHeader-root-61"
-          >
-            <div
-              className="MuiCardHeader-content-63"
-            >
-              <span
-                className="MuiTypography-root-37 MuiTypography-headline-42 MuiCardHeader-title-64"
-              >
-                Another box
-              </span>
-              <span
-                className="MuiTypography-root-37 MuiTypography-body1-46 MuiTypography-colorSecondary-58 MuiCardHeader-subheader-65"
-              />
-            </div>
-          </div>
-          <div
-            className="MuiCardContent-root-66"
-          >
-            <h1>
-              $1000
-            </h1>
-            <hr
-              className="MuiDivider-root-150 MuiDivider-default-151"
-            />
-            <ul
-              className="MuiList-root-155 MuiList-padding-156"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
+    </header>
   </div>
   <div
-    className="MuiGrid-typeItem-68 MuiGrid-grid-xs-12-97 MuiGrid-grid-sm-6-104"
+    style={
+      Object {
+        "margin": 10,
+      }
+    }
   >
     <div
-      className="my-pretty-chart-container"
+      className="MuiGrid-typeContainer-170 MuiGrid-spacing-xs-16-185"
     >
       <div
-        id="chart"
-        style={
-          Object {
-            "height": "450px",
-            "width": "100%",
-          }
-        }
-      >
-        <div>
-          Rendering Chart
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    className="MuiGrid-typeItem-68 MuiGrid-grid-xs-12-97 MuiGrid-grid-sm-6-104"
-  >
-    <div
-      className="MuiGrid-typeContainer-67 MuiGrid-spacing-xs-16-82"
-    >
-      <div
-        className="MuiGrid-typeItem-68 MuiGrid-grid-xs-12-97 MuiGrid-grid-sm-6-104"
+        className="MuiGrid-typeItem-171 MuiGrid-grid-xs-12-200 MuiGrid-grid-sm-6-207"
       >
         <div
-          className="MuiPaper-root-8 MuiPaper-shadow2-12 MuiPaper-rounded-9"
+          className="MuiGrid-typeContainer-170 MuiGrid-spacing-xs-16-185"
         >
           <div
-            className="MuiCardContent-root-66 MuiCardHeader-root-61"
+            className="MuiGrid-typeItem-171 MuiGrid-grid-xs-12-200 MuiGrid-grid-sm-6-207"
           >
             <div
-              className="MuiCardHeader-content-63"
+              className="MuiPaper-root-98 MuiPaper-shadow2-102 MuiPaper-rounded-99"
             >
-              <span
-                className="MuiTypography-root-37 MuiTypography-headline-42 MuiCardHeader-title-64"
+              <div
+                className="MuiCardContent-root-258 MuiCardHeader-root-253"
               >
-                Pumpkin
-              </span>
-              <span
-                className="MuiTypography-root-37 MuiTypography-body1-46 MuiTypography-colorSecondary-58 MuiCardHeader-subheader-65"
-              />
-            </div>
-          </div>
-          <div
-            className="MuiCardContent-root-66"
-          >
-            <h1>
-              $13
-            </h1>
-            <hr
-              className="MuiDivider-root-150 MuiDivider-default-151"
-            />
-            <ul
-              className="MuiList-root-155 MuiList-padding-156"
-            />
-          </div>
-        </div>
-      </div>
-      <div
-        className="MuiGrid-typeItem-68 MuiGrid-grid-xs-12-97 MuiGrid-grid-sm-6-104"
-      >
-        <div
-          className="MuiPaper-root-8 MuiPaper-shadow2-12 MuiPaper-rounded-9"
-        >
-          <div
-            className="MuiCardContent-root-66 MuiCardHeader-root-61"
-          >
-            <div
-              className="MuiCardHeader-content-63"
-            >
-              <span
-                className="MuiTypography-root-37 MuiTypography-headline-42 MuiCardHeader-title-64"
-              >
-                Fixed monthly
-              </span>
-              <span
-                className="MuiTypography-root-37 MuiTypography-body1-46 MuiTypography-colorSecondary-58 MuiCardHeader-subheader-65"
-              />
-            </div>
-          </div>
-          <div
-            className="MuiCardContent-root-66"
-          >
-            <h1>
-              $200
-            </h1>
-            <hr
-              className="MuiDivider-root-150 MuiDivider-default-151"
-            />
-            <ul
-              className="MuiList-root-155 MuiList-padding-156"
-            />
-          </div>
-        </div>
-      </div>
-      <div
-        className="MuiGrid-typeItem-68 MuiGrid-grid-xs-12-97 MuiGrid-grid-sm-6-104"
-      >
-        <div
-          className="MuiPaper-root-8 MuiPaper-shadow2-12 MuiPaper-rounded-9"
-        >
-          <div
-            className="MuiCardContent-root-66 MuiCardHeader-root-61"
-          >
-            <div
-              className="MuiCardHeader-content-63"
-            >
-              <span
-                className="MuiTypography-root-37 MuiTypography-headline-42 MuiCardHeader-title-64"
-              >
-                Invest Income
-              </span>
-              <span
-                className="MuiTypography-root-37 MuiTypography-body1-46 MuiTypography-colorSecondary-58 MuiCardHeader-subheader-65"
-              />
-            </div>
-          </div>
-          <div
-            className="MuiCardContent-root-66"
-          >
-            <h1>
-              10%
-            </h1>
-            <hr
-              className="MuiDivider-root-150 MuiDivider-default-151"
-            />
-            <ul
-              className="MuiList-root-155 MuiList-padding-156"
-            />
-          </div>
-        </div>
-      </div>
-      <div
-        className="MuiGrid-typeItem-68 MuiGrid-grid-xs-12-97 MuiGrid-grid-sm-6-104"
-      >
-        <div
-          className="MuiPaper-root-8 MuiPaper-shadow2-12 MuiPaper-rounded-9"
-        >
-          <div
-            className="MuiCardContent-root-66 MuiCardHeader-root-61"
-          >
-            <div
-              className="MuiCardHeader-content-63"
-            >
-              <span
-                className="MuiTypography-root-37 MuiTypography-headline-42 MuiCardHeader-title-64"
-              >
-                Expendable cash
-              </span>
-              <span
-                className="MuiTypography-root-37 MuiTypography-body1-46 MuiTypography-colorSecondary-58 MuiCardHeader-subheader-65"
-              />
-            </div>
-          </div>
-          <div
-            className="MuiCardContent-root-66"
-          >
-            <h1>
-              5%
-            </h1>
-            <hr
-              className="MuiDivider-root-150 MuiDivider-default-151"
-            />
-            <ul
-              className="MuiList-root-155 MuiList-padding-156"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    className="MuiGrid-typeItem-68 MuiGrid-grid-xs-12-97 MuiGrid-grid-sm-6-104"
-  >
-    <div
-      className="MuiGrid-typeContainer-67 MuiGrid-spacing-xs-16-82"
-    >
-      <div
-        className="MuiGrid-typeItem-68 MuiGrid-grid-xs-12-97 MuiGrid-grid-sm-8-106 MuiGrid-grid-lg-4-128"
-      >
-        <div
-          className="MuiPaper-root-8 MuiPaper-shadow2-12 MuiPaper-rounded-9"
-        >
-          <div
-            className="MuiCardContent-root-66 MuiCardHeader-root-61"
-          >
-            <div
-              className="MuiCardHeader-content-63"
-            >
-              <span
-                className="MuiTypography-root-37 MuiTypography-headline-42 MuiCardHeader-title-64"
-              >
-                Risk 1
-              </span>
-              <span
-                className="MuiTypography-root-37 MuiTypography-body1-46 MuiTypography-colorSecondary-58 MuiCardHeader-subheader-65"
-              />
-            </div>
-          </div>
-          <div
-            className="MuiCardContent-root-66"
-          >
-            <ul
-              className="MuiList-root-155 MuiList-padding-156"
-            >
-              <li
-                className="MuiListItem-root-159 MuiListItem-gutters-166 MuiListItem-default-162"
-                disabled={false}
-              >
-                <svg
-                  aria-hidden="true"
-                  className="MuiSvgIcon-root-170 MuiListItemIcon-root-169"
-                  focusable="false"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"
-                  />
-                </svg>
                 <div
-                  autoFocus={true}
-                  className="MuiListItemText-root-171"
+                  className="MuiCardHeader-content-255"
                 >
-                  <h3
-                    className="MuiTypography-root-37 MuiTypography-subheading-44 MuiListItemText-text-174"
+                  <span
+                    className="MuiTypography-root-146 MuiTypography-headline-151 MuiCardHeader-title-256"
                   >
-                    Good to get started
-                  </h3>
-                </div>
-              </li>
-              <li
-                className="MuiListItem-root-159 MuiListItem-gutters-166 MuiListItem-default-162"
-                disabled={false}
-              >
-                <svg
-                  aria-hidden="true"
-                  className="MuiSvgIcon-root-170 MuiListItemIcon-root-169"
-                  focusable="false"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"
+                    Current balance
+                  </span>
+                  <span
+                    className="MuiTypography-root-146 MuiTypography-body1-155 MuiTypography-colorSecondary-167 MuiCardHeader-subheader-257"
                   />
-                </svg>
-                <div
-                  autoFocus={true}
-                  className="MuiListItemText-root-171"
-                >
-                  <h3
-                    className="MuiTypography-root-37 MuiTypography-subheading-44 MuiListItemText-text-174"
-                  >
-                    Low risk
-                  </h3>
                 </div>
-              </li>
-              <li
-                className="MuiListItem-root-159 MuiListItem-gutters-166 MuiListItem-default-162"
-                disabled={false}
+              </div>
+              <div
+                className="MuiCardContent-root-258"
               >
-                <svg
-                  aria-hidden="true"
-                  className="MuiSvgIcon-root-170 MuiListItemIcon-root-169"
-                  focusable="false"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M16 18l2.29-2.29-4.88-4.88-4 4L2 7.41 3.41 6l6 6 4-4 6.3 6.29L22 12v6z"
-                  />
-                </svg>
-                <div
-                  autoFocus={true}
-                  className="MuiListItemText-root-171"
-                >
-                  <h3
-                    className="MuiTypography-root-37 MuiTypography-subheading-44 MuiListItemText-text-174"
-                  >
-                    Low reward
-                  </h3>
-                </div>
-              </li>
-            </ul>
+                <h1>
+                  $1300
+                </h1>
+                <hr
+                  className="MuiDivider-root-259 MuiDivider-default-260"
+                />
+                <ul
+                  className="MuiList-root-264 MuiList-padding-265"
+                />
+              </div>
+            </div>
           </div>
           <div
-            className="MuiCardActions-root-176"
+            className="MuiGrid-typeItem-171 MuiGrid-grid-xs-12-200 MuiGrid-grid-sm-6-207"
           >
-            <button
-              className="MuiButtonBase-root-192 MuiButton-root-178 MuiButton-flatPrimary-181 MuiButton-dense-179 MuiCardActions-actionSpacing-177"
-              disabled={false}
-              onBlur={[Function]}
-              onFocus={[Function]}
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              onTouchEnd={[Function]}
-              onTouchStart={[Function]}
-              role="button"
-              tabIndex={0}
-              type="button"
+            <div
+              className="MuiPaper-root-98 MuiPaper-shadow2-102 MuiPaper-rounded-99"
             >
-              <span
-                className="MuiButton-label-180"
+              <div
+                className="MuiCardContent-root-258 MuiCardHeader-root-253"
               >
-                Invest
-              </span>
-              <span
-                className="MuiTouchRipple-root-194"
-              />
-            </button>
-            <button
-              className="MuiButtonBase-root-192 MuiButton-root-178 MuiButton-flatPrimary-181 MuiButton-dense-179 MuiCardActions-actionSpacing-177"
-              disabled={false}
-              onBlur={[Function]}
-              onFocus={[Function]}
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              onTouchEnd={[Function]}
-              onTouchStart={[Function]}
-              role="button"
-              tabIndex={0}
-              type="button"
+                <div
+                  className="MuiCardHeader-content-255"
+                >
+                  <span
+                    className="MuiTypography-root-146 MuiTypography-headline-151 MuiCardHeader-title-256"
+                  >
+                    Total Income
+                  </span>
+                  <span
+                    className="MuiTypography-root-146 MuiTypography-body1-155 MuiTypography-colorSecondary-167 MuiCardHeader-subheader-257"
+                  />
+                </div>
+              </div>
+              <div
+                className="MuiCardContent-root-258"
+              >
+                <h1>
+                  $300
+                </h1>
+                <hr
+                  className="MuiDivider-root-259 MuiDivider-default-260"
+                />
+                <ul
+                  className="MuiList-root-264 MuiList-padding-265"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            className="MuiGrid-typeItem-171 MuiGrid-grid-xs-12-200 MuiGrid-grid-sm-6-207"
+          >
+            <div
+              className="MuiPaper-root-98 MuiPaper-shadow2-102 MuiPaper-rounded-99"
             >
-              <span
-                className="MuiButton-label-180"
+              <div
+                className="MuiCardContent-root-258 MuiCardHeader-root-253"
               >
-                Learn More
-              </span>
-              <span
-                className="MuiTouchRipple-root-194"
-              />
-            </button>
+                <div
+                  className="MuiCardHeader-content-255"
+                >
+                  <span
+                    className="MuiTypography-root-146 MuiTypography-headline-151 MuiCardHeader-title-256"
+                  >
+                    Total Expenditures
+                  </span>
+                  <span
+                    className="MuiTypography-root-146 MuiTypography-body1-155 MuiTypography-colorSecondary-167 MuiCardHeader-subheader-257"
+                  />
+                </div>
+              </div>
+              <div
+                className="MuiCardContent-root-258"
+              >
+                <h1>
+                  $250
+                </h1>
+                <hr
+                  className="MuiDivider-root-259 MuiDivider-default-260"
+                />
+                <ul
+                  className="MuiList-root-264 MuiList-padding-265"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            className="MuiGrid-typeItem-171 MuiGrid-grid-xs-12-200 MuiGrid-grid-sm-6-207"
+          >
+            <div
+              className="MuiPaper-root-98 MuiPaper-shadow2-102 MuiPaper-rounded-99"
+            >
+              <div
+                className="MuiCardContent-root-258 MuiCardHeader-root-253"
+              >
+                <div
+                  className="MuiCardHeader-content-255"
+                >
+                  <span
+                    className="MuiTypography-root-146 MuiTypography-headline-151 MuiCardHeader-title-256"
+                  >
+                    Another box
+                  </span>
+                  <span
+                    className="MuiTypography-root-146 MuiTypography-body1-155 MuiTypography-colorSecondary-167 MuiCardHeader-subheader-257"
+                  />
+                </div>
+              </div>
+              <div
+                className="MuiCardContent-root-258"
+              >
+                <h1>
+                  $1000
+                </h1>
+                <hr
+                  className="MuiDivider-root-259 MuiDivider-default-260"
+                />
+                <ul
+                  className="MuiList-root-264 MuiList-padding-265"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
       <div
-        className="MuiGrid-typeItem-68 MuiGrid-grid-xs-12-97 MuiGrid-grid-sm-8-106 MuiGrid-grid-lg-4-128"
+        className="MuiGrid-typeItem-171 MuiGrid-grid-xs-12-200 MuiGrid-grid-sm-6-207"
       >
         <div
-          className="MuiPaper-root-8 MuiPaper-shadow2-12 MuiPaper-rounded-9"
+          className="MuiPaper-root-98 MuiPaper-shadow2-102 MuiPaper-rounded-99"
         >
           <div
-            className="MuiCardContent-root-66 MuiCardHeader-root-61"
+            className="my-pretty-chart-container"
           >
             <div
-              className="MuiCardHeader-content-63"
+              id="chart"
+              style={
+                Object {
+                  "height": "450px",
+                  "width": "100%",
+                }
+              }
             >
-              <span
-                className="MuiTypography-root-37 MuiTypography-headline-42 MuiCardHeader-title-64"
-              >
-                Risk 2
-              </span>
-              <span
-                className="MuiTypography-root-37 MuiTypography-body1-46 MuiTypography-colorSecondary-58 MuiCardHeader-subheader-65"
-              />
+              <div>
+                Rendering Chart
+              </div>
             </div>
-          </div>
-          <div
-            className="MuiCardContent-root-66"
-          >
-            <ul
-              className="MuiList-root-155 MuiList-padding-156"
-            >
-              <li
-                className="MuiListItem-root-159 MuiListItem-gutters-166 MuiListItem-default-162"
-                disabled={false}
-              >
-                <svg
-                  aria-hidden="true"
-                  className="MuiSvgIcon-root-170 MuiListItemIcon-root-169"
-                  focusable="false"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"
-                  />
-                </svg>
-                <div
-                  autoFocus={true}
-                  className="MuiListItemText-root-171"
-                >
-                  <h3
-                    className="MuiTypography-root-37 MuiTypography-subheading-44 MuiListItemText-text-174"
-                  >
-                    Allows you to take more risk
-                  </h3>
-                </div>
-              </li>
-              <li
-                className="MuiListItem-root-159 MuiListItem-gutters-166 MuiListItem-default-162"
-                disabled={false}
-              >
-                <svg
-                  aria-hidden="true"
-                  className="MuiSvgIcon-root-170 MuiListItemIcon-root-169"
-                  focusable="false"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"
-                  />
-                </svg>
-                <div
-                  autoFocus={true}
-                  className="MuiListItemText-root-171"
-                >
-                  <h3
-                    className="MuiTypography-root-37 MuiTypography-subheading-44 MuiListItemText-text-174"
-                  >
-                    Pays significant rewards
-                  </h3>
-                </div>
-              </li>
-              <li
-                className="MuiListItem-root-159 MuiListItem-gutters-166 MuiListItem-default-162"
-                disabled={false}
-              >
-                <svg
-                  aria-hidden="true"
-                  className="MuiSvgIcon-root-170 MuiListItemIcon-root-169"
-                  focusable="false"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M16 18l2.29-2.29-4.88-4.88-4 4L2 7.41 3.41 6l6 6 4-4 6.3 6.29L22 12v6z"
-                  />
-                </svg>
-                <div
-                  autoFocus={true}
-                  className="MuiListItemText-root-171"
-                >
-                  <h3
-                    className="MuiTypography-root-37 MuiTypography-subheading-44 MuiListItemText-text-174"
-                  >
-                    You might lose some money
-                  </h3>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <div
-            className="MuiCardActions-root-176"
-          >
-            <button
-              className="MuiButtonBase-root-192 MuiButton-root-178 MuiButton-flatPrimary-181 MuiButton-dense-179 MuiCardActions-actionSpacing-177"
-              disabled={false}
-              onBlur={[Function]}
-              onFocus={[Function]}
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              onTouchEnd={[Function]}
-              onTouchStart={[Function]}
-              role="button"
-              tabIndex={0}
-              type="button"
-            >
-              <span
-                className="MuiButton-label-180"
-              >
-                Invest
-              </span>
-              <span
-                className="MuiTouchRipple-root-194"
-              />
-            </button>
-            <button
-              className="MuiButtonBase-root-192 MuiButton-root-178 MuiButton-flatPrimary-181 MuiButton-dense-179 MuiCardActions-actionSpacing-177"
-              disabled={false}
-              onBlur={[Function]}
-              onFocus={[Function]}
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              onTouchEnd={[Function]}
-              onTouchStart={[Function]}
-              role="button"
-              tabIndex={0}
-              type="button"
-            >
-              <span
-                className="MuiButton-label-180"
-              >
-                Learn More
-              </span>
-              <span
-                className="MuiTouchRipple-root-194"
-              />
-            </button>
           </div>
         </div>
       </div>
       <div
-        className="MuiGrid-typeItem-68 MuiGrid-grid-xs-12-97 MuiGrid-grid-sm-8-106 MuiGrid-grid-lg-4-128"
+        className="MuiGrid-typeItem-171 MuiGrid-grid-xs-12-200 MuiGrid-grid-sm-6-207"
       >
         <div
-          className="MuiPaper-root-8 MuiPaper-shadow2-12 MuiPaper-rounded-9"
+          className="MuiGrid-typeContainer-170 MuiGrid-spacing-xs-16-185"
         >
           <div
-            className="MuiCardContent-root-66 MuiCardHeader-root-61"
+            className="MuiGrid-typeItem-171 MuiGrid-grid-xs-12-200 MuiGrid-grid-sm-6-207"
           >
             <div
-              className="MuiCardHeader-content-63"
+              className="MuiPaper-root-98 MuiPaper-shadow2-102 MuiPaper-rounded-99"
             >
-              <span
-                className="MuiTypography-root-37 MuiTypography-headline-42 MuiCardHeader-title-64"
+              <div
+                className="MuiCardContent-root-258 MuiCardHeader-root-253"
               >
-                Risk 3
-              </span>
-              <span
-                className="MuiTypography-root-37 MuiTypography-body1-46 MuiTypography-colorSecondary-58 MuiCardHeader-subheader-65"
-              />
+                <div
+                  className="MuiCardHeader-content-255"
+                >
+                  <span
+                    className="MuiTypography-root-146 MuiTypography-headline-151 MuiCardHeader-title-256"
+                  >
+                    Pumpkin
+                  </span>
+                  <span
+                    className="MuiTypography-root-146 MuiTypography-body1-155 MuiTypography-colorSecondary-167 MuiCardHeader-subheader-257"
+                  />
+                </div>
+              </div>
+              <div
+                className="MuiCardContent-root-258"
+              >
+                <h1>
+                  $13
+                </h1>
+                <hr
+                  className="MuiDivider-root-259 MuiDivider-default-260"
+                />
+                <ul
+                  className="MuiList-root-264 MuiList-padding-265"
+                />
+              </div>
             </div>
           </div>
           <div
-            className="MuiCardContent-root-66"
+            className="MuiGrid-typeItem-171 MuiGrid-grid-xs-12-200 MuiGrid-grid-sm-6-207"
           >
-            <ul
-              className="MuiList-root-155 MuiList-padding-156"
+            <div
+              className="MuiPaper-root-98 MuiPaper-shadow2-102 MuiPaper-rounded-99"
             >
-              <li
-                className="MuiListItem-root-159 MuiListItem-gutters-166 MuiListItem-default-162"
-                disabled={false}
+              <div
+                className="MuiCardContent-root-258 MuiCardHeader-root-253"
               >
-                <svg
-                  aria-hidden="true"
-                  className="MuiSvgIcon-root-170 MuiListItemIcon-root-169"
-                  focusable="false"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"
-                  />
-                </svg>
                 <div
-                  autoFocus={true}
-                  className="MuiListItemText-root-171"
+                  className="MuiCardHeader-content-255"
                 >
-                  <h3
-                    className="MuiTypography-root-37 MuiTypography-subheading-44 MuiListItemText-text-174"
+                  <span
+                    className="MuiTypography-root-146 MuiTypography-headline-151 MuiCardHeader-title-256"
                   >
-                    $$$
-                  </h3>
+                    Fixed monthly
+                  </span>
+                  <span
+                    className="MuiTypography-root-146 MuiTypography-body1-155 MuiTypography-colorSecondary-167 MuiCardHeader-subheader-257"
+                  />
                 </div>
-              </li>
-              <li
-                className="MuiListItem-root-159 MuiListItem-gutters-166 MuiListItem-default-162"
-                disabled={false}
+              </div>
+              <div
+                className="MuiCardContent-root-258"
               >
-                <svg
-                  aria-hidden="true"
-                  className="MuiSvgIcon-root-170 MuiListItemIcon-root-169"
-                  focusable="false"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"
-                  />
-                </svg>
-                <div
-                  autoFocus={true}
-                  className="MuiListItemText-root-171"
-                >
-                  <h3
-                    className="MuiTypography-root-37 MuiTypography-subheading-44 MuiListItemText-text-174"
-                  >
-                    More $$$
-                  </h3>
-                </div>
-              </li>
-              <li
-                className="MuiListItem-root-159 MuiListItem-gutters-166 MuiListItem-default-162"
-                disabled={false}
-              >
-                <svg
-                  aria-hidden="true"
-                  className="MuiSvgIcon-root-170 MuiListItemIcon-root-169"
-                  focusable="false"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M16 18l2.29-2.29-4.88-4.88-4 4L2 7.41 3.41 6l6 6 4-4 6.3 6.29L22 12v6z"
-                  />
-                </svg>
-                <div
-                  autoFocus={true}
-                  className="MuiListItemText-root-171"
-                >
-                  <h3
-                    className="MuiTypography-root-37 MuiTypography-subheading-44 MuiListItemText-text-174"
-                  >
-                    You're fucking insane of you invest in this
-                  </h3>
-                </div>
-              </li>
-            </ul>
+                <h1>
+                  $200
+                </h1>
+                <hr
+                  className="MuiDivider-root-259 MuiDivider-default-260"
+                />
+                <ul
+                  className="MuiList-root-264 MuiList-padding-265"
+                />
+              </div>
+            </div>
           </div>
           <div
-            className="MuiCardActions-root-176"
+            className="MuiGrid-typeItem-171 MuiGrid-grid-xs-12-200 MuiGrid-grid-sm-6-207"
           >
-            <button
-              className="MuiButtonBase-root-192 MuiButton-root-178 MuiButton-flatPrimary-181 MuiButton-dense-179 MuiCardActions-actionSpacing-177"
-              disabled={false}
-              onBlur={[Function]}
-              onFocus={[Function]}
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              onTouchEnd={[Function]}
-              onTouchStart={[Function]}
-              role="button"
-              tabIndex={0}
-              type="button"
+            <div
+              className="MuiPaper-root-98 MuiPaper-shadow2-102 MuiPaper-rounded-99"
             >
-              <span
-                className="MuiButton-label-180"
+              <div
+                className="MuiCardContent-root-258 MuiCardHeader-root-253"
               >
-                Invest
-              </span>
-              <span
-                className="MuiTouchRipple-root-194"
-              />
-            </button>
-            <button
-              className="MuiButtonBase-root-192 MuiButton-root-178 MuiButton-flatPrimary-181 MuiButton-dense-179 MuiCardActions-actionSpacing-177"
-              disabled={false}
-              onBlur={[Function]}
-              onFocus={[Function]}
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              onTouchEnd={[Function]}
-              onTouchStart={[Function]}
-              role="button"
-              tabIndex={0}
-              type="button"
+                <div
+                  className="MuiCardHeader-content-255"
+                >
+                  <span
+                    className="MuiTypography-root-146 MuiTypography-headline-151 MuiCardHeader-title-256"
+                  >
+                    Invest Income
+                  </span>
+                  <span
+                    className="MuiTypography-root-146 MuiTypography-body1-155 MuiTypography-colorSecondary-167 MuiCardHeader-subheader-257"
+                  />
+                </div>
+              </div>
+              <div
+                className="MuiCardContent-root-258"
+              >
+                <h1>
+                  10%
+                </h1>
+                <hr
+                  className="MuiDivider-root-259 MuiDivider-default-260"
+                />
+                <ul
+                  className="MuiList-root-264 MuiList-padding-265"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            className="MuiGrid-typeItem-171 MuiGrid-grid-xs-12-200 MuiGrid-grid-sm-6-207"
+          >
+            <div
+              className="MuiPaper-root-98 MuiPaper-shadow2-102 MuiPaper-rounded-99"
             >
-              <span
-                className="MuiButton-label-180"
+              <div
+                className="MuiCardContent-root-258 MuiCardHeader-root-253"
               >
-                Learn More
-              </span>
-              <span
-                className="MuiTouchRipple-root-194"
-              />
-            </button>
+                <div
+                  className="MuiCardHeader-content-255"
+                >
+                  <span
+                    className="MuiTypography-root-146 MuiTypography-headline-151 MuiCardHeader-title-256"
+                  >
+                    Expendable cash
+                  </span>
+                  <span
+                    className="MuiTypography-root-146 MuiTypography-body1-155 MuiTypography-colorSecondary-167 MuiCardHeader-subheader-257"
+                  />
+                </div>
+              </div>
+              <div
+                className="MuiCardContent-root-258"
+              >
+                <h1>
+                  5%
+                </h1>
+                <hr
+                  className="MuiDivider-root-259 MuiDivider-default-260"
+                />
+                <ul
+                  className="MuiList-root-264 MuiList-padding-265"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="MuiGrid-typeItem-171 MuiGrid-grid-xs-12-200 MuiGrid-grid-sm-6-207"
+      >
+        <div
+          className="MuiGrid-typeContainer-170 MuiGrid-spacing-xs-16-185"
+        >
+          <div
+            className="MuiGrid-typeItem-171 MuiGrid-grid-xs-12-200 MuiGrid-grid-sm-8-209 MuiGrid-grid-lg-4-231"
+          >
+            <div
+              className="MuiPaper-root-98 MuiPaper-shadow2-102 MuiPaper-rounded-99"
+            >
+              <div
+                className="MuiCardContent-root-258 MuiCardHeader-root-253"
+              >
+                <div
+                  className="MuiCardHeader-content-255"
+                >
+                  <span
+                    className="MuiTypography-root-146 MuiTypography-headline-151 MuiCardHeader-title-256"
+                  >
+                    Risk 1
+                  </span>
+                  <span
+                    className="MuiTypography-root-146 MuiTypography-body1-155 MuiTypography-colorSecondary-167 MuiCardHeader-subheader-257"
+                  />
+                </div>
+              </div>
+              <div
+                className="MuiCardContent-root-258"
+              >
+                <ul
+                  className="MuiList-root-264 MuiList-padding-265"
+                >
+                  <li
+                    className="MuiListItem-root-268 MuiListItem-gutters-275 MuiListItem-default-271"
+                    disabled={false}
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="MuiSvgIcon-root-138 MuiListItemIcon-root-278"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"
+                      />
+                    </svg>
+                    <div
+                      autoFocus={true}
+                      className="MuiListItemText-root-279"
+                    >
+                      <h3
+                        className="MuiTypography-root-146 MuiTypography-subheading-153 MuiListItemText-text-282"
+                      >
+                        Good to get started
+                      </h3>
+                    </div>
+                  </li>
+                  <li
+                    className="MuiListItem-root-268 MuiListItem-gutters-275 MuiListItem-default-271"
+                    disabled={false}
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="MuiSvgIcon-root-138 MuiListItemIcon-root-278"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"
+                      />
+                    </svg>
+                    <div
+                      autoFocus={true}
+                      className="MuiListItemText-root-279"
+                    >
+                      <h3
+                        className="MuiTypography-root-146 MuiTypography-subheading-153 MuiListItemText-text-282"
+                      >
+                        Low risk
+                      </h3>
+                    </div>
+                  </li>
+                  <li
+                    className="MuiListItem-root-268 MuiListItem-gutters-275 MuiListItem-default-271"
+                    disabled={false}
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="MuiSvgIcon-root-138 MuiListItemIcon-root-278"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M16 18l2.29-2.29-4.88-4.88-4 4L2 7.41 3.41 6l6 6 4-4 6.3 6.29L22 12v6z"
+                      />
+                    </svg>
+                    <div
+                      autoFocus={true}
+                      className="MuiListItemText-root-279"
+                    >
+                      <h3
+                        className="MuiTypography-root-146 MuiTypography-subheading-153 MuiListItemText-text-282"
+                      >
+                        Low reward
+                      </h3>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div
+                className="MuiCardActions-root-284"
+              >
+                <button
+                  className="MuiButtonBase-root-136 MuiButton-root-286 MuiButton-flatPrimary-289 MuiButton-dense-287 MuiCardActions-actionSpacing-285"
+                  disabled={false}
+                  onBlur={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchStart={[Function]}
+                  role="button"
+                  tabIndex={0}
+                  type="button"
+                >
+                  <span
+                    className="MuiButton-label-288"
+                  >
+                    Invest
+                  </span>
+                  <span
+                    className="MuiTouchRipple-root-139"
+                  />
+                </button>
+                <button
+                  className="MuiButtonBase-root-136 MuiButton-root-286 MuiButton-flatPrimary-289 MuiButton-dense-287 MuiCardActions-actionSpacing-285"
+                  disabled={false}
+                  onBlur={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchStart={[Function]}
+                  role="button"
+                  tabIndex={0}
+                  type="button"
+                >
+                  <span
+                    className="MuiButton-label-288"
+                  >
+                    Learn More
+                  </span>
+                  <span
+                    className="MuiTouchRipple-root-139"
+                  />
+                </button>
+              </div>
+            </div>
+          </div>
+          <div
+            className="MuiGrid-typeItem-171 MuiGrid-grid-xs-12-200 MuiGrid-grid-sm-8-209 MuiGrid-grid-lg-4-231"
+          >
+            <div
+              className="MuiPaper-root-98 MuiPaper-shadow2-102 MuiPaper-rounded-99"
+            >
+              <div
+                className="MuiCardContent-root-258 MuiCardHeader-root-253"
+              >
+                <div
+                  className="MuiCardHeader-content-255"
+                >
+                  <span
+                    className="MuiTypography-root-146 MuiTypography-headline-151 MuiCardHeader-title-256"
+                  >
+                    Risk 2
+                  </span>
+                  <span
+                    className="MuiTypography-root-146 MuiTypography-body1-155 MuiTypography-colorSecondary-167 MuiCardHeader-subheader-257"
+                  />
+                </div>
+              </div>
+              <div
+                className="MuiCardContent-root-258"
+              >
+                <ul
+                  className="MuiList-root-264 MuiList-padding-265"
+                >
+                  <li
+                    className="MuiListItem-root-268 MuiListItem-gutters-275 MuiListItem-default-271"
+                    disabled={false}
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="MuiSvgIcon-root-138 MuiListItemIcon-root-278"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"
+                      />
+                    </svg>
+                    <div
+                      autoFocus={true}
+                      className="MuiListItemText-root-279"
+                    >
+                      <h3
+                        className="MuiTypography-root-146 MuiTypography-subheading-153 MuiListItemText-text-282"
+                      >
+                        Allows you to take more risk
+                      </h3>
+                    </div>
+                  </li>
+                  <li
+                    className="MuiListItem-root-268 MuiListItem-gutters-275 MuiListItem-default-271"
+                    disabled={false}
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="MuiSvgIcon-root-138 MuiListItemIcon-root-278"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"
+                      />
+                    </svg>
+                    <div
+                      autoFocus={true}
+                      className="MuiListItemText-root-279"
+                    >
+                      <h3
+                        className="MuiTypography-root-146 MuiTypography-subheading-153 MuiListItemText-text-282"
+                      >
+                        Pays significant rewards
+                      </h3>
+                    </div>
+                  </li>
+                  <li
+                    className="MuiListItem-root-268 MuiListItem-gutters-275 MuiListItem-default-271"
+                    disabled={false}
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="MuiSvgIcon-root-138 MuiListItemIcon-root-278"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M16 18l2.29-2.29-4.88-4.88-4 4L2 7.41 3.41 6l6 6 4-4 6.3 6.29L22 12v6z"
+                      />
+                    </svg>
+                    <div
+                      autoFocus={true}
+                      className="MuiListItemText-root-279"
+                    >
+                      <h3
+                        className="MuiTypography-root-146 MuiTypography-subheading-153 MuiListItemText-text-282"
+                      >
+                        You might lose some money
+                      </h3>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div
+                className="MuiCardActions-root-284"
+              >
+                <button
+                  className="MuiButtonBase-root-136 MuiButton-root-286 MuiButton-flatPrimary-289 MuiButton-dense-287 MuiCardActions-actionSpacing-285"
+                  disabled={false}
+                  onBlur={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchStart={[Function]}
+                  role="button"
+                  tabIndex={0}
+                  type="button"
+                >
+                  <span
+                    className="MuiButton-label-288"
+                  >
+                    Invest
+                  </span>
+                  <span
+                    className="MuiTouchRipple-root-139"
+                  />
+                </button>
+                <button
+                  className="MuiButtonBase-root-136 MuiButton-root-286 MuiButton-flatPrimary-289 MuiButton-dense-287 MuiCardActions-actionSpacing-285"
+                  disabled={false}
+                  onBlur={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchStart={[Function]}
+                  role="button"
+                  tabIndex={0}
+                  type="button"
+                >
+                  <span
+                    className="MuiButton-label-288"
+                  >
+                    Learn More
+                  </span>
+                  <span
+                    className="MuiTouchRipple-root-139"
+                  />
+                </button>
+              </div>
+            </div>
+          </div>
+          <div
+            className="MuiGrid-typeItem-171 MuiGrid-grid-xs-12-200 MuiGrid-grid-sm-8-209 MuiGrid-grid-lg-4-231"
+          >
+            <div
+              className="MuiPaper-root-98 MuiPaper-shadow2-102 MuiPaper-rounded-99"
+            >
+              <div
+                className="MuiCardContent-root-258 MuiCardHeader-root-253"
+              >
+                <div
+                  className="MuiCardHeader-content-255"
+                >
+                  <span
+                    className="MuiTypography-root-146 MuiTypography-headline-151 MuiCardHeader-title-256"
+                  >
+                    Risk 3
+                  </span>
+                  <span
+                    className="MuiTypography-root-146 MuiTypography-body1-155 MuiTypography-colorSecondary-167 MuiCardHeader-subheader-257"
+                  />
+                </div>
+              </div>
+              <div
+                className="MuiCardContent-root-258"
+              >
+                <ul
+                  className="MuiList-root-264 MuiList-padding-265"
+                >
+                  <li
+                    className="MuiListItem-root-268 MuiListItem-gutters-275 MuiListItem-default-271"
+                    disabled={false}
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="MuiSvgIcon-root-138 MuiListItemIcon-root-278"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"
+                      />
+                    </svg>
+                    <div
+                      autoFocus={true}
+                      className="MuiListItemText-root-279"
+                    >
+                      <h3
+                        className="MuiTypography-root-146 MuiTypography-subheading-153 MuiListItemText-text-282"
+                      >
+                        $$$
+                      </h3>
+                    </div>
+                  </li>
+                  <li
+                    className="MuiListItem-root-268 MuiListItem-gutters-275 MuiListItem-default-271"
+                    disabled={false}
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="MuiSvgIcon-root-138 MuiListItemIcon-root-278"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"
+                      />
+                    </svg>
+                    <div
+                      autoFocus={true}
+                      className="MuiListItemText-root-279"
+                    >
+                      <h3
+                        className="MuiTypography-root-146 MuiTypography-subheading-153 MuiListItemText-text-282"
+                      >
+                        More $$$
+                      </h3>
+                    </div>
+                  </li>
+                  <li
+                    className="MuiListItem-root-268 MuiListItem-gutters-275 MuiListItem-default-271"
+                    disabled={false}
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="MuiSvgIcon-root-138 MuiListItemIcon-root-278"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M16 18l2.29-2.29-4.88-4.88-4 4L2 7.41 3.41 6l6 6 4-4 6.3 6.29L22 12v6z"
+                      />
+                    </svg>
+                    <div
+                      autoFocus={true}
+                      className="MuiListItemText-root-279"
+                    >
+                      <h3
+                        className="MuiTypography-root-146 MuiTypography-subheading-153 MuiListItemText-text-282"
+                      >
+                        You're fucking insane of you invest in this
+                      </h3>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div
+                className="MuiCardActions-root-284"
+              >
+                <button
+                  className="MuiButtonBase-root-136 MuiButton-root-286 MuiButton-flatPrimary-289 MuiButton-dense-287 MuiCardActions-actionSpacing-285"
+                  disabled={false}
+                  onBlur={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchStart={[Function]}
+                  role="button"
+                  tabIndex={0}
+                  type="button"
+                >
+                  <span
+                    className="MuiButton-label-288"
+                  >
+                    Invest
+                  </span>
+                  <span
+                    className="MuiTouchRipple-root-139"
+                  />
+                </button>
+                <button
+                  className="MuiButtonBase-root-136 MuiButton-root-286 MuiButton-flatPrimary-289 MuiButton-dense-287 MuiCardActions-actionSpacing-285"
+                  disabled={false}
+                  onBlur={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchStart={[Function]}
+                  role="button"
+                  tabIndex={0}
+                  type="button"
+                >
+                  <span
+                    className="MuiButton-label-288"
+                  >
+                    Learn More
+                  </span>
+                  <span
+                    className="MuiTouchRipple-root-139"
+                  />
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1247,43 +1383,43 @@ exports[`Storyshots Page Test page 1`] = `
 
 exports[`Storyshots Saldo Playground 1`] = `
 <div
-  className="MuiPaper-root-8 MuiPaper-shadow2-12 MuiPaper-rounded-9"
+  className="MuiPaper-root-13 MuiPaper-shadow2-17 MuiPaper-rounded-14"
 >
   <div
-    className="MuiCardContent-root-66 MuiCardHeader-root-61"
+    className="MuiCardContent-root-90 MuiCardHeader-root-85"
   >
     <div
-      className="MuiCardHeader-content-63"
+      className="MuiCardHeader-content-87"
     >
       <span
-        className="MuiTypography-root-37 MuiTypography-headline-42 MuiCardHeader-title-64"
+        className="MuiTypography-root-61 MuiTypography-headline-66 MuiCardHeader-title-88"
       >
         Saldo
       </span>
       <span
-        className="MuiTypography-root-37 MuiTypography-body1-46 MuiTypography-colorSecondary-58 MuiCardHeader-subheader-65"
+        className="MuiTypography-root-61 MuiTypography-body1-70 MuiTypography-colorSecondary-82 MuiCardHeader-subheader-89"
       />
     </div>
   </div>
   <div
-    className="MuiCardContent-root-66"
+    className="MuiCardContent-root-90"
   >
     <table
-      className="MuiTable-root-201"
+      className="MuiTable-root-308"
     >
       <tbody
-        className="MuiTableBody-root-202"
+        className="MuiTableBody-root-309"
       >
         <tr
-          className="MuiTableRow-root-203"
+          className="MuiTableRow-root-310"
         >
           <td
-            className="MuiTableCell-root-209 withStyles-TableCell--root-208 MuiTableCell-paddingDefault-212"
+            className="MuiTableCell-root-316 withStyles-TableCell--root-315 MuiTableCell-paddingDefault-319"
           >
             investedSharesValue
           </td>
           <td
-            className="MuiTableCell-root-209 withStyles-TableCell--root-208 MuiTableCell-paddingDefault-212"
+            className="MuiTableCell-root-316 withStyles-TableCell--root-315 MuiTableCell-paddingDefault-319"
             style={
               Object {
                 "textAlign": "right",
@@ -1294,15 +1430,15 @@ exports[`Storyshots Saldo Playground 1`] = `
           </td>
         </tr>
         <tr
-          className="MuiTableRow-root-203"
+          className="MuiTableRow-root-310"
         >
           <td
-            className="MuiTableCell-root-209 withStyles-TableCell--root-208 MuiTableCell-paddingDefault-212"
+            className="MuiTableCell-root-316 withStyles-TableCell--root-315 MuiTableCell-paddingDefault-319"
           >
             earnedSharesValue
           </td>
           <td
-            className="MuiTableCell-root-209 withStyles-TableCell--root-208 MuiTableCell-paddingDefault-212"
+            className="MuiTableCell-root-316 withStyles-TableCell--root-315 MuiTableCell-paddingDefault-319"
             style={
               Object {
                 "textAlign": "right",
@@ -1313,15 +1449,15 @@ exports[`Storyshots Saldo Playground 1`] = `
           </td>
         </tr>
         <tr
-          className="MuiTableRow-root-203"
+          className="MuiTableRow-root-310"
         >
           <td
-            className="MuiTableCell-root-209 withStyles-TableCell--root-208 MuiTableCell-paddingDefault-212"
+            className="MuiTableCell-root-316 withStyles-TableCell--root-315 MuiTableCell-paddingDefault-319"
           >
             bonusSharesValue
           </td>
           <td
-            className="MuiTableCell-root-209 withStyles-TableCell--root-208 MuiTableCell-paddingDefault-212"
+            className="MuiTableCell-root-316 withStyles-TableCell--root-315 MuiTableCell-paddingDefault-319"
             style={
               Object {
                 "textAlign": "right",
@@ -1332,15 +1468,15 @@ exports[`Storyshots Saldo Playground 1`] = `
           </td>
         </tr>
         <tr
-          className="MuiTableRow-root-203"
+          className="MuiTableRow-root-310"
         >
           <td
-            className="MuiTableCell-root-209 MuiTableCell-paddingDefault-212"
+            className="MuiTableCell-root-316 MuiTableCell-paddingDefault-319"
           >
             reinvestedSharesValue
           </td>
           <td
-            className="MuiTableCell-root-209 MuiTableCell-paddingDefault-212"
+            className="MuiTableCell-root-316 MuiTableCell-paddingDefault-319"
             style={
               Object {
                 "textAlign": "right",
@@ -1351,15 +1487,15 @@ exports[`Storyshots Saldo Playground 1`] = `
           </td>
         </tr>
         <tr
-          className="MuiTableRow-root-203"
+          className="MuiTableRow-root-310"
         >
           <td
-            className="MuiTableCell-root-209 withStyles-TableCell--root-208 MuiTableCell-paddingDefault-212"
+            className="MuiTableCell-root-316 withStyles-TableCell--root-315 MuiTableCell-paddingDefault-319"
           >
             totalSharesValue
           </td>
           <td
-            className="MuiTableCell-root-209 withStyles-TableCell--root-208 MuiTableCell-paddingDefault-212"
+            className="MuiTableCell-root-316 withStyles-TableCell--root-315 MuiTableCell-paddingDefault-319"
             style={
               Object {
                 "textAlign": "right",
@@ -1372,7 +1508,7 @@ exports[`Storyshots Saldo Playground 1`] = `
       </tbody>
     </table>
     <button
-      className="MuiButtonBase-root-192 MuiButton-root-178 MuiButton-raised-185"
+      className="MuiButtonBase-root-51 MuiButton-root-323 MuiButton-raised-330"
       disabled={false}
       onBlur={[Function]}
       onFocus={[Function]}
@@ -1388,12 +1524,12 @@ exports[`Storyshots Saldo Playground 1`] = `
       type="button"
     >
       <span
-        className="MuiButton-label-180"
+        className="MuiButton-label-325"
       >
         Sell Shares
       </span>
       <span
-        className="MuiTouchRipple-root-194"
+        className="MuiTouchRipple-root-54"
       />
     </button>
   </div>
