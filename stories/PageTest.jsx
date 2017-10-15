@@ -9,16 +9,6 @@ import InvestBucket from '../web/js/components/InvestBucket/InvestBucket';
 import AppBar from '../web/js/components/AppBar';
 import theme from '../web/js/theme/muiTheme';
 
-const styles = ({
-  root: {
-    flexGrow: 3,
-    marginTop: 100,
-  },
-  appBar: {
-    marginBottom: theme.spacing.unit * 100,
-  },
-});
-
 class PageTest extends React.Component<{}> {
   componentDidMount() {
     document.body.style.margin = 0;
@@ -185,4 +175,4 @@ class PageTest extends React.Component<{}> {
     );
   }
 }
-export default withStyles(styles)(PageTest);
+export default PageTest;
