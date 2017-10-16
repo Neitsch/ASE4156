@@ -7,6 +7,11 @@ import type {
   SelectorData,
 } from 'react-relay';
 
+import type {
+  DeleteDescriptionMutationVariables,
+  DeleteDescriptionMutationResponse,
+} from './__generated__/DeleteDescriptionMutation.graphql';
+
 const mutation = graphql`
   mutation DeleteDescriptionMutation($id: ID!) {
     deleteAttribute(idValue: $id) {
@@ -18,15 +23,12 @@ const mutation = graphql`
 export default (
   updater?: ?(store: RecordSourceSelectorProxy, data: SelectorData) => void,
   optimisticUpdater?: ?(store: RecordSourceSelectorProxy) => void,
-  onCompleted?: ?(response: ?Object, errors: ?[Error]) => void,
+  onCompleted?: ?(response: ?DeleteDescriptionMutationResponse, errors: ?[Error]) => void,
 ) => (
   environment: RelayEnvironment,
 ) => (
-  id: string,
+  variables: DeleteDescriptionMutationVariables,
 ) => {
-  const variables = {
-    id,
-  };
   const optimisticResponse = {
     deleteAttribute: {
       ok: true,

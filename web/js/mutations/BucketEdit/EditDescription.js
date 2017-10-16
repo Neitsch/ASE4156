@@ -7,6 +7,11 @@ import type {
   SelectorData,
 } from 'react-relay';
 
+import type {
+  EditDescriptionMutationVariables,
+  EditDescriptionMutationResponse,
+} from './__generated__/EditDescriptionMutation.graphql';
+
 const mutation = graphql`
   mutation EditDescriptionMutation($id: ID!, $text: String!) {
     editAttribute(desc: $text, idValue: $id) {
@@ -20,20 +25,16 @@ const mutation = graphql`
 export default (
   updater?: ?(store: RecordSourceSelectorProxy, data: SelectorData) => void,
   optimisticUpdater?: ?(store: RecordSourceSelectorProxy) => void,
-  onCompleted?: ?(response: ?Object, errors: ?[Error]) => void,
+  onCompleted?: ?(response: ?EditDescriptionMutationResponse, errors: ?[Error]) => void,
 ) => (
   environment: RelayEnvironment,
 ) => (
-  text: string, id: string,
+  variables: EditDescriptionMutationVariables,
 ) => {
-  const variables = {
-    text,
-    id,
-  };
   const optimisticResponse = {
     editAttribute: {
       bucketAttr: {
-        text,
+        text: variables.text,
       },
     },
   };
