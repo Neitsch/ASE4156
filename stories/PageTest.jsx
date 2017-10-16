@@ -1,11 +1,15 @@
 // @flow
 import React from 'react';
 import Grid from 'material-ui/Grid';
+import { MuiThemeProvider } from 'material-ui/styles';
+import Paper from 'material-ui/Paper';
 
 import HighlightBox from '../web/js/components/HighlightBox/HighlightBox';
 import StockGraph from '../web/js/components/StockGraph/StockGraph';
 import InvestBucket from '../web/js/components/InvestBucket/InvestBucket';
-
+import AppBar from '../web/js/components/AppBar';
+import theme from '../web/js/theme/muiTheme';
+import '../web/css/styles.css';
 
 class PageTest extends React.Component<{}> {
   render() {
@@ -50,118 +54,126 @@ class PageTest extends React.Component<{}> {
       },
     ];
     return (
-      <Grid container spacing={16}>
-        <Grid item xs={12} sm={6}>
-          <Grid container spacing={16} align="stretch">
-            <Grid item xs={12} sm={6}>
-              <HighlightBox title={'Current balance'} value={'$1300'} />
+      <MuiThemeProvider theme={theme}>
+        <div>
+          <AppBar />
+          <div style={{ margin: 10 }}>
+            <Grid container spacing={16}>
+              <Grid item xs={12} sm={6}>
+                <Grid container spacing={16} align="stretch">
+                  <Grid item xs={12} sm={6}>
+                    <HighlightBox title={'Current balance'} value={'$1300'} />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <HighlightBox title={'Total Income'} value={'$300'} />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <HighlightBox title={'Total Expenditures'} value={'$250'} />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <HighlightBox title={'Another box'} value={'$1000'} />
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Paper>
+                  <StockGraph
+                    title="Portfolio Growth"
+                    height="450px"
+                    id={'chart'}
+                    compare={'ABSOLUTE'}
+                    quotes={values}
+                  />
+                </Paper>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Grid container spacing={16} align="stretch">
+                  <Grid item xs={12} sm={6}>
+                    <HighlightBox title={'Pumpkin'} value={'$13'} />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <HighlightBox title={'Fixed monthly'} value={'$200'} />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <HighlightBox title={'Invest Income'} value={'10%'} />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <HighlightBox title={'Expendable cash'} value={'5%'} />
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Grid container spacing={16} align="stretch">
+                  <Grid item xs={12} sm={8} lg={4}>
+                    <InvestBucket
+                      title={'Risk 1'}
+                      attributes={{
+                        good: [{
+                          id: '1',
+                          shortDesc: 'Good to get started',
+                          editMode: false,
+                        }, {
+                          id: '2',
+                          shortDesc: 'Low risk',
+                          editMode: false,
+                        }],
+                        bad: [{
+                          id: '3',
+                          shortDesc: 'Low reward',
+                          editMode: false,
+                        }],
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={8} lg={4}>
+                    <InvestBucket
+                      title={'Risk 2'}
+                      attributes={{
+                        good: [{
+                          id: '1',
+                          shortDesc: 'Allows you to take more risk',
+                          editMode: false,
+                        }, {
+                          id: '2',
+                          shortDesc: 'Pays significant rewards',
+                          editMode: false,
+                        }],
+                        bad: [{
+                          id: '3',
+                          shortDesc: 'You might lose some money',
+                          editMode: false,
+                        }],
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={8} lg={4}>
+                    <InvestBucket
+                      title={'Risk 3'}
+                      attributes={{
+                        good: [{
+                          id: '1',
+                          shortDesc: '$$$',
+                          editMode: false,
+                        }, {
+                          id: '2',
+                          shortDesc: 'More $$$',
+                          editMode: false,
+                        }],
+                        bad: [{
+                          id: '3',
+                          shortDesc: 'You\'re fucking insane of you invest in this',
+                          editMode: false,
+                        }],
+                      }}
+                    />
+                  </Grid>
+                </Grid>
+              </Grid>
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <HighlightBox title={'Total Income'} value={'$300'} />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <HighlightBox title={'Total Expenditures'} value={'$250'} />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <HighlightBox title={'Another box'} value={'$1000'} />
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <StockGraph
-            title="Portfolio Growth"
-            height="450px"
-            id={'chart'}
-            compare={'ABSOLUTE'}
-            quotes={values}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <Grid container spacing={16} align="stretch">
-            <Grid item xs={12} sm={6}>
-              <HighlightBox title={'Pumpkin'} value={'$13'} />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <HighlightBox title={'Fixed monthly'} value={'$200'} />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <HighlightBox title={'Invest Income'} value={'10%'} />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <HighlightBox title={'Expendable cash'} value={'5%'} />
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <Grid container spacing={16} align="stretch">
-            <Grid item xs={12} sm={8} lg={4}>
-              <InvestBucket
-                title={'Risk 1'}
-                attributes={{
-                  good: [{
-                    id: '1',
-                    shortDesc: 'Good to get started',
-                    editMode: false,
-                  }, {
-                    id: '2',
-                    shortDesc: 'Low risk',
-                    editMode: false,
-                  }],
-                  bad: [{
-                    id: '3',
-                    shortDesc: 'Low reward',
-                    editMode: false,
-                  }],
-                }}
-              />
-            </Grid>
-            <Grid item xs={12} sm={8} lg={4}>
-              <InvestBucket
-                title={'Risk 2'}
-                attributes={{
-                  good: [{
-                    id: '1',
-                    shortDesc: 'Allows you to take more risk',
-                    editMode: false,
-                  }, {
-                    id: '2',
-                    shortDesc: 'Pays significant rewards',
-                    editMode: false,
-                  }],
-                  bad: [{
-                    id: '3',
-                    shortDesc: 'You might lose some money',
-                    editMode: false,
-                  }],
-                }}
-              />
-            </Grid>
-            <Grid item xs={12} sm={8} lg={4}>
-              <InvestBucket
-                title={'Risk 3'}
-                attributes={{
-                  good: [{
-                    id: '1',
-                    shortDesc: '$$$',
-                    editMode: false,
-                  }, {
-                    id: '2',
-                    shortDesc: 'More $$$',
-                    editMode: false,
-                  }],
-                  bad: [{
-                    id: '3',
-                    shortDesc: 'You\'re fucking insane of you invest in this',
-                    editMode: false,
-                  }],
-                }}
-              />
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
+          </div>
+        </div>
+      </MuiThemeProvider>
     );
   }
 }
-
 export default PageTest;

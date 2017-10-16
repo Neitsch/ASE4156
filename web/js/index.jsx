@@ -9,6 +9,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import environment from './relay/environment';
 import routes from './relay/routes';
+import '../css/styles.css';
 
 const Router = createFarceRouter({
   historyProtocol: new BrowserProtocol(),

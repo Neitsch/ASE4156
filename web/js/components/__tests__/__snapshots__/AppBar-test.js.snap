@@ -1,14 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AppBar renders 1`] = `
-<withStyles(AppBar)
-  color="default"
-  position="static"
->
-  <withStyles(Toolbar)>
-    <withStyles(Typography)>
-      Wells Fargo
-    </withStyles(Typography)>
-  </withStyles(Toolbar)>
-</withStyles(AppBar)>
+<ButtonAppBar
+  classes={
+    Object {
+      "appBar": "ButtonAppBar-appBar-5",
+      "flex": "ButtonAppBar-flex-2",
+      "menuButton": "ButtonAppBar-menuButton-3",
+      "palette": "ButtonAppBar-palette-4",
+      "root": "ButtonAppBar-root-1",
+    }
+  }
+/>
 `;
