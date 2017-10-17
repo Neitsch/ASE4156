@@ -7,6 +7,11 @@ import type {
   SelectorData,
 } from 'react-relay';
 
+import type {
+  CreateBucketMutationVariables,
+  CreateBucketMutationResponse,
+} from './__generated__/CreateBucketMutation.graphql';
+
 const mutation = graphql`
   mutation CreateBucketMutation($name: String!, $public: Boolean!, $investment: Float!) {
     addBucket(name: $name, public: $public, investment: $investment) {
@@ -21,22 +26,17 @@ const mutation = graphql`
 export default (
   updater?: ?(store: RecordSourceSelectorProxy, data: SelectorData) => void,
   optimisticUpdater?: ?(store: RecordSourceSelectorProxy) => void,
-  onCompleted?: ?(response: ?Object, errors: ?[Error]) => void,
+  onCompleted?: ?(response: ?CreateBucketMutationResponse, errors: ?[Error]) => void,
 ) => (
   environment: RelayEnvironment,
 ) => (
-  text: string, publicBucket: bool, investment: number,
+  variables: CreateBucketMutationVariables,
 ) => {
-  const variables = {
-    name: text,
-    public: publicBucket,
-    investment,
-  };
   const optimisticResponse = {
     addBucket: {
       bucket: {
-        name: text,
-        available: investment,
+        name: variables.name,
+        available: variables.investment,
         description: {
           edges: [],
         },
