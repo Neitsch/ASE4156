@@ -236,7 +236,11 @@ class InvestBucketRelay extends React.Component<Props, State> {
           attributes={attributes}
           editFunc={editFunc}
           seeMoreFunc={seeMoreFunc}
-          editCompositionFunc={() => this.setState(() => ({ compositionDialog: true }))}
+          editCompositionFunc={
+            this.props.bucket.isOwner ?
+              (() => this.setState(() => ({ compositionDialog: true }))) :
+              null
+          }
         />
       </div>
     );
