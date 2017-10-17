@@ -102,6 +102,7 @@ class GStock(DjangoObjectType):
         """
         model = Stock
         interfaces = (relay.Node, )
+        only_fields = ('quote_in_range', 'latest_quote', 'name', 'ticker', 'trades')
 
     @staticmethod
     def resolve_latest_quote(data, _args, _context, _info):
