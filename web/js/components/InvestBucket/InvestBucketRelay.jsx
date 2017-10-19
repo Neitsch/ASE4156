@@ -76,8 +76,10 @@ class InvestBucketRelay extends React.Component<Props, State> {
     )(
       this.props.relay.environment,
     )(
-      chunks.map(c => ({ id: c.id, quantity: c.quantity })),
-      this.props.bucket.id,
+      {
+        config: chunks.map(c => ({ id: c.id, quantity: c.quantity })),
+        id: this.props.bucket.id,
+      },
     );
   }
   render() {
@@ -116,7 +118,7 @@ class InvestBucketRelay extends React.Component<Props, State> {
                 )(
                   this.props.relay.environment,
                 )(
-                  this.state.editState.shortDesc, id,
+                  { text: this.state.editState.shortDesc, id },
                 );
               });
             }
@@ -148,7 +150,7 @@ class InvestBucketRelay extends React.Component<Props, State> {
               )(
                 this.props.relay.environment,
               )(
-                id,
+                { id },
               );
             });
           };
@@ -198,7 +200,7 @@ class InvestBucketRelay extends React.Component<Props, State> {
       )(
         this.props.relay.environment,
       )(
-        text, this.props.bucket.id, isGood,
+        { text, bucketId: this.props.bucket.id, isGood },
       );
     }
     let seeMoreFunc = null;
@@ -234,7 +236,11 @@ class InvestBucketRelay extends React.Component<Props, State> {
           attributes={attributes}
           editFunc={editFunc}
           seeMoreFunc={seeMoreFunc}
-          editCompositionFunc={() => this.setState(() => ({ compositionDialog: true }))}
+          editCompositionFunc={
+            this.props.bucket.isOwner ?
+              (() => this.setState(() => ({ compositionDialog: true }))) :
+              null
+          }
         />
       </div>
     );

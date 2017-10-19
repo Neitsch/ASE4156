@@ -6,6 +6,10 @@ import type {
   RelayEnvironment,
   SelectorData,
 } from 'react-relay';
+import type {
+  ChangeBucketCompositionMutationVariables,
+  ChangeBucketCompositionMutationResponse,
+} from './__generated__/ChangeBucketCompositionMutation.graphql';
 
 const mutation = graphql`
   mutation ChangeBucketCompositionMutation($id: ID!, $config: [GInvestmentBucketConfigurationUpdate]!) {
@@ -21,20 +25,16 @@ const mutation = graphql`
 export default (
   updater?: ?(store: RecordSourceSelectorProxy, data: SelectorData) => void,
   optimisticUpdater?: ?(store: RecordSourceSelectorProxy) => void,
-  onCompleted?: ?(response: ?Object, errors: ?[Error]) => void,
+  onCompleted?: ?(response: ?ChangeBucketCompositionMutationResponse, errors: ?[Error]) => void,
 ) => (
   environment: RelayEnvironment,
 ) => (
-  config: Array<{id: string, quantity: number}>, id: string,
+  variables: ChangeBucketCompositionMutationVariables,
 ) => {
-  const variables = {
-    config: config.map(c => ({ idValue: c.id, quantity: c.quantity })),
-    id,
-  };
   const optimisticResponse = {
     editConfiguration: {
       bucket: {
-        id,
+        id: variables.id,
       },
     },
   };

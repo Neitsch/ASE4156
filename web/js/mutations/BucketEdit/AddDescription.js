@@ -6,6 +6,10 @@ import type {
   RelayEnvironment,
   SelectorData,
 } from 'react-relay';
+import type {
+  AddDescriptionMutationVariables,
+  AddDescriptionMutationResponse,
+} from './__generated__/AddDescriptionMutation.graphql';
 
 const mutation = graphql`
   mutation AddDescriptionMutation($text: String!, $bucketId: ID!, $isGood: Boolean!) {
@@ -21,22 +25,17 @@ const mutation = graphql`
 export default (
   updater?: ?(store: RecordSourceSelectorProxy, data: SelectorData) => void,
   optimisticUpdater?: ?(store: RecordSourceSelectorProxy) => void,
-  onCompleted?: ?(response: ?Object, errors: ?[Error]) => void,
+  onCompleted?: ?(response: ?AddDescriptionMutationResponse, errors: ?[Error]) => void,
 ) => (
   environment: RelayEnvironment,
 ) => (
-  text: string, bucketId: string, isGood: bool,
+  variables: AddDescriptionMutationVariables,
 ) => {
-  const variables = {
-    text,
-    bucketId,
-    isGood,
-  };
   const optimisticResponse = {
     addAttributeToBucket: {
       bucketAttr: {
-        text,
-        isGood,
+        text: variables.text,
+        isGood: variables.isGood,
       },
     },
   };

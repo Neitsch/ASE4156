@@ -34,7 +34,7 @@ type Props = {
   },
   editFunc?: ?(text: string, isGood: bool) => void,
   seeMoreFunc?: ?() => void,
-  editCompositionFunc?: () => void,
+  editCompositionFunc?: ?() => void,
 }
 
 class InvestBucket extends React.Component <Props, State> {

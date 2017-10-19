@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from graphql.execution.executors.thread import ThreadExecutor
 import graphene_django.views
 import authentication.views
 import web.views
@@ -27,7 +28,10 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url('', include('social_django.urls', namespace='social')),
     url(r'^home$', web.views.home),
-    url(r'^graphql', graphene_django.views.GraphQLView.as_view(graphiql=True)),
+    url(r'^graphql', graphene_django.views.GraphQLView.as_view(
+        graphiql=True,
+        executor=ThreadExecutor(),
+    )),
     url(r'^stocks/addstock/', stocks.historical.data_ten_years_back_for_stock),
     url(r'^stocks/fill/', stocks.historical.fill_stocks),
     url(r'^setup_bank$', authentication.views.setup_bank),

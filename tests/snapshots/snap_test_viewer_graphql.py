@@ -39,7 +39,7 @@ snapshots['test_big_gql 1'] = {
                                                 'end': None,
                                                 'id': 'R0ludmVzdG1lbnRTdG9ja0NvbmZpZ3VyYXRpb246NA==',
                                                 'quantity': 1.0,
-                                                'start': '2017-10-15',
+                                                'start': '2017-05-09',
                                                 'stock': {
                                                     'latestQuote': {
                                                         'value': 10.0
