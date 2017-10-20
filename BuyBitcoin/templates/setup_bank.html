@@ -5,10 +5,12 @@
 <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
 
 <button id="link-button">Open Link</button>
-
+<form>{% csrf_token %}
+</form>
 <script>
 function getCookie(name) {
     var cookieValue = null;
+    console.log(document.cookie)
     if (document.cookie && document.cookie !== '') {
         var cookies = document.cookie.split(';');
         for (var i = 0; i < cookies.length; i++) {
@@ -29,6 +31,8 @@ var linkHandler = Plaid.create({
  key: '2aa70186194f3a8d2038d989715a32',
  product: ['transactions'],
  onSuccess: function(public_token, metadata) {
+   console.log(window.location);
+   console.log(csrftoken)
  	$.ajax({
  		url:'/plaid/get_access_token/',
  		method:'POST',
@@ -37,9 +41,15 @@ var linkHandler = Plaid.create({
  		dataType:'json',
  		success:function() {
             window.location="/home";
-       	}}
+       	},
+        error: function (xxx, textStatus, errorThrown) {
+          console.log(xxx);
+             console.log(textStatus);
+             console.log(errorThrown);
+         }
+      }
     );
- 	window.location="/home"
+ 	//window.location="/home"
  },
  onExit: function(err, metadata) {
    if (err != null) {

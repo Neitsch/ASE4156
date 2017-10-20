@@ -9,6 +9,7 @@ from django.contrib.auth import logout as log_out
 from django.contrib.auth.decorators import login_required
 import plaid
 from authentication.models import UserBank
+from django.views.decorators.csrf import csrf_exempt
 
 
 PLAID_CLIENT_ID = os.environ.get('PLAID_CLIENT_ID')
@@ -38,7 +39,13 @@ def setup_bank(request):
     """
     Function to serve bank setup page
     """
-    return render(request, "setup_bank.html", {})
+    print(request)
+    print(request.user)
+    print(request.user.profile)
+    print(request.user.profile.has_bank_linked)
+    if not request.user.profile.has_bank_linked:
+        return render(request, "setup_bank.html", {})
+    return HttpResponseRedirect('/home')
 
 
 @login_required
@@ -56,7 +63,7 @@ def get_access_token(request):
             item_id=exchange_response['item_id'],
             access_token=exchange_response['access_token'],
             institution_name=plaidrequest['item']['institution_id'],
-            )
+        )
         bank_user.save()
         request.user.profile.has_bank_linked = True
         request.user.save()
