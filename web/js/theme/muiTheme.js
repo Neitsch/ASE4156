@@ -1,8 +1,7 @@
 import { createMuiTheme } from 'material-ui/styles';
 import green from 'material-ui/colors/green';
 import red from 'material-ui/colors/red';
-import 'typeface-roboto'; // eslint-disable-line
-
+import 'typeface-roboto/index.css';
 import colors from '../colors/colors';
 
 const theme = createMuiTheme({
