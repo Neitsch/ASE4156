@@ -6,7 +6,7 @@
   "author": "Nigel Schuster <nigel.schusters@googlemail.com>",
   "license": "MIT",
   "scripts": {
-    "eslint": "eslint . --ext js,jsx",
+    "eslint": "eslint .",
     "relay": "relay-compiler --extensions js --extensions jsx --src web/js/ --schema ./schema.json",
     "build": "python manage.py graphql_schema && yarn run relay && yarn run webpack",
     "postinstall": "yarn run build",
@@ -77,8 +77,7 @@
     "eslint-config-airbnb": "^15.1.0",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jsx-a11y": "^5.1.1",
-    "eslint-plugin-react": "^7.3.0",
-    "url-loader": "^0.6.2"
+    "eslint-plugin-react": "^7.3.0"
   },
   "jest": {
     "moduleNameMapper": {
