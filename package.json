@@ -6,7 +6,7 @@
   "author": "Nigel Schuster <nigel.schusters@googlemail.com>",
   "license": "MIT",
   "scripts": {
-    "eslint": "eslint .",
+    "eslint": "eslint . --ext js,jsx",
     "relay": "relay-compiler --extensions js --extensions jsx --src web/js/ --schema ./schema.json",
     "build": "python manage.py graphql_schema && yarn run relay && yarn run webpack",
     "postinstall": "yarn run build",
@@ -69,6 +69,7 @@
     "relay-runtime": "^1.4.1",
     "style-loader": "^0.19.0",
     "typeface-roboto": "0.0.41",
+    "url-loader": "^0.6.2",
     "webpack": "^3.6.0",
     "webpack-bundle-tracker": "^0.2.0",
     "whatwg-fetch": "^2.0.3"
