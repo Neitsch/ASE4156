@@ -21,6 +21,7 @@ import authentication.views
 import web.views
 import stocks.historical
 
+EXECUTOR = ThreadExecutor()
 # pylint: disable=invalid-name
 urlpatterns = [
     url(r'^login$', authentication.views.login),
@@ -30,7 +31,7 @@ urlpatterns = [
     url(r'^home$', web.views.home),
     url(r'^graphql', graphene_django.views.GraphQLView.as_view(
         graphiql=True,
-        executor=ThreadExecutor(),
+        executor=EXECUTOR,
     )),
     url(r'^stocks/addstock/', stocks.historical.data_ten_years_back_for_stock),
     url(r'^stocks/fill/', stocks.historical.fill_stocks),

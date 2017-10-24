@@ -47,7 +47,7 @@ def request_create(request):
     return request
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db(transaction=True)
 # pylint: disable=invalid-name
 def test_mutation_add_trading_account(rf, snapshot):
     """
@@ -74,7 +74,7 @@ def test_mutation_add_trading_account(rf, snapshot):
     assert ex_acc == acc.account_name
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db(transaction=True)
 # pylint: disable=invalid-name
 def test_mutation_add_bucket(rf, snapshot):
     """
@@ -105,7 +105,7 @@ def test_mutation_add_bucket(rf, snapshot):
     assert (ex_acc == acc.available) and (investment == ex_acc)
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db(transaction=True)
 # pylint: disable=invalid-name
 def test_mutation_add_stock_to_bucket(rf, snapshot):
     """
@@ -156,7 +156,7 @@ def test_mutation_add_stock_to_bucket(rf, snapshot):
     assert InvestmentStockConfiguration.objects.count() == 1
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db(transaction=True)
 # pylint: disable=invalid-name
 def test_mutation_add_attribute_to_investment(rf, snapshot):
     """
@@ -183,7 +183,7 @@ def test_mutation_add_attribute_to_investment(rf, snapshot):
     assert InvestmentBucketDescription.objects.count() == 1
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db(transaction=True)
 # pylint: disable=invalid-name
 def test_mutation_attribute_permission(rf, snapshot):
     """
@@ -253,7 +253,7 @@ def test_mutation_attribute_permission(rf, snapshot):
     assert InvestmentBucketDescription.objects.count() == 1
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db(transaction=True)
 # pylint: disable=invalid-name
 def test_mutation_edit_attribute(rf, snapshot):
     """
@@ -287,7 +287,7 @@ def test_mutation_edit_attribute(rf, snapshot):
     snapshot.assert_match(executed)
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db(transaction=True)
 # pylint: disable=invalid-name
 def test_mutation_delete_attribute(rf, snapshot):
     """
@@ -313,7 +313,7 @@ def test_mutation_delete_attribute(rf, snapshot):
     assert InvestmentBucketDescription.objects.all().count() == 0
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db(transaction=True)
 # pylint: disable=invalid-name
 def test_mutation_edit_configuration(rf, snapshot):
     """
@@ -355,7 +355,7 @@ def test_mutation_edit_configuration(rf, snapshot):
     assert InvestmentStockConfiguration.objects.all().count() == 2
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db(transaction=True)
 # pylint: disable=invalid-name
 def test_big_gql(rf, snapshot):
     """

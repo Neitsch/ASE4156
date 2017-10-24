@@ -6,9 +6,10 @@ from django.contrib.auth.models import User
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from BuyBitcoin.urls import EXECUTOR
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db(transaction=True)
 def test_z_signup(selenium, live_server, client):
     """
     Tests the signup flow
@@ -44,3 +45,6 @@ def test_z_signup(selenium, live_server, client):
         EC.presence_of_element_located((By.ID, "logout"))
     )
     assert selenium.current_url == '%s%s' % (live_server, '/home')
+    EXECUTOR.wait_until_finished()
+    live_server.thread.terminate()
+    live_server.thread.join()

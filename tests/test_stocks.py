@@ -32,7 +32,7 @@ class StocksViewTests(TestCase):
             'Date': ["2017-05-05", "2017-05-06"],
         }))
     )
-    @pytest.mark.django_db
+    @pytest.mark.django_db(transaction=True)
     def test_api_for_real_stock(self):
         """
         Testing adding stock via endpoint, asserting stock is inserted
@@ -78,7 +78,7 @@ class StocksViewTests(TestCase):
             'Date': ["2017-05-05", "2017-05-06"],
         }))
     )
-    @pytest.mark.django_db
+    @pytest.mark.django_db(transaction=True)
     def test_fill_quote_history(self):
         """
         Filling data for Stock
