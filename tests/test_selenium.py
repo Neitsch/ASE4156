@@ -7,10 +7,56 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from BuyBitcoin.urls import EXECUTOR
+from authentication.plaid_middleware import PlaidMiddleware
+
+
+# pylint: disable=missing-docstring
+# pylint: disable=no-self-use
+# pylint: disable=too-few-public-methods
+class TokenMock(object):
+    def exchange(self, _token):
+        return {
+            'access_token': '123',
+            'item_id': '3',
+        }
+
+
+class ItemMock(object):
+
+    public_token = TokenMock()
+
+    def get(self, _item):
+        return {
+            'item': {
+                'institution_id': '7'
+            }
+        }
+
+
+class PlaidMock(object):
+    Item = ItemMock()
+
+
+def plaid_mock(self, request):
+    request.plaid = PlaidMock()
+    response = self.get_response(request)
+    return response
+
+
+def setup_module(module):
+    module.plaid = PlaidMiddleware.__call__
+    PlaidMiddleware.__call__ = plaid_mock
+
+
+def teardown_module(module):
+    PlaidMiddleware.__call__ = module.plaid
+# pylint: enable=missing-docstring
+# pylint: enable=no-self-use
+# pylint: enable=too-few-public-methods
 
 
 @pytest.mark.django_db(transaction=True)
-def test_z_signup(selenium, live_server, client):
+def test_signup(selenium, live_server, client):
     """
     Tests the signup flow
     """
