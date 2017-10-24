@@ -8,6 +8,7 @@ import MenuIcon from 'material-ui-icons/Menu';
 import { withStyles } from 'material-ui/styles';
 import green from 'material-ui/colors/green';
 import red from 'material-ui/colors/red';
+import Button from 'material-ui/Button';
 import colors from '../colors/colors';
 
 const styles = ({
@@ -34,6 +35,9 @@ const styles = ({
   appBar: {
     color: '#FFFF00',
   },
+  logoutButton: {
+    color: '#FFFF00',
+  },
 });
 
 function ButtonAppBar(props) {
@@ -46,8 +50,9 @@ function ButtonAppBar(props) {
             <MenuIcon />
           </IconButton>
           <Typography type="headline" color="inherit" className={classes.flex}>
-            Wells Fargo
+            MIWF
           </Typography>
+          <Button className={classes.logoutButton} href="/logout" color="contrast">Logout</Button>
         </Toolbar>
       </AppBar>
     </div>

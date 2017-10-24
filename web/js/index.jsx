@@ -4,12 +4,16 @@ import createFarceRouter from 'found/lib/createFarceRouter';
 import createRender from 'found/lib/createRender';
 import { Resolver } from 'found-relay';
 import { CircularProgress } from 'material-ui/Progress';
+import { MuiThemeProvider } from 'material-ui/styles';
+
 
 import React from 'react';
 import ReactDOM from 'react-dom';
 import environment from './relay/environment';
 import routes from './relay/routes';
 import '../css/styles.css';
+import theme from './theme/muiTheme';
+
 
 const Router = createFarceRouter({
   historyProtocol: new BrowserProtocol(),
@@ -17,22 +21,25 @@ const Router = createFarceRouter({
   routeConfig: routes,
   render: createRender({
     renderPending: () => (
-      <div style={{
-        position: 'absolute',
-        top: '50%',
-        marginTop: '-100px',
-        textAlign: 'center',
-        width: '100%',
-      }}
-      >
+      <MuiThemeProvider theme={theme}>
         <div style={{
-          marginLeft: 'auto',
-          marginRight: 'auto',
+          position: 'absolute',
+          top: '50%',
+          marginTop: '-100px',
+          textAlign: 'center',
+          width: '100%',
         }}
         >
-          <CircularProgress size={200} />
+          <div style={{
+            marginLeft: 'auto',
+            marginRight: 'auto',
+          }}
+          >
+            <CircularProgress size={200} />
+          </div>
         </div>
-      </div>
+      </MuiThemeProvider>
+
     ),
   }),
   renderError: () => {
