@@ -160,8 +160,8 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/'
 
 STATICFILES_DIRS = (
-     os.path.join(BASE_DIR, 'assets'),
-     os.path.join(PROJECT_ROOT, 'static'),
+    os.path.join(BASE_DIR, 'assets'),
+    os.path.join(PROJECT_ROOT, 'static'),
 )
 WEBPACK_LOADER = {
     'DEFAULT': {
@@ -173,7 +173,7 @@ WEBPACK_LOADER = {
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
-#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 WHITENOISE_ROOT = os.path.join(BASE_DIR, 'assets')
 # GraphQL
 

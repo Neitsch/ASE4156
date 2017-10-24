@@ -2,20 +2,17 @@
 All selenium tests
 """
 import pytest
-from django.test import Client
-from django.conf import settings
 from django.contrib.auth.models import User
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from time import sleep
+
 
 @pytest.mark.django_db
-def test_signup(selenium, live_server, client, settings):
+def test_signup(selenium, live_server, client):
     """
     Tests the signup flow
     """
-    print(settings)
     user = User.objects.create_user('temporary', 'temporary@gmail.com', 'temporary')
     user.save()
     client.login(username='temporary', password='temporary')
@@ -43,7 +40,7 @@ def test_signup(selenium, live_server, client, settings):
     )
     elem.click()
     selenium.switch_to.default_content()
-    WebDriverWait(selenium, 30).until(
+    WebDriverWait(selenium, 60).until(
         EC.presence_of_element_located((By.ID, "logout"))
     )
     assert selenium.current_url == '%s%s' % (live_server, '/home')
