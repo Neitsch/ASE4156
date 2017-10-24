@@ -38,10 +38,6 @@ def setup_bank(request):
     """
     Function to serve bank setup page
     """
-    print(request)
-    print(request.user)
-    print(request.user.profile)
-    print(request.user.profile.has_bank_linked)
     if not request.user.profile.has_bank_linked:
         return render(request, "setup_bank.html", {})
     return HttpResponseRedirect('/home')

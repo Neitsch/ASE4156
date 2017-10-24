@@ -5,6 +5,7 @@ from stocks.models import Stock, DailyStockQuote
 import pandas as pd
 from yahoo_historical import Fetcher
 from authentication.plaid_middleware import PlaidMiddleware
+import pytest
 
 
 class StocksViewTests(TestCase):
@@ -31,6 +32,7 @@ class StocksViewTests(TestCase):
             'Date': ["2017-05-05", "2017-05-06"],
         }))
     )
+    @pytest.mark.django_db
     def test_api_for_real_stock(self):
         """
         Testing adding stock via endpoint, asserting stock is inserted
@@ -76,6 +78,7 @@ class StocksViewTests(TestCase):
             'Date': ["2017-05-05", "2017-05-06"],
         }))
     )
+    @pytest.mark.django_db
     def test_fill_quote_history(self):
         """
         Filling data for Stock
