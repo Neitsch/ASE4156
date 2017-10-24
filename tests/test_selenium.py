@@ -41,7 +41,7 @@ def test_z_signup(selenium, live_server, client):
     )
     elem.click()
     selenium.switch_to.default_content()
-    WebDriverWait(selenium, 60).until(
+    WebDriverWait(selenium, 120).until(
         EC.presence_of_element_located((By.ID, "logout"))
     )
     assert selenium.current_url == '%s%s' % (live_server, '/home')
