@@ -6,6 +6,7 @@ exports[`AppBar renders 1`] = `
     Object {
       "appBar": "ButtonAppBar-appBar-5",
       "flex": "ButtonAppBar-flex-2",
+      "logoutButton": "ButtonAppBar-logoutButton-6",
       "menuButton": "ButtonAppBar-menuButton-3",
       "palette": "ButtonAppBar-palette-4",
       "root": "ButtonAppBar-root-1",
