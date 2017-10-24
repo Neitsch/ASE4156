@@ -1,1 +1,60 @@
-<a href="{% url "social:begin" "google-oauth2" %}">Google+</a>
+<html>
+  <style>
+  @import url('https://fonts.googleapis.com/css?family=Roboto');
+
+    #login_button{
+      display: block;
+      width: 300px;
+      height: 71px;
+      background: url('./assets/google_sign_on/normal.png');
+      background-size: cover;
+      margin: auto;
+      margin-top: 5%;
+    }
+    #login_button:hover{
+      display: block;
+      width: 300px;
+      height: 71px;
+      background: url('./assets/google_sign_on/focus.png');
+      background-size: cover;
+      margin: auto;
+      margin-top: 5%;
+    }
+    #login_button:active{
+      display: block;
+      width: 300px;
+      height: 71px;
+      background: url('./assets/google_sign_on/pressed.png');
+      background-size: cover;
+      margin: auto;
+      margin-top: 5%;
+    }
+    #logo{
+      background: url('./assets/logo.png');
+      margin:auto;
+      margin-top: 8%;
+      width: 200px;
+      height: 140px;
+      background-size: contain;
+      background-position: bottom;
+      background-repeat: no-repeat;
+    }
+    #body{
+      background: url('./assets/background.png');
+      background-size: cover;
+      background-position: bottom;
+      background-repeat: no-repeat;
+    }
+    .header_font{
+      text-align: center;
+      margin: auto;
+      font-family: Roboto;
+    }
+  </style>
+  <body id='body'>
+    <div id=logo></div>
+    <h2 class="header_font">Your platform for invesment visualization</h2>
+    <a id="login_button" href="{% url "social:begin" "google-oauth2" %}">
+    </a>
+  </body>
+</html>
