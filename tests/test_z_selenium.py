@@ -9,7 +9,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 @pytest.mark.django_db
-def test_signup(selenium, live_server, client):
+def test_z_signup(selenium, live_server, client):
     """
     Tests the signup flow
     """
