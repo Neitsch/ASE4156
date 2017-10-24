@@ -9,7 +9,6 @@ from django.contrib.auth import logout as log_out
 from django.contrib.auth.decorators import login_required
 import plaid
 from authentication.models import UserBank
-from django.views.decorators.csrf import csrf_exempt
 
 
 PLAID_CLIENT_ID = os.environ.get('PLAID_CLIENT_ID')
@@ -67,7 +66,7 @@ def get_access_token(request):
         bank_user.save()
         request.user.profile.has_bank_linked = True
         request.user.save()
-        return HttpResponseRedirect("/home")
+        return HttpResponse(status=201)
     return HttpResponse("Please don't sniff urls")
 
 

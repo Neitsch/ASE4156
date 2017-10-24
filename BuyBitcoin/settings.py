@@ -10,9 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
+import logging
 import os
 import dj_database_url
-import logging
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -30,8 +30,8 @@ DEBUG = True if os.environ.get('DEBUG') == "TRUE" else False
 ALLOWED_HOSTS = ['trading-stuff.herokuapp.com', '127.0.0.1', 'localhost']
 
 logging.basicConfig(
-    level = logging.DEBUG,
-    format = '%(asctime)s %(levelname)s %(message)s',
+    level=logging.DEBUG,
+    format='%(asctime)s %(levelname)s %(message)s',
 )
 # Application definition
 
@@ -56,7 +56,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-        'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -156,11 +156,12 @@ USE_TZ = True
 LOGIN_URL = "/login/google-oauth2"
 LOGOUT_URL = "/logout"
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/'
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'assets'),
+     os.path.join(BASE_DIR, 'assets'),
+     os.path.join(PROJECT_ROOT, 'static'),
 )
 WEBPACK_LOADER = {
     'DEFAULT': {
@@ -172,7 +173,7 @@ WEBPACK_LOADER = {
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 WHITENOISE_ROOT = os.path.join(BASE_DIR, 'assets')
 # GraphQL
 

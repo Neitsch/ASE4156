@@ -52,7 +52,7 @@ function ButtonAppBar(props) {
           <Typography type="headline" color="inherit" className={classes.flex}>
             MIWF
           </Typography>
-          <Button className={classes.logoutButton} href="/logout" color="contrast">Logout</Button>
+          <Button className={classes.logoutButton} id="logout" href="/logout" color="contrast">Logout</Button>
         </Toolbar>
       </AppBar>
     </div>
