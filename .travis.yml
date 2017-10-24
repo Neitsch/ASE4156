@@ -26,5 +26,5 @@ install:
 script:
   - flake8 .
   - find . ! -path "./node_modules/*" ! -path "./env/*" ! -path "*/migrations/*" ! -path "*/snapshots/*" -iname "*.py" | xargs pylint --load-plugins pylint_django
-  - pytest --driver Firefox
   - yarn run test -- --ci
+  - pytest --driver Firefox
