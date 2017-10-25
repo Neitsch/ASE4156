@@ -29,11 +29,11 @@ DEBUG = True if os.environ.get('DEBUG') == "TRUE" else False
 
 ALLOWED_HOSTS = ['trading-stuff.herokuapp.com', '127.0.0.1', 'localhost']
 
-
 logging.basicConfig(
     level=logging.DEBUG,
     format='%(asctime)s %(levelname)s %(message)s',
 )
+
 # Application definition
 
 INSTALLED_APPS = [
