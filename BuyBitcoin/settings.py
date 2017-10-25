@@ -28,6 +28,10 @@ DEBUG = True if os.environ.get('DEBUG') == "TRUE" else False
 
 ALLOWED_HOSTS = ['trading-stuff.herokuapp.com', '127.0.0.1', 'localhost']
 
+
+SECURE_SSL_REDIRECT = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+CSRF_COOKIE_SECURE = True
 # Application definition
 
 INSTALLED_APPS = [
@@ -67,13 +71,15 @@ MIDDLEWARE = [
     # 'security.middleware.LoginRequiredMiddleware',
 ]
 
-MIDDLEWARE_ClASSES = (
-    'security.middleware.LoginRequiredMiddleware',
-    'security.middleware.XFrameOptionsMiddleware',
-    'MandatoryPasswordChangeMiddleware',
-    'SessionExpiryPolicyMiddleware',
-    'StrictTransportSecurityMiddleware',
-    )
+
+if os.environ.get('DEBUG') != "TRUE":
+    MIDDLEWARE_ClASSES = (
+        'security.middleware.LoginRequiredMiddleware',
+        'security.middleware.XFrameOptionsMiddleware',
+        'MandatoryPasswordChangeMiddleware',
+        'SessionExpiryPolicyMiddleware',
+        'StrictTransportSecurityMiddleware',
+        )
 
 ROOT_URLCONF = 'BuyBitcoin.urls'
 
@@ -101,11 +107,11 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'BuyBitcoin.wsgi.application'
-if os.environ.get('DEBUG') != "TRUE":
-    AUTHENTICATION_BACKENDS = (
-        'social_core.backends.google.GoogleOAuth2',
-        'django.contrib.auth.backends.ModelBackend',
-    )
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
