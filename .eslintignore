@@ -2,3 +2,4 @@ env
 node_modules
 assets
 webpack.config.js
+BuyBitcoin/staticfiles

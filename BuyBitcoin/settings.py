@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
+import logging
 import os
 import dj_database_url
 
@@ -29,9 +30,10 @@ DEBUG = True if os.environ.get('DEBUG') == "TRUE" else False
 ALLOWED_HOSTS = ['trading-stuff.herokuapp.com', '127.0.0.1', 'localhost']
 
 
-SECURE_SSL_REDIRECT = True
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-CSRF_COOKIE_SECURE = True
+logging.basicConfig(
+    level=logging.DEBUG,
+    format='%(asctime)s %(levelname)s %(message)s',
+)
 # Application definition
 
 INSTALLED_APPS = [
@@ -174,8 +176,8 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    os.path.join(PROJECT_ROOT, 'static'),
     os.path.join(BASE_DIR, 'assets'),
+    os.path.join(PROJECT_ROOT, 'static'),
 )
 WEBPACK_LOADER = {
     'DEFAULT': {
@@ -187,7 +189,8 @@ WEBPACK_LOADER = {
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+WHITENOISE_ROOT = os.path.join(BASE_DIR, 'assets')
 # GraphQL
 
 GRAPHENE = {

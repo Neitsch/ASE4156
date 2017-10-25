@@ -53,6 +53,7 @@ exports[`Storyshots AppBar Main app bar 1`] = `
       <a
         className="MuiButtonBase-root-52 MuiButton-root-86 MuiButton-flatContrast-91 ButtonAppBar-logoutButton-6"
         href="/logout"
+        id="logout"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -561,6 +562,7 @@ exports[`Storyshots Page Test page 1`] = `
         <a
           className="MuiButtonBase-root-151 MuiButton-root-185 MuiButton-flatContrast-190 ButtonAppBar-logoutButton-6"
           href="/logout"
+          id="logout"
           onBlur={[Function]}
           onFocus={[Function]}
           onKeyDown={[Function]}

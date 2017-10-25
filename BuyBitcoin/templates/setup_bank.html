@@ -5,7 +5,9 @@
 <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
 
 <button id="link-button">Open Link</button>
-
+<form>
+  {% csrf_token %}
+</form>
 <script>
 function getCookie(name) {
     var cookieValue = null;
@@ -34,12 +36,10 @@ var linkHandler = Plaid.create({
  		method:'POST',
  		headers:{'X-CSRFToken':csrftoken},
  		data:{public_token: public_token},
- 		dataType:'json',
- 		success:function() {
-            window.location="/home";
-       	}}
-    );
- 	window.location="/home"
+    success: function() {
+      window.location="/home";
+    }
+  });
  },
  onExit: function(err, metadata) {
    if (err != null) {

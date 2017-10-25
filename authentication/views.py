@@ -30,7 +30,7 @@ def logout(request):
     """
 
     log_out(request)
-    return HttpResponseRedirect("/")
+    return HttpResponseRedirect("/login")
 
 
 @login_required
@@ -38,7 +38,9 @@ def setup_bank(request):
     """
     Function to serve bank setup page
     """
-    return render(request, "setup_bank.html", {})
+    if not request.user.profile.has_bank_linked:
+        return render(request, "setup_bank.html", {})
+    return HttpResponseRedirect('/home')
 
 
 @login_required
@@ -56,11 +58,11 @@ def get_access_token(request):
             item_id=exchange_response['item_id'],
             access_token=exchange_response['access_token'],
             institution_name=plaidrequest['item']['institution_id'],
-            )
+        )
         bank_user.save()
         request.user.profile.has_bank_linked = True
         request.user.save()
-        return HttpResponseRedirect("/home")
+        return HttpResponse(status=201)
     return HttpResponse("Please don't sniff urls")
 
 
