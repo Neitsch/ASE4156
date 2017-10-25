@@ -8,7 +8,11 @@ import plaid
 PLAID_CLIENT_ID = os.environ.get('PLAID_CLIENT_ID')
 PLAID_SECRET = os.environ.get('PLAID_SECRET')
 PLAID_PUBLIC_KEY = os.environ.get('PLAID_PUBLIC_KEY')
-PLAID_ENV = 'sandbox'
+PLAID_ENV = (
+    'sandbox'
+    if os.environ.get('DEBUG') == "TRUE"
+    or os.environ.get('TRAVIS_BRANCH') is not None
+    else 'development')
 
 
 # pylint: disable=too-few-public-methods

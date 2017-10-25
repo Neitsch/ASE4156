@@ -5,7 +5,8 @@
 <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
 
 <button id="link-button">Open Link</button>
-<form>{% csrf_token %}
+<form>
+  {% csrf_token %}
 </form>
 <script>
 function getCookie(name) {
