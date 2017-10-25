@@ -64,7 +64,7 @@ def create_stock(instance, created, **_):
 
 def fill_stocks(request):
     """Function that fills stock data for missing days"""
-    if request.method == "POST":
+    if request.method == "GET":
         stock_id_field = 'stock_id'
         stock_ticker = 'stock__ticker'
         date = 'date'
@@ -78,6 +78,9 @@ def fill_stocks(request):
             fetcher = Fetcher(ticker, last_date, now)
             history = fetcher.getHistorical()
             save_stock_quote_from_fetcher(history, stock_id)
+        msg = "Filling data for {0} stocks".format(len(data))
+        return HttpResponse(msg, status=200)
+    return HttpResponse("405 Method Not Allowed", status=405)
 
 
 def save_stock_quote_from_fetcher(fetcher_history, stock_id):

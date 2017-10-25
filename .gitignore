@@ -1,6 +1,7 @@
 fake_data
 db.sqlite3
 run.sh
+BuyBitcoin/staticfiles/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
