@@ -70,8 +70,6 @@ MIDDLEWARE = [
     'security.middleware.ContentNoSniff',
 ]
 
-
-
 ROOT_URLCONF = 'BuyBitcoin.urls'
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
