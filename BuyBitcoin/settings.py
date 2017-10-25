@@ -33,7 +33,6 @@ logging.basicConfig(
     level=logging.DEBUG,
     format='%(asctime)s %(levelname)s %(message)s',
 )
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -48,7 +47,6 @@ INSTALLED_APPS = [
     'graphene_django',
     'social_django',
     'webpack_loader',
-
     'security',
     # Our apps
     'authentication',
@@ -70,7 +68,6 @@ MIDDLEWARE = [
     'authentication.plaid_middleware.PlaidMiddleware',
     'security.middleware.DoNotTrackMiddleware',
     'security.middleware.ContentNoSniff',
-    # 'security.middleware.LoginRequiredMiddleware',
 ]
 
 
