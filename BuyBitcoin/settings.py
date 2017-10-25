@@ -71,14 +71,6 @@ MIDDLEWARE = [
 ]
 
 
-if os.environ.get('DEBUG') != "TRUE":
-    MIDDLEWARE_ClASSES = (
-        'security.middleware.LoginRequiredMiddleware',
-        'security.middleware.XFrameOptionsMiddleware',
-        'MandatoryPasswordChangeMiddleware',
-        'SessionExpiryPolicyMiddleware',
-        'StrictTransportSecurityMiddleware',
-        )
 
 ROOT_URLCONF = 'BuyBitcoin.urls'
 
