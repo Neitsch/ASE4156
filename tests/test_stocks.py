@@ -86,7 +86,7 @@ class StocksViewTests(TestCase):
         ticker = "ibm"
         name = "IBM"
         data = {'name': name, 'ticker': ticker}
-        request = self.client.post('/stocks/addstock/', data)
+        request = self.client.get('/stocks/addstock/', data)
         stock_id = request.content
         data = DailyStockQuote.objects.filter(stock_id=stock_id)
         stock_data = Stock.objects.filter(id=stock_id)
