@@ -54,7 +54,7 @@ def test_mutation_add_trading_account(rf, snapshot):
     Tests the mutation to add a trading account
     """
     # pylint: enable=invalid-name
-    request = rf.post('/graphql')
+    request = rf.post('/graphql', follow=True, secure=True)
     pw1 = ''.join(random.choices(string.ascii_uppercase + string.digits, k=9))
     request.user = User.objects.create(username='testuser1', password=pw1)
     client = Client(SCHEMA)
@@ -81,7 +81,7 @@ def test_mutation_add_bucket(rf, snapshot):
     This submits a massive graphql query to verify all fields work
     """
     # pylint: enable=invalid-name
-    request = rf.post('/graphql')
+    request = rf.post('/graphql', follow=True, secure=True)
     pw1 = ''.join(random.choices(string.ascii_uppercase + string.digits, k=9))
     request.user = User.objects.create(username='testuser1', password=pw1)
     client = Client(SCHEMA)
@@ -112,7 +112,7 @@ def test_mutation_add_stock_to_bucket(rf, snapshot):
     This submits a massive graphql query to verify all fields work
     """
     # pylint: enable=invalid-name
-    request = rf.post('/graphql')
+    request = rf.post('/graphql', follow=True, secure=True)
     pw1 = ''.join(random.choices(string.ascii_uppercase + string.digits, k=9))
     request.user = User.objects.create(username='testuser1', password=pw1)
     bucket = InvestmentBucket(name="i1", public=False, available=100, owner=request.user.profile)
@@ -163,7 +163,7 @@ def test_mutation_add_attribute_to_investment(rf, snapshot):
     This submits a massive graphql query to verify all fields work
     """
     # pylint: enable=invalid-name
-    request = rf.post('/graphql')
+    request = rf.post('/graphql', follow=True, secure=True)
     pw1 = ''.join(random.choices(string.ascii_uppercase + string.digits, k=9))
     request.user = User.objects.create(username='testuser1', password=pw1)
     bucket = InvestmentBucket(name="i1", public=False, available=100, owner=request.user.profile)
@@ -190,7 +190,7 @@ def test_mutation_attribute_permission(rf, snapshot):
     This submits a massive graphql query to verify all fields work
     """
     # pylint: enable=invalid-name
-    request = rf.post('/graphql')
+    request = rf.post('/graphql', follow=True, secure=True)
     pw2 = ''.join(random.choices(string.ascii_uppercase + string.digits, k=9))
     user2 = User.objects.create(username='testuser2', password=pw2)
     pw1 = ''.join(random.choices(string.ascii_uppercase + string.digits, k=9))
@@ -260,7 +260,7 @@ def test_mutation_edit_attribute(rf, snapshot):
     This submits a massive graphql query to verify all fields work
     """
     # pylint: enable=invalid-name
-    request = rf.post('/graphql')
+    request = rf.post('/graphql', follow=True, secure=True)
     pw1 = ''.join(random.choices(string.ascii_uppercase + string.digits, k=9))
     request.user = User.objects.create(username='testuser1', password=pw1)
     bucket = InvestmentBucket(name="i1", public=False, available=100, owner=request.user.profile)
@@ -294,7 +294,7 @@ def test_mutation_delete_attribute(rf, snapshot):
     This submits a massive graphql query to verify all fields work
     """
     # pylint: enable=invalid-name
-    request = rf.post('/graphql')
+    request = rf.post('/graphql', follow=True, secure=True)
     pw1 = ''.join(random.choices(string.ascii_uppercase + string.digits, k=9))
     request.user = User.objects.create(username='testuser1', password=pw1)
     bucket = InvestmentBucket(name="i1", public=False, available=100, owner=request.user.profile)
@@ -320,7 +320,7 @@ def test_mutation_edit_configuration(rf, snapshot):
     This submits a massive graphql query to verify all fields work
     """
     # pylint: enable=invalid-name
-    request = rf.post('/graphql')
+    request = rf.post('/graphql', follow=True, secure=True)
     pw1 = ''.join(random.choices(string.ascii_uppercase + string.digits, k=9))
     request.user = User.objects.create(username='testuser1', password=pw1)
     bucket = InvestmentBucket(name="i1", public=False, available=100, owner=request.user.profile)
@@ -362,7 +362,7 @@ def test_big_gql(rf, snapshot):
     This submits a massive graphql query to verify all fields work
     """
     # pylint: enable=invalid-name
-    request = request_create(rf.post('/graphql'))
+    request = request_create(rf.post('/graphql', follow=True, secure=True))
     client = Client(SCHEMA)
     executed = client.execute("""
 {
