@@ -96,6 +96,17 @@ class InvestmentBucket(models.Model):
     class Meta(object):
         unique_together = ('name', 'owner')
 
+    def getConfigs(self):
+        """
+        Get all associated configs
+        """
+        configs = self.stocks.all()
+        non_null = []
+        for config in configs:
+            if config.end == None:
+                non_null.append(config)
+        return non_null
+
 
 class InvestmentBucketDescription(models.Model):
     """
@@ -130,6 +141,11 @@ class InvestmentStockConfiguration(models.Model):
     start = models.DateField(default=os_date.today, blank=True)
     end = models.DateField(null=True, blank=True)
 
+    def getStock():
+        """
+        get stocks from configs
+        """
+        return stock
 
 @receiver(pre_save)
 def pre_save_any(sender, instance, *_args, **_kwargs):
