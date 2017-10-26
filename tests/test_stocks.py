@@ -40,7 +40,7 @@ class StocksViewTests(TestCase):
         ticker = "googl"
         name = "Google"
         data = {'name': name, 'ticker': ticker}
-        request = self.client.post('/stocks/addstock/', data)
+        request = self.client.post('/stocks/addstock/', data, follow=True, secure=True)
         self.assertEqual(request.status_code, 200)
         data = Stock.objects.all()
         self.assertEqual(len(data), 1)
@@ -58,7 +58,7 @@ class StocksViewTests(TestCase):
         ticker = "xxx"
         name = "Julian"
         data = {'name': name, 'ticker': ticker}
-        request = self.client.post('/stocks/addstock/', data)
+        request = self.client.post('/stocks/addstock/', data, follow=True, secure=True)
         self.assertEqual(request.status_code, 500)
         data = DailyStockQuote.objects.all()
         self.assertEqual(len(data), 0)
@@ -67,7 +67,7 @@ class StocksViewTests(TestCase):
         """
         Endpoint only works with POST
         """
-        request = self.client.get('/stocks/addstock/')
+        request = self.client.get('/stocks/addstock/', follow=True, secure=True)
         self.assertEqual(request.status_code, 405)
 
     @mock.patch.object(
@@ -86,7 +86,7 @@ class StocksViewTests(TestCase):
         ticker = "ibm"
         name = "IBM"
         data = {'name': name, 'ticker': ticker}
-        request = self.client.post('/stocks/addstock/', data)
+        request = self.client.post('/stocks/addstock/', data, follow=True, secure=True)
         stock_id = request.content
         data = DailyStockQuote.objects.filter(stock_id=stock_id)
         stock_data = Stock.objects.filter(id=stock_id)
