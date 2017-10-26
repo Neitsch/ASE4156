@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+Trade {{object_to_trade}}:
+<br>
+<form>
+Available: <select name="security" onchange="getNewPrice(self.value)"> 
+	{% for security in security_list %}
+		<option value="{{security.id}}"> {{security.name}}</option>
+	{% endfor %}
+</select>
+<br>
+Current price: <br>
+{% for id, price in latest_price_dic.items %}
+{{id}}: ${{price.value}}<br>
+{% endfor %}
+<br>
+Quantity: <input type="text">
+<br>
+Amount in USD: <input type="text"><br>
+<button type="submit">Trade</button>
+
+</form>
+<script type="text/javascript">
+function getNewPrice(id){
+	alert(id);
+}
+</script>
+{% endblock %}

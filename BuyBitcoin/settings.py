@@ -184,7 +184,7 @@ GRAPHENE = {
     'SCHEMA': 'BuyBitcoin.graphene_schema.SCHEMA'
 }
 
-if os.environ.get('DEBUG') != "TRUE":
+if os.environ.get('DEBUG') != "TRUE" and 'TRAVIS' not in os.environ:
     SECURE_SSL_REDIRECT = True
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
     CSRF_COOKIE_SECURE = True
