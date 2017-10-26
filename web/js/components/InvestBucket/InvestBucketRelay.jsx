@@ -77,7 +77,7 @@ class InvestBucketRelay extends React.Component<Props, State> {
       this.props.relay.environment,
     )(
       {
-        config: chunks.map(c => ({ id: c.id, quantity: c.quantity })),
+        config: chunks.map(c => ({ idValue: c.id, quantity: c.quantity })),
         id: this.props.bucket.id,
       },
     );
