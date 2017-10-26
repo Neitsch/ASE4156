@@ -277,12 +277,11 @@ export default createRefetchContainer(InvestBucketRelay, {
       ...InvestCompositionRelay_profile
     }
   `,
-}, {
-  bucket: graphql`
-  query InvestBucketRelayQuery($id: ID!, $first: Int!) {
-    investBucket(id: $id) {
-      ...InvestBucketRelay_bucket @arguments(first: $first)
+}, graphql`
+    query InvestBucketRelayQuery($id: ID!, $first: Int!) {
+      investBucket(id: $id) {
+        ...InvestBucketRelay_bucket @arguments(first: $first)
+      }
     }
-  }
-`,
-});
+  `,
+);
