@@ -21,7 +21,7 @@ class TradingAccount(models.Model):
         return "{}, {}, {}".format(self.id, self.account_name, self.profile_id)
 
 
-class Trade(models.Model):
+class TradeStock(models.Model):
     """
     A Trade represents a single exchange of a stock for money
     """
