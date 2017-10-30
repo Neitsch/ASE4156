@@ -56,10 +56,12 @@ class TradeStock(models.Model):
                                            self.account_id,
                                            self.stock_id)
 
+
 class TradeBucket(models.Model):
     """
     Same as trade but for buckets
     """
     timestamp = models.DateTimeField(auto_now_add=True)
     account = models.ForeignKey(TradingAccount, related_name='buckettrades')
-    stock = models.ForeignKey(InvestmentBucket, related_name='buckettrades')
+    bucket = models.ForeignKey(InvestmentBucket, related_name='buckettrades')
+    # To do: implement get value

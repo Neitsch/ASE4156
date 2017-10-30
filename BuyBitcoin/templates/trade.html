@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<form action="#" method="post">
+		{% csrf_token %}
+		Select bucket:
+		<br>
+		{% for bucket, stocks in buckets.items %}
+			<h4>{{bucket.name}}</h4>
+			<h5>Stock components:</h5>
+			<ul>
+				{% for stock in stocks %}
+					<li> {{stock.stock.ticker}}: {{stock.quantity}}. Last price: {{stock.price.value}}. Total value of stock in bucket: {{stock.total_value}} </li>
+				{% empty %}
+					This bucket is empty :(
+				{% endfor %}
+			</ul>
+			{% if stocks %}
+				Purchase this bucket: <input type="radio" name="bucket" required value="{{bucket.id}}"> <br>
+			{% endif %}
+		{% endfor %}
+		<input type="submit" value="Buy">
+	</form>
+{% endblock %}
