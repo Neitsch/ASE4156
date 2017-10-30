@@ -9,8 +9,8 @@ def test(request):
     """
     Dev method for buckets
     """
-    i = InvestmentBucket.objects.all()
-    t = []
-    for x in i:
-        t.append(x.get_stock_configs())
-    return HttpResponse(t)
+    investments = InvestmentBucket.objects.all()
+    templist = []
+    for investment in investments:
+        templist.append(investment.get_stock_configs())
+    return HttpResponse(templist)
