@@ -4,7 +4,7 @@ GraphQL definitions for the Trading App
 from graphene_django import DjangoObjectType
 from graphene import AbstractType, Field, Float, Int, Mutation, relay, String
 from stocks.models import Stock
-from .models import Trade, TradingAccount
+from .models import TradeStock, TradingAccount
 
 
 # pylint: disable=too-few-public-methods
