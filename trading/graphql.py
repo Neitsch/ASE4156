@@ -18,7 +18,7 @@ class GTrade(DjangoObjectType):
         """
         Meta Model for Trade
         """
-        model = Trade
+        model = TradeStock
         interfaces = (relay.Node, )
 
     @staticmethod
@@ -73,7 +73,7 @@ class AddTrade(Mutation):
             account_name=args['account_name'],
             profile_id=context.user.profile.id
         )
-        trade = Trade(
+        trade = TradeStock(
             stock=stock,
             quantity=args['quantity'],
             account=account
