@@ -3,14 +3,14 @@ Views for trading
 """
 from django.shortcuts import render
 from django.http import HttpResponse
-from stocks.models import InvestmentBucket
-from trading.models import TradingAccount, TradeBucket
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
+from stocks.models import InvestmentBucket
+from trading.models import TradingAccount, TradeBucket
 
 
 @login_required
-def account(request):
+def create_account(request):
     """
     Create a trading account (only allows one trading account/user)
     """
@@ -20,9 +20,9 @@ def account(request):
             account = TradingAccount.objects.get(profile=prof)
             return HttpResponse("You already have an account.")
         except ObjectDoesNotExist:
-            c = {}
+            context = {}
             template = "create_trading_account.html"
-            return render(request, template, c)
+            return render(request, template, context)
     elif request.method == "POST":
         prof = request.user.profile
         name = request.POST.get("account_name")
@@ -63,8 +63,8 @@ def get_bucket_stock_prices():
         print(bucketid)
         stock_list = buckets[bucketid]
         for stock in stock_list:
-            st = stock["stock"]
-            stock["price"] = st.latest_quote()
+            single = stock["stock"]
+            stock["price"] = single.latest_quote()
             stock["total_value"] = stock["price"].value * stock["quantity"]
     return buckets
 
@@ -77,8 +77,8 @@ def buy_bucket(request):
     if request.method == "GET":
         buckets = get_bucket_stock_prices()
         template = "trade.html"
-        c = {'buckets': buckets}
-        return render(request, template, c)
+        context = {'buckets': buckets}
+        return render(request, template, context)
     elif request.method == "POST":
         prof = request.user.profile
         try:

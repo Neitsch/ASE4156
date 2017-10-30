@@ -41,6 +41,6 @@ urlpatterns = [
     url(r'^plaid/list_transactions/$', authentication.views.list_transactions),
     url(r'^plaid/get_balance/$', authentication.views.get_balance),
     url(r'^trade/buckets$', trading.views.buy_bucket),
-    url(r'^trade/account$', trading.views.account),
+    url(r'^trade/account$', trading.views.create_account),
 ]
 # pylint: enable=invalid-name
