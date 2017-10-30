@@ -1,6 +1,7 @@
 """
 Views for trading
 """
+from django.shortcuts import render
 from django.http import HttpResponse
 from stocks.models import InvestmentBucket
 
@@ -13,4 +14,4 @@ def test(request):
     templist = []
     for investment in investments:
         templist.append(investment.get_stock_configs())
-    return HttpResponse(templist)
+    return render(request, 'test.html', templist)
