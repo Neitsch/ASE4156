@@ -2,7 +2,6 @@
 Views for trading
 """
 from django.shortcuts import render
-from django.http import HttpResponse
 from stocks.models import InvestmentBucket
 
 

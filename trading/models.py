@@ -56,6 +56,7 @@ class TradeStock(models.Model):
                                            self.account_id,
                                            self.stock_id)
 
+
 class TradeBucket(models.Model):
     """
     Same as trade but for buckets
