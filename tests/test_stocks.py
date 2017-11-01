@@ -59,10 +59,12 @@ class StocksViewTests(TestCase):
         name = "Julian"
         data = {'name': name, 'ticker': ticker}
         threw = False
+        # pylint: disable=broad-except
         try:
             self.client.post('/stocks/addstock/', data, follow=True, secure=True)
         except Exception:
             threw = True
+        # pylint: enable=broad-except
         self.assertEqual(threw, True)
         data = DailyStockQuote.objects.all()
         self.assertEqual(len(data), 0)

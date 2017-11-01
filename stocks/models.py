@@ -244,6 +244,9 @@ class InvestmentStockConfiguration(models.Model):
     end = models.DateField(null=True, blank=True)
 
     def current_value(self):
+        """
+        Returns the current value of the stock configuration
+        """
         return self.stock.latest_quote().value * self.quantity
 
 
