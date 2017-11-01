@@ -2,6 +2,7 @@
 Models keeps track of all the persistent data around stocks
 """
 from datetime import date as os_date
+from django.db.models import Q
 from django.db import models
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
@@ -41,6 +42,16 @@ class Stock(models.Model):
         if quote_query:
             return quote_query[0]
         return None
+
+    @staticmethod
+    def find_stock(text, first=None):
+        """
+        Finds the stocks that contain >text<
+        """
+        query = Stock.objects.filter(name__icontains=text)
+        if first:
+            query = query[:first]
+        return query
 
     def __str__(self):
         return "{}, {}, {}".format(self.id, self.name, self.ticker)
@@ -95,6 +106,13 @@ class InvestmentBucket(models.Model):
 
     class Meta(object):
         unique_together = ('name', 'owner')
+
+    @staticmethod
+    def accessible_buckets(profile):
+        """
+        Finds all buckets that the user could view
+        """
+        return InvestmentBucket.objects.filter(Q(owner=profile) | Q(public=True))
 
 
 class InvestmentBucketDescription(models.Model):
