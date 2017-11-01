@@ -8,7 +8,7 @@ from graphene.test import Client
 from BuyBitcoin.graphene_schema import SCHEMA
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
-from trading.models import TradingAccount, Trade
+from trading.models import TradingAccount, TradeStock
 from stocks.models import DailyStockQuote, InvestmentBucket, \
     InvestmentBucketDescription, InvestmentStockConfiguration, Stock
 from stocks.historical import create_stock
@@ -27,14 +27,14 @@ def request_create(request):
     user2 = User.objects.create(username='testuser2', password=pw2)
     account2 = TradingAccount(profile=user2.profile, account_name="testAccount2")
     account2.save()
-    trade2 = Trade(quantity=2, account=account2, stock=stock)
+    trade2 = TradeStock(quantity=2, account=account2, stock=stock)
     trade2.save()
 
     pw1 = ''.join(random.choices(string.ascii_uppercase + string.digits, k=9))
     request.user = User.objects.create(username='testuser1', password=pw1)
     account1 = TradingAccount(profile=request.user.profile, account_name="testAccount1")
     account1.save()
-    trade1 = Trade(quantity=1, account=account1, stock=stock)
+    trade1 = TradeStock(quantity=1, account=account1, stock=stock)
     trade1.save()
 
     bucket = InvestmentBucket(name="i1", public=False, available=100, owner=request.user.profile)
@@ -103,57 +103,6 @@ def test_mutation_add_bucket(rf, snapshot):
     acc = InvestmentBucket.objects.all()[0]
     ex_acc = executed['data']['addBucket']['bucket']['available']
     assert (ex_acc == acc.available) and (investment == ex_acc)
-
-
-@pytest.mark.django_db(transaction=True)
-# pylint: disable=invalid-name
-def test_mutation_add_stock_to_bucket(rf, snapshot):
-    """
-    This submits a massive graphql query to verify all fields work
-    """
-    # pylint: enable=invalid-name
-    request = rf.post('/graphql', follow=True, secure=True)
-    pw1 = ''.join(random.choices(string.ascii_uppercase + string.digits, k=9))
-    request.user = User.objects.create(username='testuser1', password=pw1)
-    bucket = InvestmentBucket(name="i1", public=False, available=100, owner=request.user.profile)
-    bucket.save()
-    post_save.disconnect(receiver=create_stock, sender=Stock)
-    stock = Stock(name="Google", ticker="GOOGL")
-    stock.save()
-    DailyStockQuote(value=9, date="2017-05-08", stock=stock).save()
-    DailyStockQuote(value=10, date="2017-05-10", stock=stock).save()
-    DailyStockQuote(value=9, date="2017-05-09", stock=stock).save()
-    client = Client(SCHEMA)
-    executed = client.execute(
-        """
-            mutation {{
-              addStockToBucket(stockId: "{}", bucketId: "{}", quantity: {}) {{
-                bucket {{
-                    available
-                    isOwner
-                    public
-                    name
-                    stocks {{
-                        edges {{
-                            node {{
-                                quantity
-                                stock {{
-                                    ticker
-                                }}
-                            }}
-                        }}
-                    }}
-                }}
-              }}
-            }}
-        """.format(
-            to_global_id("GStock", stock.id),
-            to_global_id("GInvestmentBucket", bucket.id), 3.5
-        ),
-        context_value=request
-    )
-    snapshot.assert_match(executed)
-    assert InvestmentStockConfiguration.objects.count() == 1
 
 
 @pytest.mark.django_db(transaction=True)
@@ -234,23 +183,6 @@ def test_mutation_attribute_permission(rf, snapshot):
         }}
     """.format(to_global_id("GInvestmentBucketDescription", attr.id)), context_value=request)
     snapshot.assert_match(executed)
-    executed = client.execute(
-        """
-            mutation {{
-              addStockToBucket(stockId: "{}", bucketId: "{}", quantity: {}) {{
-                bucket {{
-                  id
-                }}
-              }}
-            }}
-        """.format(
-            to_global_id("GStock", 1),
-            to_global_id("GInvestmentBucket", bucket.id), 3.5
-        ),
-        context_value=request
-    )
-    snapshot.assert_match(executed)
-    assert InvestmentBucketDescription.objects.count() == 1
 
 
 @pytest.mark.django_db(transaction=True)
