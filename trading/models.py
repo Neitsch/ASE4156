@@ -4,7 +4,7 @@ Models here represents any interaction between a user and stocks
 from authentication.models import Profile
 from django.db import models
 from django.core.validators import MinValueValidator
-from stocks.models import DailyStockQuote, Stock
+from stocks.models import DailyStockQuote, Stock, InvestmentBucket
 
 
 class TradingAccount(models.Model):
@@ -21,7 +21,7 @@ class TradingAccount(models.Model):
         return "{}, {}, {}".format(self.id, self.account_name, self.profile_id)
 
 
-class Trade(models.Model):
+class TradeStock(models.Model):
     """
     A Trade represents a single exchange of a stock for money
     """
@@ -55,3 +55,12 @@ class Trade(models.Model):
                                            self.quantity,
                                            self.account_id,
                                            self.stock_id)
+
+
+class TradeBucket(models.Model):
+    """
+    Same as trade but for buckets
+    """
+    timestamp = models.DateTimeField(auto_now_add=True)
+    account = models.ForeignKey(TradingAccount, related_name='buckettrades')
+    stock = models.ForeignKey(InvestmentBucket, related_name='buckettrades')

@@ -8,7 +8,7 @@ from graphene_django import DjangoObjectType
 from graphene import AbstractType, Argument, Boolean, Field, Float, ID, \
     InputObjectType, List, Mutation, NonNull, String, relay
 from graphql_relay.node.node import from_global_id
-from trading.models import Trade
+from trading.models import TradeStock
 from .models import DailyStockQuote, InvestmentBucket, \
     InvestmentBucketDescription, InvestmentStockConfiguration, Stock
 from .historical import create_new_stock
@@ -128,7 +128,7 @@ class GStock(DjangoObjectType):
         """
         We need to apply permission checks to trades
         """
-        return (Trade
+        return (TradeStock
                 .objects
                 .filter(stock_id=stock.id)
                 .filter(account__profile_id=context.user.profile.id))

@@ -96,6 +96,13 @@ class InvestmentBucket(models.Model):
     class Meta(object):
         unique_together = ('name', 'owner')
 
+    def get_stock_configs(self):
+        """
+        Get all associated configs
+        """
+        stock_configs = self.stocks.filter(end=None).all()
+        return stock_configs
+
 
 class InvestmentBucketDescription(models.Model):
     """
