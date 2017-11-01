@@ -58,8 +58,12 @@ class StocksViewTests(TestCase):
         ticker = "xxx"
         name = "Julian"
         data = {'name': name, 'ticker': ticker}
-        request = self.client.post('/stocks/addstock/', data, follow=True, secure=True)
-        self.assertEqual(request.status_code, 500)
+        threw = False
+        try:
+            self.client.post('/stocks/addstock/', data, follow=True, secure=True)
+        except Exception:
+            threw = True
+        self.assertEqual(threw, True)
         data = DailyStockQuote.objects.all()
         self.assertEqual(len(data), 0)
 

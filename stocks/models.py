@@ -71,11 +71,11 @@ class Stock(models.Model):
         """
         Returns a list of daily stock quotes in the given timerange
         """
-        query = self.daily_quote.filter(start)
+        query = self.daily_quote
         if start:
-            query = query.filter(data__gte=start)
+            query = query.filter(date__gte=start)
         if end:
-            query = query.filter(data__lte=end)
+            query = query.filter(date__lte=end)
         query = query.order_by('-date')
         return query
 
@@ -190,9 +190,9 @@ class InvestmentBucket(models.Model):
         with transaction.atomic():
             self._sell_all()
             for conf in new_config:
-                stock = Stock.get(id=conf.id)
+                stock = Stock.objects.get(id=conf.id)
                 quote = stock.latest_quote()
-                self.available -= quote * conf.quantity
+                self.available -= quote.value * conf.quantity
                 self.stocks.create(
                     stock=stock,
                     quantity=conf.quantity,
@@ -242,6 +242,9 @@ class InvestmentStockConfiguration(models.Model):
     bucket = models.ForeignKey(InvestmentBucket, related_name='stocks')
     start = models.DateField(default=os_date.today, blank=True)
     end = models.DateField(null=True, blank=True)
+
+    def current_value(self):
+        return self.stock.latest_quote().value * self.quantity
 
 
 @receiver(pre_save)
