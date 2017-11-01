@@ -8,7 +8,7 @@ from graphene.test import Client
 from BuyBitcoin.graphene_schema import SCHEMA
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
-from trading.models import TradingAccount, Trade
+from trading.models import TradingAccount, TradeStock
 from stocks.models import DailyStockQuote, InvestmentBucket, \
     InvestmentBucketDescription, InvestmentStockConfiguration, Stock
 from stocks.historical import create_stock
@@ -27,14 +27,14 @@ def request_create(request):
     user2 = User.objects.create(username='testuser2', password=pw2)
     account2 = TradingAccount(profile=user2.profile, account_name="testAccount2")
     account2.save()
-    trade2 = Trade(quantity=2, account=account2, stock=stock)
+    trade2 = TradeStock(quantity=2, account=account2, stock=stock)
     trade2.save()
 
     pw1 = ''.join(random.choices(string.ascii_uppercase + string.digits, k=9))
     request.user = User.objects.create(username='testuser1', password=pw1)
     account1 = TradingAccount(profile=request.user.profile, account_name="testAccount1")
     account1.save()
-    trade1 = Trade(quantity=1, account=account1, stock=stock)
+    trade1 = TradeStock(quantity=1, account=account1, stock=stock)
     trade1.save()
 
     bucket = InvestmentBucket(name="i1", public=False, available=100, owner=request.user.profile)

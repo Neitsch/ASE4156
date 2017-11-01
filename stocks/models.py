@@ -114,6 +114,13 @@ class InvestmentBucket(models.Model):
         """
         return InvestmentBucket.objects.filter(Q(owner=profile) | Q(public=True))
 
+    def get_stock_configs(self):
+        """
+        Get all associated configs
+        """
+        stock_configs = self.stocks.filter(end=None).all()
+        return stock_configs
+
 
 class InvestmentBucketDescription(models.Model):
     """
