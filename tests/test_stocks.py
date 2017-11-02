@@ -2,12 +2,13 @@
 from unittest import mock
 from django.test import TestCase
 from stocks.models import Stock, DailyStockQuote
+from stocks import stock_helper
 import pandas as pd
 from yahoo_historical import Fetcher
 from authentication.plaid_middleware import PlaidMiddleware
 import pytest
 import arrow
-from stocks import stock_helper
+
 
 class StocksViewTests(TestCase):
     """
@@ -134,6 +135,9 @@ class StocksViewTests(TestCase):
         mock.MagicMock(return_value=arrow.get(2017, 5, 1))
     )
     def test_date_array_from_arrow(self):
+        """
+        Testing converting arrow date to date array for yahoo fetcher
+        """
         date = arrow.now()
         date_array = stock_helper.get_date_array_for_fetcher(date)
         self.assertEqual(len(date_array), 3)
@@ -155,6 +159,9 @@ class StocksViewTests(TestCase):
         }))
     )
     def test_validate_ticker_real(self):
+        """
+        Testing validation when ticker is valid
+        """
         ticker = "FB"
         result = stock_helper.validate_ticker(ticker)
         self.assertEqual(result, True)
@@ -170,6 +177,9 @@ class StocksViewTests(TestCase):
         mock.MagicMock(side_effect=KeyError('abc'))
     )
     def test_validate_ticker_false(self):
+        """
+        Testing validation when ticker is invalid
+        """
         ticker = 'xxx'
         result = stock_helper.validate_ticker(ticker)
         self.assertEqual(result, False)
