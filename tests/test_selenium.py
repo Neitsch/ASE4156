@@ -1,6 +1,7 @@
 """
 All selenium tests
 """
+import datetime
 import pytest
 from django.contrib.auth.models import User
 from selenium.webdriver.common.by import By
@@ -43,7 +44,10 @@ class PlaidMock(object):
         return "Account"
 
     def historical_data(self, start):
-        return []
+        return [
+            (datetime.datetime.now() - datetime.timedelta(days=7), 200.0),
+            (datetime.datetime.now(), 100.0),
+        ]
 
     def income(self, days=None):
         return 0.0
