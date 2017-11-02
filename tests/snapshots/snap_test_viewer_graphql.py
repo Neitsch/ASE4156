@@ -10,7 +10,7 @@ snapshots = Snapshot()
 snapshots['test_big_gql 1'] = {
     'data': {
         'viewer': {
-            'id': 'R1VzZXI6MTA=',
+            'id': 'R1VzZXI6MTE=',
             'profile': {
                 'investSuggestions': {
                     'edges': [
