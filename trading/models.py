@@ -12,7 +12,7 @@ class TradingAccount(models.Model):
     A TradingAccount is owned by a user, we associate stock trades with it.
     """
     account_name = models.CharField(max_length=30)
-    profile = models.ForeignKey(Profile, related_name='trading_accounts')
+    profile = models.ForeignKey(Profile, related_name='trading_account')
 
     class Meta(object):
         unique_together = ('profile', 'account_name')
@@ -29,7 +29,7 @@ class TradeStock(models.Model):
     quantity = models.FloatField(
         validators=[MinValueValidator(
             0,
-            message="Daily stock quote can not be negative"
+            message="Quantity can not be negative"
         )]
     )
     account = models.ForeignKey(TradingAccount, related_name='trades')
@@ -64,4 +64,4 @@ class TradeBucket(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     account = models.ForeignKey(TradingAccount, related_name='buckettrades')
     bucket = models.ForeignKey(InvestmentBucket, related_name='buckettrades')
-    # To do: implement get value
+    quantity = models.FloatField()

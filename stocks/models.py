@@ -8,6 +8,7 @@ from django.dispatch import receiver
 from django.core.exceptions import ValidationError
 from django.core.validators import MinLengthValidator, MinValueValidator
 from authentication.models import Profile
+import datetime
 
 
 class Stock(models.Model):
@@ -36,7 +37,7 @@ class Stock(models.Model):
         """
         quote_query = self.daily_quote
         if date is not None:
-            quote_query = quote_query.filter(date__leq=date)
+            quote_query = quote_query.filter(date__lte=date)
         quote_query = quote_query.order_by('-date')
         if quote_query:
             return quote_query[0]
@@ -102,6 +103,18 @@ class InvestmentBucket(models.Model):
         """
         stock_configs = self.stocks.filter(end=None).all()
         return stock_configs
+
+    def get_quote(self, date=None):
+        if date is None:
+            date = datetime.datetime.now()
+        stock_configs = self.get_stock_configs()
+        total = 0
+        for stock_config in stock_configs:
+            stock = stock_config.stock
+            price = stock.latest_quote(date).value
+            value = price * stock_config.quantity
+            total += value
+        return total
 
 
 class InvestmentBucketDescription(models.Model):

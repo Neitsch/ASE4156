@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<h1> {{verb}} bucket </h1>
 	<form action="#" method="post">
 		{% csrf_token %}
 		Select bucket:
@@ -19,6 +20,6 @@
 				Purchase this bucket: <input type="radio" name="bucket" required value="{{bucket.id}}"> <br>
 			{% endif %}
 		{% endfor %}
-		<input type="submit" value="Buy">
+		<input type="submit" value="{{verb}}">
 	</form>
 {% endblock %}
