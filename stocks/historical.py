@@ -30,11 +30,13 @@ def data_ten_years_back_for_stock(request):
         body = request.POST
         name = body['name']
         ticker = body['ticker']
-        stock = Stock.create_new_stock(ticker, name)
-        if stock is not False:
+        try:
+            stock = Stock.create_new_stock(ticker, name)
             return HttpResponse(stock.id, status=200)
-        msg = "500 Internal Server Error, stock doesnt exist"
-        return HttpResponse(msg, status=500)
+        except Exception:
+            print(Exception)
+            msg = "500 Internal Server Error, stock doesnt exist"
+            return HttpResponse(msg, status=500)
     return HttpResponse("405 Method Not Allowed", status=405)
 
 
