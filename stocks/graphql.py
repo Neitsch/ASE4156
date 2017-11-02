@@ -254,6 +254,34 @@ class DeleteAttribute(Mutation):
         return DeleteAttribute(is_ok=True)
 
 
+class DeleteBucket(Mutation):
+    """
+    Deletes an attribute from a bucket
+    """
+    class Input(object):
+        """
+        We just need the ID to delete it
+        """
+        id_value = NonNull(ID)
+    is_ok = Field(lambda: Boolean)
+
+    @staticmethod
+    def mutate(_self, args, context, _info):
+        """
+        Executes the mutation by deleting the attribute
+        """
+        bucket = InvestmentBucket.objects.filter(
+            id=from_global_id(args['id_value'])[1],
+            owner=context.user.profile,
+        )
+        if not bucket:
+            raise Exception("You don't own the bucket!")
+        else:
+            bucket = bucket[0]
+        bucket.delete()
+        return DeleteAttribute(is_ok=True)
+
+
 Config = namedtuple(
     "Config",
     ["id", "quantity"],
