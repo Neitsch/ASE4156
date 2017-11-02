@@ -47,7 +47,8 @@ class GInvestmentBucket(DjangoObjectType):
     """
     GraphQL representation of a InvestmentBucket
     """
-    is_owner = Boolean()
+    is_owner = NonNull(Boolean)
+    value = NonNull(Float)
 
     class Meta:
         """
@@ -55,7 +56,7 @@ class GInvestmentBucket(DjangoObjectType):
         """
         model = InvestmentBucket
         interfaces = (relay.Node, )
-        only_fields = ('id', 'name', 'public', 'description', 'stocks', 'available')
+        only_fields = ('id', 'name', 'public', 'description', 'stocks', 'available', 'value')
 
     @staticmethod
     def resolve_is_owner(data, _args, context, _info):
@@ -70,6 +71,13 @@ class GInvestmentBucket(DjangoObjectType):
         Returns the *current* stocks in the bucket
         """
         return data.get_stock_configs()
+
+    @staticmethod
+    def resolve_value(data, _args, _context, _info):
+        """
+        The current value of the investment bucket
+        """
+        return data.current_value()
 
 
 class GInvestmentStockConfiguration(DjangoObjectType):

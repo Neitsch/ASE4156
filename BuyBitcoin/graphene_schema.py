@@ -35,6 +35,7 @@ class Mutation(graphene.ObjectType):
     delete_bucket = stocks.graphql.DeleteBucket.Field()
     edit_attribute = stocks.graphql.EditAttribute.Field()
     edit_configuration = stocks.graphql.EditConfiguration.Field()
+    invest = trading.graphql.InvestBucket.Field()
     # pylint: enable=no-member
 # pylint: enable=too-few-public-methods
 

@@ -15,6 +15,7 @@ import Button from 'material-ui/Button';
 import type { RelayContext } from 'react-relay';
 
 import InvestBucket from './InvestBucket';
+import InvestPanelRelay from './InvestPanelRelay';
 import InvestCompositionRelay from './InvestCompositionRelay';
 import addDescription from '../../mutations/BucketEdit/AddDescription';
 import editDescription from '../../mutations/BucketEdit/EditDescription';
@@ -34,6 +35,7 @@ type State = {
   editMode: ?string,
   editState: EditObj,
   deleteConfirm: bool,
+  investDialog: bool,
 }
 type Props = {
   bucket: InvestBucketRelay_bucket,
@@ -53,6 +55,7 @@ class InvestBucketRelay extends React.Component<Props, State> {
       editMode: null,
       editState: { shortDesc: '' },
       deleteConfirm: false,
+      investDialog: false,
     };
   }
   launchEdit = id => () => {
@@ -259,6 +262,14 @@ class InvestBucketRelay extends React.Component<Props, State> {
             /> :
             null
         }
+        {
+          this.state.investDialog ?
+            <InvestPanelRelay
+              bucket={this.props.bucket}
+              profile={this.props.profile}
+              closeFunc={() => this.setState(() => ({ investDialog: false }))}
+            /> : null
+        }
         <Dialog
           open={this.state.deleteConfirm}
           onRequestClose={(() => this.setState(() => ({ deleteConfirm: false })))}
@@ -293,7 +304,7 @@ class InvestBucketRelay extends React.Component<Props, State> {
               (() => this.setState(() => ({ deleteConfirm: true }))) :
               null
           }
-          investFunc={() => {}}
+          investFunc={() => this.setState(() => ({ investDialog: true }))}
         />
       </div>
     );
@@ -323,11 +334,13 @@ export default createRefetchContainer(InvestBucketRelay, {
         }
       }
       ...InvestCompositionRelay_bucket
+      ...InvestPanelRelay_bucket
     }
   `,
   profile: graphql`
     fragment InvestBucketRelay_profile on GProfile {
       ...InvestCompositionRelay_profile
+      ...InvestPanelRelay_profile
     }
   `,
 }, graphql`
