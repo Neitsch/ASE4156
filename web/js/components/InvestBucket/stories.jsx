@@ -47,7 +47,12 @@ storiesOf('InvestBucket', module).add('Playground', () => {
       },
     ],
   };
-  return (<InvestBucket title={title} attributes={riskList} editFunc={action('edit')} />);
+  return (<InvestBucket
+    title={title}
+    attributes={riskList}
+    editFunc={action('edit')}
+    investFunc={() => {}}
+  />);
 });
 
 storiesOf('InvestCompositionDontTest', module).add('Playground', () => {
