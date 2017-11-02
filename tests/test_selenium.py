@@ -36,6 +36,21 @@ class ItemMock(object):
 class PlaidMock(object):
     Item = ItemMock()
 
+    def current_balance(self):
+        return 100.0
+
+    def account_name(self):
+        return "Account"
+
+    def historical_data(self, start):
+        return []
+
+    def income(self, days=None):
+        return 0.0
+
+    def expenditure(self, days=None):
+        return 0.0
+
 
 def plaid_mock(self, request):
     request.plaid = PlaidMock()
