@@ -6,7 +6,6 @@ import pandas as pd
 from yahoo_historical import Fetcher
 from authentication.plaid_middleware import PlaidMiddleware
 import pytest
-from django.db import IntegrityError
 
 
 class StocksViewTests(TestCase):
@@ -96,7 +95,7 @@ class StocksViewTests(TestCase):
         self.assertGreater(len(data), 0)
         self.assertEqual(len(stock_data), 1)
 
-    def test_fill_for_stocks_invalid_call(self):
+    def test_fill_invalid_call(self):
         """
         Endpoint only works with GET
         """
@@ -120,7 +119,7 @@ class StocksViewTests(TestCase):
                 'Date': ["2016-10-11", "2017-10-12"],
             })]))
     @pytest.mark.django_db(transaction=True)
-    def test_fill_for_stocks_in_DB(self):
+    def test_fill_stock_data(self):
         """
         Filling data for stock
         """
