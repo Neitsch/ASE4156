@@ -30,12 +30,14 @@ def data_ten_years_back_for_stock(request):
         body = request.POST
         name = body['name']
         ticker = body['ticker']
+        # pylint: disable=broad-except
         try:
             stock = Stock.create_new_stock(ticker, name)
         except Exception:
             msg = "500 Internal Server Error, stock doesnt exist"
             return HttpResponse(msg, status=500)
         return HttpResponse(stock.id, status=200)
+        # pylint: enable=broad-except
     return HttpResponse("405 Method Not Allowed", status=405)
 
 
