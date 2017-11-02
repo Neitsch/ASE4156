@@ -129,7 +129,7 @@ def buy_bucket(request):
 @login_required
 def sell_bucket(request):
     """
-    Display buy bucket, allow purchasing of bucket
+    Display sell bucket, allow purchasing of bucket
     """
     if request.method == "GET":
         buckets = get_available_buckets(request)
@@ -158,4 +158,3 @@ def get_available_cash(request):
     """
     resp = get_available_cash_as_num(request)
     return HttpResponse(resp)
-
