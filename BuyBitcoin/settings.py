@@ -170,10 +170,10 @@ WEBPACK_LOADER = {
 }
 
 # Logging
-RVN = 'https://bc5e0edbf2f74dab884001de9cea3069:5c36aea4b7b34c4e851a443c084ea0a5@sentry.io/238477'
-RAVEN_CONFIG = {
-    'dsn': RVN,
-}
+# RVN = 'https://bc5e0edbf2f74dab884001de9cea3069:5c36aea4b7b34c4e851a443c084ea0a5@sentry.io/238477'
+# RAVEN_CONFIG = {
+#     'dsn': RVN,
+# }
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
