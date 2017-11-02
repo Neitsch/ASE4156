@@ -130,7 +130,7 @@ def buy_bucket(request):
 @login_required
 def sell_bucket(request):
     """
-    Display buy bucket, allow purchasing of bucket
+    Display sell bucket, allow purchasing of bucket
     """
     if request.method == "GET":
         buckets = get_available_buckets(request)

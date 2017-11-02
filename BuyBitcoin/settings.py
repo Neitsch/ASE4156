@@ -10,7 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
-import logging
 import os
 import dj_database_url
 
@@ -29,10 +28,6 @@ DEBUG = True if os.environ.get('DEBUG') == "TRUE" else False
 
 ALLOWED_HOSTS = ['trading-stuff.herokuapp.com', '127.0.0.1', 'localhost']
 
-logging.basicConfig(
-    level=logging.DEBUG,
-    format='%(asctime)s %(levelname)s %(message)s',
-)
 # Application definition
 
 INSTALLED_APPS = [
@@ -48,6 +43,7 @@ INSTALLED_APPS = [
     'social_django',
     'webpack_loader',
     'security',
+    'raven.contrib.django.raven_compat',
     # Our apps
     'authentication',
     'stocks',
@@ -173,6 +169,11 @@ WEBPACK_LOADER = {
     }
 }
 
+# Logging
+RVN = 'https://bc5e0edbf2f74dab884001de9cea3069:5c36aea4b7b34c4e851a443c084ea0a5@sentry.io/238477'
+RAVEN_CONFIG = {
+    'dsn': RVN,
+}
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
