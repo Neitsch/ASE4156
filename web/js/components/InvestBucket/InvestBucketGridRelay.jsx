@@ -96,7 +96,8 @@ class InvestBucketGridRelay extends React.Component<Props, State> {
             <AddIcon />
           </Button>
           {
-            this.props.profile.investSuggestions.pageInfo.hasNextPage ?
+            this.props.profile.investSuggestions
+            && this.props.profile.investSuggestions.pageInfo.hasNextPage ?
               <Button fab color="primary" aria-label="add" onClick={this.loadMore}>
                 <LoadMoreIcon />
               </Button> : null
