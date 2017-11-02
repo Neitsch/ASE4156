@@ -90,6 +90,7 @@ def list_transactions(request):
     context = {'userbank': userbank}
     return render(request, 'bank_select_form.html', context)
 
+
 def get_balance_as_dic(request):
     """
     A view that gets all balances for a user and returns as json
@@ -112,10 +113,10 @@ def get_balance_as_dic(request):
         dic['type'] = account['subtype']
         total += dic['balance']
         json_response.append(dic)
-    json_response.append({"total":total})
+    json_response.append({"total": total})
     return json_response
+
 
 @login_required
 def get_balance(request):
     return JsonResponse(get_balance_as_dic(request), safe=False)
-

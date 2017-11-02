@@ -8,8 +8,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from stocks.models import InvestmentBucket
 from trading.models import TradingAccount, TradeBucket
 from authentication.views import get_balance_as_dic
-from django.http import HttpResponse
 from collections import defaultdict
+
 
 @login_required
 def create_account(request):
@@ -83,6 +83,7 @@ def get_available_cash_as_num(request):
         total -= value
     return total
 
+
 def get_available_buckets(request):
     """
     Get buckets for which user has > 0 quantity
@@ -103,7 +104,7 @@ def buy_bucket(request):
     if request.method == "GET":
         buckets = get_bucket_stock_prices(InvestmentBucket.objects.all())
         template = "trade.html"
-        context = {'buckets': buckets, 'verb':'Buy'}
+        context = {'buckets': buckets, 'verb': 'Buy'}
         return render(request, template, context)
     elif request.method == "POST":
         prof = request.user.profile
@@ -158,4 +159,3 @@ def get_available_cash(request):
     """
     resp = get_available_cash_as_num(request)
     return HttpResponse(resp)
-
