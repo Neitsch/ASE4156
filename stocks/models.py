@@ -191,7 +191,7 @@ class InvestmentBucket(models.Model):
             current_configs = self.get_stock_configs()
             balance_change = 0.0
             for conf in current_configs:
-                balance_change += conf.current_value()
+                balance_change += conf.value_on()
             self.available += balance_change
             current_configs.update(end=datetime.datetime.now())
 
