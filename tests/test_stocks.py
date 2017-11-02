@@ -106,19 +106,19 @@ class StocksViewTests(TestCase):
     @mock.patch.object(
         Fetcher,
         'getHistorical',
-        mock.MagicMock(side_effect=[pd.DataFrame({
-            'Close': [1.76, 2.51],
-            'Date': ["2016-10-08", "2016-10-09"],
-        }),
+        mock.MagicMock(side_effect=[
+            pd.DataFrame({
+                'Close': [1.76, 2.51],
+                'Date': ["2016-10-08", "2016-10-09"],
+                }),
             pd.DataFrame({
                 'Close': [2.51, 2.53],
                 'Date': ["2016-10-09", "2016-10-10"],
-            }),
+                }),
             pd.DataFrame({
                 'Close': [2.55, 2.58],
                 'Date': ["2016-10-11", "2017-10-12"],
-            })])
-    )
+            })]))
     @pytest.mark.django_db(transaction=True)
     def test_fill_for_stocks_in_DB(self):
         """
