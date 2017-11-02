@@ -1,6 +1,7 @@
 """
 Views for trading
 """
+from collections import defaultdict
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
@@ -8,7 +9,6 @@ from django.core.exceptions import ObjectDoesNotExist
 from stocks.models import InvestmentBucket
 from trading.models import TradingAccount, TradeBucket
 from authentication.views import get_balance_as_dic
-from collections import defaultdict
 
 
 @login_required
@@ -118,8 +118,7 @@ def buy_bucket(request):
                 new_trade = TradeBucket(account=account, quantity=1, bucket=bucket)
                 new_trade.save()
                 return HttpResponse("Trade complete.")
-            else:
-                return HttpResponse("Not enough cash")
+            return HttpResponse("Not enough cash")
         except ObjectDoesNotExist:
             return HttpResponse("""Please create a trading account first at the
             <a href='/trade/account'> account creation page </a>""")

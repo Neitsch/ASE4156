@@ -119,4 +119,7 @@ def get_balance_as_dic(request):
 
 @login_required
 def get_balance(request):
+    """
+    Return balance as JSON
+    """
     return JsonResponse(get_balance_as_dic(request), safe=False)

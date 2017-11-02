@@ -11,9 +11,7 @@ from django.db import transaction
 from django.core.exceptions import ValidationError
 from django.core.validators import MinLengthValidator, MinValueValidator
 from authentication.models import Profile
-import datetime
 from .stock_helper import validate_ticker
-
 
 
 class Stock(models.Model):
@@ -205,6 +203,9 @@ class InvestmentBucket(models.Model):
             self.save()
 
     def get_quote(self, date=None):
+        """
+        Get a bucket's value
+        """
         if date is None:
             date = datetime.datetime.now()
         stock_configs = self.get_stock_configs()
