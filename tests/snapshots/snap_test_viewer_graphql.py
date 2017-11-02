@@ -56,7 +56,7 @@ snapshots['test_big_gql 1'] = {
                 },
                 'stockFind': [
                     {
-                        'id': 'R1N0b2NrOjQ=',
+                        'id': 'R1N0b2NrOjU=',
                         'quoteInRange': [
                             {
                                 'date': '2017-05-10',
