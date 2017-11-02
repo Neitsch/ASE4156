@@ -33,7 +33,7 @@ class PlaidAPI(object):
                                 if b['balances']['available'] is not None else
                                 b['balances']['current']) *
                                (1
-                                if b['subtype'] == 'credit card' else -1))
+                                if b['subtype'] != 'credit card' else -1))
                               for b in balances]
         balance = sum(extracted_balances)
         return float(balance)
@@ -104,15 +104,24 @@ class PlaidMiddleware(MiddlewareMixin):
         self.get_response = get_response
 
     def __call__(self, request):
-        request.plaid = PlaidAPI(
-            client=plaid.Client(
-                client_id=PLAID_CLIENT_ID,
-                secret=PLAID_SECRET,
-                public_key=PLAID_PUBLIC_KEY,
-                environment=PLAID_ENV
-            ),
-            access_token=request.user.userbank.get().access_token,
+        request.plaid = plaid.Client(
+            client_id=PLAID_CLIENT_ID,
+            secret=PLAID_SECRET,
+            public_key=PLAID_PUBLIC_KEY,
+            environment=PLAID_ENV
         )
+        if request.user.is_authenticated():
+            bnk = request.user.userbank.all()[:1]
+            if bnk:
+                request.plaid = PlaidAPI(
+                    client=plaid.Client(
+                        client_id=PLAID_CLIENT_ID,
+                        secret=PLAID_SECRET,
+                        public_key=PLAID_PUBLIC_KEY,
+                        environment=PLAID_ENV
+                    ),
+                    access_token=bnk[0].access_token,
+                )
         response = self.get_response(request)
         return response
 # pylint: enable=too-few-public-methods
