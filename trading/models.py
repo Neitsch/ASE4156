@@ -1,6 +1,7 @@
 """
 Models here represents any interaction between a user and stocks
 """
+from collections import defaultdict
 from authentication.models import Profile
 from django.db import models
 from stocks.models import Stock, InvestmentBucket
@@ -38,13 +39,37 @@ class TradingAccount(models.Model):
         ])
         return stock_val + bucket_val
 
+    def available_buckets(self):
+        avail_buckets = defaultdict(int)
+        for trade in self.buckettrades.all():
+            avail_buckets[trade.bucket] += trade.quantity
+        return dict((k, v) for k, v in avail_buckets.items() if v > 0)
+
+    def has_enough_cash(self, trade_value):
+        """
+        Check if you have enough cash to make a 
+        """
+        if self.available_cash() >= trade_value:
+            return True
+        return False
+
     def trade_bucket(self, bucket, quantity):
         """
         Creates a new trade for the bucket and this account
         """
-        return self.buckettrades.create(
-            stock=bucket,
+        if self.has_enough_cash(bucket.value_on()):
+            return self.buckettrades.create(
+                stock=bucket,
+                quantity=quantity,
+            )
+
+    def trade_stock(self, stock, quantity):
+        """
+        Trades a stock for the account
+        """
+        return self.trades.create(
             quantity=quantity,
+            stock=stock,
         )
 
     def __str__(self):
@@ -66,15 +91,6 @@ class TradeStock(models.Model):
         """
         quote_value = self.stock.latest_quote(self.timestamp).value
         return quote_value * (-1 * self.quantity)
-
-    def stock_trade(self, stock, quantity):
-        """
-        Trades a stock for the account
-        """
-        return self.trades.create(
-            quantity=quantity,
-            stock=stock,
-        )
 
     def __str__(self):
         return "{}, {}, {}, {}, {}".format(self.id,
