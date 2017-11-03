@@ -71,17 +71,13 @@ class TradingAccount(models.Model):
         """
         Check if you have enough bucket to make a trade
         """
-        if self.available_buckets(bucket) > -1 * quantity_bucket:
-            return True
-        return False
+        return self.available_buckets(bucket) > -1 * quantity_bucket
 
-    def has_enough_stock(self, stock, qunatity_stock):
+    def has_enough_stock(self, stock, quantity_stock):
         """
         Check if you have enough stock to trade
         """
-        if self.available_stocks(stock) > -1 * qunatity_stock:
-            return True
-        return False
+        return self.available_stocks(stock) > -1 * quantity_stock
 
     def trade_bucket(self, bucket, quantity):
         """
@@ -93,7 +89,7 @@ class TradingAccount(models.Model):
                 stock=bucket,
                 quantity=quantity,
             )
-        return "You don't have the necessary resources"
+        raise Exception("You don't have the necessary resources!")
 
     def trade_stock(self, stock, quantity):
         """
@@ -105,6 +101,7 @@ class TradingAccount(models.Model):
                 quantity=quantity,
                 stock=stock,
             )
+        raise Exception("You don't have the necessary resources!")
 
     def __str__(self):
         return "{}, {}, {}".format(self.id, self.account_name, self.profile_id)
