@@ -2,12 +2,11 @@
 Tests the models of the stock app
 """
 import datetime
+from unittest import mock, TestCase
 import pytest
-from unittest import mock
-from stocks.models import Stock
-from unittest import TestCase
-from django.db.models.signals import post_save
 from stocks.historical import create_stock
+from stocks.models import Stock
+from django.db.models.signals import post_save
 from yahoo_historical import Fetcher
 
 
@@ -16,8 +15,8 @@ def setup_module(module):
     Mock out any externals
     """
     post_save.disconnect(receiver=create_stock, sender=Stock)
-    module._original_init_method = Fetcher.__init__
-    module._original_getHistorical_method = Fetcher.getHistorical
+    module.original_init_method = Fetcher.__init__
+    module.original_getHistorical_method = Fetcher.getHistorical
     Fetcher.__init__ = mock.Mock(return_value=None)
     Fetcher.getHistorical = mock.Mock(return_value=None)
 
@@ -26,8 +25,8 @@ def teardown_module(module):
     """
     Restore externals
     """
-    Fetcher.__init__ = module._original_init_method
-    Fetcher.getHistorical = module._original_getHistorical_method
+    Fetcher.__init__ = module.original_init_method
+    Fetcher.getHistorical = module.original_getHistorical_method
 
 
 @pytest.mark.django_db(transaction=True)
