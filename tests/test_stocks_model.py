@@ -1,3 +1,6 @@
+"""
+Tests the models of the stock app
+"""
 import datetime
 import pytest
 from unittest import mock
@@ -9,6 +12,9 @@ from yahoo_historical import Fetcher
 
 
 def setup_module(module):
+    """
+    Mock out any externals
+    """
     post_save.disconnect(receiver=create_stock, sender=Stock)
     module._original_init_method = Fetcher.__init__
     module._original_getHistorical_method = Fetcher.getHistorical
@@ -17,12 +23,18 @@ def setup_module(module):
 
 
 def teardown_module(module):
+    """
+    Restore externals
+    """
     Fetcher.__init__ = module._original_init_method
     Fetcher.getHistorical = module._original_getHistorical_method
 
 
 @pytest.mark.django_db(transaction=True)
 def test_stock_latest_quote():
+    """
+    Tests Stock.latest_quote()
+    """
     stock = Stock(
         name="Name1",
         ticker="TKRC"
@@ -51,6 +63,9 @@ def test_stock_latest_quote():
 
 @pytest.mark.django_db(transaction=True)
 def test_stock_find_stock():
+    """
+    Tests Stock.find_stock()
+    """
     stock1 = Stock(
         name="Name1X",
         ticker="TKRC"
