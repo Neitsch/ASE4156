@@ -38,6 +38,7 @@ class TradingAccount(models.Model):
         ])
         return stock_val + bucket_val
 
+    @staticmethod
     def available_buckets(self):
         """
         Find the available buckets that have quantity > 0
