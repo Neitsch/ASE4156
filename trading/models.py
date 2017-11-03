@@ -40,10 +40,8 @@ class TradingAccount(models.Model):
         return stock_val + bucket_val
 
     def available_buckets(self):
-        avail_buckets = defaultdict(int)
-        for trade in self.buckettrades.all():
-            avail_buckets[trade.bucket] += trade.quantity
-        return dict((k, v) for k, v in avail_buckets.items() if v > 0)
+        return TradeBucket.objects.values('stock').annotate(
+            sum_quantity=models.Sum('quantity')).filter(sum_quantity__gt=0)
 
     def has_enough_cash(self, trade_value):
         """
@@ -53,11 +51,18 @@ class TradingAccount(models.Model):
             return True
         return False
 
+    def has_enough_bucket(self, bucket):
+        try:
+            self.avail_buckets[bucket]
+            return True
+        except:
+            return False
+
     def trade_bucket(self, bucket, quantity):
         """
         Creates a new trade for the bucket and this account
         """
-        if self.has_enough_cash(bucket.value_on()):
+        if self.has_enough_cash(bucket.value_on()) and (has_enough_bucket(bucket) or quantity < 0):
             return self.buckettrades.create(
                 stock=bucket,
                 quantity=quantity,
