@@ -1,6 +1,24 @@
 import datetime
 import pytest
+from unittest import mock
 from stocks.models import Stock
+from unittest import TestCase
+from django.db.models.signals import post_save
+from stocks.historical import create_stock
+from yahoo_historical import Fetcher
+
+
+def setup_module(module):
+    post_save.disconnect(receiver=create_stock, sender=Stock)
+    module._original_init_method = Fetcher.__init__
+    module._original_getHistorical_method = Fetcher.getHistorical
+    Fetcher.__init__ = mock.Mock(return_value=None)
+    Fetcher.getHistorical = mock.Mock(return_value=None)
+
+
+def teardown_module(module):
+    Fetcher.__init__ = module._original_init_method
+    Fetcher.getHistorical = module._original_getHistorical_method
 
 
 @pytest.mark.django_db(transaction=True)
@@ -29,3 +47,21 @@ def test_stock_latest_quote():
         stock.latest_quote("2016-06-02")
     with pytest.raises(Exception):
         stock.latest_quote(datetime.datetime.now() + datetime.timedelta(days=3))
+
+
+@pytest.mark.django_db(transaction=True)
+def test_stock_find_stock():
+    stock1 = Stock(
+        name="Name1X",
+        ticker="TKRC"
+    )
+    stock1.save()
+    stock2 = Stock(
+        name="Name2Y",
+        ticker="TKFF"
+    )
+    stock2.save()
+    TestCase.assertCountEqual(None, [stock1, stock2], Stock.find_stock(""))
+    TestCase.assertCountEqual(None, [stock1, stock2], Stock.find_stock("Name"))
+    TestCase.assertCountEqual(None, [stock1], Stock.find_stock("Name1"))
+    TestCase.assertCountEqual(None, [stock2], Stock.find_stock("e2"))
