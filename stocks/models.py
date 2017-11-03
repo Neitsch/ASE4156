@@ -206,6 +206,21 @@ class InvestmentBucket(models.Model):
             if self.available < 0:
                 raise Exception("Not enough money available")
             self.save()
+            
+    def get_quote(self, date=None):
+        """
+        Get a bucket's value
+        """
+        if date is None:
+            date = datetime.datetime.now()
+        stock_configs = self.get_stock_configs()
+        total = 0
+        for stock_config in stock_configs:
+            stock = stock_config.stock
+            price = stock.latest_quote(date).value
+            value = price * stock_config.quantity
+            total += value
+        return total
 
     def value_on(self, date=None):
         """

@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<h4>Create an account</h4>
+<form action="#" method="post">
+	{% csrf_token %}
+	<input type="text" name="account_name">
+	<input type="submit" value="create account">
+</form>
+{% endblock %}

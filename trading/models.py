@@ -11,7 +11,7 @@ class TradingAccount(models.Model):
     A TradingAccount is owned by a user, we associate stock trades with it.
     """
     account_name = models.CharField(max_length=30)
-    profile = models.ForeignKey(Profile, related_name='trading_accounts')
+    profile = models.ForeignKey(Profile, related_name='trading_account')
 
     class Meta(object):
         unique_together = ('profile', 'account_name')
@@ -137,7 +137,7 @@ class TradeBucket(models.Model):
     """
     timestamp = models.DateTimeField(auto_now_add=True)
     account = models.ForeignKey(TradingAccount, related_name='buckettrades')
-    stock = models.ForeignKey(InvestmentBucket, related_name='buckettrades')
+    bucket = models.ForeignKey(InvestmentBucket, related_name='buckettrades')
     quantity = models.FloatField()
 
     def current_value(self):

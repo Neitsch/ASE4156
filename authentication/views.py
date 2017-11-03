@@ -91,28 +91,35 @@ def list_transactions(request):
     return render(request, 'bank_select_form.html', context)
 
 
-@login_required
-def get_balance(request):
+def get_balance_as_dic(request):
     """
     A view that gets all balances for a user and returns as json
     """
     client = plaid.Client(client_id=PLAID_CLIENT_ID, secret=PLAID_SECRET,
                           public_key=PLAID_PUBLIC_KEY, environment=PLAID_ENV)
-    for user_bank in request.user.userbank_set.all():
-        if user_bank.user == request.user:
-            response = client.Accounts.balance.get(user_bank.access_token)
-            json_response = []
-            for account in response['accounts']:
-                dic = {}
-                dic['name'] = account['official_name']
-                if account['subtype'] == 'cd':
-                    dic['balance'] = account['balances']['current']
-                elif account['subtype'] == 'credit card':
-                    dic['balance'] = int("-{}".format(account['balances']['current']))
-                else:
-                    dic['balance'] = account['balances']['available']
-                dic['type'] = account['subtype']
-                json_response.append(dic)
-            return JsonResponse(json_response, safe=False)
-        return HttpResponse("You don't have permission to view that.")
-    return HttpResponse("No user signed in/bank selected")
+    user_bank = UserBank.objects.get(user=request.user)
+    response = client.Accounts.balance.get(user_bank.access_token)
+    json_response = []
+    total = 0
+    for account in response['accounts']:
+        dic = {}
+        dic['name'] = account['official_name']
+        if account['subtype'] == 'cd':
+            dic['balance'] = account['balances']['current']
+        elif account['subtype'] == 'credit card':
+            dic['balance'] = int("-{}".format(account['balances']['current']))
+        else:
+            dic['balance'] = account['balances']['available']
+        dic['type'] = account['subtype']
+        total += dic['balance']
+        json_response.append(dic)
+    json_response.append({"total": total})
+    return json_response
+
+
+@login_required
+def get_balance(request):
+    """
+    Return balance as JSON
+    """
+    return JsonResponse(get_balance_as_dic(request), safe=False)

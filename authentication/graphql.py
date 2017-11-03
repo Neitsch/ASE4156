@@ -130,7 +130,17 @@ class GUserBank(DjangoObjectType):
         """
         Finds the current balance of the user
         """
-        return context.plaid.current_balance()
+        total = context.plaid.current_balance()
+        if context.user.profile.trading_account is None:
+            return total
+        user_accounts = context.user.profile.trading_account.all()
+        bucket_trades = user_accounts[0].buckettrades
+        for trade in bucket_trades.all():
+            bucket = trade.bucket
+            value = bucket.get_quote(trade.timestamp)
+            value *= trade.quantity
+            total -= value
+        return total
 
     @staticmethod
     def resolve_name(_data, _args, context, _info):
