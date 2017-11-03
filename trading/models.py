@@ -39,6 +39,9 @@ class TradingAccount(models.Model):
         return stock_val + bucket_val
 
     def available_buckets(self):
+        """
+        Find the available buckets that have quantity > 0
+        """
         return TradeBucket.objects.values('stock').annotate(
             sum_quantity=models.Sum('quantity')).filter(sum_quantity__gt=0)
 
@@ -54,11 +57,9 @@ class TradingAccount(models.Model):
         """
         Check if you have enough bucket to make a trade
         """
-        try:
-            self.avail_buckets[bucket]
+        if bucket in self.available_buckets():
             return True
-        except:
-            return False
+        return False
 
     def trade_bucket(self, bucket, quantity):
         """
