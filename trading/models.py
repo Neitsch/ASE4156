@@ -1,7 +1,6 @@
 """
 Models here represents any interaction between a user and stocks
 """
-from collections import defaultdict
 from authentication.models import Profile
 from django.db import models
 from stocks.models import Stock, InvestmentBucket
@@ -45,13 +44,16 @@ class TradingAccount(models.Model):
 
     def has_enough_cash(self, trade_value):
         """
-        Check if you have enough cash to make a 
+        Check if you have enough cash to make a trade
         """
         if self.available_cash() >= trade_value:
             return True
         return False
 
     def has_enough_bucket(self, bucket):
+        """
+        Check if you have enough bucket to make a trade
+        """
         try:
             self.avail_buckets[bucket]
             return True
@@ -62,7 +64,8 @@ class TradingAccount(models.Model):
         """
         Creates a new trade for the bucket and this account
         """
-        if self.has_enough_cash(bucket.value_on()) and (has_enough_bucket(bucket) or quantity < 0):
+        if self.has_enough_cash(bucket.value_on()) and (
+                self.has_enough_bucket(bucket) or quantity < 0):
             return self.buckettrades.create(
                 stock=bucket,
                 quantity=quantity,
