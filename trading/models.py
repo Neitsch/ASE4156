@@ -39,12 +39,25 @@ class TradingAccount(models.Model):
         return stock_val + bucket_val
 
     @staticmethod
-    def available_buckets():
+    def available_buckets(bkt):
         """
         Find the available buckets that have quantity > 0
         """
-        return TradeBucket.objects.values('stock').annotate(
-            sum_quantity=models.Sum('quantity')).filter(sum_quantity__gt=0)
+        bucket = TradeBucket.buckettrades.filter(bucket=bkt).annotate(
+            sum_quantity=models.Sum('quantity'))
+        if bucket:
+            return bucket[0].sum_quantity
+        return 0
+
+    @staticmethod
+    def available_stocks(stk):
+        """
+        Find available stock
+        """
+        stock = TradeStock.trades.filter(stock=stk).annotate(sum_quantity=models.Sum('quantity'))
+        if stock:
+            return stock[0].sum_quantity
+        return 0
 
     def has_enough_cash(self, trade_value):
         """
@@ -54,11 +67,19 @@ class TradingAccount(models.Model):
             return True
         return False
 
-    def has_enough_bucket(self, bucket):
+    def has_enough_bucket(self, bucket, quantity_bucket):
         """
         Check if you have enough bucket to make a trade
         """
-        if bucket in self.available_buckets():
+        if self.available_buckets(bucket) > -1 * quantity_bucket:
+            return True
+        return False
+
+    def has_enough_stock(self, stock, qunatity_stock):
+        """
+        Check if you have enough stock to trade
+        """
+        if self.available_stocks(stock) > -1 * qunatity_stock:
             return True
         return False
 
@@ -66,21 +87,24 @@ class TradingAccount(models.Model):
         """
         Creates a new trade for the bucket and this account
         """
-        if self.has_enough_cash(bucket.value_on()) and (
-                self.has_enough_bucket(bucket) or quantity < 0):
+        if self.has_enough_cash(bucket.value_on() * quantity) and (
+                self.has_enough_bucket(bucket, quantity)):
             return self.buckettrades.create(
                 stock=bucket,
                 quantity=quantity,
             )
+        return "You don't have the necessary resources"
 
     def trade_stock(self, stock, quantity):
         """
         Trades a stock for the account
         """
-        return self.trades.create(
-            quantity=quantity,
-            stock=stock,
-        )
+        if self.has_enough_cash(stock.latest_quote() * quantity) and (
+                self.has_enough_stock(stock, quantity)):
+            return self.trades.create(
+                quantity=quantity,
+                stock=stock,
+            )
 
     def __str__(self):
         return "{}, {}, {}".format(self.id, self.account_name, self.profile_id)
