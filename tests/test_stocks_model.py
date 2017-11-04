@@ -5,7 +5,7 @@ import datetime
 from unittest import mock, TestCase
 import pytest
 from stocks.historical import create_stock
-from stocks.models import Stock
+from stocks.models import InvestmentBucket, Stock
 from django.db.models.signals import post_save
 from yahoo_historical import Fetcher
 from django.contrib.auth.models import User
@@ -150,3 +150,15 @@ def test_stock_trades_for_profile():
     TradeStock(quantity=1, account=t2_1, stock=stock).save()
     assert stock.trades_for_profile(u1.profile).count() == 2
     assert stock.trades_for_profile(u2.profile).count() == 1
+
+
+@pytest.mark.django_db(transaction=True)
+def test_investmentbucket_trades_for_profile():
+    u1 = User.objects.create(username='user1', password="a")
+    u2 = User.objects.create(username='user2', password="a")
+    InvestmentBucket(name="B1", owner=u1.profile, public=False, available=1).save()
+    InvestmentBucket(name="B2", owner=u1.profile, public=True, available=1).save()
+    InvestmentBucket(name="B3", owner=u1.profile, public=False, available=1).save()
+    InvestmentBucket(name="B4", owner=u2.profile, public=False, available=1).save()
+    InvestmentBucket.accessible_buckets(u1.profile).count() == 3
+    InvestmentBucket.accessible_buckets(u2.profile).count() == 2
