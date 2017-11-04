@@ -82,8 +82,9 @@ def test_stock_find_stock():
     TestCase.assertCountEqual(None, [stock1], Stock.find_stock("Name1"))
     TestCase.assertCountEqual(None, [stock2], Stock.find_stock("e2"))
 
+
 @pytest.mark.django_db(transaction=True)
-def test_create_new_stock():
+def test_stock_create_new_stock():
     """
     Tests Stock.create_new_stock()
     """
@@ -92,8 +93,9 @@ def test_create_new_stock():
         with pytest.raises(Exception):
             Stock.create_new_stock(ticker="ABC", name="DEF")
 
+
 @pytest.mark.django_db(transaction=True)
-def test_quote_in_range():
+def test_stock_quote_in_range():
     """
     Tests Stock.quote_in_range()
     """
@@ -122,8 +124,9 @@ def test_quote_in_range():
     assert [q1, q2, q3] == list(stock.quote_in_range(end="2016-06-06"))
     assert [q1, q2] == list(stock.quote_in_range(end="2016-06-05"))
 
+
 @pytest.mark.django_db(transaction=True)
-def test_trades_for_profile():
+def test_stock_trades_for_profile():
     """
     Tests Stock.trades_for_profile()
     """
