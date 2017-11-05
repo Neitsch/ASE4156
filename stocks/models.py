@@ -42,7 +42,9 @@ class Stock(models.Model):
         if date is not None:
             if isinstance(date, str):
                 date = datetime.datetime.strptime(date, "%Y-%m-%d").date()
-            if date.date() > datetime.datetime.now().date():
+            if isinstance(date, datetime.datetime):
+                date = date.date()
+            if date > datetime.datetime.now().date():
                 raise Exception("Date is later than now!")
             quote_query = quote_query.filter(date__lte=date)
         quote_query = quote_query.order_by('-date')

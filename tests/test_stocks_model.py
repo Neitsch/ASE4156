@@ -224,7 +224,13 @@ def test_bucket_get_stock_configs():
     stock2.save()
     bucket = InvestmentBucket(name="Bucket1", public=True, owner=user1.profile, available=1)
     bucket.save()
-    InvestmentStockConfiguration(quantity=1, stock=stock1, bucket=bucket, start="2016-06-06", end="2016-06-08").save()
+    InvestmentStockConfiguration(
+        quantity=1,
+        stock=stock1,
+        bucket=bucket,
+        start="2016-06-06",
+        end="2016-06-08",
+    ).save()
     InvestmentStockConfiguration(quantity=1, stock=stock1, bucket=bucket, start="2016-06-08").save()
     InvestmentStockConfiguration(quantity=1, stock=stock2, bucket=bucket, start="2016-06-06").save()
     assert bucket.get_stock_configs().count() == 2
@@ -246,11 +252,24 @@ def test_bucket_sell_all():
     DailyStockQuote(date="2016-06-10", value=100.0, stock=stock1).save()
     bucket = InvestmentBucket(name="Bucket1", public=True, owner=user1.profile, available=10)
     bucket.save()
-    cfg1 = InvestmentStockConfiguration(quantity=1, stock=stock1, bucket=bucket, start="2016-06-06", end="2016-06-08")
-    cfg2 = InvestmentStockConfiguration(quantity=1, stock=stock1, bucket=bucket, start="2016-06-08")
+    cfg1 = InvestmentStockConfiguration(
+        quantity=1,
+        stock=stock1,
+        bucket=bucket,
+        start="2016-06-06",
+        end="2016-06-08",
+    )
+    cfg2 = InvestmentStockConfiguration(
+        quantity=1,
+        stock=stock1,
+        bucket=bucket,
+        start="2016-06-08",
+    )
     cfg1.save()
     cfg2.save()
+    # pylint: disable=protected-access
     bucket._sell_all()
+    # pylint: enable=protected-access
     bucket.refresh_from_db()
     cfg1.refresh_from_db()
     cfg2.refresh_from_db()
@@ -274,8 +293,19 @@ def test_bucket_change_config():
     DailyStockQuote(date="2016-06-10", value=100.0, stock=stock1).save()
     bucket = InvestmentBucket(name="Bucket1", public=True, owner=user1.profile, available=10)
     bucket.save()
-    cfg1 = InvestmentStockConfiguration(quantity=1, stock=stock1, bucket=bucket, start="2016-06-06", end="2016-06-08")
-    cfg2 = InvestmentStockConfiguration(quantity=1, stock=stock1, bucket=bucket, start="2016-06-08")
+    cfg1 = InvestmentStockConfiguration(
+        quantity=1,
+        stock=stock1,
+        bucket=bucket,
+        start="2016-06-06",
+        end="2016-06-08",
+    )
+    cfg2 = InvestmentStockConfiguration(
+        quantity=1,
+        stock=stock1,
+        bucket=bucket,
+        start="2016-06-08",
+    )
     cfg1.save()
     cfg2.save()
     with pytest.raises(Exception):
@@ -284,4 +314,8 @@ def test_bucket_change_config():
     bucket.change_config([cfg_str(id=stock1.id, quantity=2)])
     bucket.refresh_from_db()
     assert bucket.available == 900
-    assert bucket.stocks.filter(end=None).values('stock_id').annotate(sum_q=Sum('quantity')).get()['sum_q'] == 2
+    assert bucket.stocks.filter(
+        end=None
+    ).values('stock_id').annotate(
+        sum_q=Sum('quantity')
+    ).get()['sum_q'] == 2
