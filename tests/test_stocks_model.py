@@ -274,7 +274,7 @@ def test_bucket_sell_all():
     cfg1.refresh_from_db()
     cfg2.refresh_from_db()
     assert bucket.available == 110
-    assert cfg1.end == "2016-06-08"
+    assert cfg1.end == datetime.date(2016, 6, 8)
     assert cfg2.end is not None
 
 
