@@ -235,7 +235,7 @@ def test_bucket_get_stock_configs():
 @pytest.mark.django_db(transaction=True)
 def test_bucket_sell_all():
     """
-    Tests InvestmentBucket.sell_all()
+    Tests InvestmentBucket._sell_all()
     """
     user1 = User.objects.create(username='user1', password="a")
     stock1 = Stock(
@@ -260,9 +260,9 @@ def test_bucket_sell_all():
 
 
 @pytest.mark.django_db(transaction=True)
-def test_bucket_sell_all():
+def test_bucket_change_config():
     """
-    Tests InvestmentBucket.sell_all()
+    Tests InvestmentBucket.change_config()
     """
     cfg_str = namedtuple("cfg_str", ["id", "quantity"])
     user1 = User.objects.create(username='user1', password="a")
