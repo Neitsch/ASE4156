@@ -175,7 +175,7 @@ class InvestmentBucket(models.Model):
         """
         if not date:
             return self.stocks.filter(end=None)
-        return self.stocks.filter(end__gte=date).filter(start__lte=date)
+        return self.stocks.filter(start__lte=date).filter(Q(end__gte=date) | Q(end=None))
 
     def _sell_all(self):
         """
@@ -188,6 +188,7 @@ class InvestmentBucket(models.Model):
                 balance_change += conf.value_on()
             self.available += balance_change
             current_configs.update(end=datetime.datetime.now())
+            self.save()
 
     def change_config(self, new_config):
         """
