@@ -25,6 +25,8 @@ type State = {
   count: number,
 }
 
+const spacing = { xs: 12, sm: 6, md: 4 };
+
 class InvestBucketGridRelay extends React.Component<Props, State> {
   constructor() {
     super();
@@ -86,7 +88,7 @@ class InvestBucketGridRelay extends React.Component<Props, State> {
       <Grid container spacing={16} align="stretch">
         {
           this.props.profile.investSuggestions.edges.map(b => (b && b.node ? (
-            <Grid item xs={12} sm={8} lg={4} key={b.node.id}>
+            <Grid item {...spacing} key={b.node.id}>
               <InvestBucketRelay profile={this.props.profile} bucket={b.node} />
             </Grid>
           ) : null))
