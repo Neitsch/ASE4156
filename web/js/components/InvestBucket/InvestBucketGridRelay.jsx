@@ -84,7 +84,10 @@ class InvestBucketGridRelay extends React.Component<Props, State> {
     }
     const emptyFillers = [];
     if (this.props.profile.investSuggestions.pageInfo.hasNextPage) {
-      for (let i = this.props.profile.investSuggestions.edges.length; i < this.state.count; i++) {
+      for (
+        let i = this.props.profile.investSuggestions.edges.length;
+        i < this.state.count;
+        i += 1) {
         emptyFillers.push((
           <Grid item {...spacing}>
             <Card>
@@ -111,11 +114,12 @@ class InvestBucketGridRelay extends React.Component<Props, State> {
           {createMoreBucket}
         </Grid>
         {
-          this.props.profile.investSuggestions.edges.map(b => (b && b.node ? (
-            <Grid item {...spacing} key={b.node.id}>
-              <InvestBucketRelay profile={this.props.profile} bucket={b.node} />
-            </Grid>
-          ) : null))
+          this.props.profile.investSuggestions ?
+            this.props.profile.investSuggestions.edges.map(b => (b && b.node ? (
+              <Grid item {...spacing} key={b.node.id}>
+                <InvestBucketRelay profile={this.props.profile} bucket={b.node} />
+              </Grid>
+            ) : null)) : null
         }
         {emptyFillers}
         <Grid item {...spacing}>
