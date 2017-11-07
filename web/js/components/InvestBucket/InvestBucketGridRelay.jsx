@@ -4,8 +4,8 @@ import { createRefetchContainer, graphql } from 'react-relay';
 import { ConnectionHandler } from 'relay-runtime';
 import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
-import AddIcon from 'material-ui-icons/Add';
-import LoadMoreIcon from 'material-ui-icons/MoreHoriz';
+import Card, { CardHeader, CardContent, CardActions } from 'material-ui/Card';
+import VisibilitySensor from 'react-visibility-sensor';
 
 import type { RelayContext } from 'react-relay';
 
@@ -33,7 +33,7 @@ class InvestBucketGridRelay extends React.Component<Props, State> {
     this.state = {
       showDialog: false,
       errors: [],
-      count: 2,
+      count: 3,
     };
   }
   dialogAction = diagState => () => {
@@ -43,21 +43,19 @@ class InvestBucketGridRelay extends React.Component<Props, State> {
   }
   dialogSave = (name: string, publicBucket: bool, investment: number) => {
     let updater = null;
-    if (publicBucket) {
-      updater = (store) => {
-        const connection = ConnectionHandler.getConnection(
-          store.get(this.props.profile.id),
-          'InvestBucketGridRelay_investSuggestions',
-        );
-        const newEdge = ConnectionHandler.createEdge(
-          store,
-          connection,
-          store.getRootField('addBucket').getLinkedRecord('bucket'),
-          'GInvestmentBucketConnection',
-        );
-        ConnectionHandler.insertEdgeAfter(connection, newEdge);
-      };
-    }
+    updater = (store) => {
+      const connection = ConnectionHandler.getConnection(
+        store.get(this.props.profile.id),
+        'InvestBucketGridRelay_investSuggestions',
+      );
+      const newEdge = ConnectionHandler.createEdge(
+        store,
+        connection,
+        store.getRootField('addBucket').getLinkedRecord('bucket'),
+        'GInvestmentBucketConnection',
+      );
+      ConnectionHandler.insertEdgeAfter(connection, newEdge);
+    };
     createBucket(
       updater,
       updater,
@@ -84,8 +82,34 @@ class InvestBucketGridRelay extends React.Component<Props, State> {
     if (!this.props.profile.investSuggestions) {
       return null;
     }
+    const emptyFillers = [];
+    if (this.props.profile.investSuggestions.pageInfo.hasNextPage) {
+      for (let i = this.props.profile.investSuggestions.edges.length; i < this.state.count; i++) {
+        emptyFillers.push((
+          <Grid item {...spacing}>
+            <Card>
+              <CardHeader title="Loading more buckets" />
+              <CardContent>Sit tight!</CardContent>
+            </Card>
+          </Grid>
+        ));
+      }
+    }
+    const createMoreBucket = (
+      <Card>
+        <CardHeader title="Create new bucket" />
+        <CardContent>Here you can add a new bucket!</CardContent>
+        <CardActions>
+          <Button dense color="primary" aria-label="add" onClick={this.dialogAction(true)}>
+              New
+          </Button>
+        </CardActions>
+      </Card>);
     return (
       <Grid container spacing={16} align="stretch">
+        <Grid item {...spacing}>
+          {createMoreBucket}
+        </Grid>
         {
           this.props.profile.investSuggestions.edges.map(b => (b && b.node ? (
             <Grid item {...spacing} key={b.node.id}>
@@ -93,16 +117,13 @@ class InvestBucketGridRelay extends React.Component<Props, State> {
             </Grid>
           ) : null))
         }
-        <Grid item xs={12} sm={8} lg={4}>
-          <Button fab color="primary" aria-label="add" onClick={this.dialogAction(true)}>
-            <AddIcon />
-          </Button>
+        {emptyFillers}
+        <Grid item {...spacing}>
           {
             this.props.profile.investSuggestions
             && this.props.profile.investSuggestions.pageInfo.hasNextPage ?
-              <Button fab color="primary" aria-label="add" onClick={this.loadMore}>
-                <LoadMoreIcon />
-              </Button> : null
+              <VisibilitySensor onChange={v => v && this.loadMore()} />
+              : createMoreBucket
           }
         </Grid>
         {
@@ -123,7 +144,7 @@ export default createRefetchContainer(InvestBucketGridRelay, {
   profile: graphql`
     fragment InvestBucketGridRelay_profile on GProfile
     @argumentDefinitions(
-      count: {type: "Int!", defaultValue: 2}
+      count: {type: "Int!", defaultValue: 3}
     ) {
       id
       investSuggestions(first: $count) @connection(key: "InvestBucketGridRelay_investSuggestions") {
