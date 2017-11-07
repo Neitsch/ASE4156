@@ -1,14 +1,16 @@
+"""
+Tests the models of the trading app
+"""
 import random
 import string
+from unittest import mock
 import pytest
-from trading.models import TradingAccount
-from django.contrib.auth.models import User
-from trading.models import TradeStock
+from trading.models import TradingAccount, TradeStock
 from stocks.models import Stock
 from stocks.historical import create_stock
 from django.db.models.signals import post_save
+from django.contrib.auth.models import User
 from yahoo_historical import Fetcher
-from unittest import mock
 
 
 def setup_module(module):
