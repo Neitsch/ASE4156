@@ -64,9 +64,9 @@ def test_trading_available_cash():
     )
     TradeStock(quantity=1, account=account, stock=stock1).save()
 
-    value = account.available_cash()
+    value = account.trading_balance()
     assert value == -value_of_stock1
 
     TradeStock(quantity=quantity2, account=account, stock=stock2).save()
-    value = account.available_cash()
+    value = account.trading_balance()
     assert value == -value_of_stock1 + -value_of_stock2 * quantity2

@@ -22,9 +22,9 @@ class TradingAccount(models.Model):
         """
         pass
 
-    def available_cash(self):
+    def trading_balance(self):
         """
-        The available cash in that account
+        The stock values from account
         """
         stock_val = sum([
             stock.current_value()
