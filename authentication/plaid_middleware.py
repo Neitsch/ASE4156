@@ -53,7 +53,7 @@ class PlaidAPI(object):
         """
         Returns a list of tuples that show the balance a user had at the given point in time
         """
-        end = datetime.datetime.now().strftime("%Y-%m-%d")
+        end = datetime.datetime.now()
         response = self.plaid.Transactions.get(
             self.access_token,
             start_date=start,
