@@ -1,6 +1,30 @@
 import pytest
 from django.contrib.auth.models import User
 from stocks.models import InvestmentBucket, Stock
+from stocks.historical import create_stock
+from django.db.models.signals import post_save
+from yahoo_historical import Fetcher
+from unittest import mock
+
+
+def setup_module(module):
+    """
+    Mock out any externals
+    """
+    post_save.disconnect(receiver=create_stock, sender=Stock)
+    module.original_init_method = Fetcher.__init__
+    module.original_getHistorical_method = Fetcher.getHistorical
+    Fetcher.__init__ = mock.Mock(return_value=None)
+    Fetcher.getHistorical = mock.Mock(return_value=None)
+
+
+def teardown_module(module):
+    """
+    Restore externals
+    """
+    Fetcher.__init__ = module.original_init_method
+    Fetcher.getHistorical = module.original_getHistorical_method
+
 
 # @pytest.mark.django_db(transaction=True)
 # def test_trading_account_total_value():
@@ -15,9 +39,9 @@ available cash (current implementation is incorrect) """
 
 @pytest.mark.django_db(transaction=True)
 def test_trading_account_available_buckets():
-	"""
-	Test available buckets
-	"""
+    """
+    Test available buckets
+    """
     user = User.objects.create(username='christophe', password="iscool")
     trading_account = user.profile.trading_accounts.create(
         account_name="spesh"
@@ -36,9 +60,9 @@ def test_trading_account_available_buckets():
 
 @pytest.mark.django_db(transaction=True)
 def test_trading_account_available_stock():
-	"""
-	Test available stocks
-	"""
+    """
+    Test available stocks
+    """
     user = User.objects.create(username='christophe', password="iscool")
     trading_account = user.profile.trading_accounts.create(
         account_name="spesh"
@@ -61,9 +85,9 @@ available cash (current implementation is incorrect) """
 
 @pytest.mark.django_db(transaction=True)
 def test_has_enough_bucket():
-	"""
-	Test has enough bucket
-	"""
+    """
+    Test has enough bucket
+    """
     user = User.objects.create(username='christophe', password="iscool")
     trading_account = user.profile.trading_accounts.create(
         account_name="spesh"
@@ -85,9 +109,9 @@ def test_has_enough_bucket():
 
 @pytest.mark.django_db(transaction=True)
 def test_has_enough_stock():
-	"""
-	Test has enough stock
-	"""
+    """
+    Test has enough stock
+    """
     user = User.objects.create(username='christophe', password="iscool")
     trading_account = user.profile.trading_accounts.create(
         account_name="spesh"
@@ -109,9 +133,9 @@ def test_has_enough_stock():
 
 @pytest.mark.django_db(transaction=True)
 def test_trading_account_trade_bucket():
-	"""
-	Test trade bucket
-	"""
+    """
+    Test trade bucket
+    """
     user = User.objects.create(username='christophe', password="iscool")
     trading_account = user.profile.trading_accounts.create(
         account_name="spesh"
@@ -129,9 +153,9 @@ def test_trading_account_trade_bucket():
 
 @pytest.mark.django_db(transaction=True)
 def test_trading_account_trade_stock():
-	"""
-	Test trade stock
-	"""
+    """
+    Test trade stock
+    """
     user = User.objects.create(username='christophe', password="iscool")
     trading_account = user.profile.trading_accounts.create(
         account_name="spesh"
