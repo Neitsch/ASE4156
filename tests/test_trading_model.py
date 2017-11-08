@@ -11,25 +11,21 @@ from stocks.historical import create_stock
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 from yahoo_historical import Fetcher
+import test_stocks_model as stock_test
 
 
 def setup_module(module):
     """
     Mock out any externals
     """
-    post_save.disconnect(receiver=create_stock, sender=Stock)
-    module.original_init_method = Fetcher.__init__
-    module.original_getHistorical_method = Fetcher.getHistorical
-    Fetcher.__init__ = mock.Mock(return_value=None)
-    Fetcher.getHistorical = mock.Mock(return_value=None)
+    stock_test.setup_module(module)
 
 
 def teardown_module(module):
     """
     Restore externals
     """
-    Fetcher.__init__ = module.original_init_method
-    Fetcher.getHistorical = module.original_getHistorical_method
+    stock_test.teardown_module(module)
 
 
 @pytest.mark.django_db(transaction=True)
