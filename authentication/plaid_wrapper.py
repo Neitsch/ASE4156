@@ -3,6 +3,7 @@ Plaid API wrapper to provide convenience methods
 """
 import datetime
 import os
+import plaid
 
 
 class PlaidAPI(object):
@@ -19,12 +20,18 @@ class PlaidAPI(object):
         else 'development')
     balance = None
 
-    def __init__(self, access_token):
-        self.plaid = PlaidAPI.client()
+    def __init__(self, access_token, client=None):
+        if client is None:
+            self.plaid = PlaidAPI.client()
+        else:
+            self.plaid = client
         self.access_token = access_token
 
     @staticmethod
     def client():
+        """
+        Creates a new plaid client
+        """
         return plaid.Client(
             client_id=PlaidAPI.PLAID_CLIENT_ID,
             secret=PlaidAPI.PLAID_SECRET,
