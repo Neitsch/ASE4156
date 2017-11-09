@@ -49,7 +49,8 @@ def test_trading_account_available_buckets():
     trading_account = user.profile.trading_accounts.create(
         account_name="spesh"
     )
-    buff = InvestmentBucket(name="buffet", owner=user.profile, public=False, available=1).save()
+    buff = InvestmentBucket(name="buffet", owner=user.profile, public=False, available=1)
+    buff.save()
     assert trading_account.available_buckets(buff) == 0
     trading_account.trade_bucket(buff, 1)
     assert trading_account.available_buckets(buff) == 1
@@ -70,16 +71,17 @@ def test_trading_account_available_stock():
     trading_account = user.profile.trading_accounts.create(
         account_name="spesh"
     )
-    stock = Stock(name="sto", ticker="sto").save()
-    assert trading_account.available_stock(stock) == 0
+    stock = Stock(name="sto", ticker="sto")
+    stock.save()
+    assert trading_account.available_stocks(stock) == 0
     trading_account.trade_stock(stock, 1)
-    assert trading_account.available_stock(stock) == 1
+    assert trading_account.available_stocks(stock) == 1
     trading_account.trade_stock(stock, 2342342342342234)
-    assert trading_account.available_stock(stock) == 2342342342342235
+    assert trading_account.available_stocks(stock) == 2342342342342235
     trading_account.trade_stock(stock, -2342342342342234)
-    assert trading_account.available_stock(stock) == 1
+    assert trading_account.available_stocks(stock) == 1
     trading_account.trade_stock(stock, -1)
-    assert trading_account.available_stock(stock) == 0
+    assert trading_account.available_stocks(stock) == 0
 
 
 """ Have to write a has enough cash test, after fixing
@@ -95,7 +97,8 @@ def test_has_enough_bucket():
     trading_account = user.profile.trading_accounts.create(
         account_name="spesh"
         )
-    buff = InvestmentBucket(name="buffet", owner=user.profile, public=False, available=1).save()
+    buff = InvestmentBucket(name="buffet", owner=user.profile, public=False, available=1)
+    buff.save()
     assert trading_account.has_enough_bucket(buff, 1) is False
     trading_account.trade_bucket(buff, 1)
     assert trading_account.has_enough_bucket(buff, 1)
@@ -119,7 +122,8 @@ def test_has_enough_stock():
     trading_account = user.profile.trading_accounts.create(
         account_name="spesh"
     )
-    stock = Stock(name="sto", ticker="sto").save()
+    stock = Stock(name="sto", ticker="sto")
+    stock.save()
     assert trading_account.has_enough_stock(stock, 1) is False
     trading_account.trade_stock(stock, 1)
     assert trading_account.has_enough_stock(stock, 1)
@@ -143,7 +147,8 @@ def test_trading_account_trade_bucket():
     trading_account = user.profile.trading_accounts.create(
         account_name="spesh"
     )
-    buffa = InvestmentBucket(name="buffeta", owner=user.profile, public=False, available=1).save()
+    buffa = InvestmentBucket(name="buffeta", owner=user.profile, public=False, available=1)
+    buffa.save()
     with pytest.raises(Exception):
         trading_account.trade_bucket(buffa, -2)
     trading_account.trade_bucket(buffa, 2)
@@ -151,7 +156,7 @@ def test_trading_account_trade_bucket():
         trading_account.trade_bucket(buffa, -3)
     assert trading_account.has_enough_bucket(buffa, 2)
     trading_account.trade_bucket(buffa, -2)
-    assert trading_account.available_bucket(buffa) == 0
+    assert trading_account.available_buckets(buffa) == 0
 
 
 @pytest.mark.django_db(transaction=True)
@@ -163,7 +168,8 @@ def test_trading_account_trade_stock():
     trading_account = user.profile.trading_accounts.create(
         account_name="spesh"
     )
-    stock = Stock(name="sto", ticker='sto').save()
+    stock = Stock(name="sto", ticker='sto')
+    stock.save()
     with pytest.raises(Exception):
         trading_account.trade_stock(stock, -2)
     trading_account.trade_stock(stock, 2)
@@ -171,4 +177,4 @@ def test_trading_account_trade_stock():
         trading_account.trade_stock(stock, -3)
     assert trading_account.has_enough_stock(stock, 2)
     trading_account.trade_stock(stock, -2)
-    assert trading_account.available_stock(stock) == 0
+    assert trading_account.available_stocks(stock) == 0
