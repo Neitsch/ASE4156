@@ -63,7 +63,7 @@ class TradingAccount(models.Model):
         """
         Check if you have enough cash to make a trade
         """
-        if self.available_cash() >= trade_value:
+        if self.trading_balance() >= trade_value:
             return True
         return False
 

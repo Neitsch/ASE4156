@@ -25,7 +25,7 @@ def teardown_module(module):
 
 
 @pytest.mark.django_db(transaction=True)
-def test_trading_available_cash():
+def test_trading_trading_balance():
     """
     Testing available_cash for a Trading Account
     """
