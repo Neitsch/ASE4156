@@ -7,7 +7,7 @@ import pytest
 from stocks.models import InvestmentBucket, Stock
 from django.contrib.auth.models import User
 from trading.models import TradingAccount, TradeStock
-import test_stocks_model as stock_test    
+import test_stocks_model as stock_test
 
 
 def setup_module(module):
@@ -25,7 +25,10 @@ def teardown_module(module):
 
 
 @pytest.mark.django_db(transaction=True)
-def test_quick():
+def test_trading_available_buckets():
+    """
+    Testing TradingAccount.available_buckets()
+    """
     user = User.objects.create(username='user1', password="a")
     bucket1 = InvestmentBucket(name='b1', public=False, available=1000, owner=user.profile)
     bucket2 = InvestmentBucket(name='b2', public=False, available=1000, owner=user.profile)
