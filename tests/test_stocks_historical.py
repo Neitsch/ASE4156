@@ -5,7 +5,6 @@ from stocks.models import Stock, DailyStockQuote
 from stocks import stock_helper
 import pandas as pd
 from yahoo_historical import Fetcher
-from authentication.plaid_middleware import PlaidMiddleware
 import pytest
 import arrow
 
