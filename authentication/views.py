@@ -5,9 +5,9 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth import logout as log_out
 from django.contrib.auth.decorators import login_required
-import plaid
 from authentication.models import UserBank
-from authentication.plaid_wrapper import PlaidData
+from authentication.plaid_wrapper import PlaidAPI
+
 
 def login(request):
     """
@@ -41,12 +41,7 @@ def get_access_token(request):
     Function to retrieve plaid access token
     """
     if request.method == "POST":
-        client = plaid.Client(
-            client_id=PlaidData.PLAID_CLIENT_ID,
-            secret=PlaidData.PLAID_SECRET,
-            public_key=PlaidData.PLAID_PUBLIC_KEY,
-            environment=PlaidData.PLAID_ENV
-        )
+        client = PlaidAPI.client()
         public_token = request.POST.get('public_token')
         exchange_response = client.Item.public_token.exchange(public_token)
         plaidrequest = client.Item.get(exchange_response['access_token'])

@@ -4,9 +4,10 @@ Plaid API wrapper to provide convenience methods
 import datetime
 import os
 
-class PlaidData(object):
+
+class PlaidAPI(object):
     """
-    Contains necessary plaid data
+    Wrapper around the plaid API to establish convenience methods
     """
     PLAID_CLIENT_ID = os.environ.get('PLAID_CLIENT_ID')
     PLAID_SECRET = os.environ.get('PLAID_SECRET')
@@ -16,18 +17,20 @@ class PlaidData(object):
         if os.environ.get('DEBUG') == "TRUE"
         or os.environ.get('TRAVIS_BRANCH') is not None
         else 'development')
-
-
-
-class PlaidAPI(object):
-    """
-    Wrapper around the plaid API to establish convenience methods
-    """
     balance = None
 
-    def __init__(self, client, access_token):
-        self.plaid = client
+    def __init__(self, access_token):
+        self.plaid = PlaidAPI.client()
         self.access_token = access_token
+
+    @staticmethod
+    def client():
+        return plaid.Client(
+            client_id=PlaidAPI.PLAID_CLIENT_ID,
+            secret=PlaidAPI.PLAID_SECRET,
+            public_key=PlaidAPI.PLAID_PUBLIC_KEY,
+            environment=PlaidAPI.PLAID_ENV,
+        )
 
     def current_balance(self):
         """
