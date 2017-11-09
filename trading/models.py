@@ -92,7 +92,7 @@ class TradingAccount(models.Model):
         """
         Trades a stock for the account
         """
-        if self.has_enough_cash(stock.latest_quote() * quantity) and (
+        if self.has_enough_cash(stock.latest_quote().value * quantity) and (
                 self.has_enough_stock(stock, quantity)):
             return self.trades.create(
                 quantity=quantity,
