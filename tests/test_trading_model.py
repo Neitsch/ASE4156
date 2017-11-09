@@ -65,13 +65,13 @@ def test_has_enough_bucket():
     )
     buff = InvestmentBucket(name="buffet", owner=user.profile, public=False, available=1)
     buff.save()
-    assert trading_account.has_enough_bucket(buff, -1) is False
+    assert trading_account.has_enough_bucket(buff, 1) is False
     trading_account.trade_bucket(buff, 1)
-    assert trading_account.has_enough_bucket(buff, -1)
-    assert trading_account.has_enough_bucket(buff, -2) is False
+    assert trading_account.has_enough_bucket(buff, 1)
+    assert trading_account.has_enough_bucket(buff, 2) is False
     trading_account.trade_bucket(buff, 2342342342342234)
-    assert trading_account.has_enough_bucket(buff, -2342342342342235)
-    assert trading_account.has_enough_bucket(buff, -2342342342342236) is False
+    assert trading_account.has_enough_bucket(buff, 2342342342342235)
+    assert trading_account.has_enough_bucket(buff, 2342342342342236) is False
     trading_account.trade_bucket(buff, -2342342342342234)
     assert trading_account.has_enough_bucket(buff, 1)
     assert trading_account.has_enough_bucket(buff, 2) is False
