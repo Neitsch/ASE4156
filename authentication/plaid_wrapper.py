@@ -1,5 +1,5 @@
 """
-Plaid setup
+Plaid API wrapper to provide convenience methods
 """
 import datetime
 
