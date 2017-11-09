@@ -1,3 +1,6 @@
+"""
+Tests the models of the Trading app
+"""
 import pytest
 from django.contrib.auth.models import User
 from stocks.models import InvestmentBucket, Stock
