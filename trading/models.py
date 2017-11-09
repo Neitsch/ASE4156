@@ -49,8 +49,7 @@ class TradingAccount(models.Model):
             total_sum += bucket.sum_quantity
         return total_sum
 
-    @staticmethod
-    def available_stocks(stk):
+    def available_stocks(self, stk):
         """
         Find available stock
         """
