@@ -44,7 +44,8 @@ class PlaidTests(TestCase):
             })
     )
     @pytest.mark.django_db(transaction=True)
-    def test_current_balance(self):
+    @staticmethod
+    def test_current_balance():
         '''
         Testing PlaidMiddleware.PlaidAPI.current_balance()
         '''
@@ -68,7 +69,8 @@ class PlaidTests(TestCase):
             })
     )
     @pytest.mark.django_db(transaction=True)
-    def test_account_name(self):
+    @staticmethod
+    def test_account_name():
         '''
         Testing PlaidMiddleware.PlaidAPI.account_name()
         '''
@@ -110,7 +112,8 @@ class PlaidTests(TestCase):
             })
     )
     @pytest.mark.django_db(transaction=True)
-    def test_historical_data(self):
+    @staticmethod
+    def test_historical_data():
         '''
         Testing PlaidMiddleware.PlaidAPI.historical_data()
         '''
@@ -135,7 +138,11 @@ class PlaidTests(TestCase):
         assert len(data) == len(mock_data)
         assert data == mock_data
 
-    def transactions_side(access_token, start_date, end_date):
+    @staticmethod
+    def transactions_side(start_date, end_date):
+        '''
+        Helper function for mocking Transactions get
+        '''
         start_date = datetime.datetime.strptime(start_date, "%Y-%m-%d")
         end_date = datetime.datetime.strptime(end_date, "%Y-%m-%d")
         data = [
@@ -153,7 +160,9 @@ class PlaidTests(TestCase):
                 }
             ]
 
-        data_filtered = list(filter(lambda x: x['date'] > start_date and x['date'] < end_date, data))
+        data_filtered = list(
+            filter(lambda x: x['date'] > start_date and x['date'] < end_date,
+                   data))
         return {
             'transactions': data_filtered
             }
@@ -164,7 +173,8 @@ class PlaidTests(TestCase):
         mock.MagicMock(side_effect=transactions_side)
     )
     @pytest.mark.django_db(transaction=True)
-    def test_income(self):
+    @staticmethod
+    def test_income():
         '''
         Testing PlaidMiddleware.PlaidAPI.income()
         '''
@@ -183,7 +193,8 @@ class PlaidTests(TestCase):
         mock.MagicMock(side_effect=transactions_side)
     )
     @pytest.mark.django_db(transaction=True)
-    def test_expenditure(self):
+    @staticmethod
+    def test_expenditure():
         '''
         Testing PlaidMiddleware.PlaidAPI.expenditure()
         '''
