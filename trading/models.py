@@ -38,15 +38,17 @@ class TradingAccount(models.Model):
         ])
         return stock_val + bucket_val
 
-    @staticmethod
-    def available_buckets(bkt):
+    def available_buckets(self, bkt):
         """
         Find the available buckets that have quantity > 0
         """
-        bucket = TradeBucket.buckettrades.filter(bucket=bkt).annotate(
+        bucket = self.buckettrades.all().filter(stock=bkt.id).annotate(
             sum_quantity=models.Sum('quantity'))
-        if bucket:
-            return bucket[0].sum_quantity
+        total_sum = 0
+        for x in bucket:
+            total_sum += x.sum_quantity
+        if total_sum is not 0:
+            return total_sum
         return 0
 
     @staticmethod
