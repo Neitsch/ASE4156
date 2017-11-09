@@ -8,7 +8,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from BuyBitcoin.urls import EXECUTOR
-from authentication.plaid_middleware import PlaidAPI
+from authentication.plaid_wrapper import PlaidAPI
 
 
 @mock.patch.object(PlaidAPI, 'current_balance', mock.MagicMock(return_value=0.0))
