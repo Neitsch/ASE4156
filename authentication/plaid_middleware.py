@@ -2,8 +2,6 @@
 Plaid setup
 """
 import datetime
-from django.utils.deprecation import MiddlewareMixin
-import plaid
 
 
 class PlaidAPI(object):

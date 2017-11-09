@@ -19,7 +19,6 @@ class StocksViewTests(TestCase):
         """Setting up testing"""
         cls._original_init_method = Fetcher.__init__
         Fetcher.__init__ = mock.Mock(return_value=None)
-        PlaidMiddleware.__call__ = lambda self, request: self.get_response(request)
 
     @classmethod
     def teardown_class(cls):

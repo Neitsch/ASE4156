@@ -20,7 +20,6 @@ import graphene_django.views
 import authentication.views
 import web.views
 import stocks.historical
-import trading.views
 
 EXECUTOR = ThreadExecutor()
 # pylint: disable=invalid-name

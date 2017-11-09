@@ -1,10 +1,9 @@
 """
 Views for authentication. Basically supports login/logout.
 """
-import datetime
 import os
 from django.shortcuts import render
-from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
+from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth import logout as log_out
 from django.contrib.auth.decorators import login_required
 import plaid
