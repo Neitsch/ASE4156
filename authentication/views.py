@@ -19,6 +19,7 @@ PLAID_ENV = (
     or os.environ.get('TRAVIS_BRANCH') is not None
     else 'development')
 
+
 def login(request):
     """
     Dummy function to render login page
