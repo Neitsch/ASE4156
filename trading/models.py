@@ -22,9 +22,9 @@ class TradingAccount(models.Model):
         """
         pass
 
-    def available_cash(self):
+    def trading_balance(self):
         """
-        The available cash in that account
+        The stock values from account
         """
         stock_val = sum([
             stock.current_value()
@@ -42,29 +42,25 @@ class TradingAccount(models.Model):
         """
         Find the available buckets that have quantity > 0
         """
-        buckets = self.buckettrades.filter(stock=bkt.id).all().annotate(
-            sum_quantity=models.Sum('quantity'))
-        total_sum = 0
-        for bucket in buckets:
-            total_sum += bucket.sum_quantity
-        return total_sum
+        quantity = self.buckettrades.filter(stock=bkt).aggregate(sm=models.Sum('quantity'))['sm']
+        if not quantity:
+            quantity = 0
+        return quantity
 
     def available_stocks(self, stk):
         """
         Find available stock
         """
-        stocks = self.trades.filter(stock=stk).all().annotate(
-            sum_quantity=models.Sum('quantity'))
-        total_sum = 0
-        for stock in stocks:
-            total_sum += stock.sum_quantity
-        return total_sum
+        quantity = self.trades.filter(stock=stk).aggregate(sm=models.Sum('quantity'))['sm']
+        if not quantity:
+            quantity = 0
+        return quantity
 
     def has_enough_cash(self, trade_value):
         """
         Check if you have enough cash to make a trade
         """
-        if self.available_cash() >= trade_value:
+        if self.trading_balance() >= trade_value:
             return True
         return False
 
