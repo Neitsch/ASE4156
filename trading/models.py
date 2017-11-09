@@ -100,6 +100,19 @@ class TradingAccount(models.Model):
             )
         raise Exception("You don't have the necessary resources!")
 
+    def available_cash(self):
+        """
+        Returns the available cash for the trading account
+        """
+        return (
+            self.trading_balance() +
+            sum([
+                bnk.current_balance()
+                for bnk
+                in self.profile.user.userbank.all()
+            ])
+        )
+
     def __str__(self):
         return "{}, {}, {}".format(self.id, self.account_name, self.profile_id)
 
