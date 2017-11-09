@@ -1,7 +1,6 @@
 """
 Tests the models of the Trading app
 """
-
 import random
 import string
 import pytest
