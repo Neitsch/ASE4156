@@ -54,6 +54,7 @@ def test_trading_acc_available_stock():
     assert trading_account.available_stocks(stock) == 0
 
 
+@mock.patch.object(TradingAccount, 'available_cash', mock.MagicMock(return_value=5.0))
 @pytest.mark.django_db(transaction=True)
 def test_has_enough_bucket():
     """
@@ -63,16 +64,16 @@ def test_has_enough_bucket():
     trading_account = user.profile.trading_accounts.create(
         account_name="spesh"
     )
-    buff = InvestmentBucket(name="buffet", owner=user.profile, public=False, available=1)
+    buff = InvestmentBucket(name="buffet", owner=user.profile, public=False, available=0.0)
     buff.save()
     assert trading_account.has_enough_bucket(buff, 1) is False
     trading_account.trade_bucket(buff, 1)
     assert trading_account.has_enough_bucket(buff, 1)
     assert trading_account.has_enough_bucket(buff, 2) is False
-    trading_account.trade_bucket(buff, 2342342342342234)
-    assert trading_account.has_enough_bucket(buff, 2342342342342235)
-    assert trading_account.has_enough_bucket(buff, 2342342342342236) is False
-    trading_account.trade_bucket(buff, -2342342342342234)
+    trading_account.trade_bucket(buff, 1000)
+    assert trading_account.has_enough_bucket(buff, 1001)
+    assert trading_account.has_enough_bucket(buff, 1002) is False
+    trading_account.trade_bucket(buff, -1000)
     assert trading_account.has_enough_bucket(buff, 1)
     assert trading_account.has_enough_bucket(buff, 2) is False
     trading_account.trade_bucket(buff, -1)
@@ -91,23 +92,24 @@ def test_has_enough_stock():
     stock = Stock(name="sto", ticker="sto")
     stock.save()
     stock.daily_quote.create(
-        value=4,
+        value=0.0,
         date="2016-06-05"
     )
     assert trading_account.has_enough_stock(stock, 1) is False
     trading_account.trade_stock(stock, 1)
     assert trading_account.has_enough_stock(stock, 1)
     assert trading_account.has_enough_stock(stock, 2) is False
-    trading_account.trade_stock(stock, 2342342342342234)
-    assert trading_account.enough_stock(stock, 2342342342342235)
-    assert trading_account.has_enough_stock(stock, 2342342342342236) is False
-    trading_account.trade_stock(stock, -2342342342342234)
+    trading_account.trade_stock(stock, 1000)
+    assert trading_account.has_enough_stock(stock, 1001)
+    assert trading_account.has_enough_stock(stock, 1002) is False
+    trading_account.trade_stock(stock, -1000)
     assert trading_account.has_enough_stock(stock, 1)
     assert trading_account.has_enough_stock(stock, 2) is False
     trading_account.trade_stock(stock, -1)
     assert trading_account.has_enough_stock(stock, 1) is False
 
 
+@mock.patch.object(TradingAccount, 'available_cash', mock.MagicMock(return_value=100.0))
 @pytest.mark.django_db(transaction=True)
 def test_trading_acc_trade_bucket():
     """
@@ -117,7 +119,7 @@ def test_trading_acc_trade_bucket():
     trading_account = user.profile.trading_accounts.create(
         account_name="spesh"
     )
-    buffa = InvestmentBucket(name="buffeta", owner=user.profile, public=False, available=1)
+    buffa = InvestmentBucket(name="buffeta", owner=user.profile, public=False, available=1.0)
     buffa.save()
     with pytest.raises(Exception):
         trading_account.trade_bucket(buffa, -2)
@@ -129,6 +131,7 @@ def test_trading_acc_trade_bucket():
     assert trading_account.available_buckets(buffa) == 0
 
 
+@mock.patch.object(TradingAccount, 'available_cash', mock.MagicMock(return_value=100.0))
 @pytest.mark.django_db(transaction=True)
 def test_trading_acc_trade_stock():
     """
