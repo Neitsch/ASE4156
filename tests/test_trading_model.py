@@ -1,9 +1,9 @@
 """
 Tests the models of the Trading app
 """
-
 import random
 import string
+from unittest import mock
 import pytest
 from stocks.models import InvestmentBucket, Stock
 from django.contrib.auth.models import User
@@ -25,6 +25,7 @@ def teardown_module(module):
     stock_test.teardown_module(module)
 
 
+@mock.patch.object(TradingAccount, 'available_cash', mock.MagicMock(return_value=5.0))
 @pytest.mark.django_db(transaction=True)
 def test_trading_acc_available_stock():
     """
@@ -43,9 +44,11 @@ def test_trading_acc_available_stock():
     assert trading_account.available_stocks(stock) == 0
     trading_account.trade_stock(stock, 1)
     assert trading_account.available_stocks(stock) == 1
-    trading_account.trade_stock(stock, 2342342342342234)
-    assert trading_account.available_stocks(stock) == 2342342342342235
-    trading_account.trade_stock(stock, -2342342342342234)
+    with pytest.raises(Exception):
+        trading_account.trade_stock(stock, 2342342342342234)
+    assert trading_account.available_stocks(stock) == 1
+    with pytest.raises(Exception):
+        trading_account.trade_stock(stock, -2342342342342234)
     assert trading_account.available_stocks(stock) == 1
     trading_account.trade_stock(stock, -1)
     assert trading_account.available_stocks(stock) == 0
@@ -62,13 +65,13 @@ def test_has_enough_bucket():
     )
     buff = InvestmentBucket(name="buffet", owner=user.profile, public=False, available=1)
     buff.save()
-    assert trading_account.has_enough_bucket(buff, 1) is False
+    assert trading_account.has_enough_bucket(buff, -1) is False
     trading_account.trade_bucket(buff, 1)
-    assert trading_account.has_enough_bucket(buff, 1)
-    assert trading_account.has_enough_bucket(buff, 2) is False
+    assert trading_account.has_enough_bucket(buff, -1)
+    assert trading_account.has_enough_bucket(buff, -2) is False
     trading_account.trade_bucket(buff, 2342342342342234)
-    assert trading_account.has_enough_buckets(buff, 2342342342342235)
-    assert trading_account.has_enough_bucket(buff, 2342342342342236) is False
+    assert trading_account.has_enough_bucket(buff, -2342342342342235)
+    assert trading_account.has_enough_bucket(buff, -2342342342342236) is False
     trading_account.trade_bucket(buff, -2342342342342234)
     assert trading_account.has_enough_bucket(buff, 1)
     assert trading_account.has_enough_bucket(buff, 2) is False
