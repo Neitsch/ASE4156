@@ -27,7 +27,7 @@ def teardown_module(module):
 
 @mock.patch.object(TradingAccount, 'available_cash', mock.MagicMock(return_value=5.0))
 @pytest.mark.django_db(transaction=True)
-def test_trading_acc_available_stock():
+def test_trading_acc_av_stk():
     """
     Test available stocks
     """
