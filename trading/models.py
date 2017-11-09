@@ -42,23 +42,19 @@ class TradingAccount(models.Model):
         """
         Find the available buckets that have quantity > 0
         """
-        buckets = self.buckettrades.filter(stock=bkt.id).all().annotate(
-            sum_quantity=models.Sum('quantity'))
-        total_sum = 0
-        for bucket in buckets:
-            total_sum += bucket.sum_quantity
-        return total_sum
+        quantity = self.buckettrades.filter(stock=bkt).aggregate(sm=models.Sum('quantity'))['sm']
+        if not quantity:
+            quantity = 0
+        return quantity
 
     def available_stocks(self, stk):
         """
         Find available stock
         """
-        stocks = self.trades.filter(stock=stk).all().annotate(
-            sum_quantity=models.Sum('quantity'))
-        total_sum = 0
-        for stock in stocks:
-            total_sum += stock.sum_quantity
-        return total_sum
+        quantity = self.trades.filter(stock=stk).aggregate(sm=models.Sum('quantity'))['sm']
+        if not quantity:
+            quantity = 0
+        return quantity
 
     def has_enough_cash(self, trade_value):
         """
