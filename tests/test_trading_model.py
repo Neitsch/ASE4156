@@ -3,37 +3,29 @@ Tests the models of the trading app
 """
 import random
 import string
-from unittest import mock
 import pytest
 from trading.models import TradingAccount, TradeStock
 from stocks.models import Stock
-from stocks.historical import create_stock
-from django.db.models.signals import post_save
 from django.contrib.auth.models import User
-from yahoo_historical import Fetcher
+import test_stocks_model as stock_test
 
 
 def setup_module(module):
     """
     Mock out any externals
     """
-    post_save.disconnect(receiver=create_stock, sender=Stock)
-    module.original_init_method = Fetcher.__init__
-    module.original_getHistorical_method = Fetcher.getHistorical
-    Fetcher.__init__ = mock.Mock(return_value=None)
-    Fetcher.getHistorical = mock.Mock(return_value=None)
+    stock_test.setup_module(module)
 
 
 def teardown_module(module):
     """
     Restore externals
     """
-    Fetcher.__init__ = module.original_init_method
-    Fetcher.getHistorical = module.original_getHistorical_method
+    stock_test.teardown_module(module)
 
 
 @pytest.mark.django_db(transaction=True)
-def test_trading_available_cash():
+def test_trading_trading_balance():
     """
     Testing available_cash for a Trading Account
     """
@@ -64,9 +56,9 @@ def test_trading_available_cash():
     )
     TradeStock(quantity=1, account=account, stock=stock1).save()
 
-    value = account.available_cash()
+    value = account.trading_balance()
     assert value == -value_of_stock1
 
     TradeStock(quantity=quantity2, account=account, stock=stock2).save()
-    value = account.available_cash()
+    value = account.trading_balance()
     assert value == -value_of_stock1 + -value_of_stock2 * quantity2

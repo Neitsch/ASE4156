@@ -125,7 +125,7 @@ class PlaidTests(TestCase):
             (
                 (datetime.datetime.now() - datetime.timedelta(days=10)).strftime("%Y-%m-%d"),
                 -109.0
-                 ),
+                ),
             (
                 (datetime.datetime.now() - datetime.timedelta(days=13)).strftime("%Y-%m-%d"),
                 -1109.0
