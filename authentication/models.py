@@ -70,6 +70,9 @@ class UserBank(models.Model):
     expenditure_field = models.FloatField()
 
     def plaid(self):
+        """
+        Returns a new Plaid client
+        """
         return PlaidAPI(plaid.Client(
             client_id=PLAID_CLIENT_ID,
             secret=PLAID_SECRET,

@@ -1,6 +1,7 @@
 """
 All selenium tests
 """
+from unittest import mock
 import pytest
 from django.contrib.auth.models import User
 from selenium.webdriver.common.by import By
@@ -8,7 +9,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from BuyBitcoin.urls import EXECUTOR
 from authentication.plaid_middleware import PlaidAPI
-from unittest import mock
 
 
 @mock.patch.object(PlaidAPI, 'current_balance', mock.MagicMock(return_value=0.0))

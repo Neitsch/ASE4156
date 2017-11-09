@@ -26,7 +26,7 @@ def teardown_module(module):
 
 
 @pytest.mark.django_db(transaction=True)
-def test_trading_account_available_stock():
+def test_trading_acc_available_stock():
     """
     Test available stocks
     """
@@ -36,7 +36,7 @@ def test_trading_account_available_stock():
     )
     stock = Stock(name="sto", ticker="sto")
     stock.save()
-    quote = stock.daily_quote.create(
+    stock.daily_quote.create(
         value=4,
         date="2016-06-05"
     )
@@ -59,7 +59,7 @@ def test_has_enough_bucket():
     user = User.objects.create(username='christophe', password="iscool")
     trading_account = user.profile.trading_accounts.create(
         account_name="spesh"
-        )
+    )
     buff = InvestmentBucket(name="buffet", owner=user.profile, public=False, available=1)
     buff.save()
     assert trading_account.has_enough_bucket(buff, 1) is False
@@ -87,7 +87,7 @@ def test_has_enough_stock():
     )
     stock = Stock(name="sto", ticker="sto")
     stock.save()
-    quote = stock.daily_quote.create(
+    stock.daily_quote.create(
         value=4,
         date="2016-06-05"
     )
@@ -106,7 +106,7 @@ def test_has_enough_stock():
 
 
 @pytest.mark.django_db(transaction=True)
-def test_trading_account_trade_bucket():
+def test_trading_acc_trade_bucket():
     """
     Test trade bucket
     """
@@ -127,7 +127,7 @@ def test_trading_account_trade_bucket():
 
 
 @pytest.mark.django_db(transaction=True)
-def test_trading_account_trade_stock():
+def test_trading_acc_trade_stock():
     """
     Test trade stock
     """
@@ -137,7 +137,7 @@ def test_trading_account_trade_stock():
     )
     stock = Stock(name="sto", ticker='sto')
     stock.save()
-    quote = stock.daily_quote.create(
+    stock.daily_quote.create(
         value=4,
         date="2016-06-05"
     )
