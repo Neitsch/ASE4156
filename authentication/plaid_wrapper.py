@@ -2,6 +2,21 @@
 Plaid API wrapper to provide convenience methods
 """
 import datetime
+import os
+
+class PlaidData(object):
+    """
+    Contains necessary plaid data
+    """
+    PLAID_CLIENT_ID = os.environ.get('PLAID_CLIENT_ID')
+    PLAID_SECRET = os.environ.get('PLAID_SECRET')
+    PLAID_PUBLIC_KEY = os.environ.get('PLAID_PUBLIC_KEY')
+    PLAID_ENV = (
+        'sandbox'
+        if os.environ.get('DEBUG') == "TRUE"
+        or os.environ.get('TRAVIS_BRANCH') is not None
+        else 'development')
+
 
 
 class PlaidAPI(object):

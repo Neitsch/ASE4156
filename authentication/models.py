@@ -1,22 +1,12 @@
 """
 Models keeps track of all the persistent data around the user profile
 """
-import os
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from authentication.plaid_wrapper import PlaidAPI
+from authentication.plaid_wrapper import PlaidAPI, PlaidData
 import plaid
-
-PLAID_CLIENT_ID = os.environ.get('PLAID_CLIENT_ID')
-PLAID_SECRET = os.environ.get('PLAID_SECRET')
-PLAID_PUBLIC_KEY = os.environ.get('PLAID_PUBLIC_KEY')
-PLAID_ENV = (
-    'sandbox'
-    if os.environ.get('DEBUG') == "TRUE"
-    or os.environ.get('TRAVIS_BRANCH') is not None
-    else 'development')
 
 
 class Profile(models.Model):
@@ -74,10 +64,10 @@ class UserBank(models.Model):
         Returns a new Plaid client
         """
         return PlaidAPI(plaid.Client(
-            client_id=PLAID_CLIENT_ID,
-            secret=PLAID_SECRET,
-            public_key=PLAID_PUBLIC_KEY,
-            environment=PLAID_ENV
+            client_id=PlaidData.PLAID_CLIENT_ID,
+            secret=PlaidData.PLAID_SECRET,
+            public_key=PlaidData.PLAID_PUBLIC_KEY,
+            environment=PlaidData.PLAID_ENV
         ), self.access_token)
 
     def historical_data(self, *args, **kwargs):

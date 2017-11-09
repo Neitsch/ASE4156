@@ -1,24 +1,13 @@
 """
 Views for authentication. Basically supports login/logout.
 """
-import os
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth import logout as log_out
 from django.contrib.auth.decorators import login_required
 import plaid
 from authentication.models import UserBank
-
-
-PLAID_CLIENT_ID = os.environ.get('PLAID_CLIENT_ID')
-PLAID_SECRET = os.environ.get('PLAID_SECRET')
-PLAID_PUBLIC_KEY = os.environ.get('PLAID_PUBLIC_KEY')
-PLAID_ENV = (
-    'sandbox'
-    if os.environ.get('DEBUG') == "TRUE"
-    or os.environ.get('TRAVIS_BRANCH') is not None
-    else 'development')
-
+from authentication.plaid_wrapper import PlaidData
 
 def login(request):
     """
@@ -53,10 +42,10 @@ def get_access_token(request):
     """
     if request.method == "POST":
         client = plaid.Client(
-            client_id=PLAID_CLIENT_ID,
-            secret=PLAID_SECRET,
-            public_key=PLAID_PUBLIC_KEY,
-            environment=PLAID_ENV
+            client_id=PlaidData.PLAID_CLIENT_ID,
+            secret=PlaidData.PLAID_SECRET,
+            public_key=PlaidData.PLAID_PUBLIC_KEY,
+            environment=PlaidData.PLAID_ENV
         )
         public_token = request.POST.get('public_token')
         exchange_response = client.Item.public_token.exchange(public_token)
