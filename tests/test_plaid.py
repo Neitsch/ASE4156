@@ -133,30 +133,35 @@ class PlaidTests(TestCase):
         ]
 
         assert len(data) == len(mock_data)
+        assert data == mock_data
 
-        for i in range(0, len(data)):
-            assert data[i][0].strftime("%Y-%m-%d") == mock_data[i][0]
-            assert data[i][1] == mock_data[i][1]
+    def transactions_side(access_token, start_date, end_date):
+        start_date = datetime.datetime.strptime(start_date, "%Y-%m-%d")
+        end_date = datetime.datetime.strptime(end_date, "%Y-%m-%d")
+        data = [
+            {
+                'date': datetime.datetime.now() - datetime.timedelta(days=10),
+                'amount': -150,
+                },
+            {
+                'date': datetime.datetime.now() - datetime.timedelta(days=13),
+                'amount': 1000,
+                },
+            {
+                'date': datetime.datetime.now() - datetime.timedelta(days=13),
+                'amount': 125,
+                }
+            ]
+
+        data_filtered = list(filter(lambda x: x['date'] > start_date and x['date'] < end_date, data))
+        return {
+            'transactions': data_filtered
+            }
 
     @mock.patch.object(
         Transactions,
         'get',
-        mock.MagicMock(return_value={
-            'transactions': [
-                {
-                    'date': datetime.datetime.now() - datetime.timedelta(days=10),
-                    'amount': -150,
-                    },
-                {
-                    'date': datetime.datetime.now() - datetime.timedelta(days=13),
-                    'amount': 1000,
-                    },
-                {
-                    'date': datetime.datetime.now() - datetime.timedelta(days=13),
-                    'amount': 125,
-                    }
-                ]
-            })
+        mock.MagicMock(side_effect=transactions_side)
     )
     @pytest.mark.django_db(transaction=True)
     def test_income(self):
@@ -167,26 +172,15 @@ class PlaidTests(TestCase):
         user = PlaidMiddleware.PlaidAPI(access_token='', client=client)
         income = user.income()
         assert income == 1125.0
+        income2 = user.income(days=13)
+        assert income2 == 1125.0
+        income3 = user.income(days=11)
+        assert income3 == 0
 
     @mock.patch.object(
         Transactions,
         'get',
-        mock.MagicMock(return_value={
-            'transactions': [
-                {
-                    'date': datetime.datetime.now() - datetime.timedelta(days=10),
-                    'amount': 120,
-                    },
-                {
-                    'date': datetime.datetime.now() - datetime.timedelta(days=13),
-                    'amount': 333,
-                    },
-                {
-                    'date': datetime.datetime.now() - datetime.timedelta(days=13),
-                    'amount': -333,
-                    }
-                ]
-            })
+        mock.MagicMock(side_effect=transactions_side)
     )
     @pytest.mark.django_db(transaction=True)
     def test_expenditure(self):
@@ -196,4 +190,6 @@ class PlaidTests(TestCase):
         client = plaid.Client(client_id='', secret='', public_key='', environment='')
         user = PlaidMiddleware.PlaidAPI(access_token='', client=client)
         income = user.expenditure()
-        assert income == -333
+        assert income == -150
+        income2 = user.expenditure(days=5)
+        assert income2 == 0.0

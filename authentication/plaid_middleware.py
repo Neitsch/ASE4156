@@ -53,7 +53,7 @@ class PlaidAPI(object):
         """
         Returns a list of tuples that show the balance a user had at the given point in time
         """
-        end = datetime.datetime.now()
+        end = datetime.datetime.now().strftime("%Y-%m-%d")
         response = self.plaid.Transactions.get(
             self.access_token,
             start_date=start,
@@ -65,7 +65,7 @@ class PlaidAPI(object):
         for transaction in transactions:
             value = value - transaction['amount']
             if not value_list[-1][0] == transaction['date']:
-                value_list.append((transaction['date'], value))
+                value_list.append((transaction['date'].strftime("%Y-%m-%d"), value))
         return value_list
 
     def income(self, days=30):
