@@ -1,13 +1,13 @@
 """
 Tests the models of the Trading app
 """
+from unittest import mock
 import pytest
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
 from stocks.models import InvestmentBucket, Stock
 from stocks.historical import create_stock
-from django.db.models.signals import post_save
 from yahoo_historical import Fetcher
-from unittest import mock
 
 
 def setup_module(module):
@@ -29,19 +29,8 @@ def teardown_module(module):
     Fetcher.getHistorical = module.original_getHistorical_method
 
 
-# @pytest.mark.django_db(transaction=True)
-# def test_trading_account_total_value():
-#     user = User.objects.create(username='christophe', password="iscool")
-#     trading_account = user.profile.trading_accounts.create(
-#         account_name="spesh"
-#     )
-"""Total value is currently not defined"""
-""" Have to write an available cash test, after fixing
-available cash (current implementation is incorrect) """
-
-
 @pytest.mark.django_db(transaction=True)
-def test_trading_account_available_buckets():
+def test_trading_account_avail_buckets():
     """
     Test available buckets
     """
@@ -73,6 +62,10 @@ def test_trading_account_available_stock():
     )
     stock = Stock(name="sto", ticker="sto")
     stock.save()
+    quote = stock.daily_quote.create(
+        value=4,
+        date="2016-06-05"
+    )
     assert trading_account.available_stocks(stock) == 0
     trading_account.trade_stock(stock, 1)
     assert trading_account.available_stocks(stock) == 1
@@ -82,10 +75,6 @@ def test_trading_account_available_stock():
     assert trading_account.available_stocks(stock) == 1
     trading_account.trade_stock(stock, -1)
     assert trading_account.available_stocks(stock) == 0
-
-
-""" Have to write a has enough cash test, after fixing
-available cash (current implementation is incorrect) """
 
 
 @pytest.mark.django_db(transaction=True)
@@ -124,6 +113,10 @@ def test_has_enough_stock():
     )
     stock = Stock(name="sto", ticker="sto")
     stock.save()
+    quote = stock.daily_quote.create(
+        value=4,
+        date="2016-06-05"
+    )
     assert trading_account.has_enough_stock(stock, 1) is False
     trading_account.trade_stock(stock, 1)
     assert trading_account.has_enough_stock(stock, 1)
@@ -170,6 +163,10 @@ def test_trading_account_trade_stock():
     )
     stock = Stock(name="sto", ticker='sto')
     stock.save()
+    quote = stock.daily_quote.create(
+        value=4,
+        date="2016-06-05"
+    )
     with pytest.raises(Exception):
         trading_account.trade_stock(stock, -2)
     trading_account.trade_stock(stock, 2)
