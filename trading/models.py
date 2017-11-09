@@ -54,10 +54,12 @@ class TradingAccount(models.Model):
         """
         Find available stock
         """
-        stock = TradeStock.trades.filter(stock=stk).annotate(sum_quantity=models.Sum('quantity'))
-        if stock:
-            return stock[0].sum_quantity
-        return 0
+        stocks = self.trades.filter(stock=stk).all().annotate(
+            sum_quantity=models.Sum('quantity'))
+        total_sum = 0
+        for stock in stocks:
+            total_sum += stock.sum_quantity
+        return total_sum
 
     def has_enough_cash(self, trade_value):
         """
