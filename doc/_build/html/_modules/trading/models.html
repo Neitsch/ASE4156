@@ -1,0 +1,242 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>trading.models &#8212; ASE4156: MIWF  documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for trading.models</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Models here represents any interaction between a user and stocks</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">authentication.models</span> <span class="k">import</span> <span class="n">Profile</span>
+<span class="kn">from</span> <span class="nn">django.db</span> <span class="k">import</span> <span class="n">models</span>
+<span class="kn">from</span> <span class="nn">stocks.models</span> <span class="k">import</span> <span class="n">Stock</span><span class="p">,</span> <span class="n">InvestmentBucket</span>
+
+
+<div class="viewcode-block" id="TradingAccount"><a class="viewcode-back" href="../../modules/web.html#trading.models.TradingAccount">[docs]</a><span class="k">class</span> <span class="nc">TradingAccount</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A TradingAccount is owned by a user, we associate stock trades with it.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">account_name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+    <span class="n">profile</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Profile</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;trading_accounts&#39;</span><span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+        <span class="n">unique_together</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;profile&#39;</span><span class="p">,</span> <span class="s1">&#39;account_name&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="TradingAccount.total_value"><a class="viewcode-back" href="../../modules/web.html#trading.models.TradingAccount.total_value">[docs]</a>    <span class="k">def</span> <span class="nf">total_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Not yet implemented</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="TradingAccount.trading_balance"><a class="viewcode-back" href="../../modules/web.html#trading.models.TradingAccount.trading_balance">[docs]</a>    <span class="k">def</span> <span class="nf">trading_balance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The stock values from account</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">stock_val</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span>
+            <span class="n">stock</span><span class="o">.</span><span class="n">current_value</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">stock</span>
+            <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">trades</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+        <span class="p">])</span>
+        <span class="n">bucket_val</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span>
+            <span class="n">bucket</span><span class="o">.</span><span class="n">current_value</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">bucket</span>
+            <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buckettrades</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+        <span class="p">])</span>
+        <span class="k">return</span> <span class="n">stock_val</span> <span class="o">+</span> <span class="n">bucket_val</span></div>
+
+<div class="viewcode-block" id="TradingAccount.available_buckets"><a class="viewcode-back" href="../../modules/web.html#trading.models.TradingAccount.available_buckets">[docs]</a>    <span class="k">def</span> <span class="nf">available_buckets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bkt</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Find the available buckets that have quantity &gt; 0</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">quantity</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buckettrades</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">stock</span><span class="o">=</span><span class="n">bkt</span><span class="p">)</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">sm</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">Sum</span><span class="p">(</span><span class="s1">&#39;quantity&#39;</span><span class="p">))[</span><span class="s1">&#39;sm&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">quantity</span><span class="p">:</span>
+            <span class="n">quantity</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="n">quantity</span></div>
+
+<div class="viewcode-block" id="TradingAccount.available_stocks"><a class="viewcode-back" href="../../modules/web.html#trading.models.TradingAccount.available_stocks">[docs]</a>    <span class="k">def</span> <span class="nf">available_stocks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stk</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Find available stock</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">quantity</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">trades</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">stock</span><span class="o">=</span><span class="n">stk</span><span class="p">)</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">sm</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">Sum</span><span class="p">(</span><span class="s1">&#39;quantity&#39;</span><span class="p">))[</span><span class="s1">&#39;sm&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">quantity</span><span class="p">:</span>
+            <span class="n">quantity</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="n">quantity</span></div>
+
+<div class="viewcode-block" id="TradingAccount.has_enough_cash"><a class="viewcode-back" href="../../modules/web.html#trading.models.TradingAccount.has_enough_cash">[docs]</a>    <span class="k">def</span> <span class="nf">has_enough_cash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trade_value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if you have enough cash to make a trade</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">available_cash</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="n">trade_value</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="TradingAccount.has_enough_bucket"><a class="viewcode-back" href="../../modules/web.html#trading.models.TradingAccount.has_enough_bucket">[docs]</a>    <span class="k">def</span> <span class="nf">has_enough_bucket</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bucket</span><span class="p">,</span> <span class="n">quantity_bucket</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if you have enough bucket to make a trade</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">available_buckets</span><span class="p">(</span><span class="n">bucket</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">quantity_bucket</span></div>
+
+<div class="viewcode-block" id="TradingAccount.has_enough_stock"><a class="viewcode-back" href="../../modules/web.html#trading.models.TradingAccount.has_enough_stock">[docs]</a>    <span class="k">def</span> <span class="nf">has_enough_stock</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stock</span><span class="p">,</span> <span class="n">quantity_stock</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if you have enough stock to trade</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">available_stocks</span><span class="p">(</span><span class="n">stock</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">quantity_stock</span></div>
+
+<div class="viewcode-block" id="TradingAccount.trade_bucket"><a class="viewcode-back" href="../../modules/web.html#trading.models.TradingAccount.trade_bucket">[docs]</a>    <span class="k">def</span> <span class="nf">trade_bucket</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bucket</span><span class="p">,</span> <span class="n">quantity</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a new trade for the bucket and this account</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_enough_cash</span><span class="p">(</span><span class="n">bucket</span><span class="o">.</span><span class="n">value_on</span><span class="p">()</span> <span class="o">*</span> <span class="n">quantity</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">has_enough_bucket</span><span class="p">(</span><span class="n">bucket</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">quantity</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">buckettrades</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+                <span class="n">stock</span><span class="o">=</span><span class="n">bucket</span><span class="p">,</span>
+                <span class="n">quantity</span><span class="o">=</span><span class="n">quantity</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;You don&#39;t have the necessary resources!&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TradingAccount.trade_stock"><a class="viewcode-back" href="../../modules/web.html#trading.models.TradingAccount.trade_stock">[docs]</a>    <span class="k">def</span> <span class="nf">trade_stock</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stock</span><span class="p">,</span> <span class="n">quantity</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Trades a stock for the account</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_enough_cash</span><span class="p">(</span><span class="n">stock</span><span class="o">.</span><span class="n">latest_quote</span><span class="p">()</span><span class="o">.</span><span class="n">value</span> <span class="o">*</span> <span class="n">quantity</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">has_enough_stock</span><span class="p">(</span><span class="n">stock</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">quantity</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">trades</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+                <span class="n">quantity</span><span class="o">=</span><span class="n">quantity</span><span class="p">,</span>
+                <span class="n">stock</span><span class="o">=</span><span class="n">stock</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;You don&#39;t have the necessary resources!&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TradingAccount.available_cash"><a class="viewcode-back" href="../../modules/web.html#trading.models.TradingAccount.available_cash">[docs]</a>    <span class="k">def</span> <span class="nf">available_cash</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the available cash for the trading account</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">trading_balance</span><span class="p">()</span> <span class="o">+</span>
+            <span class="nb">sum</span><span class="p">([</span>
+                <span class="n">bnk</span><span class="o">.</span><span class="n">current_balance</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">bnk</span>
+                <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">profile</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">userbank</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+            <span class="p">])</span>
+        <span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">, </span><span class="si">{}</span><span class="s2">, </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">account_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">profile_id</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TradeStock"><a class="viewcode-back" href="../../modules/web.html#trading.models.TradeStock">[docs]</a><span class="k">class</span> <span class="nc">TradeStock</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A Trade represents a single exchange of a stock for money</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">timestamp</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now_add</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">quantity</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">FloatField</span><span class="p">()</span>
+    <span class="n">account</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">TradingAccount</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;trades&#39;</span><span class="p">)</span>
+    <span class="n">stock</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Stock</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;trades&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="TradeStock.current_value"><a class="viewcode-back" href="../../modules/web.html#trading.models.TradeStock.current_value">[docs]</a>    <span class="k">def</span> <span class="nf">current_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get value calculates the total value of the trade respecting the date</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">quote_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stock</span><span class="o">.</span><span class="n">latest_quote</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">return</span> <span class="n">quote_value</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">quantity</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">, </span><span class="si">{}</span><span class="s2">, </span><span class="si">{}</span><span class="s2">, </span><span class="si">{}</span><span class="s2">, </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                                           <span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span><span class="p">,</span>
+                                           <span class="bp">self</span><span class="o">.</span><span class="n">quantity</span><span class="p">,</span>
+                                           <span class="bp">self</span><span class="o">.</span><span class="n">account_id</span><span class="p">,</span>
+                                           <span class="bp">self</span><span class="o">.</span><span class="n">stock_id</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TradeBucket"><a class="viewcode-back" href="../../modules/web.html#trading.models.TradeBucket">[docs]</a><span class="k">class</span> <span class="nc">TradeBucket</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Same as trade but for buckets</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">timestamp</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now_add</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">account</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">TradingAccount</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;buckettrades&#39;</span><span class="p">)</span>
+    <span class="n">stock</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">InvestmentBucket</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;buckettrades&#39;</span><span class="p">)</span>
+    <span class="n">quantity</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">FloatField</span><span class="p">()</span>
+
+<div class="viewcode-block" id="TradeBucket.current_value"><a class="viewcode-back" href="../../modules/web.html#trading.models.TradeBucket.current_value">[docs]</a>    <span class="k">def</span> <span class="nf">current_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The value of the trade on the specific date</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stock</span><span class="o">.</span><span class="n">value_on</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">quantity</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">val</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Christophe Rimann, Nigel Schuster, Julian Serra, Jordan Vega.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

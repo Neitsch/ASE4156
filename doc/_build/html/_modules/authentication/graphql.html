@@ -1,0 +1,281 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>authentication.graphql &#8212; ASE4156: MIWF  documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for authentication.graphql</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">GraphQL definitions for the Authentication App</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="k">import</span> <span class="n">User</span>
+<span class="kn">from</span> <span class="nn">graphene</span> <span class="k">import</span> <span class="n">AbstractType</span><span class="p">,</span> <span class="n">Argument</span><span class="p">,</span> <span class="n">Field</span><span class="p">,</span> <span class="n">Float</span><span class="p">,</span> <span class="n">Int</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Mutation</span><span class="p">,</span> \
+    <span class="n">NonNull</span><span class="p">,</span> <span class="n">ObjectType</span><span class="p">,</span> <span class="n">String</span><span class="p">,</span> <span class="n">relay</span>
+<span class="kn">from</span> <span class="nn">graphene_django</span> <span class="k">import</span> <span class="n">DjangoObjectType</span>
+<span class="kn">from</span> <span class="nn">graphene_django.filter</span> <span class="k">import</span> <span class="n">DjangoFilterConnectionField</span>
+<span class="kn">from</span> <span class="nn">trading.models</span> <span class="k">import</span> <span class="n">TradingAccount</span>
+<span class="kn">from</span> <span class="nn">trading.graphql</span> <span class="k">import</span> <span class="n">GTradingAccount</span>
+<span class="kn">from</span> <span class="nn">stocks.graphql</span> <span class="k">import</span> <span class="n">GInvestmentBucket</span><span class="p">,</span> <span class="n">GStock</span>
+<span class="kn">from</span> <span class="nn">stocks.models</span> <span class="k">import</span> <span class="n">InvestmentBucket</span><span class="p">,</span> <span class="n">Stock</span>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="k">import</span> <span class="n">Profile</span><span class="p">,</span> <span class="n">UserBank</span>
+
+
+<span class="c1"># pylint: disable=too-few-public-methods</span>
+<span class="k">class</span> <span class="nc">GUser</span><span class="p">(</span><span class="n">DjangoObjectType</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    GraphQL representation of a User</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Meta Model for User. We must make sure to not expose</span>
+<span class="sd">        the whole usere object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">User</span>
+        <span class="n">only_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;profile&#39;</span><span class="p">,</span> <span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="s1">&#39;userbank&#39;</span><span class="p">)</span>
+        <span class="n">interfaces</span> <span class="o">=</span> <span class="p">(</span><span class="n">relay</span><span class="o">.</span><span class="n">Node</span><span class="p">,</span> <span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">GProfile</span><span class="p">(</span><span class="n">DjangoObjectType</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    GraphQL representation of a Profile</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">stock_find</span> <span class="o">=</span> <span class="n">List</span><span class="p">(</span>
+        <span class="n">NonNull</span><span class="p">(</span><span class="n">GStock</span><span class="p">),</span> <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="n">Argument</span><span class="p">(</span><span class="n">NonNull</span><span class="p">(</span><span class="n">String</span><span class="p">)),</span> <span class="s1">&#39;first&#39;</span><span class="p">:</span> <span class="n">Argument</span><span class="p">(</span><span class="n">Int</span><span class="p">)})</span>
+    <span class="n">invest_suggestions</span> <span class="o">=</span> <span class="n">DjangoFilterConnectionField</span><span class="p">(</span>
+        <span class="n">GInvestmentBucket</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">selected_acc</span> <span class="o">=</span> <span class="n">NonNull</span><span class="p">(</span><span class="n">GTradingAccount</span><span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Meta Model for Profile</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Profile</span>
+        <span class="n">only_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;trading_accounts&#39;</span><span class="p">,</span> <span class="s1">&#39;selected_acc&#39;</span><span class="p">,</span> <span class="s1">&#39;stock_find&#39;</span><span class="p">)</span>
+        <span class="n">interfaces</span> <span class="o">=</span> <span class="p">(</span><span class="n">relay</span><span class="o">.</span><span class="n">Node</span><span class="p">,</span> <span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">resolve_stock_find</span><span class="p">(</span><span class="n">_self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">_context</span><span class="p">,</span> <span class="n">_info</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Finds a stock given a case insensitive name</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s1">&#39;first&#39;</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Stock</span><span class="o">.</span><span class="n">find_stock</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;first&#39;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">Stock</span><span class="o">.</span><span class="n">find_stock</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">resolve_invest_suggestions</span><span class="p">(</span><span class="n">_data</span><span class="p">,</span> <span class="n">_args</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">_info</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Finds all the investment suggestions available to the user</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">InvestmentBucket</span><span class="o">.</span><span class="n">accessible_buckets</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">profile</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">resolve_selected_acc</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">_args</span><span class="p">,</span> <span class="n">_context</span><span class="p">,</span> <span class="n">_info</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the selected account. For now we just assume the user has only 1</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">acc</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">trading_accounts</span><span class="o">.</span><span class="n">all</span><span class="p">()[:</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">acc</span><span class="p">:</span>
+            <span class="n">acc</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">trading_accounts</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+                <span class="n">account_name</span><span class="o">=</span><span class="s1">&#39;default&#39;</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">acc</span> <span class="o">=</span> <span class="n">acc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">acc</span>
+
+
+<div class="viewcode-block" id="DataPoint"><a class="viewcode-back" href="../../modules/authentication.html#authentication.graphql.DataPoint">[docs]</a><span class="k">class</span> <span class="nc">DataPoint</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Dummy class to represent a date / value DataPoint</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">date</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">date</span> <span class="o">=</span> <span class="n">date</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span></div>
+
+
+<div class="viewcode-block" id="GDataPoint"><a class="viewcode-back" href="../../modules/authentication.html#authentication.graphql.GDataPoint">[docs]</a><span class="k">class</span> <span class="nc">GDataPoint</span><span class="p">(</span><span class="n">ObjectType</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    GraphQL definition of the DataPoint above</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">date</span> <span class="o">=</span> <span class="n">String</span><span class="p">()</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span></div>
+
+
+<span class="k">class</span> <span class="nc">GUserBank</span><span class="p">(</span><span class="n">DjangoObjectType</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    GraphQL representation of a UserBank</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">balance</span> <span class="o">=</span> <span class="n">NonNull</span><span class="p">(</span><span class="n">Float</span><span class="p">)</span>
+    <span class="n">income</span> <span class="o">=</span> <span class="n">NonNull</span><span class="p">(</span><span class="n">Float</span><span class="p">)</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">NonNull</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
+    <span class="n">outcome</span> <span class="o">=</span> <span class="n">NonNull</span><span class="p">(</span><span class="n">Float</span><span class="p">)</span>
+    <span class="n">history</span> <span class="o">=</span> <span class="n">List</span><span class="p">(</span><span class="n">GDataPoint</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;start&#39;</span><span class="p">:</span> <span class="n">Argument</span><span class="p">(</span><span class="n">NonNull</span><span class="p">(</span><span class="n">String</span><span class="p">))})</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Meta Model for UserBank</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">UserBank</span>
+        <span class="n">only_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;balance&#39;</span><span class="p">,</span> <span class="s1">&#39;income&#39;</span><span class="p">,</span> <span class="s1">&#39;outcome&#39;</span><span class="p">)</span>
+        <span class="n">interfaces</span> <span class="o">=</span> <span class="p">(</span><span class="n">relay</span><span class="o">.</span><span class="n">Node</span><span class="p">,</span> <span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">resolve_history</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">_context</span><span class="p">,</span> <span class="n">_info</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Builds the financial history for the user</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="n">DataPoint</span><span class="p">(</span><span class="n">date</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">date</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+            <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">historical_data</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">])</span>
+        <span class="p">]</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">resolve_balance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">_args</span><span class="p">,</span> <span class="n">_context</span><span class="p">,</span> <span class="n">_info</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Finds the current balance of the user</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">current_balance</span><span class="p">()</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">resolve_name</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">_args</span><span class="p">,</span> <span class="n">_context</span><span class="p">,</span> <span class="n">_info</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the name of the bank account</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">account_name</span><span class="p">()</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">resolve_income</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">_args</span><span class="p">,</span> <span class="n">_context</span><span class="p">,</span> <span class="n">_info</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the income a user has per month</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">income</span><span class="p">()</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">resolve_outcome</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">_args</span><span class="p">,</span> <span class="n">_context</span><span class="p">,</span> <span class="n">_info</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the expenditures a user has per month</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">expenditure</span><span class="p">()</span>
+
+
+<span class="c1"># pylint: disable=no-init</span>
+<div class="viewcode-block" id="Query"><a class="viewcode-back" href="../../modules/authentication.html#authentication.graphql.Query">[docs]</a><span class="k">class</span> <span class="nc">Query</span><span class="p">(</span><span class="n">AbstractType</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Query represents the entry method for a GraphQL request</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">viewer</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">GUser</span><span class="p">,</span> <span class="p">)</span>
+
+<div class="viewcode-block" id="Query.resolve_viewer"><a class="viewcode-back" href="../../modules/authentication.html#authentication.graphql.Query.resolve_viewer">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">resolve_viewer</span><span class="p">(</span><span class="n">_self</span><span class="p">,</span> <span class="n">_args</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">_info</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The viewer represents the current logged in user</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">context</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_authenticated</span><span class="p">():</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">context</span><span class="o">.</span><span class="n">user</span></div></div>
+<span class="c1"># pylint: enable=no-init</span>
+
+
+<div class="viewcode-block" id="AddTradingAccount"><a class="viewcode-back" href="../../modules/authentication.html#authentication.graphql.AddTradingAccount">[docs]</a><span class="k">class</span> <span class="nc">AddTradingAccount</span><span class="p">(</span><span class="n">Mutation</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    AddTradingAccount creates a new TradingAccount for the user</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">class</span> <span class="nc">Input</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Input to create a trading account. Right now it&#39;s only a name.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">String</span><span class="p">()</span>
+    <span class="n">account</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">GTradingAccount</span><span class="p">)</span>
+
+<div class="viewcode-block" id="AddTradingAccount.mutate"><a class="viewcode-back" href="../../modules/authentication.html#authentication.graphql.AddTradingAccount.mutate">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">_self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">_info</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a TradingAccount and saves it to the DB</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">account</span> <span class="o">=</span> <span class="n">TradingAccount</span><span class="p">(</span>
+            <span class="n">profile</span><span class="o">=</span><span class="n">context</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">profile</span><span class="p">,</span>
+            <span class="n">account_name</span><span class="o">=</span><span class="n">args</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="n">account</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">AddTradingAccount</span><span class="p">(</span><span class="n">account</span><span class="o">=</span><span class="n">account</span><span class="p">)</span></div></div>
+<span class="c1"># pylint: enable=too-few-public-methods</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Christophe Rimann, Nigel Schuster, Julian Serra, Jordan Vega.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

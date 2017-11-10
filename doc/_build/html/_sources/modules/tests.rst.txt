@@ -1,0 +1,33 @@
+Tests
+*****
+This app contains all testing
+
+GraphQL Viewer
+--------------
+.. automodule:: tests.test_viewer_graphql
+    :members:
+
+Plaid
+-----
+.. automodule:: tests.test_plaid
+    :members:
+
+Selenium
+--------
+.. automodule:: tests.test_selenium
+    :members:
+
+Stocks historical
+-----------------
+.. automodule:: tests.test_stocks_historical
+    :members:
+
+Stocks model
+------------
+.. automodule:: tests.test_stocks_model
+    :members:
+
+Trading model
+-------------
+.. automodule:: tests.test_trading_model
+    :members:

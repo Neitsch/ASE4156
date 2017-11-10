@@ -1,0 +1,441 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>stocks.graphql &#8212; ASE4156: MIWF  documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for stocks.graphql</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">GraphQL definitions for the Stocks App</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">namedtuple</span>
+<span class="kn">from</span> <span class="nn">graphene_django</span> <span class="k">import</span> <span class="n">DjangoObjectType</span>
+<span class="kn">from</span> <span class="nn">graphene</span> <span class="k">import</span> <span class="n">AbstractType</span><span class="p">,</span> <span class="n">Argument</span><span class="p">,</span> <span class="n">Boolean</span><span class="p">,</span> <span class="n">Field</span><span class="p">,</span> <span class="n">Float</span><span class="p">,</span> <span class="n">ID</span><span class="p">,</span> \
+    <span class="n">InputObjectType</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Mutation</span><span class="p">,</span> <span class="n">NonNull</span><span class="p">,</span> <span class="n">String</span><span class="p">,</span> <span class="n">relay</span>
+<span class="kn">from</span> <span class="nn">graphql_relay.node.node</span> <span class="k">import</span> <span class="n">from_global_id</span>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="k">import</span> <span class="n">DailyStockQuote</span><span class="p">,</span> <span class="n">InvestmentBucket</span><span class="p">,</span> \
+    <span class="n">InvestmentBucketDescription</span><span class="p">,</span> <span class="n">InvestmentStockConfiguration</span><span class="p">,</span> <span class="n">Stock</span>
+
+
+<span class="c1"># pylint: disable=too-few-public-methods</span>
+<div class="viewcode-block" id="GInvestmentBucketConfigurationUpdate"><a class="viewcode-back" href="../../modules/stocks.html#stocks.graphql.GInvestmentBucketConfigurationUpdate">[docs]</a><span class="k">class</span> <span class="nc">GInvestmentBucketConfigurationUpdate</span><span class="p">(</span><span class="n">InputObjectType</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents one choice of stock for a bucket</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">id_value</span> <span class="o">=</span> <span class="n">ID</span><span class="p">()</span>
+    <span class="n">quantity</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span></div>
+
+
+<span class="k">class</span> <span class="nc">GDailyStockQuote</span><span class="p">(</span><span class="n">DjangoObjectType</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    GraphQL representation of a DailyStockQuote</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Meta Model for DailyStockQuote</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">DailyStockQuote</span>
+        <span class="n">interfaces</span> <span class="o">=</span> <span class="p">(</span><span class="n">relay</span><span class="o">.</span><span class="n">Node</span><span class="p">,</span> <span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">GInvestmentBucketAttribute</span><span class="p">(</span><span class="n">DjangoObjectType</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    GraphQL representation of a InvestmentBucketDescription</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Meta Model for InvestmentBucketDescription</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">InvestmentBucketDescription</span>
+        <span class="n">interfaces</span> <span class="o">=</span> <span class="p">(</span><span class="n">relay</span><span class="o">.</span><span class="n">Node</span><span class="p">,</span> <span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">GInvestmentBucket</span><span class="p">(</span><span class="n">DjangoObjectType</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    GraphQL representation of a InvestmentBucket</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">is_owner</span> <span class="o">=</span> <span class="n">NonNull</span><span class="p">(</span><span class="n">Boolean</span><span class="p">)</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">NonNull</span><span class="p">(</span><span class="n">Float</span><span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Meta Model for InvestmentBucket</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">InvestmentBucket</span>
+        <span class="n">interfaces</span> <span class="o">=</span> <span class="p">(</span><span class="n">relay</span><span class="o">.</span><span class="n">Node</span><span class="p">,</span> <span class="p">)</span>
+        <span class="n">only_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;public&#39;</span><span class="p">,</span> <span class="s1">&#39;description&#39;</span><span class="p">,</span> <span class="s1">&#39;stocks&#39;</span><span class="p">,</span> <span class="s1">&#39;available&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">resolve_is_owner</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">_args</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">_info</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns whether the user ownes the investment bucket</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">owner</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">context</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">profile</span><span class="o">.</span><span class="n">id</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">resolve_stocks</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">_args</span><span class="p">,</span> <span class="n">_context</span><span class="p">,</span> <span class="n">_info</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the *current* stocks in the bucket</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">get_stock_configs</span><span class="p">()</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">resolve_value</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">_args</span><span class="p">,</span> <span class="n">_context</span><span class="p">,</span> <span class="n">_info</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The current value of the investment bucket</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">value_on</span><span class="p">()</span>
+
+
+<span class="k">class</span> <span class="nc">GInvestmentStockConfiguration</span><span class="p">(</span><span class="n">DjangoObjectType</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    GraphQL representation of a InvestmentStockConfiguration</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Meta Model for InvestmentStockConfiguration</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">InvestmentStockConfiguration</span>
+        <span class="n">interfaces</span> <span class="o">=</span> <span class="p">(</span><span class="n">relay</span><span class="o">.</span><span class="n">Node</span><span class="p">,</span> <span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">GStock</span><span class="p">(</span><span class="n">DjangoObjectType</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    GraphQL representation of a Stock</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">quote_in_range</span> <span class="o">=</span> <span class="n">NonNull</span><span class="p">(</span><span class="n">List</span><span class="p">(</span><span class="n">GDailyStockQuote</span><span class="p">),</span> <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;start&#39;</span><span class="p">:</span> <span class="n">Argument</span><span class="p">(</span>
+        <span class="n">NonNull</span><span class="p">(</span><span class="n">String</span><span class="p">)),</span> <span class="s1">&#39;end&#39;</span><span class="p">:</span> <span class="n">Argument</span><span class="p">(</span><span class="n">NonNull</span><span class="p">(</span><span class="n">String</span><span class="p">))})</span>
+    <span class="n">latest_quote</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">GDailyStockQuote</span><span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Meta Model for Stock</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Stock</span>
+        <span class="n">interfaces</span> <span class="o">=</span> <span class="p">(</span><span class="n">relay</span><span class="o">.</span><span class="n">Node</span><span class="p">,</span> <span class="p">)</span>
+        <span class="n">only_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;quote_in_range&#39;</span><span class="p">,</span> <span class="s1">&#39;latest_quote&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;ticker&#39;</span><span class="p">,</span> <span class="s1">&#39;trades&#39;</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">resolve_latest_quote</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">_args</span><span class="p">,</span> <span class="n">_context</span><span class="p">,</span> <span class="n">_info</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the most recent stock quote</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">latest_quote</span><span class="p">()</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">resolve_quote_in_range</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">_context</span><span class="p">,</span> <span class="n">_info</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Finds the stock quotes for the stock within a time range</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">quote_in_range</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">],</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">])</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">resolve_trades</span><span class="p">(</span><span class="n">stock</span><span class="p">,</span> <span class="n">_args</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">_info</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        We need to apply permission checks to trades</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">stock</span><span class="o">.</span><span class="n">trades_for_profile</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">profile</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="AddStock"><a class="viewcode-back" href="../../modules/stocks.html#stocks.graphql.AddStock">[docs]</a><span class="k">class</span> <span class="nc">AddStock</span><span class="p">(</span><span class="n">Mutation</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    AddStock creates a new Stock that is tracked</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">class</span> <span class="nc">Input</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Input to create a stock. We only need the ticker.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ticker</span> <span class="o">=</span> <span class="n">NonNull</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">NonNull</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
+    <span class="n">stock</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">GStock</span><span class="p">)</span>
+
+<div class="viewcode-block" id="AddStock.mutate"><a class="viewcode-back" href="../../modules/stocks.html#stocks.graphql.AddStock.mutate">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">_self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">_context</span><span class="p">,</span> <span class="n">_info</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a Stock and saves it to the DB</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">stock</span> <span class="o">=</span> <span class="n">Stock</span><span class="o">.</span><span class="n">create_new_stock</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="s1">&#39;ticker&#39;</span><span class="p">],</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">AddStock</span><span class="p">(</span><span class="n">stock</span><span class="o">=</span><span class="n">stock</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="AddBucket"><a class="viewcode-back" href="../../modules/stocks.html#stocks.graphql.AddBucket">[docs]</a><span class="k">class</span> <span class="nc">AddBucket</span><span class="p">(</span><span class="n">Mutation</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates a new InvestmentBucket and returns the new bucket</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">class</span> <span class="nc">Input</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        We only need the name of the new bucket to create it</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">NonNull</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
+        <span class="n">investment</span> <span class="o">=</span> <span class="n">NonNull</span><span class="p">(</span><span class="n">Float</span><span class="p">)</span>
+        <span class="n">public</span> <span class="o">=</span> <span class="n">NonNull</span><span class="p">(</span><span class="n">Boolean</span><span class="p">)</span>
+    <span class="n">bucket</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">GInvestmentBucket</span><span class="p">)</span>
+
+<div class="viewcode-block" id="AddBucket.mutate"><a class="viewcode-back" href="../../modules/stocks.html#stocks.graphql.AddBucket.mutate">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">_self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">_info</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a new InvestmentBucket and saves it to the DB</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">bucket</span> <span class="o">=</span> <span class="n">InvestmentBucket</span><span class="o">.</span><span class="n">create_new_bucket</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">args</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span>
+            <span class="n">public</span><span class="o">=</span><span class="n">args</span><span class="p">[</span><span class="s1">&#39;public&#39;</span><span class="p">],</span>
+            <span class="n">owner</span><span class="o">=</span><span class="n">context</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">profile</span><span class="p">,</span>
+            <span class="n">available</span><span class="o">=</span><span class="n">args</span><span class="p">[</span><span class="s1">&#39;investment&#39;</span><span class="p">],</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">AddBucket</span><span class="p">(</span><span class="n">bucket</span><span class="o">=</span><span class="n">bucket</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="AddAttributeToInvestment"><a class="viewcode-back" href="../../modules/stocks.html#stocks.graphql.AddAttributeToInvestment">[docs]</a><span class="k">class</span> <span class="nc">AddAttributeToInvestment</span><span class="p">(</span><span class="n">Mutation</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Adds a description to an Investment Bucket and returns the bucket</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">class</span> <span class="nc">Input</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        We need the description and the bucket as input</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">desc</span> <span class="o">=</span> <span class="n">NonNull</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
+        <span class="n">bucket_id</span> <span class="o">=</span> <span class="n">NonNull</span><span class="p">(</span><span class="n">ID</span><span class="p">)</span>
+        <span class="n">is_good</span> <span class="o">=</span> <span class="n">NonNull</span><span class="p">(</span><span class="n">Boolean</span><span class="p">)</span>
+    <span class="n">bucket_attr</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">GInvestmentBucketAttribute</span><span class="p">)</span>
+
+<div class="viewcode-block" id="AddAttributeToInvestment.mutate"><a class="viewcode-back" href="../../modules/stocks.html#stocks.graphql.AddAttributeToInvestment.mutate">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">_self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">_info</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Executes the mutation to add the attribute</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">bucket</span> <span class="o">=</span> <span class="n">InvestmentBucket</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="nb">id</span><span class="o">=</span><span class="n">from_global_id</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="s1">&#39;bucket_id&#39;</span><span class="p">])[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">bucket</span> <span class="ow">or</span> <span class="p">(</span><span class="ow">not</span> <span class="n">bucket</span><span class="o">.</span><span class="n">owner</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">context</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">profile</span><span class="o">.</span><span class="n">id</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;You don&#39;t own the bucket!&quot;</span><span class="p">)</span>
+        <span class="n">attribute</span> <span class="o">=</span> <span class="n">bucket</span><span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="s1">&#39;desc&#39;</span><span class="p">],</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;is_good&#39;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">AddAttributeToInvestment</span><span class="p">(</span><span class="n">bucket_attr</span><span class="o">=</span><span class="n">attribute</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="EditAttribute"><a class="viewcode-back" href="../../modules/stocks.html#stocks.graphql.EditAttribute">[docs]</a><span class="k">class</span> <span class="nc">EditAttribute</span><span class="p">(</span><span class="n">Mutation</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Allows to edit an attribute description</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">class</span> <span class="nc">Input</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Description and ID for the mutation</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">desc</span> <span class="o">=</span> <span class="n">NonNull</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
+        <span class="n">id_value</span> <span class="o">=</span> <span class="n">NonNull</span><span class="p">(</span><span class="n">ID</span><span class="p">)</span>
+    <span class="n">bucket_attr</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">GInvestmentBucketAttribute</span><span class="p">)</span>
+
+<div class="viewcode-block" id="EditAttribute.mutate"><a class="viewcode-back" href="../../modules/stocks.html#stocks.graphql.EditAttribute.mutate">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">_self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">_info</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Executes the mutation to change the attribute</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">bucket_attr</span> <span class="o">=</span> <span class="n">InvestmentBucketDescription</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+            <span class="nb">id</span><span class="o">=</span><span class="n">from_global_id</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="s1">&#39;id_value&#39;</span><span class="p">])[</span><span class="mi">1</span><span class="p">],</span>
+            <span class="n">bucket__owner__id</span><span class="o">=</span><span class="n">context</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">profile</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">bucket_attr</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;You don&#39;t own the bucket!&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">bucket_attr</span> <span class="o">=</span> <span class="n">bucket_attr</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="n">bucket_attr</span><span class="o">.</span><span class="n">change_description</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="s1">&#39;desc&#39;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">EditAttribute</span><span class="p">(</span><span class="n">bucket_attr</span><span class="o">=</span><span class="n">bucket_attr</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="DeleteAttribute"><a class="viewcode-back" href="../../modules/stocks.html#stocks.graphql.DeleteAttribute">[docs]</a><span class="k">class</span> <span class="nc">DeleteAttribute</span><span class="p">(</span><span class="n">Mutation</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Deletes an attribute from a bucket</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">class</span> <span class="nc">Input</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        We just need the ID to delete it</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">id_value</span> <span class="o">=</span> <span class="n">NonNull</span><span class="p">(</span><span class="n">ID</span><span class="p">)</span>
+    <span class="n">is_ok</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">Boolean</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DeleteAttribute.mutate"><a class="viewcode-back" href="../../modules/stocks.html#stocks.graphql.DeleteAttribute.mutate">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">_self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">_info</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Executes the mutation by deleting the attribute</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">bucket_attr</span> <span class="o">=</span> <span class="n">InvestmentBucketDescription</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+            <span class="nb">id</span><span class="o">=</span><span class="n">from_global_id</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="s1">&#39;id_value&#39;</span><span class="p">])[</span><span class="mi">1</span><span class="p">],</span>
+            <span class="n">bucket__owner__id</span><span class="o">=</span><span class="n">context</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">profile</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">bucket_attr</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;You don&#39;t own the bucket!&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">bucket_attr</span> <span class="o">=</span> <span class="n">bucket_attr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">bucket_attr</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">DeleteAttribute</span><span class="p">(</span><span class="n">is_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="DeleteBucket"><a class="viewcode-back" href="../../modules/stocks.html#stocks.graphql.DeleteBucket">[docs]</a><span class="k">class</span> <span class="nc">DeleteBucket</span><span class="p">(</span><span class="n">Mutation</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Deletes an attribute from a bucket</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">class</span> <span class="nc">Input</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        We just need the ID to delete it</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">id_value</span> <span class="o">=</span> <span class="n">NonNull</span><span class="p">(</span><span class="n">ID</span><span class="p">)</span>
+    <span class="n">is_ok</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">Boolean</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DeleteBucket.mutate"><a class="viewcode-back" href="../../modules/stocks.html#stocks.graphql.DeleteBucket.mutate">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">_self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">_info</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Executes the mutation by deleting the attribute</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">bucket</span> <span class="o">=</span> <span class="n">InvestmentBucket</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+            <span class="nb">id</span><span class="o">=</span><span class="n">from_global_id</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="s1">&#39;id_value&#39;</span><span class="p">])[</span><span class="mi">1</span><span class="p">],</span>
+            <span class="n">owner</span><span class="o">=</span><span class="n">context</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">profile</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">bucket</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;You don&#39;t own the bucket!&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">bucket</span> <span class="o">=</span> <span class="n">bucket</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">bucket</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">DeleteAttribute</span><span class="p">(</span><span class="n">is_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div></div>
+
+
+<span class="n">Config</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span>
+    <span class="s2">&quot;Config&quot;</span><span class="p">,</span>
+    <span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;quantity&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+
+
+<div class="viewcode-block" id="EditConfiguration"><a class="viewcode-back" href="../../modules/stocks.html#stocks.graphql.EditConfiguration">[docs]</a><span class="k">class</span> <span class="nc">EditConfiguration</span><span class="p">(</span><span class="n">Mutation</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Mutation to change the stock configuration of a bucket</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">class</span> <span class="nc">Input</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        As input we take the new configuration and the bucket id</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">NonNull</span><span class="p">(</span><span class="n">List</span><span class="p">(</span><span class="n">GInvestmentBucketConfigurationUpdate</span><span class="p">))</span>
+        <span class="n">id_value</span> <span class="o">=</span> <span class="n">NonNull</span><span class="p">(</span><span class="n">ID</span><span class="p">)</span>
+    <span class="n">bucket</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">GInvestmentBucket</span><span class="p">)</span>
+
+<div class="viewcode-block" id="EditConfiguration.mutate"><a class="viewcode-back" href="../../modules/stocks.html#stocks.graphql.EditConfiguration.mutate">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">_self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">_info</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This performs the actual mutation by removing the old configuration and</span>
+<span class="sd">        then writing the new one</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">bucket</span> <span class="o">=</span> <span class="n">InvestmentBucket</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="nb">id</span><span class="o">=</span><span class="n">from_global_id</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="s1">&#39;id_value&#39;</span><span class="p">])[</span><span class="mi">1</span><span class="p">],</span>
+            <span class="n">owner</span><span class="o">=</span><span class="n">context</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">profile</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">bucket</span> <span class="ow">or</span> <span class="p">(</span><span class="ow">not</span> <span class="n">bucket</span><span class="o">.</span><span class="n">owner</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">context</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">profile</span><span class="o">.</span><span class="n">id</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;You don&#39;t own the bucket!&quot;</span><span class="p">)</span>
+        <span class="n">new_config</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">Config</span><span class="p">(</span>
+                <span class="nb">id</span><span class="o">=</span><span class="n">from_global_id</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;id_value&#39;</span><span class="p">])[</span><span class="mi">1</span><span class="p">],</span>
+                <span class="n">quantity</span><span class="o">=</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;quantity&#39;</span><span class="p">],</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">c</span>
+            <span class="ow">in</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;config&#39;</span><span class="p">]</span>
+        <span class="p">]</span>
+        <span class="n">bucket</span><span class="o">.</span><span class="n">change_config</span><span class="p">(</span><span class="n">new_config</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">EditConfiguration</span><span class="p">(</span><span class="n">bucket</span><span class="o">=</span><span class="n">bucket</span><span class="p">)</span></div></div>
+
+
+<span class="c1"># pylint: disable=no-init</span>
+<div class="viewcode-block" id="Query"><a class="viewcode-back" href="../../modules/stocks.html#stocks.graphql.Query">[docs]</a><span class="k">class</span> <span class="nc">Query</span><span class="p">(</span><span class="n">AbstractType</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    We don&#39;t want to have any root queries here</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">invest_bucket</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">GInvestmentBucket</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">Argument</span><span class="p">(</span><span class="n">NonNull</span><span class="p">(</span><span class="n">ID</span><span class="p">))})</span>
+
+<div class="viewcode-block" id="Query.resolve_invest_bucket"><a class="viewcode-back" href="../../modules/stocks.html#stocks.graphql.Query.resolve_invest_bucket">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">resolve_invest_bucket</span><span class="p">(</span><span class="n">_self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">_info</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The viewer represents the current logged in user</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">context</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_authenticated</span><span class="p">():</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">return</span> <span class="n">InvestmentBucket</span><span class="o">.</span><span class="n">accessible_buckets</span><span class="p">(</span>
+            <span class="n">context</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">profile</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="nb">id</span><span class="o">=</span><span class="n">from_global_id</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="p">)</span></div></div>
+
+<span class="c1"># pylint: enable=too-few-public-methods</span>
+<span class="c1"># pylint: enable=no-init</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Christophe Rimann, Nigel Schuster, Julian Serra, Jordan Vega.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,398 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Stocks &#8212; ASE4156: MIWF  documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Authentication" href="authentication.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="stocks">
+<h1>Stocks<a class="headerlink" href="#stocks" title="Permalink to this headline">¶</a></h1>
+<p>This app is in charge of creating/managing stocks and stock buckets, as well as fetching their quotes and values at different times</p>
+<div class="section" id="module-stocks.apps">
+<span id="apps"></span><h2>Apps<a class="headerlink" href="#module-stocks.apps" title="Permalink to this headline">¶</a></h2>
+<p>Definition of the app itself
+Stocks is anything directly related to stocks, e.g. stock and its value</p>
+<dl class="class">
+<dt id="stocks.apps.StocksConfig">
+<em class="property">class </em><code class="descclassname">stocks.apps.</code><code class="descname">StocksConfig</code><span class="sig-paren">(</span><em>app_name</em>, <em>app_module</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stocks/apps.html#StocksConfig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stocks.apps.StocksConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Standard config</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-stocks.graphql">
+<span id="graphql"></span><h2>GraphQL<a class="headerlink" href="#module-stocks.graphql" title="Permalink to this headline">¶</a></h2>
+<p>GraphQL definitions for the Stocks App</p>
+<dl class="class">
+<dt id="stocks.graphql.AddAttributeToInvestment">
+<em class="property">class </em><code class="descclassname">stocks.graphql.</code><code class="descname">AddAttributeToInvestment</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stocks/graphql.html#AddAttributeToInvestment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stocks.graphql.AddAttributeToInvestment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a description to an Investment Bucket and returns the bucket</p>
+<dl class="staticmethod">
+<dt id="stocks.graphql.AddAttributeToInvestment.mutate">
+<em class="property">static </em><code class="descname">mutate</code><span class="sig-paren">(</span><em>_self</em>, <em>args</em>, <em>context</em>, <em>_info</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stocks/graphql.html#AddAttributeToInvestment.mutate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stocks.graphql.AddAttributeToInvestment.mutate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executes the mutation to add the attribute</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="stocks.graphql.AddBucket">
+<em class="property">class </em><code class="descclassname">stocks.graphql.</code><code class="descname">AddBucket</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stocks/graphql.html#AddBucket"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stocks.graphql.AddBucket" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new InvestmentBucket and returns the new bucket</p>
+<dl class="staticmethod">
+<dt id="stocks.graphql.AddBucket.mutate">
+<em class="property">static </em><code class="descname">mutate</code><span class="sig-paren">(</span><em>_self</em>, <em>args</em>, <em>context</em>, <em>_info</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stocks/graphql.html#AddBucket.mutate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stocks.graphql.AddBucket.mutate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new InvestmentBucket and saves it to the DB</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="stocks.graphql.AddStock">
+<em class="property">class </em><code class="descclassname">stocks.graphql.</code><code class="descname">AddStock</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stocks/graphql.html#AddStock"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stocks.graphql.AddStock" title="Permalink to this definition">¶</a></dt>
+<dd><p>AddStock creates a new Stock that is tracked</p>
+<dl class="staticmethod">
+<dt id="stocks.graphql.AddStock.mutate">
+<em class="property">static </em><code class="descname">mutate</code><span class="sig-paren">(</span><em>_self</em>, <em>args</em>, <em>_context</em>, <em>_info</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stocks/graphql.html#AddStock.mutate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stocks.graphql.AddStock.mutate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a Stock and saves it to the DB</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="stocks.graphql.Config">
+<em class="property">class </em><code class="descclassname">stocks.graphql.</code><code class="descname">Config</code><span class="sig-paren">(</span><em>id</em>, <em>quantity</em><span class="sig-paren">)</span><a class="headerlink" href="#stocks.graphql.Config" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="stocks.graphql.Config.id">
+<code class="descname">id</code><a class="headerlink" href="#stocks.graphql.Config.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="stocks.graphql.Config.quantity">
+<code class="descname">quantity</code><a class="headerlink" href="#stocks.graphql.Config.quantity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="stocks.graphql.DeleteAttribute">
+<em class="property">class </em><code class="descclassname">stocks.graphql.</code><code class="descname">DeleteAttribute</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stocks/graphql.html#DeleteAttribute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stocks.graphql.DeleteAttribute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes an attribute from a bucket</p>
+<dl class="staticmethod">
+<dt id="stocks.graphql.DeleteAttribute.mutate">
+<em class="property">static </em><code class="descname">mutate</code><span class="sig-paren">(</span><em>_self</em>, <em>args</em>, <em>context</em>, <em>_info</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stocks/graphql.html#DeleteAttribute.mutate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stocks.graphql.DeleteAttribute.mutate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executes the mutation by deleting the attribute</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="stocks.graphql.DeleteBucket">
+<em class="property">class </em><code class="descclassname">stocks.graphql.</code><code class="descname">DeleteBucket</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stocks/graphql.html#DeleteBucket"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stocks.graphql.DeleteBucket" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes an attribute from a bucket</p>
+<dl class="staticmethod">
+<dt id="stocks.graphql.DeleteBucket.mutate">
+<em class="property">static </em><code class="descname">mutate</code><span class="sig-paren">(</span><em>_self</em>, <em>args</em>, <em>context</em>, <em>_info</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stocks/graphql.html#DeleteBucket.mutate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stocks.graphql.DeleteBucket.mutate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executes the mutation by deleting the attribute</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="stocks.graphql.EditAttribute">
+<em class="property">class </em><code class="descclassname">stocks.graphql.</code><code class="descname">EditAttribute</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stocks/graphql.html#EditAttribute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stocks.graphql.EditAttribute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allows to edit an attribute description</p>
+<dl class="staticmethod">
+<dt id="stocks.graphql.EditAttribute.mutate">
+<em class="property">static </em><code class="descname">mutate</code><span class="sig-paren">(</span><em>_self</em>, <em>args</em>, <em>context</em>, <em>_info</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stocks/graphql.html#EditAttribute.mutate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stocks.graphql.EditAttribute.mutate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executes the mutation to change the attribute</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="stocks.graphql.EditConfiguration">
+<em class="property">class </em><code class="descclassname">stocks.graphql.</code><code class="descname">EditConfiguration</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stocks/graphql.html#EditConfiguration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stocks.graphql.EditConfiguration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mutation to change the stock configuration of a bucket</p>
+<dl class="staticmethod">
+<dt id="stocks.graphql.EditConfiguration.mutate">
+<em class="property">static </em><code class="descname">mutate</code><span class="sig-paren">(</span><em>_self</em>, <em>args</em>, <em>context</em>, <em>_info</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stocks/graphql.html#EditConfiguration.mutate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stocks.graphql.EditConfiguration.mutate" title="Permalink to this definition">¶</a></dt>
+<dd><p>This performs the actual mutation by removing the old configuration and
+then writing the new one</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="stocks.graphql.GInvestmentBucketConfigurationUpdate">
+<em class="property">class </em><code class="descclassname">stocks.graphql.</code><code class="descname">GInvestmentBucketConfigurationUpdate</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stocks/graphql.html#GInvestmentBucketConfigurationUpdate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stocks.graphql.GInvestmentBucketConfigurationUpdate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents one choice of stock for a bucket</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="stocks.graphql.Query">
+<em class="property">class </em><code class="descclassname">stocks.graphql.</code><code class="descname">Query</code><a class="reference internal" href="../_modules/stocks/graphql.html#Query"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stocks.graphql.Query" title="Permalink to this definition">¶</a></dt>
+<dd><p>We don’t want to have any root queries here</p>
+<dl class="staticmethod">
+<dt id="stocks.graphql.Query.resolve_invest_bucket">
+<em class="property">static </em><code class="descname">resolve_invest_bucket</code><span class="sig-paren">(</span><em>_self</em>, <em>args</em>, <em>context</em>, <em>_info</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stocks/graphql.html#Query.resolve_invest_bucket"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stocks.graphql.Query.resolve_invest_bucket" title="Permalink to this definition">¶</a></dt>
+<dd><p>The viewer represents the current logged in user</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-stocks.historical">
+<span id="historical"></span><h2>Historical<a class="headerlink" href="#module-stocks.historical" title="Permalink to this headline">¶</a></h2>
+<p>This module is for loading historical data for stocks</p>
+<dl class="function">
+<dt id="stocks.historical.create_stock">
+<code class="descclassname">stocks.historical.</code><code class="descname">create_stock</code><span class="sig-paren">(</span><em>instance</em>, <em>created</em>, <em>**_</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stocks/historical.html#create_stock"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stocks.historical.create_stock" title="Permalink to this definition">¶</a></dt>
+<dd><p>Queries stock quotes when stock is created</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="stocks.historical.data_ten_years_back_for_stock">
+<code class="descclassname">stocks.historical.</code><code class="descname">data_ten_years_back_for_stock</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stocks/historical.html#data_ten_years_back_for_stock"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stocks.historical.data_ten_years_back_for_stock" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function that creates Stock object
+and loads data for it 10 years back</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="stocks.historical.fill_quote_history">
+<code class="descclassname">stocks.historical.</code><code class="descname">fill_quote_history</code><span class="sig-paren">(</span><em>stock</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stocks/historical.html#fill_quote_history"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stocks.historical.fill_quote_history" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a stock, it fills in the last 10 years of historical data</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="stocks.historical.fill_stocks">
+<code class="descclassname">stocks.historical.</code><code class="descname">fill_stocks</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stocks/historical.html#fill_stocks"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stocks.historical.fill_stocks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function that fills stock data for missing days</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="stocks.historical.save_stock_quote_from_fetcher">
+<code class="descclassname">stocks.historical.</code><code class="descname">save_stock_quote_from_fetcher</code><span class="sig-paren">(</span><em>fetcher_history</em>, <em>stock_id</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stocks/historical.html#save_stock_quote_from_fetcher"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stocks.historical.save_stock_quote_from_fetcher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function that saves DailyStockQuote from yahoo_historical fetcher</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-stocks.models">
+<span id="models"></span><h2>Models<a class="headerlink" href="#module-stocks.models" title="Permalink to this headline">¶</a></h2>
+<p>Models keeps track of all the persistent data around stocks</p>
+<dl class="class">
+<dt id="stocks.models.DailyStockQuote">
+<em class="property">class </em><code class="descclassname">stocks.models.</code><code class="descname">DailyStockQuote</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stocks/models.html#DailyStockQuote"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stocks.models.DailyStockQuote" title="Permalink to this definition">¶</a></dt>
+<dd><p>DailyStockQuote is one day in the performance of a stock,
+for example 2nd July GOOGL value is 281.31$</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="stocks.models.InvestmentBucket">
+<em class="property">class </em><code class="descclassname">stocks.models.</code><code class="descname">InvestmentBucket</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stocks/models.html#InvestmentBucket"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stocks.models.InvestmentBucket" title="Permalink to this definition">¶</a></dt>
+<dd><p>An investment bucket represents a collection of stocks to invest in</p>
+<dl class="staticmethod">
+<dt id="stocks.models.InvestmentBucket.accessible_buckets">
+<em class="property">static </em><code class="descname">accessible_buckets</code><span class="sig-paren">(</span><em>profile</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stocks/models.html#InvestmentBucket.accessible_buckets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stocks.models.InvestmentBucket.accessible_buckets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds all buckets that the user could view</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="stocks.models.InvestmentBucket.add_attribute">
+<code class="descname">add_attribute</code><span class="sig-paren">(</span><em>text</em>, <em>is_good=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stocks/models.html#InvestmentBucket.add_attribute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stocks.models.InvestmentBucket.add_attribute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds an attribute to an investment bucket</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="stocks.models.InvestmentBucket.change_config">
+<code class="descname">change_config</code><span class="sig-paren">(</span><em>new_config</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stocks/models.html#InvestmentBucket.change_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stocks.models.InvestmentBucket.change_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Changes the configuration of the investment bucket to new_config</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="stocks.models.InvestmentBucket.create_new_bucket">
+<em class="property">static </em><code class="descname">create_new_bucket</code><span class="sig-paren">(</span><em>name</em>, <em>public</em>, <em>owner</em>, <em>available=1000.0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stocks/models.html#InvestmentBucket.create_new_bucket"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stocks.models.InvestmentBucket.create_new_bucket" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new InvestmentBucket</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="stocks.models.InvestmentBucket.get_stock_configs">
+<code class="descname">get_stock_configs</code><span class="sig-paren">(</span><em>date=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stocks/models.html#InvestmentBucket.get_stock_configs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stocks.models.InvestmentBucket.get_stock_configs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all associated configs</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="stocks.models.InvestmentBucket.value_on">
+<code class="descname">value_on</code><span class="sig-paren">(</span><em>date=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stocks/models.html#InvestmentBucket.value_on"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stocks.models.InvestmentBucket.value_on" title="Permalink to this definition">¶</a></dt>
+<dd><p>The value of the bucket on a specific day</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="stocks.models.InvestmentBucketDescription">
+<em class="property">class </em><code class="descclassname">stocks.models.</code><code class="descname">InvestmentBucketDescription</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stocks/models.html#InvestmentBucketDescription"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stocks.models.InvestmentBucketDescription" title="Permalink to this definition">¶</a></dt>
+<dd><p>An investment bucket represents a collection of stocks to invest in</p>
+<dl class="method">
+<dt id="stocks.models.InvestmentBucketDescription.change_description">
+<code class="descname">change_description</code><span class="sig-paren">(</span><em>text</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stocks/models.html#InvestmentBucketDescription.change_description"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stocks.models.InvestmentBucketDescription.change_description" title="Permalink to this definition">¶</a></dt>
+<dd><p>Changes the description to the given text</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="stocks.models.InvestmentStockConfiguration">
+<em class="property">class </em><code class="descclassname">stocks.models.</code><code class="descname">InvestmentStockConfiguration</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stocks/models.html#InvestmentStockConfiguration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stocks.models.InvestmentStockConfiguration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents the configuration of how much of a stock to invest for a bucket</p>
+<dl class="method">
+<dt id="stocks.models.InvestmentStockConfiguration.value_on">
+<code class="descname">value_on</code><span class="sig-paren">(</span><em>date=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stocks/models.html#InvestmentStockConfiguration.value_on"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stocks.models.InvestmentStockConfiguration.value_on" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the current value of the stock configuration</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="stocks.models.Stock">
+<em class="property">class </em><code class="descclassname">stocks.models.</code><code class="descname">Stock</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stocks/models.html#Stock"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stocks.models.Stock" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stock represents a single stock. For example GOOGL</p>
+<dl class="staticmethod">
+<dt id="stocks.models.Stock.create_new_stock">
+<em class="property">static </em><code class="descname">create_new_stock</code><span class="sig-paren">(</span><em>ticker</em>, <em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stocks/models.html#Stock.create_new_stock"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stocks.models.Stock.create_new_stock" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new stock</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="stocks.models.Stock.find_stock">
+<em class="property">static </em><code class="descname">find_stock</code><span class="sig-paren">(</span><em>text</em>, <em>first=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stocks/models.html#Stock.find_stock"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stocks.models.Stock.find_stock" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds the stocks that contain &gt;text&lt;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="stocks.models.Stock.latest_quote">
+<code class="descname">latest_quote</code><span class="sig-paren">(</span><em>date=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stocks/models.html#Stock.latest_quote"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stocks.models.Stock.latest_quote" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the latest quote for the stock</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="stocks.models.Stock.quote_in_range">
+<code class="descname">quote_in_range</code><span class="sig-paren">(</span><em>start=None</em>, <em>end=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stocks/models.html#Stock.quote_in_range"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stocks.models.Stock.quote_in_range" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of daily stock quotes in the given timerange</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="stocks.models.Stock.trades_for_profile">
+<code class="descname">trades_for_profile</code><span class="sig-paren">(</span><em>profile</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stocks/models.html#Stock.trades_for_profile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stocks.models.Stock.trades_for_profile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns all trades the user made with this stock</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="stocks.models.pre_save_any">
+<code class="descclassname">stocks.models.</code><code class="descname">pre_save_any</code><span class="sig-paren">(</span><em>sender</em>, <em>instance</em>, <em>*_args</em>, <em>**_kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stocks/models.html#pre_save_any"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stocks.models.pre_save_any" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensures that all constrains are met</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-stocks.stock_helper">
+<span id="stock-helper"></span><h2>Stock Helper<a class="headerlink" href="#module-stocks.stock_helper" title="Permalink to this headline">¶</a></h2>
+<p>A couple helper functions that help us get real data backing for stocks</p>
+<dl class="function">
+<dt id="stocks.stock_helper.get_date_array_for_fetcher">
+<code class="descclassname">stocks.stock_helper.</code><code class="descname">get_date_array_for_fetcher</code><span class="sig-paren">(</span><em>arrow_date</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stocks/stock_helper.html#get_date_array_for_fetcher"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stocks.stock_helper.get_date_array_for_fetcher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function that formats arrow date to Yahoo Fetcher format</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="stocks.stock_helper.validate_ticker">
+<code class="descclassname">stocks.stock_helper.</code><code class="descname">validate_ticker</code><span class="sig-paren">(</span><em>ticker</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stocks/stock_helper.html#validate_ticker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#stocks.stock_helper.validate_ticker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function that validates ticker from yahoo_historical api</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-stocks.views">
+<span id="views"></span><h2>Views<a class="headerlink" href="#module-stocks.views" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="authentication.html" title="previous chapter">Authentication</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Christophe Rimann, Nigel Schuster, Julian Serra, Jordan Vega.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/modules/stocks.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

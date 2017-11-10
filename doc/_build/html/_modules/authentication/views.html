@@ -1,0 +1,146 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>authentication.views &#8212; ASE4156: MIWF  documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for authentication.views</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Views for authentication. Basically supports login/logout.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="k">import</span> <span class="n">render</span>
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="k">import</span> <span class="n">HttpResponseRedirect</span><span class="p">,</span> <span class="n">HttpResponse</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth</span> <span class="k">import</span> <span class="n">logout</span> <span class="k">as</span> <span class="n">log_out</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.decorators</span> <span class="k">import</span> <span class="n">login_required</span>
+<span class="kn">from</span> <span class="nn">authentication.models</span> <span class="k">import</span> <span class="n">UserBank</span>
+<span class="kn">from</span> <span class="nn">authentication.plaid_wrapper</span> <span class="k">import</span> <span class="n">PlaidAPI</span>
+
+
+<div class="viewcode-block" id="login"><a class="viewcode-back" href="../../modules/authentication.html#authentication.views.login">[docs]</a><span class="k">def</span> <span class="nf">login</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Dummy function to render login page</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;auth.html&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="logout"><a class="viewcode-back" href="../../modules/authentication.html#authentication.views.logout">[docs]</a><span class="k">def</span> <span class="nf">logout</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function to logout</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">log_out</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">HttpResponseRedirect</span><span class="p">(</span><span class="s2">&quot;/login&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="setup_bank"><a class="viewcode-back" href="../../modules/authentication.html#authentication.views.setup_bank">[docs]</a><span class="nd">@login_required</span>
+<span class="k">def</span> <span class="nf">setup_bank</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function to serve bank setup page</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">profile</span><span class="o">.</span><span class="n">has_bank_linked</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;setup_bank.html&quot;</span><span class="p">,</span> <span class="p">{})</span>
+    <span class="k">return</span> <span class="n">HttpResponseRedirect</span><span class="p">(</span><span class="s1">&#39;/home&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_access_token"><a class="viewcode-back" href="../../modules/authentication.html#authentication.views.get_access_token">[docs]</a><span class="nd">@login_required</span>
+<span class="k">def</span> <span class="nf">get_access_token</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function to retrieve plaid access token</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;POST&quot;</span><span class="p">:</span>
+        <span class="n">client</span> <span class="o">=</span> <span class="n">PlaidAPI</span><span class="o">.</span><span class="n">client</span><span class="p">()</span>
+        <span class="n">public_token</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;public_token&#39;</span><span class="p">)</span>
+        <span class="n">exchange_response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">Item</span><span class="o">.</span><span class="n">public_token</span><span class="o">.</span><span class="n">exchange</span><span class="p">(</span><span class="n">public_token</span><span class="p">)</span>
+        <span class="n">plaidrequest</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">Item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">exchange_response</span><span class="p">[</span><span class="s1">&#39;access_token&#39;</span><span class="p">])</span>
+        <span class="n">bank_user</span> <span class="o">=</span> <span class="n">UserBank</span><span class="p">(</span>
+            <span class="n">user</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">,</span>
+            <span class="n">item_id</span><span class="o">=</span><span class="n">exchange_response</span><span class="p">[</span><span class="s1">&#39;item_id&#39;</span><span class="p">],</span>
+            <span class="n">access_token</span><span class="o">=</span><span class="n">exchange_response</span><span class="p">[</span><span class="s1">&#39;access_token&#39;</span><span class="p">],</span>
+            <span class="n">institution_name</span><span class="o">=</span><span class="n">plaidrequest</span><span class="p">[</span><span class="s1">&#39;item&#39;</span><span class="p">][</span><span class="s1">&#39;institution_id&#39;</span><span class="p">],</span>
+        <span class="p">)</span>
+        <span class="n">bank_user</span><span class="o">.</span><span class="n">current_balance_field</span> <span class="o">=</span> <span class="n">bank_user</span><span class="o">.</span><span class="n">plaid</span><span class="p">()</span><span class="o">.</span><span class="n">current_balance</span><span class="p">()</span>
+        <span class="n">bank_user</span><span class="o">.</span><span class="n">account_name_field</span> <span class="o">=</span> <span class="n">bank_user</span><span class="o">.</span><span class="n">plaid</span><span class="p">()</span><span class="o">.</span><span class="n">account_name</span><span class="p">()</span>
+        <span class="n">bank_user</span><span class="o">.</span><span class="n">income_field</span> <span class="o">=</span> <span class="n">bank_user</span><span class="o">.</span><span class="n">plaid</span><span class="p">()</span><span class="o">.</span><span class="n">income</span><span class="p">()</span>
+        <span class="n">bank_user</span><span class="o">.</span><span class="n">expenditure_field</span> <span class="o">=</span> <span class="n">bank_user</span><span class="o">.</span><span class="n">plaid</span><span class="p">()</span><span class="o">.</span><span class="n">expenditure</span><span class="p">()</span>
+        <span class="n">bank_user</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">profile</span><span class="o">.</span><span class="n">has_bank_linked</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="mi">201</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s2">&quot;Please don&#39;t sniff urls&quot;</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Christophe Rimann, Nigel Schuster, Julian Serra, Jordan Vega.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,196 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>authentication.plaid_wrapper &#8212; ASE4156: MIWF  documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for authentication.plaid_wrapper</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Plaid API wrapper to provide convenience methods</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">plaid</span>
+
+
+<div class="viewcode-block" id="PlaidAPI"><a class="viewcode-back" href="../../modules/authentication.html#authentication.plaid_wrapper.PlaidAPI">[docs]</a><span class="k">class</span> <span class="nc">PlaidAPI</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Wrapper around the plaid API to establish convenience methods</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">PLAID_CLIENT_ID</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;PLAID_CLIENT_ID&#39;</span><span class="p">)</span>
+    <span class="n">PLAID_SECRET</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;PLAID_SECRET&#39;</span><span class="p">)</span>
+    <span class="n">PLAID_PUBLIC_KEY</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;PLAID_PUBLIC_KEY&#39;</span><span class="p">)</span>
+    <span class="n">PLAID_ENV</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s1">&#39;sandbox&#39;</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;DEBUG&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;TRUE&quot;</span>
+        <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;TRAVIS_BRANCH&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="k">else</span> <span class="s1">&#39;development&#39;</span><span class="p">)</span>
+    <span class="n">balance</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">access_token</span><span class="p">,</span> <span class="n">client</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">client</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">plaid</span> <span class="o">=</span> <span class="n">PlaidAPI</span><span class="o">.</span><span class="n">client</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">plaid</span> <span class="o">=</span> <span class="n">client</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">access_token</span> <span class="o">=</span> <span class="n">access_token</span>
+
+<div class="viewcode-block" id="PlaidAPI.client"><a class="viewcode-back" href="../../modules/authentication.html#authentication.plaid_wrapper.PlaidAPI.client">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">client</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a new plaid client</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">plaid</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span>
+            <span class="n">client_id</span><span class="o">=</span><span class="n">PlaidAPI</span><span class="o">.</span><span class="n">PLAID_CLIENT_ID</span><span class="p">,</span>
+            <span class="n">secret</span><span class="o">=</span><span class="n">PlaidAPI</span><span class="o">.</span><span class="n">PLAID_SECRET</span><span class="p">,</span>
+            <span class="n">public_key</span><span class="o">=</span><span class="n">PlaidAPI</span><span class="o">.</span><span class="n">PLAID_PUBLIC_KEY</span><span class="p">,</span>
+            <span class="n">environment</span><span class="o">=</span><span class="n">PlaidAPI</span><span class="o">.</span><span class="n">PLAID_ENV</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="PlaidAPI.current_balance"><a class="viewcode-back" href="../../modules/authentication.html#authentication.plaid_wrapper.PlaidAPI.current_balance">[docs]</a>    <span class="k">def</span> <span class="nf">current_balance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the current numerical balance of the user</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">balance</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">balance</span>
+        <span class="n">balances</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plaid</span><span class="o">.</span><span class="n">Accounts</span><span class="o">.</span><span class="n">balance</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">access_token</span><span class="p">)[</span><span class="s1">&#39;accounts&#39;</span><span class="p">]</span>
+        <span class="n">extracted_balances</span> <span class="o">=</span> <span class="p">[((</span><span class="n">b</span><span class="p">[</span><span class="s1">&#39;balances&#39;</span><span class="p">][</span><span class="s1">&#39;available&#39;</span><span class="p">]</span>
+                                <span class="k">if</span> <span class="n">b</span><span class="p">[</span><span class="s1">&#39;balances&#39;</span><span class="p">][</span><span class="s1">&#39;available&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span>
+                                <span class="n">b</span><span class="p">[</span><span class="s1">&#39;balances&#39;</span><span class="p">][</span><span class="s1">&#39;current&#39;</span><span class="p">])</span> <span class="o">*</span>
+                               <span class="p">(</span><span class="mi">1</span>
+                                <span class="k">if</span> <span class="n">b</span><span class="p">[</span><span class="s1">&#39;subtype&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;credit card&#39;</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+                              <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">balances</span><span class="p">]</span>
+        <span class="n">balance</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">extracted_balances</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">balance</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">balance</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">balance</span></div>
+
+<div class="viewcode-block" id="PlaidAPI.account_name"><a class="viewcode-back" href="../../modules/authentication.html#authentication.plaid_wrapper.PlaidAPI.account_name">[docs]</a>    <span class="k">def</span> <span class="nf">account_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The name of the account that the user hass</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">plaid</span><span class="o">.</span><span class="n">Accounts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">access_token</span><span class="p">)[</span><span class="s1">&#39;accounts&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="PlaidAPI.historical_data"><a class="viewcode-back" href="../../modules/authentication.html#authentication.plaid_wrapper.PlaidAPI.historical_data">[docs]</a>    <span class="k">def</span> <span class="nf">historical_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a list of tuples that show the balance a user had at the given point in time</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plaid</span><span class="o">.</span><span class="n">Transactions</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">access_token</span><span class="p">,</span>
+            <span class="n">start_date</span><span class="o">=</span><span class="n">start</span><span class="p">,</span>
+            <span class="n">end_date</span><span class="o">=</span><span class="n">end</span>
+        <span class="p">)</span>
+        <span class="n">transactions</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;transactions&#39;</span><span class="p">]</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_balance</span><span class="p">()</span>
+        <span class="n">value_list</span> <span class="o">=</span> <span class="p">[(</span><span class="n">end</span><span class="p">,</span> <span class="n">value</span><span class="p">)]</span>
+        <span class="k">for</span> <span class="n">transaction</span> <span class="ow">in</span> <span class="n">transactions</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">value</span> <span class="o">-</span> <span class="n">transaction</span><span class="p">[</span><span class="s1">&#39;amount&#39;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">value_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">transaction</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]:</span>
+                <span class="n">value_list</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">transaction</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">),</span> <span class="n">value</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">value_list</span></div>
+
+<div class="viewcode-block" id="PlaidAPI.income"><a class="viewcode-back" href="../../modules/authentication.html#authentication.plaid_wrapper.PlaidAPI.income">[docs]</a>    <span class="k">def</span> <span class="nf">income</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">days</span><span class="o">=</span><span class="mi">30</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculates the income a user has per month</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">days</span><span class="p">))</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plaid</span><span class="o">.</span><span class="n">Transactions</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">access_token</span><span class="p">,</span>
+            <span class="n">start_date</span><span class="o">=</span><span class="n">start</span><span class="p">,</span>
+            <span class="n">end_date</span><span class="o">=</span><span class="n">end</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">transactions</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;transactions&#39;</span><span class="p">]</span>
+        <span class="n">plus</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="p">[</span><span class="n">tx</span><span class="p">[</span><span class="s1">&#39;amount&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">tx</span> <span class="ow">in</span> <span class="n">transactions</span><span class="p">]))</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">plus</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PlaidAPI.expenditure"><a class="viewcode-back" href="../../modules/authentication.html#authentication.plaid_wrapper.PlaidAPI.expenditure">[docs]</a>    <span class="k">def</span> <span class="nf">expenditure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">days</span><span class="o">=</span><span class="mi">30</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculates the expenses a user has in a given timespan</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">days</span><span class="p">))</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plaid</span><span class="o">.</span><span class="n">Transactions</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">access_token</span><span class="p">,</span>
+            <span class="n">start_date</span><span class="o">=</span><span class="n">start</span><span class="p">,</span>
+            <span class="n">end_date</span><span class="o">=</span><span class="n">end</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">transactions</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;transactions&#39;</span><span class="p">]</span>
+        <span class="n">plus</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">,</span> <span class="p">[</span><span class="n">tx</span><span class="p">[</span><span class="s1">&#39;amount&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">tx</span> <span class="ow">in</span> <span class="n">transactions</span><span class="p">]))</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">plus</span><span class="p">)</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Christophe Rimann, Nigel Schuster, Julian Serra, Jordan Vega.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

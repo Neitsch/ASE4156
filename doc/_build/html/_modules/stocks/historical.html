@@ -1,0 +1,166 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>stocks.historical &#8212; ASE4156: MIWF  documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for stocks.historical</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;This module is for loading historical data for stocks&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">yahoo_historical</span> <span class="k">import</span> <span class="n">Fetcher</span>
+<span class="kn">import</span> <span class="nn">arrow</span>
+<span class="kn">from</span> <span class="nn">django.db.models.signals</span> <span class="k">import</span> <span class="n">post_save</span>
+<span class="kn">from</span> <span class="nn">django.dispatch</span> <span class="k">import</span> <span class="n">receiver</span>
+<span class="kn">from</span> <span class="nn">django.db.models</span> <span class="k">import</span> <span class="n">Max</span>
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="k">import</span> <span class="n">HttpResponse</span>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="k">import</span> <span class="n">Stock</span><span class="p">,</span> <span class="n">DailyStockQuote</span>
+<span class="kn">from</span> <span class="nn">.stock_helper</span> <span class="k">import</span> <span class="n">get_date_array_for_fetcher</span>
+
+
+<div class="viewcode-block" id="fill_quote_history"><a class="viewcode-back" href="../../modules/stocks.html#stocks.historical.fill_quote_history">[docs]</a><span class="k">def</span> <span class="nf">fill_quote_history</span><span class="p">(</span><span class="n">stock</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Given a stock, it fills in the last 10 years of historical data</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">now</span> <span class="o">=</span> <span class="n">arrow</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+    <span class="n">ten_back</span> <span class="o">=</span> <span class="n">now</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">years</span><span class="o">=-</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">now</span> <span class="o">=</span> <span class="n">get_date_array_for_fetcher</span><span class="p">(</span><span class="n">now</span><span class="p">)</span>
+    <span class="n">ten_back</span> <span class="o">=</span> <span class="n">get_date_array_for_fetcher</span><span class="p">(</span><span class="n">ten_back</span><span class="p">)</span>
+    <span class="n">fetcher</span> <span class="o">=</span> <span class="n">Fetcher</span><span class="p">(</span><span class="n">stock</span><span class="o">.</span><span class="n">ticker</span><span class="p">,</span> <span class="n">ten_back</span><span class="p">,</span> <span class="n">now</span><span class="p">)</span>
+    <span class="n">history</span> <span class="o">=</span> <span class="n">fetcher</span><span class="o">.</span><span class="n">getHistorical</span><span class="p">()</span>
+    <span class="n">save_stock_quote_from_fetcher</span><span class="p">(</span><span class="n">history</span><span class="p">,</span> <span class="n">stock</span><span class="o">.</span><span class="n">id</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="data_ten_years_back_for_stock"><a class="viewcode-back" href="../../modules/stocks.html#stocks.historical.data_ten_years_back_for_stock">[docs]</a><span class="k">def</span> <span class="nf">data_ten_years_back_for_stock</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Function that creates Stock object</span>
+<span class="sd">        and loads data for it 10 years back</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;POST&quot;</span><span class="p">:</span>
+        <span class="n">body</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">body</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+        <span class="n">ticker</span> <span class="o">=</span> <span class="n">body</span><span class="p">[</span><span class="s1">&#39;ticker&#39;</span><span class="p">]</span>
+        <span class="c1"># pylint: disable=broad-except</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">stock</span> <span class="o">=</span> <span class="n">Stock</span><span class="o">.</span><span class="n">create_new_stock</span><span class="p">(</span><span class="n">ticker</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;500 Internal Server Error, stock doesnt exist&quot;</span>
+            <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">stock</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+        <span class="c1"># pylint: enable=broad-except</span>
+    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s2">&quot;405 Method Not Allowed&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">405</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="create_stock"><a class="viewcode-back" href="../../modules/stocks.html#stocks.historical.create_stock">[docs]</a><span class="nd">@receiver</span><span class="p">(</span><span class="n">post_save</span><span class="p">,</span> <span class="n">sender</span><span class="o">=</span><span class="n">Stock</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">create_stock</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">created</span><span class="p">,</span> <span class="o">**</span><span class="n">_</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Queries stock quotes when stock is created</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">created</span><span class="p">:</span>
+        <span class="n">fill_quote_history</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="fill_stocks"><a class="viewcode-back" href="../../modules/stocks.html#stocks.historical.fill_stocks">[docs]</a><span class="k">def</span> <span class="nf">fill_stocks</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Function that fills stock data for missing days&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;GET&quot;</span><span class="p">:</span>
+        <span class="n">stock_id_field</span> <span class="o">=</span> <span class="s1">&#39;stock_id&#39;</span>
+        <span class="n">stock_ticker</span> <span class="o">=</span> <span class="s1">&#39;stock__ticker&#39;</span>
+        <span class="n">date</span> <span class="o">=</span> <span class="s1">&#39;date&#39;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">DailyStockQuote</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="n">stock_ticker</span><span class="p">,</span> <span class="n">stock_id_field</span><span class="p">)</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">Max</span><span class="p">(</span><span class="n">date</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">stock</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+            <span class="n">last_date</span> <span class="o">=</span> <span class="n">arrow</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">stock</span><span class="p">[</span><span class="n">date</span><span class="p">])</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">days</span><span class="o">=+</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">last_date</span> <span class="o">=</span> <span class="n">get_date_array_for_fetcher</span><span class="p">(</span><span class="n">last_date</span><span class="p">)</span>
+            <span class="n">now</span> <span class="o">=</span> <span class="n">get_date_array_for_fetcher</span><span class="p">(</span><span class="n">arrow</span><span class="o">.</span><span class="n">now</span><span class="p">())</span>
+            <span class="n">ticker</span> <span class="o">=</span> <span class="n">stock</span><span class="p">[</span><span class="n">stock_ticker</span><span class="p">]</span>
+            <span class="n">stock_id</span> <span class="o">=</span> <span class="n">stock</span><span class="p">[</span><span class="n">stock_id_field</span><span class="p">]</span>
+            <span class="n">fetcher</span> <span class="o">=</span> <span class="n">Fetcher</span><span class="p">(</span><span class="n">ticker</span><span class="p">,</span> <span class="n">last_date</span><span class="p">,</span> <span class="n">now</span><span class="p">)</span>
+            <span class="n">history</span> <span class="o">=</span> <span class="n">fetcher</span><span class="o">.</span><span class="n">getHistorical</span><span class="p">()</span>
+            <span class="n">save_stock_quote_from_fetcher</span><span class="p">(</span><span class="n">history</span><span class="p">,</span> <span class="n">stock_id</span><span class="p">)</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Filling data for </span><span class="si">{0}</span><span class="s2"> stocks&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s2">&quot;405 Method Not Allowed&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">405</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="save_stock_quote_from_fetcher"><a class="viewcode-back" href="../../modules/stocks.html#stocks.historical.save_stock_quote_from_fetcher">[docs]</a><span class="k">def</span> <span class="nf">save_stock_quote_from_fetcher</span><span class="p">(</span><span class="n">fetcher_history</span><span class="p">,</span> <span class="n">stock_id</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Function that saves DailyStockQuote from yahoo_historical fetcher&quot;&quot;&quot;</span>
+    <span class="n">objects</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">fetcher_history</span><span class="o">.</span><span class="n">itertuples</span><span class="p">():</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="s2">&quot;Close&quot;</span><span class="p">)</span>
+        <span class="n">date</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="s2">&quot;Date&quot;</span><span class="p">)</span>
+        <span class="n">objects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">DailyStockQuote</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="n">date</span><span class="p">,</span> <span class="n">stock_id</span><span class="o">=</span><span class="n">stock_id</span><span class="p">))</span>
+    <span class="n">DailyStockQuote</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">bulk_create</span><span class="p">(</span><span class="n">objects</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Christophe Rimann, Nigel Schuster, Julian Serra, Jordan Vega.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
