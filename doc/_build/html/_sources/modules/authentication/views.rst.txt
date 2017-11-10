@@ -1,0 +1,5 @@
+Authentication views
+********************
+
+.. automodule:: authentication.views
+    :members:

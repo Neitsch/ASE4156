@@ -1,0 +1,12 @@
+Authentication
+*********************
+
+Test
+----
+.. automodule:: authentication.models
+    :members:
+
+Test2
+-----
+.. automodule:: authentication.views
+    :members:
