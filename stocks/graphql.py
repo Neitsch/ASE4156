@@ -66,14 +66,14 @@ class GInvestmentBucket(DjangoObjectType):
         return data.owner.id == info.context.user.profile.id
 
     @staticmethod
-    def resolve_stocks(data, info, **_args):
+    def resolve_stocks(data, _info, **_args):
         """
         Returns the *current* stocks in the bucket
         """
         return data.get_stock_configs()
 
     @staticmethod
-    def resolve_value(data, info, **_args):
+    def resolve_value(data, _info, **_args):
         """
         The current value of the investment bucket
         """
@@ -109,14 +109,14 @@ class GStock(DjangoObjectType):
         only_fields = ('quote_in_range', 'latest_quote', 'name', 'ticker', 'trades')
 
     @staticmethod
-    def resolve_latest_quote(data, info, **_args):
+    def resolve_latest_quote(data, _info, **_args):
         """
         Returns the most recent stock quote
         """
         return data.latest_quote()
 
     @staticmethod
-    def resolve_quote_in_range(data, info, start, end, **_args):
+    def resolve_quote_in_range(data, _info, start, end, **_args):
         """
         Finds the stock quotes for the stock within a time range
         """
@@ -143,7 +143,7 @@ class AddStock(Mutation):
     stock = Field(lambda: GStock)
 
     @staticmethod
-    def mutate(_self, info, ticker, name, **_args):
+    def mutate(_self, _info, ticker, name, **_args):
         """
         Creates a Stock and saves it to the DB
         """
@@ -337,10 +337,10 @@ class Query(object):
     """
     We don't want to have any root queries here
     """
-    invest_bucket = Field(GInvestmentBucket, args={'id': Argument(NonNull(ID))})
+    invest_bucket = Field(GInvestmentBucket, args={'id_value': Argument(NonNull(ID))})
 
     @staticmethod
-    def resolve_invest_bucket(_self, info, id, **_args):
+    def resolve_invest_bucket(_self, info, id_value, **_args):
         """
         The viewer represents the current logged in user
         """
@@ -350,7 +350,7 @@ class Query(object):
         return InvestmentBucket.accessible_buckets(
             info.context.user.profile
         ).get(
-            id=from_global_id(id)[1]
+            id=from_global_id(id_value)[1]
         )
 
 # pylint: enable=too-few-public-methods

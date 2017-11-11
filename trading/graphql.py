@@ -24,7 +24,7 @@ class GTrade(DjangoObjectType):
         interfaces = (relay.Node, )
 
     @staticmethod
-    def resolve_value(data, info, **_args):
+    def resolve_value(data, _info, **_args):
         """
         Returns the value of a trade (see the model)
         """
@@ -46,14 +46,14 @@ class GTradingAccount(DjangoObjectType):
         interfaces = (relay.Node, )
 
     @staticmethod
-    def resolve_total_value(data, info, **_args):
+    def resolve_total_value(data, _info, **_args):
         """
         Returns the total value that the account currently holds
         """
         return data.total_value()
 
     @staticmethod
-    def resolve_available_cash(data, info, **_args):
+    def resolve_available_cash(data, _info, **_args):
         """
         Returns the amount of cash the user has available
         """
@@ -117,7 +117,10 @@ class InvestBucket(Mutation):
         """
         trading_acc_id = from_global_id(trading_acc_id)[1]
         bucket_id = from_global_id(bucket_id)[1]
-        trading_acc = TradingAccount.objects.get(id=trading_acc_id, profile=info.context.user.profile)
+        trading_acc = TradingAccount.objects.get(
+            id=trading_acc_id,
+            profile=info.context.user.profile,
+        )
         bucket = InvestmentBucket.objects.get(id=bucket_id)
         trading_acc.trade_bucket(bucket, quantity)
         return InvestBucket(profile=1)

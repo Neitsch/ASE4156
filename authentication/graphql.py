@@ -113,7 +113,7 @@ class GUserBank(DjangoObjectType):
         interfaces = (relay.Node, )
 
     @staticmethod
-    def resolve_history(data, info, start, **_args):
+    def resolve_history(data, _info, start, **_args):
         """
         Builds the financial history for the user
         """
@@ -125,28 +125,28 @@ class GUserBank(DjangoObjectType):
         ]
 
     @staticmethod
-    def resolve_balance(data, info, **_args):
+    def resolve_balance(data, _info, **_args):
         """
         Finds the current balance of the user
         """
         return data.current_balance()
 
     @staticmethod
-    def resolve_name(data, info, **_args):
+    def resolve_name(data, _info, **_args):
         """
         Returns the name of the bank account
         """
         return data.account_name()
 
     @staticmethod
-    def resolve_income(data, info, **_args):
+    def resolve_income(data, _info, **_args):
         """
         Returns the income a user has per month
         """
         return data.income()
 
     @staticmethod
-    def resolve_outcome(data, info, **_args):
+    def resolve_outcome(data, _info, **_args):
         """
         Returns the expenditures a user has per month
         """
