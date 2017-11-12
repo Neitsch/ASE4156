@@ -22,7 +22,14 @@ import sys
 import django
 sys.path.insert(0, os.path.abspath('../..'))
 os.environ['DJANGO_SETTINGS_MODULE'] = 'BuyBitcoin.settings'
-django.setup()
+try:
+    sec_store = os.environ['SECRET_KEY']
+    os.environ['SECRET_KEY'] = '123'
+    django.setup()
+    os.environ['SECRET_KEY'] = sec_store
+except KeyError:
+    os.environ['SECRET_KEY'] = '123'
+    django.setup()
 
 # -- General configuration ------------------------------------------------
 
