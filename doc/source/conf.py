@@ -23,12 +23,12 @@ import django
 sys.path.insert(0, os.path.abspath('../..'))
 os.environ['DJANGO_SETTINGS_MODULE'] = 'BuyBitcoin.settings'
 try:
-    sec_store = os.environ['SECRET_KEY']
-    os.environ['SECRET_KEY'] = '123'
+    sec_store = os.environ['DJANGO_SECRET_KEY']
+    os.environ['DJANGO_SECRET_KEY'] = '123'
     django.setup()
-    os.environ['SECRET_KEY'] = sec_store
+    os.environ['DJANGO_SECRET_KEY'] = sec_store
 except KeyError:
-    os.environ['SECRET_KEY'] = '123'
+    os.environ['DJANGO_SECRET_KEY'] = '123'
     django.setup()
 
 # -- General configuration ------------------------------------------------
