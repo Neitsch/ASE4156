@@ -8,7 +8,6 @@ import authentication.plaid_wrapper as PlaidMiddleware
 import plaid
 from plaid.api.accounts import Balance, Accounts
 from plaid.api.transactions import Transactions
-from django.test import TestCase
 
 
 def setup_module(cls):
