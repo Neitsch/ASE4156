@@ -321,3 +321,32 @@ def test_bucket_change_config():
     ).values('stock_id').annotate(
         sum_q=Sum('quantity')
     ).get()['sum_q'] == 2
+
+
+@pytest.mark.django_db(transaction=True)
+def test_bucket_value_on():
+    """
+    Tests InvestmentStockConfiguration.value_on()
+    """
+    user = User.objects.create(username='user1', password="a")
+    stock = Stock(
+        name="Name1X",
+        ticker="TKRC"
+    )
+    stock.save()
+    stock.daily_quote.create(
+        value=5,
+        date="2016-06-06"
+    )
+    bucket = InvestmentBucket(name="bucket", public=True, owner=user.profile, available=2)
+    bucket.save()
+    config = InvestmentStockConfiguration(
+        quantity=1,
+        stock=stock,
+        bucket=bucket,
+        start="2016-06-08"
+        )
+    config.save()
+    with pytest.raises(Exception):
+        config.value_on("2016-06-01")
+    assert config.value_on("2016-06-08") == 5
