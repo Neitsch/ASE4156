@@ -119,7 +119,6 @@ def test_mutation_add_trade(rf, snapshot):
         acc_name,
     ), context_value=request)
     snapshot.assert_match(executed)
-    tr = TradeStock.objects.get(account__profile__user__id=request.user.id)
     ex_acc = executed['data']['addTrade']['trade']['quantity']
     assert ex_acc == quantity
 
