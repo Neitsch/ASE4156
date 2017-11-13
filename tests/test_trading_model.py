@@ -32,7 +32,7 @@ def test_trading_acc_av_stk():
     """
     Test available stocks
     """
-    user = create_user()
+    user = user_helper()
     trading_account = user.profile.trading_accounts.create(
         account_name="spesh"
     )
@@ -61,7 +61,7 @@ def test_has_enough_bucket():
     """
     Test has enough bucket
     """
-    user = create_user()
+    user = user_helper()
     trading_account = user.profile.trading_accounts.create(
         account_name="spesh"
     )
@@ -86,7 +86,7 @@ def test_has_enough_stock():
     """
     Test has enough stock
     """
-    user = create_user()
+    user = user_helper()
     trading_account = user.profile.trading_accounts.create(
         account_name="spesh"
     )
@@ -116,7 +116,7 @@ def test_trading_acc_trade_bucket():
     """
     Test trade bucket
     """
-    user = create_user()
+    user = user_helper()
     trading_account = user.profile.trading_accounts.create(
         account_name="spesh"
     )
@@ -138,7 +138,7 @@ def test_trading_acc_trade_stock():
     """
     Test trade stock
     """
-    user = create_user()
+    user = user_helper()
     trading_account = user.profile.trading_accounts.create(
         account_name="spesh"
     )
@@ -163,7 +163,7 @@ def test_trading_available_buckets():
     """
     Testing TradingAccount.available_buckets()
     """
-    user = create_user()
+    user = user_helper()
     bucket1 = InvestmentBucket(name='b1', public=False, available=1000, owner=user.profile)
     bucket2 = InvestmentBucket(name='b2', public=False, available=1000, owner=user.profile)
     bucket1.save()
@@ -184,7 +184,7 @@ def test_trading_trading_balance():
     """
     Testing available_cash for a Trading Account
     """
-    account = create_account()
+    account = account_helper()
 
     value_of_stock1 = 3
     stock1 = Stock.create_new_stock(
@@ -221,7 +221,7 @@ def test_tradestock_current_value():
     """
     Tests TradeStock.current_value()
     """
-    account = create_account()
+    account = account_helper()
 
     value_of_stock1 = 3
     stock1 = Stock.create_new_stock(
@@ -233,8 +233,9 @@ def test_tradestock_current_value():
         date="2016-06-03"
     )
 
-    current_value = TradeStock(quantity=1, account=account, stock=stock1).current_value()
-    assert current_value == -value_of_stock1
+    quantity = 3
+    current_value = TradeStock(quantity=quantity, account=account, stock=stock1).current_value()
+    assert current_value == -value_of_stock1 * quantity
 
 
 @pytest.mark.django_db(transaction=True)
@@ -242,10 +243,7 @@ def test_tradebucket_current_value():
     """
     Tests TradeBucket.current_value()
     """
-    pwd = ''.join(random.choices(string.ascii_uppercase + string.digits, k=9))
-    user = User.objects.create(username='user', password=pwd)
-    account = TradingAccount(profile=user.profile, account_name="testAccount")
-    account.save()
+    account = account_helper()
 
     value_of_stock1 = 3
     stock1 = Stock.create_new_stock(
@@ -260,7 +258,7 @@ def test_tradebucket_current_value():
     invest_bucket = InvestmentBucket(
         name="Bucket Test",
         public=True,
-        owner=user.profile,
+        owner=account.profile,
         available=1
         )
     invest_bucket.save()
@@ -282,7 +280,7 @@ def test_investmentbucket_value_on():
     """
     Tests InvestmentBucket.value_on()
     """
-    user = create_user()
+    user = user_helper()
 
     value_of_stock1 = 3
     stock = Stock.create_new_stock(
@@ -320,7 +318,7 @@ def test_investmentbucket_descrip():
     """
     Tests InvestmentBucketDescription.change_description()
     """
-    user = create_user()
+    user = user_helper()
 
     value_of_stock1 = 3
     stock1 = Stock.create_new_stock(
@@ -345,7 +343,8 @@ def test_investmentbucket_descrip():
     assert description.text == "changed"
 
 
-def create_user():
+@pytest.fixture
+def user_helper():
     """
     Helper function for testing
     """
@@ -354,7 +353,8 @@ def create_user():
     return user
 
 
-def create_account():
+@pytest.fixture
+def account_helper():
     """
     Helper function for testing
     """

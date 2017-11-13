@@ -334,14 +334,16 @@ def test_bucket_value_on():
         ticker="TKRC"
     )
     stock.save()
+    value = 5
     stock.daily_quote.create(
-        value=5,
+        value=value,
         date="2016-06-06"
     )
     bucket = InvestmentBucket(name="bucket", public=True, owner=user.profile, available=2)
     bucket.save()
+    quantity = 3
     config = InvestmentStockConfiguration(
-        quantity=1,
+        quantity=quantity,
         stock=stock,
         bucket=bucket,
         start="2016-06-08"
@@ -349,4 +351,4 @@ def test_bucket_value_on():
     config.save()
     with pytest.raises(Exception):
         config.value_on("2016-06-01")
-    assert config.value_on("2016-06-08") == 5
+    assert config.value_on("2016-06-08") == quantity * value
