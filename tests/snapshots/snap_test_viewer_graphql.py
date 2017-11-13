@@ -240,15 +240,8 @@ snapshots['test_mutation_add_trade 1'] = {
 snapshots['test_mutation_add_bucket_trade 1'] = {
     'data': {
         'invest': {
-            'trade': {
-                'account': {
-                    'accountName': 'Test 1'
-                },
-                'quantity': 2.0,
-                'stock': {
-                    'name': 'N1'
-                },
-                'value': -200.0
+            'tradingAccount': {
+                'availableCash': -200.0
             }
         }
     }

@@ -129,7 +129,7 @@ class InvestBucket(Mutation):
         trading_acc_id = NonNull(ID)
         bucket_id = NonNull(ID)
 
-    trade = Field(lambda: GInvestmentBucketTrade)
+    trading_account = Field(lambda: GTradingAccount)
 
     @staticmethod
     def mutate(_self, info, quantity, trading_acc_id, bucket_id, **_args):
@@ -143,6 +143,6 @@ class InvestBucket(Mutation):
             profile=info.context.user.profile,
         )
         bucket = InvestmentBucket.objects.get(id=bucket_id)
-        trade = trading_acc.trade_bucket(bucket, quantity)
-        return InvestBucket(trade=trade)
+        trading_acc.trade_bucket(bucket, quantity)
+        return InvestBucket(trading_account=trading_acc)
 # pylint: enable=too-few-public-methods

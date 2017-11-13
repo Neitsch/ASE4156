@@ -149,15 +149,8 @@ def test_mutation_add_bucket_trade(rf, snapshot):
     executed = client.execute("""
         mutation {{
           invest(tradingAccId: "{}", quantity: {}, bucketId: "{}") {{
-            trade {{
-              value
-              stock {{
-                name
-              }}
-              quantity
-              account {{
-                accountName
-              }}
+            tradingAccount {{
+              availableCash
             }}
           }}
         }}
