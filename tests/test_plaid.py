@@ -12,14 +12,14 @@ from plaid.api.transactions import Transactions
 
 def setup_module(cls):
     '''Setting up testing'''
-    cls._original_init_method = plaid.__init__
+    cls.original_init_method = plaid.__init__
     plaid.__init__ = mock.Mock(return_value=None)
     plaid.__call__ = lambda self, request: self.get_response(request)
 
 
 def teardown_module(cls):
     '''Teardown testing'''
-    plaid.__init__ = cls._original_init_method
+    plaid.__init__ = cls.original_init_method
 
 
 @mock.patch.object(
