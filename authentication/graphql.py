@@ -67,14 +67,7 @@ class GProfile(DjangoObjectType):
         """
         Returns the selected account. For now we just assume the user has only 1
         """
-        acc = data.trading_accounts.all()[:1]
-        if not acc:
-            acc = data.trading_accounts.create(
-                account_name='default'
-            )
-        else:
-            acc = acc[0]
-        return acc
+        return data.default_acc()
 
 
 class DataPoint(object):

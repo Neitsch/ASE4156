@@ -20,6 +20,16 @@ class Profile(models.Model):
     has_bank_linked = models.NullBooleanField(
         blank=True, default=False, null=True)
 
+    def default_acc(self):
+        acc = self.trading_accounts.all()[:1]
+        if not acc:
+            acc = self.trading_accounts.create(
+                account_name='default'
+            )
+        else:
+            acc = acc[0]
+        return acc
+
     def __str__(self):
         return "{}, {}, {}".format(self.id, self.user_id, self.has_bank_linked)
 
