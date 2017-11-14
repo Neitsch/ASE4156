@@ -5,7 +5,6 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth import logout as log_out
 from django.contrib.auth.decorators import login_required
-from authentication.models import UserBank
 from authentication.plaid_wrapper import PlaidAPI
 
 
