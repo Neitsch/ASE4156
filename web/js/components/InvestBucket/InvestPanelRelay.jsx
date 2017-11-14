@@ -48,8 +48,12 @@ class InvestPanelRelay extends React.Component<Props, State> {
     }, optimisticResponse);
   }
   render() {
+    const bucket = {
+      ...this.props.bucket,
+      history: this.props.bucket.history.map(dp => ({ ...dp, date: new Date(dp.date) })),
+    };
     return (<InvestPanel
-      bucket={this.props.bucket}
+      bucket={bucket}
       available={this.props.profile.selectedAcc.availableCash}
       cancelFunc={this.props.closeFunc}
       investFunc={this.investFunc}
@@ -64,6 +68,10 @@ export default createFragmentContainer(InvestPanelRelay, {
       name
       value
       ownedAmount
+      history {
+        date
+        value
+      }
     }
   `,
   profile: graphql`

@@ -17,6 +17,7 @@ type Props = {
     name: string,
     value: number,
     ownedAmount: number,
+    history: Array<{date: Date, value: number}>
   },
   investFunc: number => void,
   cancelFunc: () => void,
@@ -34,22 +35,8 @@ class InvestComposition extends React.Component<Props, State> {
   }
   render() {
     const values = [{
-      name: 'Chart 2',
-      data: [
-        {
-          date: new Date(2007, 1),
-          value: 5,
-        }, {
-          date: new Date(2008, 1),
-          value: 2,
-        }, {
-          date: new Date(2009, 1),
-          value: 1,
-        }, {
-          date: new Date(2010, 1),
-          value: 7,
-        },
-      ],
+      name: this.props.bucket.name,
+      data: this.props.bucket.history,
     }];
     const ownedQuantity = this.props.bucket.ownedAmount;
     const additionalQuantity = this.state.investedAmount / this.props.bucket.value;
@@ -87,13 +74,13 @@ class InvestComposition extends React.Component<Props, State> {
               <TableRow>
                 <TableCell padding="dense">{this.props.bucket.name} (Owned)</TableCell>
                 <TableCell padding="dense">{ownedQuantity.toFixed(2)}</TableCell>
-                <TableCell padding="dense">{this.props.bucket.value}</TableCell>
+                <TableCell padding="dense">{this.props.bucket.value.toFixed(2)}</TableCell>
                 <TableCell padding="dense">{ownedValue.toFixed(2)}</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell padding="dense">{this.props.bucket.name} {additionalValue !== 0 ? <span>({additionalValue > 0 ? 'Buy' : 'Sell'})</span> : null}</TableCell>
                 <TableCell padding="dense">{additionalQuantity.toFixed(2)}</TableCell>
-                <TableCell padding="dense">{this.props.bucket.value}</TableCell>
+                <TableCell padding="dense">{this.props.bucket.value.toFixed(2)}</TableCell>
                 <TableCell padding="dense">{additionalValue.toFixed(2)}</TableCell>
               </TableRow>
               <TableRow>

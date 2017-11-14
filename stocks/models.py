@@ -221,6 +221,13 @@ class InvestmentBucket(models.Model):
             in self.get_stock_configs(date)
         ]) + self.available
 
+    def historical(self):
+        res = []
+        for i in range(30):
+            date = datetime.datetime.now().date() - datetime.timedelta(days=i)
+            res.append((date, self.value_on(date)))
+        return res
+
 
 class InvestmentBucketDescription(models.Model):
     """
