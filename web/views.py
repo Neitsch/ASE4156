@@ -11,6 +11,6 @@ def home(request):
     """
     Serves the home page
     """
-    if not request.user.userbank:
+    if not request.user.userbank.exists():
         return HttpResponseRedirect('/setup_bank')
     return render(request, "home.html", {})
