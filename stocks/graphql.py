@@ -4,13 +4,30 @@ GraphQL definitions for the Stocks App
 from collections import namedtuple
 from graphene_django import DjangoObjectType
 from graphene import Argument, Boolean, Field, Float, ID, \
-    InputObjectType, List, Mutation, NonNull, String, relay
+    InputObjectType, List, Mutation, NonNull, ObjectType, String, relay
 from graphql_relay.node.node import from_global_id
 from .models import DailyStockQuote, InvestmentBucket, \
     InvestmentBucketDescription, InvestmentStockConfiguration, Stock
 
 
 # pylint: disable=too-few-public-methods
+class DataPoint(object):
+    """
+    Dummy class to represent a date / value DataPoint
+    """
+    def __init__(self, date, value):
+        self.date = date
+        self.value = value
+
+
+class GDataPoint(ObjectType):
+    """
+    GraphQL definition of the DataPoint above
+    """
+    date = String()
+    value = Float()
+
+
 class GInvestmentBucketConfigurationUpdate(InputObjectType):
     """
     Represents one choice of stock for a bucket
@@ -50,6 +67,7 @@ class GInvestmentBucket(DjangoObjectType):
     is_owner = NonNull(Boolean)
     owned_amount = NonNull(Float)
     value = NonNull(Float)
+    history = NonNull(List(GDataPoint))
 
     class Meta:
         """
@@ -95,6 +113,17 @@ class GInvestmentBucket(DjangoObjectType):
         Returns how much of the bucket the user owns
         """
         return info.context.user.profile.default_acc().available_buckets(data)
+
+    @staticmethod
+    def resolve_history(data, _info, **_args):
+        """
+        Returns the historic data for the bucket
+        """
+        return [
+            DataPoint(date, value)
+            for (date, value)
+            in data.historical()
+        ]
 
 
 class GInvestmentStockConfiguration(DjangoObjectType):
