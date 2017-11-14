@@ -24,7 +24,10 @@ class InvestPanelRelay extends React.Component<Props, State> {
       invest: {
         tradingAccount: {
           id: this.props.profile.selectedAcc.id,
-          availableCash: this.props.profile.selectedAcc.availableCash - (quantity * this.props.bucket.value),
+          availableCash: (
+            this.props.profile.selectedAcc.availableCash
+            - (quantity * this.props.bucket.value)
+          ),
         },
         bucket: {
           id: this.props.bucket.id,

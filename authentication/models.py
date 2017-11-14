@@ -21,6 +21,9 @@ class Profile(models.Model):
         blank=True, default=False, null=True)
 
     def default_acc(self):
+        """
+        Returns the default account for the profile
+        """
         acc = self.trading_accounts.all()[:1]
         if not acc:
             acc = self.trading_accounts.create(

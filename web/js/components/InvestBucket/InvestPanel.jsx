@@ -53,7 +53,6 @@ class InvestComposition extends React.Component<Props, State> {
     }];
     const ownedQuantity = this.props.bucket.ownedAmount;
     const additionalQuantity = this.state.investedAmount / this.props.bucket.value;
-    const totalQuantity = ownedQuantity + additionalQuantity;
     const ownedValue = this.props.bucket.ownedAmount * this.props.bucket.value;
     const additionalValue = this.state.investedAmount;
     const totalValue = ownedValue + additionalValue;
@@ -69,7 +68,9 @@ class InvestComposition extends React.Component<Props, State> {
           />
           <Slider
             value={totalValue}
-            onChange={investedAmount => this.setState(() => ({ investedAmount: investedAmount - ownedValue }))}
+            onChange={investedAmount => this.setState(() => ({
+              investedAmount: investedAmount - ownedValue,
+            }))}
             max={this.props.available + ownedValue}
             step={0.01}
           />

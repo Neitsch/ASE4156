@@ -91,6 +91,9 @@ class GInvestmentBucket(DjangoObjectType):
 
     @staticmethod
     def resolve_owned_amount(data, info, **_args):
+        """
+        Returns how much of the bucket the user owns
+        """
         return info.context.user.profile.default_acc().available_buckets(data)
 
 
