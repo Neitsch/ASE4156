@@ -94,6 +94,7 @@ export default class EditBucket extends React.Component<Props, State> {
           </FormGroup>
           <FormGroup row>
             <FormControlLabel
+              id="publicContainer"
               control={
                 <Checkbox
                   id="public"
