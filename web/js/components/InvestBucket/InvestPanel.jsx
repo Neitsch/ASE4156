@@ -19,7 +19,7 @@ type Props = {
     ownedAmount: number,
   },
   investFunc: number => void,
-  closeFunc: () => void,
+  cancelFunc: () => void,
 }
 type State = {
   investedAmount: number,
