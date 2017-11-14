@@ -19,7 +19,7 @@ type Props = {
     ownedAmount: number,
   },
   investFunc: number => void,
-  cancelFunc: () => void,
+  closeFunc: () => void,
 }
 type State = {
   investedAmount: number,
@@ -107,11 +107,8 @@ class InvestComposition extends React.Component<Props, State> {
         </DialogContent>
         <DialogActions>
           <Button onClick={this.props.cancelFunc}>Cancel</Button>
-          <Button onClick={() => {
-            this.props.investFunc(additionalQuantity);
-            this.setState(() => ({ investedAmount: 0.0 }));
-          }}
-          >Invest
+          <Button onClick={() => this.props.investFunc(additionalQuantity)}>
+            Invest
           </Button>
         </DialogActions>
       </Dialog>);
