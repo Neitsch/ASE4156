@@ -222,6 +222,9 @@ class InvestmentBucket(models.Model):
         ]) + self.available
 
     def historical(self):
+        """
+        Fetches the historical value of the bucket.
+        """
         res = []
         for i in range(30):
             date = datetime.datetime.now().date() - datetime.timedelta(days=i)

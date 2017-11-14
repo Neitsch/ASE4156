@@ -78,7 +78,14 @@ class InvestComposition extends React.Component<Props, State> {
                 <TableCell padding="dense">{ownedValue.toFixed(2)}</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell padding="dense">{this.props.bucket.name} {additionalValue !== 0 ? <span>({additionalValue > 0 ? 'Buy' : 'Sell'})</span> : null}</TableCell>
+                <TableCell padding="dense">
+                  {this.props.bucket.name}
+                  {
+                    additionalValue !== 0
+                      ? <span>({additionalValue > 0 ? 'Buy' : 'Sell'})</span>
+                      : null
+                  }
+                </TableCell>
                 <TableCell padding="dense">{additionalQuantity.toFixed(2)}</TableCell>
                 <TableCell padding="dense">{this.props.bucket.value.toFixed(2)}</TableCell>
                 <TableCell padding="dense">{additionalValue.toFixed(2)}</TableCell>

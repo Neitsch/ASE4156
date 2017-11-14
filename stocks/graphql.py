@@ -115,7 +115,10 @@ class GInvestmentBucket(DjangoObjectType):
         return info.context.user.profile.default_acc().available_buckets(data)
 
     @staticmethod
-    def resolve_history(data, info, **_args):
+    def resolve_history(data, _info, **_args):
+        """
+        Returns the historic data for the bucket
+        """
         return [
             DataPoint(date, value)
             for (date, value)
