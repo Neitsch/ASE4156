@@ -584,7 +584,7 @@ exports[`PersonalStatusRelay renders 1`] = `
                     className="MuiGrid-typeItem-2 MuiGrid-grid-xs-12-31 MuiGrid-grid-sm-6-38 MuiGrid-grid-md-3-48"
                   >
                     <HighlightBox
-                      secondaryInfo={Array []}
+                      secondaryInfo={null}
                       title="Current balance"
                       value="100.00"
                     >
@@ -1074,7 +1074,7 @@ exports[`PersonalStatusRelay renders 1`] = `
                     className="MuiGrid-typeItem-2 MuiGrid-grid-xs-12-31 MuiGrid-grid-sm-6-38 MuiGrid-grid-md-3-48"
                   >
                     <HighlightBox
-                      secondaryInfo={Array []}
+                      secondaryInfo={null}
                       title="Total Income"
                       value="101.00"
                     >
@@ -1564,7 +1564,7 @@ exports[`PersonalStatusRelay renders 1`] = `
                     className="MuiGrid-typeItem-2 MuiGrid-grid-xs-12-31 MuiGrid-grid-sm-6-38 MuiGrid-grid-md-3-48"
                   >
                     <HighlightBox
-                      secondaryInfo={Array []}
+                      secondaryInfo={null}
                       title="Total Expenditures"
                       value="30.00"
                     >
@@ -2054,7 +2054,7 @@ exports[`PersonalStatusRelay renders 1`] = `
                     className="MuiGrid-typeItem-2 MuiGrid-grid-xs-12-31 MuiGrid-grid-sm-6-38 MuiGrid-grid-md-3-48"
                   >
                     <HighlightBox
-                      secondaryInfo={Array []}
+                      secondaryInfo={null}
                       title="Available money"
                       value="131.00"
                     >

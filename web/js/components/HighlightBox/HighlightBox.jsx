@@ -21,10 +21,10 @@ class HighlightBox extends React.Component<Props> {
     secondaryInfo: PropTypes.arrayOf(PropTypes.shape({
       value: PropTypes.node.isRequired,
       text: PropTypes.node.isRequired,
-    })),
+    }).isRequired),
   }
   static defaultProps = {
-    secondaryInfo: [],
+    secondaryInfo: null,
   }
   render() {
     return (
