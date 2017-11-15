@@ -26,7 +26,7 @@ export default class PersonalStatus extends React.Component < Props > {
       return null;
     }
     return (
-      <Grid container spacing={16} align="stretch">
+      <Grid container spacing={16} align="stretch" id="personal-status">
         {
           this.props.bank.balance == null
             ? null
@@ -55,7 +55,7 @@ export default class PersonalStatus extends React.Component < Props > {
                 value={(this.props.bank.income + this.props.bank.outcome).toFixed(2)}
               />
             </Grid>
-        )}
+          )}
       </Grid>
     );
   }
