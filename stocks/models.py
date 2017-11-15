@@ -2,6 +2,7 @@
 Models keeps track of all the persistent data around stocks
 """
 import datetime
+import math
 from datetime import date as os_date
 from django.db.models import Q
 from django.db import models
@@ -228,7 +229,10 @@ class InvestmentBucket(models.Model):
         res = []
         for i in range(30):
             date = datetime.datetime.now().date() - datetime.timedelta(days=i)
-            res.append((date, self.value_on(date)))
+            value = self.value_on(date)
+            if math.isnan(value):
+                value = 0
+            res.append((date, value))
         return res
 
 
