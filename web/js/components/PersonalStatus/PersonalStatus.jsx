@@ -22,9 +22,6 @@ export default class PersonalStatus extends React.Component < Props > {
     }).isRequired,
   }
   render() {
-    if (!this.props.bank) {
-      return null;
-    }
     return (
       <Grid container spacing={16} align="stretch" id="personal-status">
         {

@@ -102,13 +102,8 @@ class InvestComposition extends React.Component<Props, State> {
         </DialogContent>
         <DialogActions>
           <Button id="cancel" onClick={this.props.cancelFunc}>Cancel</Button>
-          <Button
-            id="save"
-            onClick={() => {
-            this.props.investFunc(additionalQuantity);
-            this.setState(() => ({ investedAmount: 0.0 }));
-          }}
-          >Invest
+          <Button id="save" onClick={() => this.props.investFunc(additionalQuantity)}>
+            Invest
           </Button>
         </DialogActions>
       </Dialog>);
