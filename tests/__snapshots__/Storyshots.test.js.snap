@@ -423,6 +423,7 @@ exports[`Storyshots InvestBucket Playground 1`] = `
       aria-label="add"
       className="MuiButtonBase-root-52 MuiButton-root-86 MuiButton-raised-93 MuiButton-fab-99 MuiButton-raisedPrimary-95"
       disabled={false}
+      id="launch-edit"
       onBlur={[Function]}
       onClick={[Function]}
       onFocus={[Function]}
