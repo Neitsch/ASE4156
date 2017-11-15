@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import PersonalStatus from '../PersonalStatus.jsx';
+import PersonalStatus from '../PersonalStatus';
 
 describe('PersonalStatus', () => {
   it('exists', () => {
