@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import InvestPanel from '../InvestPanel.jsx';
+import InvestPanel from '../InvestPanel';
 
 describe('InvestPanel', () => {
   it('exists', () => {
