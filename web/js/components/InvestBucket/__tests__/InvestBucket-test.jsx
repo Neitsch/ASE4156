@@ -1,7 +1,6 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 import InvestBucket from '../InvestBucket';
-import toJson from 'enzyme-to-json';
 
 describe('InvestBucket', () => {
   it('exists', () => {
