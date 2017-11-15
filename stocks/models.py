@@ -222,7 +222,6 @@ class InvestmentBucket(models.Model):
                 values.append(config.value_on(date))
             except Exception:
                 pass
-        print(values)
         return sum(values) + self.available
 
     def historical(self):
