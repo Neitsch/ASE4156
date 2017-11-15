@@ -119,6 +119,12 @@ exports[`Storyshots Cards Simple card 1`] = `
 </div>
 `;
 
+exports[`Storyshots Empty Data Playground 1`] = `
+<div>
+  No data
+</div>
+`;
+
 exports[`Storyshots HighlightBox Account Total 1`] = `
 <div
   className="MuiPaper-root-14 MuiPaper-shadow2-18 MuiPaper-rounded-15"
@@ -1368,6 +1374,26 @@ exports[`Storyshots Saldo Playground 1`] = `
         className="MuiTouchRipple-root-55"
       />
     </button>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Simple Percent Playground 1`] = `
+<div
+  className="my-pretty-chart-container"
+>
+  <div
+    id="chart"
+    style={
+      Object {
+        "height": "400px",
+        "width": "100%",
+      }
+    }
+  >
+    <div>
+      Rendering Chart
+    </div>
   </div>
 </div>
 `;
