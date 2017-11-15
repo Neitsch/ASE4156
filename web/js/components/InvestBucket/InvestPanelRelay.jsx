@@ -86,7 +86,7 @@ export default createFragmentContainer(InvestPanelRelay, {
       name
       value
       ownedAmount
-      history {
+      history(count: 30) {
         date
         value
       }
