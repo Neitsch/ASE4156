@@ -149,6 +149,7 @@ exports[`InvestComposition add stock 1`] = `
           Object {},
         ]
       }
+      id="range"
       included={true}
       marks={Object {}}
       max={0}
@@ -236,6 +237,7 @@ exports[`InvestComposition add stock 2`] = `
             padding="dense"
           >
             <withStyles(IconButton)
+              id="delete-chunk"
               onClick={[Function]}
             >
               <pure(DeleteForever) />
@@ -369,6 +371,7 @@ exports[`InvestComposition add stock 2`] = `
           Object {},
         ]
       }
+      id="range"
       included={true}
       marks={Object {}}
       max={0}
@@ -546,6 +549,7 @@ exports[`InvestComposition render 1`] = `
           Object {},
         ]
       }
+      id="range"
       included={true}
       marks={Object {}}
       max={0}
