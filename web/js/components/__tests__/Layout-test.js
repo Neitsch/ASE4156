@@ -12,6 +12,6 @@ describe('Layout', () => {
   it('renders', () => {
     const comp = <Layout><div>Layout Test</div></Layout>;
     const wrapper = shallow(comp);
-    expect().toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
   });
 });
