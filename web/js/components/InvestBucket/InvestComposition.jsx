@@ -139,12 +139,13 @@ class InvestComposition extends React.Component<Props, State> {
               }
               <TableRow>
                 <TableCell padding="dense">
-                  <IconButton onClick={this.addStock}>
+                  <IconButton id="add-stock" onClick={this.addStock}>
                     <AddIcon />
                   </IconButton>
                 </TableCell>
                 <TableCell padding="dense">
                   <Autocomplete
+                    id="select-stock"
                     getItemValue={item => item.name}
                     items={this.props.suggestions}
                     renderInput={(props) => {
