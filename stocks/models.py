@@ -231,10 +231,7 @@ class InvestmentBucket(models.Model):
         res = []
         for i in range(30):
             date = datetime.datetime.now().date() - datetime.timedelta(days=i)
-            value = self.value_on(date)
-            if math.isnan(value):
-                value = 0
-            res.append((date, value))
+            res.append((date, self.value_on(date)))
         return res
 
 
