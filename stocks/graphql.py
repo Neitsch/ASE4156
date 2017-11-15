@@ -24,8 +24,8 @@ class GDataPoint(ObjectType):
     """
     GraphQL definition of the DataPoint above
     """
-    date = String()
-    value = Float()
+    date = NonNull(String)
+    value = NonNull(Float)
 
 
 class GInvestmentBucketConfigurationUpdate(InputObjectType):
@@ -67,7 +67,7 @@ class GInvestmentBucket(DjangoObjectType):
     is_owner = NonNull(Boolean)
     owned_amount = NonNull(Float)
     value = NonNull(Float)
-    history = NonNull(List(GDataPoint))
+    history = NonNull(List(NonNull(GDataPoint)))
 
     class Meta:
         """
