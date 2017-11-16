@@ -2342,6 +2342,7 @@ exports[`InvestCompositionRelay renders 1`] = `
                   },
                 },
               },
+              null,
             ],
           },
         }
@@ -2360,6 +2361,7 @@ exports[`InvestCompositionRelay renders 1`] = `
               },
               "name": "Name",
             },
+            null,
           ],
         }
       }
@@ -2387,6 +2389,7 @@ exports[`InvestCompositionRelay renders 1`] = `
                     },
                   },
                 },
+                null,
               ],
             },
           }
@@ -2405,6 +2408,7 @@ exports[`InvestCompositionRelay renders 1`] = `
                 },
                 "name": "Name",
               },
+              null,
             ],
           }
         }
@@ -2895,6 +2899,9 @@ exports[`InvestCompositionRelay renders 1`] = `
                 },
                 "name": "Name",
                 "value": 3.3,
+              },
+              Object {
+                "value": 0,
               },
             ]
           }
@@ -3392,6 +3399,21 @@ Array [
 ]
 `;
 
+exports[`InvestCompositionRelay saves 4`] = `
+Array [
+  Array [
+    Object {
+      "message": "EEE",
+    },
+  ],
+  Array [
+    Object {
+      "message": "Composition successfully changed",
+    },
+  ],
+]
+`;
+
 exports[`InvestCompositionRelay updates Chunk 1`] = `
 Array [
   Object {
@@ -3415,6 +3437,9 @@ Array [
         },
         "name": "Name",
         "value": 3.3,
+      },
+      Object {
+        "value": 0,
       },
     ],
     "total": 163.2,

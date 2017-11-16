@@ -112,14 +112,14 @@ describe('InvestCompositionRelay', () => {
                         },
                       },
                     },
-                  },
+                  }, null,
                   ],
                 },
               }}
               profile={{
                 __id: '2',
                 __fragments: { InvestCompositionRelay_profile: {} },
-                investSearch: [{ name: 'Name', id: '3', latestQuote: { value: 3.3 } }],
+                investSearch: [{ name: 'Name', id: '3', latestQuote: { value: 3.3 } }, null],
               }}
             />
           )
@@ -180,6 +180,9 @@ describe('InvestCompositionRelay', () => {
         setLinkedRecord: jest.fn(),
       })),
     });
+    expect(ChangeComposition.mock.calls[0][2](null, [Error('EEE')]));
+    expect(ChangeComposition.mock.calls[0][2]({}, null));
+    expect(context.errorDisplay.mock.calls).toMatchSnapshot();
   });
 
   it('fails render without data', () => {
