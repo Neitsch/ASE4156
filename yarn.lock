@@ -87,13 +87,7 @@
     react-textarea-autosize "^5.2.0"
     util-deprecate "^1.0.2"
 
-"@storybook/addon-links@^3.2.15":
-  version "3.2.15"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-links/-/addon-links-3.2.15.tgz#87a0dc9bad7b208aca7142863a237b5135a47a34"
-  dependencies:
-    "@storybook/addons" "^3.2.15"
-
-"@storybook/addon-links@^3.2.16":
+"@storybook/addon-links@^3.2.15", "@storybook/addon-links@^3.2.16":
   version "3.2.16"
   resolved "https://registry.yarnpkg.com/@storybook/addon-links/-/addon-links-3.2.16.tgz#58b807f7fbcdadb405c6379e69a22c48025c9558"
   dependencies:
@@ -127,6 +121,10 @@
 "@storybook/channels@^3.2.15":
   version "3.2.15"
   resolved "https://registry.yarnpkg.com/@storybook/channels/-/channels-3.2.15.tgz#c76277d9050e0a0027a9e06edff662db55f391d6"
+
+"@storybook/channels@^3.2.16":
+  version "3.2.16"
+  resolved "https://registry.yarnpkg.com/@storybook/channels/-/channels-3.2.16.tgz#07d8686328c0bb885aa8b69254fcf0745d22a620"
 
 "@storybook/components@^3.2.15":
   version "3.2.15"
