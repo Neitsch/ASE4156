@@ -68,10 +68,7 @@ class InvestCompositionRelay extends React.Component<Props, State> {
   updateChunks = chunks => this.setState(() => ({ chunks }))
   render() {
     if (
-      !this.props.profile ||
       !this.props.profile.investSearch ||
-      !this.props.bucket.available ||
-      !this.props.bucket ||
       !this.props.bucket.stocks
     ) {
       return null;
