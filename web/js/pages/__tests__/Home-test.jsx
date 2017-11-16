@@ -26,15 +26,15 @@ function ctx() {
 
 jest.mock(
   '../../components/PersonalStatus/PersonalStatusRelay',
-  () => require('../../__mocks__/EmptyComponent'),
+  () => require('../../__mocks__/EmptyComponent'), // eslint-disable-line global-require
 );
 jest.mock(
   '../../components/StockGraph/BankAccountRelay',
-  () => require('../../__mocks__/EmptyComponent'),
+  () => require('../../__mocks__/EmptyComponent'), // eslint-disable-line global-require
 );
 jest.mock(
   '../../components/InvestBucket/InvestBucketGridRelay',
-  () => require('../../__mocks__/EmptyComponent'),
+  () => require('../../__mocks__/EmptyComponent'), // eslint-disable-line global-require
 );
 
 describe('Home', () => {

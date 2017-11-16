@@ -5,7 +5,7 @@ import {
   RecordSource,
   Store,
 } from 'relay-runtime';
-import BankAccountRelay from '../BankAccountRelay.jsx';
+import BankAccountRelay from '../BankAccountRelay';
 
 function ctx() {
   const source = new RecordSource();
