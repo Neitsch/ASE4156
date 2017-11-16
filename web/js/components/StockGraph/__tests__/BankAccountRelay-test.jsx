@@ -47,15 +47,4 @@ describe('BankAccountRelay', () => {
     );
     expect(comp).toMatchSnapshot();
   });
-
-  it('does not render without bank', () => {
-    const comp = mount(
-      (
-        <BankAccountRelay
-          bank={null}
-        />
-      ), ctx(),
-    );
-    expect(comp).toMatchSnapshot();
-  });
 });
