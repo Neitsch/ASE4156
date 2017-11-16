@@ -99,7 +99,8 @@
     "collectCoverageFrom": [
       "web/js/**/*.{js,jsx}",
       "!**/__generated__/**",
-      "!web/**/{stories,index}.{js,jsx}"
+      "!web/**/{stories,index}.{js,jsx}",
+      "!web/js/relay/*.{js,jsx}"
     ],
     "collectCoverage": true,
     "setupFiles": [
