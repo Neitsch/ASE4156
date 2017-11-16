@@ -12,7 +12,7 @@ import type { Node } from 'react';
 
 import InvestBucketRelay from '../InvestBucketRelay';
 
-class CtxProvider extends React.Component {
+class CtxProvider extends React.Component<{children: () => Node}> {
   static childContextTypes = {
     errorDisplay: PropTypes.func.isRequired,
     router: routerShape.isRequired,
