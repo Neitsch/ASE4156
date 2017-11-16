@@ -112,7 +112,7 @@ describe('InvestCompositionRelay', () => {
                         },
                       },
                     },
-                  }, null,
+                  },
                   ],
                 },
               }}
