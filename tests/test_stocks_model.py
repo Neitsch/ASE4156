@@ -367,9 +367,9 @@ def test_bucket_historical():
     stock.save()
     value = [3, 5, 7, 2]
     skip = 2
-    for idx in range(len(value)):
+    for idx, val in enumerate(value):
         stock.daily_quote.create(
-            value=value[idx],
+            value=val,
             date=datetime.datetime.now().date() - datetime.timedelta(days=idx+2)
         )
     available = 2
@@ -384,8 +384,8 @@ def test_bucket_historical():
         )
     config.save()
     historical = bucket.historical(count=len(value), skip=skip)
-    for idx in range(len(value)):
+    for idx, val in enumerate(value):
         assert historical[idx] == (
             datetime.datetime.now().date() - datetime.timedelta(days=idx+2),
-            value[idx] * quantity + available
+            val * quantity + available
             )
