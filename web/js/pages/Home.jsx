@@ -5,6 +5,8 @@ import { createFragmentContainer, graphql } from 'react-relay';
 import Grid from 'material-ui/Grid';
 import Paper from 'material-ui/Paper';
 
+import type { Node } from 'react';
+
 import PersonalStatusRelay from '../components/PersonalStatus/PersonalStatusRelay';
 import BankAccountRelay from '../components/StockGraph/BankAccountRelay';
 import InvestBucketGridRelay from '../components/InvestBucket/InvestBucketGridRelay';
@@ -14,6 +16,7 @@ import type { Home_viewer }
   from './__generated__/Home_viewer.graphql';
 
 type Props = {
+  children: ?Node,
   viewer: Home_viewer,
 }
 
@@ -27,13 +30,13 @@ class Home extends React.Component < Props > {
         <SnackbarErrorContext>
           <Grid container spacing={16}>
             <Grid item xs={12}>
-              {this.props.viewer.userbank.edges[0]
+              {this.props.viewer.userbank.edges[0] && this.props.viewer.userbank.edges[0].node
                 ? <PersonalStatusRelay bank={this.props.viewer.userbank.edges[0].node} />
                 : null}
             </Grid>
             <Grid item xs={12}>
               <Paper>
-                {this.props.viewer.userbank.edges[0]
+                {this.props.viewer.userbank.edges[0] && this.props.viewer.userbank.edges[0].node
                   ? <BankAccountRelay bank={this.props.viewer.userbank.edges[0].node} />
                   : null}
               </Paper>
@@ -42,6 +45,11 @@ class Home extends React.Component < Props > {
               <InvestBucketGridRelay profile={this.props.viewer.profile} />
             </Grid>
           </Grid>
+          {
+            this.props.children
+              ? this.props.children
+              : null
+          }
         </SnackbarErrorContext>
       </div>
     );

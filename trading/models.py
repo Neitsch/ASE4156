@@ -100,21 +100,18 @@ class TradingAccount(models.Model):
             )
         raise Exception("You don't have the necessary resources!")
 
-    def available_cash(self):
+    def available_cash(self, update=True):
         """
         Returns the available cash for the trading account
         """
         return (
             self.trading_balance() +
             sum([
-                bnk.current_balance(True)
+                bnk.current_balance(update)
                 for bnk
                 in self.profile.user.userbank.all()
             ])
         )
-
-    def __str__(self):
-        return "{}, {}, {}".format(self.id, self.account_name, self.profile_id)
 
 
 class TradeStock(models.Model):
@@ -132,13 +129,6 @@ class TradeStock(models.Model):
         """
         quote_value = self.stock.latest_quote(self.timestamp).value
         return quote_value * (-1 * self.quantity)
-
-    def __str__(self):
-        return "{}, {}, {}, {}, {}".format(self.id,
-                                           self.timestamp,
-                                           self.quantity,
-                                           self.account_id,
-                                           self.stock_id)
 
 
 class TradeBucket(models.Model):

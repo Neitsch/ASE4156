@@ -17,8 +17,6 @@ class Profile(models.Model):
         on_delete=models.CASCADE,
         related_name='profile'
     )
-    has_bank_linked = models.NullBooleanField(
-        blank=True, default=False, null=True)
 
     def default_acc(self):
         """
@@ -32,9 +30,6 @@ class Profile(models.Model):
         else:
             acc = acc[0]
         return acc
-
-    def __str__(self):
-        return "{}, {}, {}".format(self.id, self.user_id, self.has_bank_linked)
 
 
 @receiver(post_save, sender=User)
@@ -83,7 +78,7 @@ class UserBank(models.Model):
         """
         return self.plaid().historical_data(*args, **kwargs)
 
-    def current_balance(self, update=False):
+    def current_balance(self, update=True):
         """
         Returns the current balance
         """
@@ -92,7 +87,7 @@ class UserBank(models.Model):
             self.save()
         return self.current_balance_field
 
-    def account_name(self, update=False):
+    def account_name(self, update=True):
         """
         Returns the account name
         """
@@ -101,7 +96,7 @@ class UserBank(models.Model):
             self.save()
         return self.account_name_field
 
-    def income(self, days=30, update=False):
+    def income(self, days=30, update=True):
         """
         Returns the income in the given timespan
         """
@@ -113,7 +108,7 @@ class UserBank(models.Model):
                 self.save()
         return inc
 
-    def expenditure(self, days=30, update=False):
+    def expenditure(self, days=30, update=True):
         """
         Returns the expenditures in the given timespan
         """
@@ -124,6 +119,3 @@ class UserBank(models.Model):
                 self.expenditure_field = exp
                 self.save()
         return exp
-
-    def __str__(self):
-        return "IDs:{}, {}, Institution: {}. ".format(self.institution_name, self.id, self.user_id)
