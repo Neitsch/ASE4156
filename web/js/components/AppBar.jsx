@@ -81,6 +81,7 @@ class ButtonAppBar extends React.Component {
                 aria-haspopup="true"
                 onClick={this.handleMenu}
                 color="contrast"
+                id="menu-appbar-button"
               >
                 <AccountCircle />
               </IconButton>
