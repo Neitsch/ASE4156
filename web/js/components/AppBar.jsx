@@ -8,7 +8,6 @@ import MenuIcon from 'material-ui-icons/Menu';
 import { withStyles } from 'material-ui/styles';
 import green from 'material-ui/colors/green';
 import red from 'material-ui/colors/red';
-import Button from 'material-ui/Button';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import AccountCircle from 'material-ui-icons/AccountCircle';
 import colors from '../colors/colors';
@@ -44,7 +43,7 @@ const styles = ({
   },
 });
 
-class ButtonAppBar extends  React.Component {
+class ButtonAppBar extends React.Component {
   state = {
     anchorEl: null,
   };
@@ -59,7 +58,7 @@ class ButtonAppBar extends  React.Component {
 
   logout = () => {
     window.location.assign('/logout')
-  }
+  };
 
   render() {
     const { classes } = this.props;
