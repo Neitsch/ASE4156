@@ -3,6 +3,7 @@ Models keeps track of all the persistent data around stocks
 """
 import datetime
 from datetime import date as os_date
+import math
 from django.db.models import Q
 from django.db import models
 from django.db.models.signals import pre_save
@@ -91,9 +92,6 @@ class Stock(models.Model):
         """
         return self.trades.filter(account__profile=profile)
 
-    def __str__(self):
-        return "{}, {}, {}".format(self.id, self.name, self.ticker)
-
 
 class DailyStockQuote(models.Model):
     """
@@ -114,12 +112,6 @@ class DailyStockQuote(models.Model):
         We use this to define our uniqueness constraint
         """
         unique_together = ('stock', 'date',)
-
-    def __str__(self):
-        return "{}, {}, {}, {}".format(self.id,
-                                       self.value,
-                                       self.date,
-                                       self.stock_id)
 
 
 class InvestmentBucket(models.Model):
@@ -215,18 +207,24 @@ class InvestmentBucket(models.Model):
         """
         The value of the bucket on a specific day
         """
-        return sum([
-            config.value_on(date)
-            for config
-            in self.get_stock_configs(date)
-        ]) + self.available
+        values = []
+        for config in self.get_stock_configs(date):
+            try:
+                values.append(config.value_on(date))
+            except Exception:  # pylint: disable=broad-except
+                pass
+        return sum(values) + self.available
 
-    def historical(self):
+    def historical(self, count=None, skip=None):
         """
         Fetches the historical value of the bucket.
         """
         res = []
-        for i in range(30):
+        if count is None:
+            count = 30
+        if skip is None:
+            skip = 0
+        for i in range(skip, count + skip):
             date = datetime.datetime.now().date() - datetime.timedelta(days=i)
             res.append((date, self.value_on(date)))
         return res
@@ -276,7 +274,10 @@ class InvestmentStockConfiguration(models.Model):
         """
         Returns the current value of the stock configuration
         """
-        return self.stock.latest_quote(date).value * self.quantity
+        value = self.stock.latest_quote(date).value * self.quantity
+        if math.isnan(value):
+            raise Exception("Not able to calculate value")
+        return value
 
 
 @receiver(pre_save)

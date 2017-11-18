@@ -26,7 +26,7 @@ type State = {
   investedAmount: number,
 }
 
-class InvestComposition extends React.Component<Props, State> {
+class InvestPanel extends React.Component<Props, State> {
   constructor() {
     super();
     this.state = {
@@ -55,6 +55,7 @@ class InvestComposition extends React.Component<Props, State> {
           />
           <Slider
             value={totalValue}
+            id="invest-amount-slider"
             onChange={investedAmount => this.setState(() => ({
               investedAmount: investedAmount - ownedValue,
             }))}
@@ -100,16 +101,13 @@ class InvestComposition extends React.Component<Props, State> {
           </Table>
         </DialogContent>
         <DialogActions>
-          <Button onClick={this.props.cancelFunc}>Cancel</Button>
-          <Button onClick={() => {
-            this.props.investFunc(additionalQuantity);
-            this.setState(() => ({ investedAmount: 0.0 }));
-          }}
-          >Invest
+          <Button id="cancel" onClick={this.props.cancelFunc}>Cancel</Button>
+          <Button id="save" onClick={() => this.props.investFunc(additionalQuantity)}>
+            Invest
           </Button>
         </DialogActions>
       </Dialog>);
   }
 }
 
-export default InvestComposition;
+export default InvestPanel;

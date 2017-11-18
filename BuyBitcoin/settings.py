@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'authentication',
     'stocks',
     'trading',
-    'wf',
 ]
 
 MIDDLEWARE = [
@@ -170,9 +169,11 @@ WEBPACK_LOADER = {
 
 # Logging
 RVN = 'https://bc5e0edbf2f74dab884001de9cea3069:5c36aea4b7b34c4e851a443c084ea0a5@sentry.io/238477'
-RAVEN_CONFIG = {
-    'dsn': RVN,
-}
+if not DEBUG:
+    RAVEN_CONFIG = {
+        'dsn': RVN,
+    }
+    INSTALLED_APPS.append('raven.contrib.django.raven_compat')
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/

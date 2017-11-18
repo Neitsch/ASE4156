@@ -22,40 +22,23 @@ export default class PersonalStatus extends React.Component < Props > {
     }).isRequired,
   }
   render() {
-    if (!this.props.bank) {
-      return null;
-    }
     return (
-      <Grid container spacing={16} align="stretch">
-        {
-          this.props.bank.balance == null
-            ? null
-            : (
-              <Grid item {...spacing}>
-                <HighlightBox title="Current balance" value={this.props.bank.balance.toFixed(2)} />
-              </Grid>
-            )
-        }
-        {this.props.bank.income == null ? null : (
-          <Grid item {...spacing}>
-            <HighlightBox title="Total Income" value={this.props.bank.income.toFixed(2)} />
-          </Grid>
-        )}
-        {this.props.bank.outcome == null ? null : (
-          <Grid item {...spacing}>
-            <HighlightBox title="Total Expenditures" value={this.props.bank.outcome.toFixed(2)} />
-          </Grid>
-        )}
-        {this.props.bank.income == null && this.props.bank.outcome == null
-          ? null
-          : (
-            <Grid item {...spacing}>
-              <HighlightBox
-                title="Available money"
-                value={(this.props.bank.income + this.props.bank.outcome).toFixed(2)}
-              />
-            </Grid>
-        )}
+      <Grid container spacing={16} align="stretch" id="personal-status">
+        <Grid item {...spacing}>
+          <HighlightBox title="Current balance" value={this.props.bank.balance.toFixed(2)} />
+        </Grid>
+        <Grid item {...spacing}>
+          <HighlightBox title="Total Income" value={this.props.bank.income.toFixed(2)} />
+        </Grid>
+        <Grid item {...spacing}>
+          <HighlightBox title="Total Expenditures" value={this.props.bank.outcome.toFixed(2)} />
+        </Grid>
+        <Grid item {...spacing}>
+          <HighlightBox
+            title="Available money"
+            value={(this.props.bank.income + this.props.bank.outcome).toFixed(2)}
+          />
+        </Grid>
       </Grid>
     );
   }
