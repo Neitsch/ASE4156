@@ -9,7 +9,10 @@ import { withStyles } from 'material-ui/styles';
 import green from 'material-ui/colors/green';
 import red from 'material-ui/colors/red';
 import Button from 'material-ui/Button';
+import Menu, { MenuItem } from 'material-ui/Menu';
+import AccountCircle from 'material-ui-icons/AccountCircle';
 import colors from '../colors/colors';
+
 
 const styles = ({
   root: {
@@ -41,23 +44,70 @@ const styles = ({
   },
 });
 
-function ButtonAppBar(props) {
-  const { classes } = props;
-  return (
-    <div className={classes.root}>
-      <AppBar position="static" className={classes.appBar}>
-        <Toolbar>
-          <IconButton className={classes.menuButton} color="contrast" aria-label="Menu">
-            <MenuIcon />
-          </IconButton>
-          <Typography type="headline" color="inherit" className={classes.flex}>
-            MIWF
-          </Typography>
-          <Button className={classes.logoutButton} id="logout" href="/logout" color="contrast">Logout</Button>
-        </Toolbar>
-      </AppBar>
-    </div>
-  );
+class ButtonAppBar extends  React.Component {
+  state = {
+    anchorEl: null,
+  };
+
+  handleMenu = (event) => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  handleRequestClose = () => {
+    this.setState({ anchorEl: null });
+  };
+
+  logout = () => {
+    window.location.assign('/logout')
+  }
+
+  render() {
+    const { classes } = this.props;
+    const { anchorEl } = this.state;
+    const open = Boolean(anchorEl);
+
+    return (
+      <div className={classes.root}>
+        <AppBar position="static" className={classes.appBar}>
+          <Toolbar>
+            <IconButton className={classes.menuButton} color="contrast" aria-label="Menu">
+              <MenuIcon />
+            </IconButton>
+            <Typography type="headline" color="inherit" className={classes.flex}>
+              MIWF
+            </Typography>
+            <div>
+              <IconButton
+                aria-owns={open ? 'menu-appbar' : null}
+                aria-haspopup="true"
+                onClick={this.handleMenu}
+                color="contrast"
+              >
+                <AccountCircle />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={open}
+                onRequestClose={this.handleRequestClose}
+              >
+                <MenuItem onClick={this.handleRequestClose}>Overview</MenuItem>
+                <MenuItem onClick={this.logout}>Logout</MenuItem>
+              </Menu>
+            </div>
+          </Toolbar>
+        </AppBar>
+      </div>
+    );
+  }
 }
 
 ButtonAppBar.propTypes = {
