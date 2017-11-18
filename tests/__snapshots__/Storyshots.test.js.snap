@@ -56,6 +56,7 @@ exports[`Storyshots AppBar Main app bar 1`] = `
           aria-owns={null}
           className="MuiButtonBase-root-52 MuiIconButton-root-43 MuiIconButton-colorContrast-45"
           disabled={false}
+          id="menu-appbar-button"
           onBlur={[Function]}
           onClick={[Function]}
           onFocus={[Function]}
@@ -280,32 +281,32 @@ exports[`Storyshots HighlightBox Simple 1`] = `
   className="MuiPaper-root-14 MuiPaper-shadow2-18 MuiPaper-rounded-15"
 >
   <div
-    className="MuiCardContent-root-105 MuiCardHeader-root-100"
+    className="MuiCardContent-root-95 MuiCardHeader-root-90"
   >
     <div
-      className="MuiCardHeader-content-102"
+      className="MuiCardHeader-content-92"
     >
       <span
-        className="MuiTypography-root-62 MuiTypography-headline-67 MuiCardHeader-title-103"
+        className="MuiTypography-root-62 MuiTypography-headline-67 MuiCardHeader-title-93"
       >
         Stuff
       </span>
       <span
-        className="MuiTypography-root-62 MuiTypography-body1-71 MuiTypography-colorSecondary-83 MuiCardHeader-subheader-104"
+        className="MuiTypography-root-62 MuiTypography-body1-71 MuiTypography-colorSecondary-83 MuiCardHeader-subheader-94"
       />
     </div>
   </div>
   <div
-    className="MuiCardContent-root-105"
+    className="MuiCardContent-root-95"
   >
     <h1>
       More stuff
     </h1>
     <hr
-      className="MuiDivider-root-338 MuiDivider-default-339"
+      className="MuiDivider-root-346 MuiDivider-default-347"
     />
     <ul
-      className="MuiList-root-343 MuiList-padding-344"
+      className="MuiList-root-351 MuiList-padding-352"
     />
   </div>
 </div>
@@ -600,6 +601,7 @@ exports[`Storyshots Page Test page 1`] = `
               aria-owns={null}
               className="MuiButtonBase-root-141 MuiIconButton-root-132 MuiIconButton-colorContrast-134"
               disabled={false}
+              id="menu-appbar-button"
               onBlur={[Function]}
               onClick={[Function]}
               onFocus={[Function]}
@@ -1413,40 +1415,40 @@ exports[`Storyshots Saldo Without total 1`] = `
   className="MuiPaper-root-14 MuiPaper-shadow2-18 MuiPaper-rounded-15"
 >
   <div
-    className="MuiCardContent-root-105 MuiCardHeader-root-100"
+    className="MuiCardContent-root-95 MuiCardHeader-root-90"
   >
     <div
-      className="MuiCardHeader-content-102"
+      className="MuiCardHeader-content-92"
     >
       <span
-        className="MuiTypography-root-62 MuiTypography-headline-67 MuiCardHeader-title-103"
+        className="MuiTypography-root-62 MuiTypography-headline-67 MuiCardHeader-title-93"
       >
         Saldo
       </span>
       <span
-        className="MuiTypography-root-62 MuiTypography-body1-71 MuiTypography-colorSecondary-83 MuiCardHeader-subheader-104"
+        className="MuiTypography-root-62 MuiTypography-body1-71 MuiTypography-colorSecondary-83 MuiCardHeader-subheader-94"
       />
     </div>
   </div>
   <div
-    className="MuiCardContent-root-105"
+    className="MuiCardContent-root-95"
   >
     <table
-      className="MuiTable-root-323"
+      className="MuiTable-root-317"
     >
       <tbody
-        className="MuiTableBody-root-324"
+        className="MuiTableBody-root-318"
       >
         <tr
-          className="MuiTableRow-root-325"
+          className="MuiTableRow-root-319"
         >
           <td
-            className="MuiTableCell-root-331 withStyles-TableCell--root-330 MuiTableCell-paddingDefault-334"
+            className="MuiTableCell-root-325 withStyles-TableCell--root-324 MuiTableCell-paddingDefault-328"
           >
             investedSharesValue
           </td>
           <td
-            className="MuiTableCell-root-331 withStyles-TableCell--root-330 MuiTableCell-paddingDefault-334"
+            className="MuiTableCell-root-325 withStyles-TableCell--root-324 MuiTableCell-paddingDefault-328"
             style={
               Object {
                 "textAlign": "right",
@@ -1457,15 +1459,15 @@ exports[`Storyshots Saldo Without total 1`] = `
           </td>
         </tr>
         <tr
-          className="MuiTableRow-root-325"
+          className="MuiTableRow-root-319"
         >
           <td
-            className="MuiTableCell-root-331 withStyles-TableCell--root-330 MuiTableCell-paddingDefault-334"
+            className="MuiTableCell-root-325 withStyles-TableCell--root-324 MuiTableCell-paddingDefault-328"
           >
             earnedSharesValue
           </td>
           <td
-            className="MuiTableCell-root-331 withStyles-TableCell--root-330 MuiTableCell-paddingDefault-334"
+            className="MuiTableCell-root-325 withStyles-TableCell--root-324 MuiTableCell-paddingDefault-328"
             style={
               Object {
                 "textAlign": "right",
@@ -1476,15 +1478,15 @@ exports[`Storyshots Saldo Without total 1`] = `
           </td>
         </tr>
         <tr
-          className="MuiTableRow-root-325"
+          className="MuiTableRow-root-319"
         >
           <td
-            className="MuiTableCell-root-331 withStyles-TableCell--root-330 MuiTableCell-paddingDefault-334"
+            className="MuiTableCell-root-325 withStyles-TableCell--root-324 MuiTableCell-paddingDefault-328"
           >
             bonusSharesValue
           </td>
           <td
-            className="MuiTableCell-root-331 withStyles-TableCell--root-330 MuiTableCell-paddingDefault-334"
+            className="MuiTableCell-root-325 withStyles-TableCell--root-324 MuiTableCell-paddingDefault-328"
             style={
               Object {
                 "textAlign": "right",
@@ -1495,15 +1497,15 @@ exports[`Storyshots Saldo Without total 1`] = `
           </td>
         </tr>
         <tr
-          className="MuiTableRow-root-325"
+          className="MuiTableRow-root-319"
         >
           <td
-            className="MuiTableCell-root-331 MuiTableCell-paddingDefault-334"
+            className="MuiTableCell-root-325 MuiTableCell-paddingDefault-328"
           >
             reinvestedSharesValue
           </td>
           <td
-            className="MuiTableCell-root-331 MuiTableCell-paddingDefault-334"
+            className="MuiTableCell-root-325 MuiTableCell-paddingDefault-328"
             style={
               Object {
                 "textAlign": "right",
@@ -1516,7 +1518,7 @@ exports[`Storyshots Saldo Without total 1`] = `
       </tbody>
     </table>
     <button
-      className="MuiButtonBase-root-52 MuiButton-root-86 MuiButton-raised-93"
+      className="MuiButtonBase-root-52 MuiButton-root-332 MuiButton-raised-339"
       disabled={false}
       onBlur={[Function]}
       onFocus={[Function]}
@@ -1532,7 +1534,7 @@ exports[`Storyshots Saldo Without total 1`] = `
       type="button"
     >
       <span
-        className="MuiButton-label-88"
+        className="MuiButton-label-334"
       >
         Sell Shares
       </span>

@@ -48,9 +48,7 @@ def test_signup(selenium, live_server, client):
     )
     elem.click()
     selenium.switch_to.default_content()
-
-    profile_menu = selenium.find_element_by_id("menu-appbar")
-    profile_menu.click()
+    selenium.find_element_by_id("menu-appbar-button").click()
     WebDriverWait(selenium, 120).until(
         EC.presence_of_element_located((By.ID, "logout"))
     )
