@@ -57,7 +57,7 @@ class ButtonAppBar extends React.Component {
   };
 
   logout = () => {
-    window.location.assign('/logout')
+    window.location.assign('/logout');
   };
 
   render() {
