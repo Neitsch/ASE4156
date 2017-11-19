@@ -8,18 +8,19 @@ from authentication.models import UserBank
 from plaid.api.accounts import Balance, Accounts
 from plaid.api.transactions import Transactions
 import plaid
-from test_plaid import transactions_side
+from test_plaid import transactions_side, \
+    setup_module as setup_plaid, \
+    teardown_module as teardown_plaid
+
 
 def setup_module(cls):
     '''Setting up testing'''
-    cls.original_init_method = plaid.__init__
-    plaid.__init__ = mock.Mock(return_value=None)
-    plaid.__call__ = lambda self, request: self.get_response(request)
+    setup_plaid(cls)
 
 
 def teardown_module(cls):
     '''Teardown testing'''
-    plaid.__init__ = cls.original_init_method
+    teardown_plaid(cls)
 
 
 @pytest.mark.django_db(transaction=True)
