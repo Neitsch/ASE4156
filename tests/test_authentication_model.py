@@ -1,16 +1,13 @@
 """
 Tests for authentication models
 """
-from unittest import mock
 import pytest
 from django.contrib.auth.models import User
 from authentication.models import UserBank
-from plaid.api.accounts import Balance, Accounts
-from plaid.api.transactions import Transactions
-import plaid
-from test_plaid import transactions_side, \
-    setup_module as setup_plaid, \
+from test_plaid import setup_module as setup_plaid, \
     teardown_module as teardown_plaid
+from plaid_test_decorators import mock_plaid_balance, \
+    mock_plaid_accounts, mock_plaid_transactions
 
 
 def setup_module(cls):
@@ -39,18 +36,7 @@ def test_profile_default_acc():
     assert acct2.account_name == "account2"
 
 
-@mock.patch.object(
-    Balance,
-    'get',
-    mock.MagicMock(return_value={
-        'accounts': [
-            {
-                'balances': {'available': 1},
-                'subtype': 'not credit card'
-            },
-        ]
-    })
-)
+@mock_plaid_balance
 @pytest.mark.django_db(transaction=True)
 def test_user_bank_current_balance():
     """
@@ -65,20 +51,10 @@ def test_user_bank_current_balance():
     )
     ub1.save()
     assert ub1.current_balance(False) == 10
-    assert ub1.current_balance() == 1.0
+    assert ub1.current_balance() == -9.0
 
 
-@mock.patch.object(
-    Accounts,
-    'get',
-    mock.MagicMock(return_value={
-        'accounts': [
-            {
-                'name': 'Testes',
-            },
-        ]
-    })
-)
+@mock_plaid_accounts
 @pytest.mark.django_db(transaction=True)
 def test_user_bank_account_name():
     """
@@ -93,14 +69,10 @@ def test_user_bank_account_name():
     )
     ub1.save()
     assert ub1.account_name(False) == "coolaccount"
-    assert ub1.account_name() == "Testes"
+    assert ub1.account_name() == "Test Account"
 
 
-@mock.patch.object(
-    Transactions,
-    'get',
-    mock.MagicMock(side_effect=transactions_side)
-)
+@mock_plaid_transactions
 @pytest.mark.django_db(transaction=True)
 def test_user_bank_income():
     """
@@ -118,11 +90,7 @@ def test_user_bank_income():
     assert ub1.income(days=13) == 1125.0
 
 
-@mock.patch.object(
-    Transactions,
-    'get',
-    mock.MagicMock(side_effect=transactions_side)
-)
+@mock_plaid_transactions
 @pytest.mark.django_db(transaction=True)
 def test_expenditures():
     """
