@@ -47,6 +47,7 @@ def test_current_balance():
     user = PlaidMiddleware.PlaidAPI(access_token='', client=client)
     balance = user.current_balance()
     assert balance == -9.0
+    assert balance == -9.0
 
 
 @mock.patch.object(
@@ -198,7 +199,7 @@ def test_expenditure():
     '''
     client = plaid.Client(client_id='', secret='', public_key='', environment='')
     user = PlaidMiddleware.PlaidAPI(access_token='', client=client)
-    income = user.expenditure()
-    assert income == -150
-    income2 = user.expenditure(days=5)
-    assert income2 == 0.0
+    expenditure = user.expenditure()
+    assert expenditure == -150
+    expenditure2 = user.expenditure(days=5)
+    assert expenditure2 == 0.0
