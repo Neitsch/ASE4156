@@ -99,7 +99,7 @@ class ButtonAppBar extends React.Component {
                 open={open}
                 onRequestClose={this.handleRequestClose}
               >
-                <MenuItem onClick={this.handleRequestClose}>Overview</MenuItem>
+                <MenuItem id="overview" onClick={this.handleRequestClose}>Overview</MenuItem>
                 <MenuItem id="logout" onClick={this.logout}>Logout</MenuItem>
               </Menu>
             </div>
