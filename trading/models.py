@@ -1,6 +1,7 @@
 """
 Models here represents any interaction between a user and stocks
 """
+import datetime
 from authentication.models import Profile
 from django.db import models
 from stocks.models import Stock, InvestmentBucket
@@ -16,25 +17,24 @@ class TradingAccount(models.Model):
     class Meta(object):
         unique_together = ('profile', 'account_name')
 
-    def total_value(self):
-        """
-        Not yet implemented
-        """
-        pass
-
-    def trading_balance(self):
+    def trading_balance(self, date=None):
         """
         The stock values from account
         """
+        stock_trade_query = self.trades
+        bucket_trade_query = self.buckettrades
+        if date is not None:
+            stock_trade_query.filter(timestamp__lte=date)
+            bucket_trade_query.filter(timestamp__lte=date)
         stock_val = sum([
             stock.current_value()
             for stock
-            in self.trades.all()
+            in stock_trade_query.all()
         ])
         bucket_val = sum([
             bucket.current_value()
             for bucket
-            in self.buckettrades.all()
+            in bucket_trade_query.all()
         ])
         return stock_val + bucket_val
 
@@ -100,18 +100,53 @@ class TradingAccount(models.Model):
             )
         raise Exception("You don't have the necessary resources!")
 
-    def available_cash(self, update=True):
+    def available_cash(self, date=None, update=True):
         """
         Returns the available cash for the trading account
         """
         return (
             self.trading_balance() +
             sum([
-                bnk.current_balance(update)
+                bnk.current_balance(date=date, update=update)
                 for bnk
                 in self.profile.user.userbank.all()
             ])
         )
+
+    def holding_value(self, date=None):
+        stock_trade_query = self.trades
+        bucket_trade_query = self.buckettrades
+        if date is not None:
+            stock_trade_query = stock_trade_query.filter(timestamp__lte=date)
+            bucket_trade_query = bucket_trade_query.filter(timestamp__lte=date)
+        stock_values = sum([
+            res.stock.latest_quote(date) * res.q_s
+            for res
+            in stock_trade_query.values('stock').annotate(q_s=models.Sum('quantity'))
+        ])
+        bucket_values = sum([
+            res.stock.current_value(date) * res.q_s
+            for res
+            in stock_trade_query.values('stock').annotate(q_s=models.Sum('quantity'))
+        ])
+        return stock_values + bucket_values
+
+    def total_value(self, date=None):
+        cash = self.available_cash(date)
+        stock_val = self.holding_value(date)
+        return cash + stock_val
+
+    def history(self, count=None, skip=None):
+        if count is None:
+            count = 7
+        if skip is None:
+            skip = 0
+        res = []
+        for i in reversed(range(skip, count + skip)):
+            date = datetime.datetime.now() - datetime.timedelta(days=i)
+            res.append((date, self.total_value(date=date)))
+        print(res)
+        return res
 
 
 class TradeStock(models.Model):

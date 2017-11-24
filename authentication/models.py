@@ -65,12 +65,15 @@ class UserBank(models.Model):
     account_name_field = models.CharField(max_length=1000)
     income_field = models.FloatField()
     expenditure_field = models.FloatField()
+    _plaid_api = None
 
     def plaid(self):
         """
         Returns a new Plaid client
         """
-        return PlaidAPI(self.access_token)
+        if not self._plaid_api:
+            self._plaid_api = PlaidAPI(self.access_token)
+        return self._plaid_api
 
     def historical_data(self, *args, **kwargs):
         """
@@ -78,13 +81,17 @@ class UserBank(models.Model):
         """
         return self.plaid().historical_data(*args, **kwargs)
 
-    def current_balance(self, update=True):
+    def current_balance(self, update=True, date=None):
         """
         Returns the current balance
         """
-        if update:
-            self.current_balance_field = self.plaid().current_balance()
-            self.save()
+        if update or date is not None:
+            balance = self.plaid().current_balance(date)
+            if date is None:
+                self.current_balance_field = balance
+                self.save()
+            else:
+                return balance
         return self.current_balance_field
 
     def account_name(self, update=True):

@@ -3,9 +3,9 @@ GraphQL definitions for the Trading App
 """
 from graphene_django import DjangoObjectType
 from graphql_relay.node.node import from_global_id
-from graphene import Field, Float, ID, Int, Mutation, NonNull, \
+from graphene import Field, Float, ID, Int, List, Mutation, NonNull, \
     relay, String
-from stocks.graphql import GInvestmentBucket
+from stocks.graphql import GInvestmentBucket, GDataPoint, DataPoint
 from stocks.models import InvestmentBucket, Stock
 from .models import TradeBucket, TradeStock, TradingAccount
 
@@ -57,8 +57,8 @@ class GTradingAccount(DjangoObjectType):
     """
     Exposing the whole TradingAccount to GraphQL
     """
-    total_value = NonNull(Float)
     available_cash = NonNull(Float)
+    history = NonNull(List(NonNull(GDataPoint)), args={'count': Int(), 'skip': Int()})
 
     class Meta(object):
         """
@@ -68,18 +68,19 @@ class GTradingAccount(DjangoObjectType):
         interfaces = (relay.Node, )
 
     @staticmethod
-    def resolve_total_value(data, _info, **_args):
-        """
-        Returns the total value that the account currently holds
-        """
-        return data.total_value()
-
-    @staticmethod
     def resolve_available_cash(data, _info, **_args):
         """
         Returns the amount of cash the user has available
         """
-        return data.available_cash(False)
+        return data.available_cash(update=False)
+
+    @staticmethod
+    def resolve_history(data, _info, **kwargs):
+        return [
+            DataPoint(date, value)
+            for (date, value)
+            in data.history(**kwargs)
+        ]
 
 
 # pylint: disable=no-init

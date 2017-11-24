@@ -19,6 +19,8 @@ class PlaidAPI(object):
         or os.environ.get('TRAVIS_BRANCH') is not None
         else 'development')
     balance = None
+    cached_date = None
+    cached_history = None
 
     def __init__(self, access_token, client=None):
         if client is None:
@@ -39,12 +41,10 @@ class PlaidAPI(object):
             environment=PlaidAPI.PLAID_ENV,
         )
 
-    def current_balance(self):
+    def current_balance(self, date=None):
         """
         Returns the current numerical balance of the user
         """
-        if self.balance:
-            return self.balance
         balances = self.plaid.Accounts.balance.get(self.access_token)['accounts']
         extracted_balances = [((b['balances']['available']
                                 if b['balances']['available'] is not None else
@@ -53,8 +53,12 @@ class PlaidAPI(object):
                                 if b['subtype'] != 'credit card' else -1))
                               for b in balances]
         balance = sum(extracted_balances)
-        self.balance = float(balance)
-        return self.balance
+        if date is not None:
+            if date is not str:
+                date = date.strftime("%Y-%m-%d")
+            history = self.historical_data(date)
+            balance = balance - sum([h[1] for h in history])
+        return float(balance)
 
     def account_name(self):
         """
@@ -66,6 +70,10 @@ class PlaidAPI(object):
         """
         Returns a list of tuples that show the balance a user had at the given point in time
         """
+        if self.cached_date and self.cached_date >= start:
+            print("CACHE HIT")
+            return filter(lambda x: x[0] >= start, self.cached_history)
+        print("Cache miss", self.cached_date, start, id(self))
         end = datetime.datetime.now().strftime("%Y-%m-%d")
         response = self.plaid.Transactions.get(
             self.access_token,
@@ -79,6 +87,8 @@ class PlaidAPI(object):
             value = value - transaction['amount']
             if not value_list[-1][0] == transaction['date']:
                 value_list.append((transaction['date'], value))
+        self.cached_history = value_list
+        self.cached_date = start
         return value_list
 
     def income(self, days=30):

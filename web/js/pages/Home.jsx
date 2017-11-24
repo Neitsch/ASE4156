@@ -37,7 +37,10 @@ class Home extends React.Component < Props > {
             <Grid item xs={12}>
               <Paper>
                 {this.props.viewer.userbank.edges[0] && this.props.viewer.userbank.edges[0].node
-                  ? <BankAccountRelay bank={this.props.viewer.userbank.edges[0].node} />
+                  ? <BankAccountRelay
+                    bank={this.props.viewer.userbank.edges[0].node}
+                    account={this.props.viewer.profile.selectedAcc}
+                  />
                   : null}
               </Paper>
             </Grid>
@@ -61,6 +64,9 @@ export default createFragmentContainer(Home, {
     fragment Home_viewer on GUser {
       profile {
         ...InvestBucketGridRelay_profile
+        selectedAcc {
+          ...BankAccountRelay_account
+        }
       }
       userbank {
         edges {

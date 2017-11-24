@@ -23,6 +23,7 @@ def teardown_module(cls):
     plaid.__init__ = cls.original_init_method
 
 
+@mock_plaid_transactions
 @mock_plaid_balance
 @pytest.mark.django_db(transaction=True)
 def test_current_balance():
@@ -33,9 +34,8 @@ def test_current_balance():
     user = PlaidMiddleware.PlaidAPI(access_token='', client=client)
     balance = user.current_balance()
     assert balance == -9.0
-    user.balance = 10
-    balance = user.current_balance()
-    assert balance == 10
+    balance = user.current_balance(datetime.datetime.now().date())
+    assert balance == 0.0
 
 
 @mock_plaid_accounts

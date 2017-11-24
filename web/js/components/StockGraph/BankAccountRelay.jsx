@@ -17,6 +17,12 @@ class BankAccountRelay extends React.Component<Props> {
         ...dp,
         date: new Date(dp.date),
       })),
+    }, {
+      name: this.props.account.accountName,
+      data: this.props.account.history.map(dp => ({
+        ...dp,
+        date: new Date(dp.date),
+      })),
     }];
     return <StockGraph id="BAR" compare="ABSOLUTE" title="Your account history" quotes={quotes} />;
   }
@@ -27,6 +33,15 @@ export default createFragmentContainer(BankAccountRelay, {
     fragment BankAccountRelay_bank on GUserBank {
       name
       history(start: "2017-09-10") {
+        date
+        value
+      }
+    }
+  `,
+  account: graphql`
+    fragment BankAccountRelay_account on GTradingAccount {
+      accountName
+      history(count: 7) {
         date
         value
       }
