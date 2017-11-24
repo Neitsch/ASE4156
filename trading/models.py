@@ -17,6 +17,9 @@ class TradingAccount(models.Model):
         unique_together = ('profile', 'account_name')
 
     def holding_value(self):
+        """
+        Calculates the value of all equity held by the user
+        """
         stock_values = sum([
             Stock.objects.get(id=res['stock']).latest_quote() * res['q_s']
             for res in
