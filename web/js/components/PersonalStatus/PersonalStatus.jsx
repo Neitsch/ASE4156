@@ -30,7 +30,10 @@ export default class PersonalStatus extends React.Component < Props > {
           <HighlightBox
             title="Current balance"
             value={this.props.bank.balance.toFixed(2)}
-            secondaryInfo={[{ text: this.props.account.accountName, value: this.props.account.availableCash }]}
+            secondaryInfo={[{
+              text: this.props.account.accountName,
+              value: this.props.account.totalValue.toFixed(2),
+            }]}
           />
         </Grid>
         <Grid item {...spacing}>
@@ -43,7 +46,10 @@ export default class PersonalStatus extends React.Component < Props > {
           <HighlightBox
             title="Available money"
             value={(this.props.bank.income + this.props.bank.outcome).toFixed(2)}
-            secondaryInfo={[{ text: this.props.account.accountName, value: this.props.account.totalValue }]}
+            secondaryInfo={[{
+              text: this.props.account.accountName,
+              value: this.props.account.availableCash.toFixed(2),
+            }]}
           />
         </Grid>
       </Grid>

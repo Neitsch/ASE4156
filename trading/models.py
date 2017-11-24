@@ -16,11 +16,26 @@ class TradingAccount(models.Model):
     class Meta(object):
         unique_together = ('profile', 'account_name')
 
+    def holding_value(self):
+        stock_values = sum([
+            Stock.objects.get(id=res['stock']).latest_quote() * res['q_s']
+            for res in
+            self.trades.values('stock').annotate(q_s=models.Sum('quantity'))
+        ])
+        bucket_values = sum([
+            InvestmentBucket.objects.get(id=res['stock']).value_on() * res['q_s']
+            for res in
+            self.buckettrades.values('stock').annotate(q_s=models.Sum('quantity'))
+        ])
+        return stock_values + bucket_values
+
     def total_value(self):
         """
-        Not yet implemented
+        Total value of the trading account
         """
-        pass
+        cash = self.available_cash()
+        stock_val = self.holding_value()
+        return cash + stock_val
 
     def trading_balance(self):
         """
