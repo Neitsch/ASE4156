@@ -19,6 +19,7 @@ from plaid_test_decorators import mock_plaid_balance, \
 from yahoo_historical import Fetcher
 
 
+# pylint: disable=duplicate-code
 def setup_module(module):
     """
     Mock out any externals
@@ -36,6 +37,7 @@ def teardown_module(module):
     """
     Fetcher.__init__ = module.original_init_method
     Fetcher.getHistorical = module.original_getHistorical_method
+# pylint: enable=duplicate-code
 
 
 def request_create(request):
