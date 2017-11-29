@@ -48,6 +48,13 @@ exports[`InvestCompositionRelay fails render without data 1`] = `
                           "alias": null,
                           "args": null,
                           "kind": "ScalarField",
+                          "name": "id",
+                          "storageKey": null,
+                        },
+                        Object {
+                          "alias": null,
+                          "args": null,
+                          "kind": "ScalarField",
                           "name": "available",
                           "storageKey": null,
                         },
@@ -239,6 +246,13 @@ exports[`InvestCompositionRelay fails render without data 1`] = `
                       "metadata": null,
                       "name": "InvestCompositionRelay_bucket",
                       "selections": Array [
+                        Object {
+                          "alias": null,
+                          "args": null,
+                          "kind": "ScalarField",
+                          "name": "id",
+                          "storageKey": null,
+                        },
                         Object {
                           "alias": null,
                           "args": null,
@@ -448,6 +462,13 @@ exports[`InvestCompositionRelay fails render without data 1`] = `
                         "alias": null,
                         "args": null,
                         "kind": "ScalarField",
+                        "name": "id",
+                        "storageKey": null,
+                      },
+                      Object {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
                         "name": "available",
                         "storageKey": null,
                       },
@@ -639,6 +660,13 @@ exports[`InvestCompositionRelay fails render without data 1`] = `
                     "metadata": null,
                     "name": "InvestCompositionRelay_bucket",
                     "selections": Array [
+                      Object {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "id",
+                        "storageKey": null,
+                      },
                       Object {
                         "alias": null,
                         "args": null,
@@ -977,6 +1005,13 @@ exports[`InvestCompositionRelay fails render without data 1`] = `
                               "alias": null,
                               "args": null,
                               "kind": "ScalarField",
+                              "name": "id",
+                              "storageKey": null,
+                            },
+                            Object {
+                              "alias": null,
+                              "args": null,
+                              "kind": "ScalarField",
                               "name": "available",
                               "storageKey": null,
                             },
@@ -1168,6 +1203,13 @@ exports[`InvestCompositionRelay fails render without data 1`] = `
                           "metadata": null,
                           "name": "InvestCompositionRelay_bucket",
                           "selections": Array [
+                            Object {
+                              "alias": null,
+                              "args": null,
+                              "kind": "ScalarField",
+                              "name": "id",
+                              "storageKey": null,
+                            },
                             Object {
                               "alias": null,
                               "args": null,
@@ -1377,6 +1419,13 @@ exports[`InvestCompositionRelay fails render without data 1`] = `
                             "alias": null,
                             "args": null,
                             "kind": "ScalarField",
+                            "name": "id",
+                            "storageKey": null,
+                          },
+                          Object {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
                             "name": "available",
                             "storageKey": null,
                           },
@@ -1568,6 +1617,13 @@ exports[`InvestCompositionRelay fails render without data 1`] = `
                         "metadata": null,
                         "name": "InvestCompositionRelay_bucket",
                         "selections": Array [
+                          Object {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "id",
+                            "storageKey": null,
+                          },
                           Object {
                             "alias": null,
                             "args": null,
@@ -1826,6 +1882,13 @@ exports[`InvestCompositionRelay renders 1`] = `
                           "alias": null,
                           "args": null,
                           "kind": "ScalarField",
+                          "name": "id",
+                          "storageKey": null,
+                        },
+                        Object {
+                          "alias": null,
+                          "args": null,
+                          "kind": "ScalarField",
                           "name": "available",
                           "storageKey": null,
                         },
@@ -2027,6 +2090,13 @@ exports[`InvestCompositionRelay renders 1`] = `
                     "metadata": null,
                     "name": "InvestCompositionRelay_bucket",
                     "selections": Array [
+                      Object {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "id",
+                        "storageKey": null,
+                      },
                       Object {
                         "alias": null,
                         "args": null,
@@ -2385,6 +2455,13 @@ exports[`InvestCompositionRelay renders 1`] = `
                               "alias": null,
                               "args": null,
                               "kind": "ScalarField",
+                              "name": "id",
+                              "storageKey": null,
+                            },
+                            Object {
+                              "alias": null,
+                              "args": null,
+                              "kind": "ScalarField",
                               "name": "available",
                               "storageKey": null,
                             },
@@ -2586,6 +2663,13 @@ exports[`InvestCompositionRelay renders 1`] = `
                         "metadata": null,
                         "name": "InvestCompositionRelay_bucket",
                         "selections": Array [
+                          Object {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "id",
+                            "storageKey": null,
+                          },
                           Object {
                             "alias": null,
                             "args": null,
@@ -2882,6 +2966,13 @@ Array [
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
+                    "name": "id",
+                    "storageKey": null,
+                  },
+                  Object {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "available",
                     "storageKey": null,
                   },
@@ -3083,6 +3174,13 @@ Array [
               "metadata": null,
               "name": "InvestCompositionRelay_bucket",
               "selections": Array [
+                Object {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "id",
+                  "storageKey": null,
+                },
                 Object {
                   "alias": null,
                   "args": null,

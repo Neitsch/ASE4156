@@ -71,7 +71,14 @@ exports[`InvestPanelRelay renders 1`] = `
                         },
                         Object {
                           "alias": null,
-                          "args": null,
+                          "args": Array [
+                            Object {
+                              "kind": "Literal",
+                              "name": "count",
+                              "type": "Int",
+                              "value": 30,
+                            },
+                          ],
                           "concreteType": "GDataPoint",
                           "kind": "LinkedField",
                           "name": "history",
@@ -92,7 +99,7 @@ exports[`InvestPanelRelay renders 1`] = `
                               "storageKey": null,
                             },
                           ],
-                          "storageKey": null,
+                          "storageKey": "history{\\"count\\":30}",
                         },
                       ],
                       "type": "GInvestmentBucket",
@@ -199,7 +206,14 @@ exports[`InvestPanelRelay renders 1`] = `
                       },
                       Object {
                         "alias": null,
-                        "args": null,
+                        "args": Array [
+                          Object {
+                            "kind": "Literal",
+                            "name": "count",
+                            "type": "Int",
+                            "value": 30,
+                          },
+                        ],
                         "concreteType": "GDataPoint",
                         "kind": "LinkedField",
                         "name": "history",
@@ -220,7 +234,7 @@ exports[`InvestPanelRelay renders 1`] = `
                             "storageKey": null,
                           },
                         ],
-                        "storageKey": null,
+                        "storageKey": "history{\\"count\\":30}",
                       },
                     ],
                     "type": "GInvestmentBucket",
@@ -448,7 +462,14 @@ exports[`InvestPanelRelay renders 1`] = `
                             },
                             Object {
                               "alias": null,
-                              "args": null,
+                              "args": Array [
+                                Object {
+                                  "kind": "Literal",
+                                  "name": "count",
+                                  "type": "Int",
+                                  "value": 30,
+                                },
+                              ],
                               "concreteType": "GDataPoint",
                               "kind": "LinkedField",
                               "name": "history",
@@ -469,7 +490,7 @@ exports[`InvestPanelRelay renders 1`] = `
                                   "storageKey": null,
                                 },
                               ],
-                              "storageKey": null,
+                              "storageKey": "history{\\"count\\":30}",
                             },
                           ],
                           "type": "GInvestmentBucket",
@@ -576,7 +597,14 @@ exports[`InvestPanelRelay renders 1`] = `
                           },
                           Object {
                             "alias": null,
-                            "args": null,
+                            "args": Array [
+                              Object {
+                                "kind": "Literal",
+                                "name": "count",
+                                "type": "Int",
+                                "value": 30,
+                              },
+                            ],
                             "concreteType": "GDataPoint",
                             "kind": "LinkedField",
                             "name": "history",
@@ -597,7 +625,7 @@ exports[`InvestPanelRelay renders 1`] = `
                                 "storageKey": null,
                               },
                             ],
-                            "storageKey": null,
+                            "storageKey": "history{\\"count\\":30}",
                           },
                         ],
                         "type": "GInvestmentBucket",
@@ -774,7 +802,14 @@ Array [
                   },
                   Object {
                     "alias": null,
-                    "args": null,
+                    "args": Array [
+                      Object {
+                        "kind": "Literal",
+                        "name": "count",
+                        "type": "Int",
+                        "value": 30,
+                      },
+                    ],
                     "concreteType": "GDataPoint",
                     "kind": "LinkedField",
                     "name": "history",
@@ -795,7 +830,7 @@ Array [
                         "storageKey": null,
                       },
                     ],
-                    "storageKey": null,
+                    "storageKey": "history{\\"count\\":30}",
                   },
                 ],
                 "type": "GInvestmentBucket",
@@ -902,7 +937,14 @@ Array [
                 },
                 Object {
                   "alias": null,
-                  "args": null,
+                  "args": Array [
+                    Object {
+                      "kind": "Literal",
+                      "name": "count",
+                      "type": "Int",
+                      "value": 30,
+                    },
+                  ],
                   "concreteType": "GDataPoint",
                   "kind": "LinkedField",
                   "name": "history",
@@ -923,7 +965,7 @@ Array [
                       "storageKey": null,
                     },
                   ],
-                  "storageKey": null,
+                  "storageKey": "history{\\"count\\":30}",
                 },
               ],
               "type": "GInvestmentBucket",
