@@ -89,7 +89,10 @@ def test_add_bucket(selenium, live_server, client):
     newbuck = selenium.find_element_by_xpath("//button[contains(.,'New')]")
     newbuck.click()
     buckname = selenium.find_element_by_id("name")
-    buckname.sendKeys("IAMATESTBUCKET")
+    buckname.send_keys("IAMATESTBUCKET")
+    invest = selenium.find_element_by_id("investment")
+    buckname.send_keys(5000)
+
 
     # test = selenium.find_element_by_id('link-button')
     # test.click()
