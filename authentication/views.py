@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from authentication.plaid_wrapper import PlaidAPI
 
 
-def idx(request):
+def idx(_request):
     """
     Redirect / to home
     """
