@@ -69,9 +69,6 @@ class ButtonAppBar extends React.Component {
       <div className={classes.root}>
         <AppBar position="static" className={classes.appBar}>
           <Toolbar>
-            <IconButton className={classes.menuButton} color="contrast" aria-label="Menu">
-              <MenuIcon />
-            </IconButton>
             <Typography type="headline" color="inherit" className={classes.flex}>
               MIWF
             </Typography>
