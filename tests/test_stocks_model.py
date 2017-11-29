@@ -14,7 +14,6 @@ from yahoo_historical import Fetcher
 from trading.models import TradeStock
 
 
-# pylint: disable=duplicate-code
 def setup_module(module):
     """
     Mock out any externals
@@ -32,7 +31,6 @@ def teardown_module(module):
     """
     Fetcher.__init__ = module.original_init_method
     Fetcher.getHistorical = module.original_getHistorical_method
-# pylint: enable=duplicate-code
 
 
 @pytest.mark.django_db(transaction=True)
