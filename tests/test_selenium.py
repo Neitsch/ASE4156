@@ -58,10 +58,9 @@ from plaid_test_decorators import mock_plaid_balance, \
 #     live_server.thread.terminate()
 #     live_server.thread.join()
 
+
 @mock_plaid_balance
 @mock_plaid_accounts
-# @mock.patch.object(PlaidAPI, 'income', mock.MagicMock(return_value=110.0))
-# @mock.patch.object(PlaidAPI, 'expenditure', mock.MagicMock(return_value=4.0))
 @mock_plaid_transactions
 @pytest.mark.django_db(transaction=True)
 def test_add_bucket(selenium, live_server, client):
@@ -70,13 +69,12 @@ def test_add_bucket(selenium, live_server, client):
     """
     user = User.objects.create_user('temporary', 'temporary@gmail.com', 'temporary')
     user.save()
-    ub = UserBank(
-                    user=user, item_id='dummy1', access_token='dummy2', 
-                    institution_name='dummy3', current_balance_field=0,
-                    account_name_field="dummy4", income_field=0,
-                    expenditure_field=0
-                )
-    ub.save()
+    user.userbank.create(
+        item_id='dummy1', access_token='dummy2',
+        institution_name='dummy3', current_balance_field=0,
+        account_name_field="dummy4", income_field=0,
+        expenditure_field=0
+    )
     client.login(username='temporary', password='temporary')
     cookie = client.cookies['sessionid']
     selenium.get('%s%s' % (live_server, '/login'))
