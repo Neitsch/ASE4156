@@ -140,6 +140,7 @@ class Query(object):
         """
         The viewer represents the current logged in user
         """
+        print("Loading something")
         if not info.context.user.is_authenticated():
             return None
         return info.context.user
