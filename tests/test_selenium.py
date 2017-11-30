@@ -113,8 +113,6 @@ def test_add_bucket(selenium, live_server, client):
     newbuck.click()
     buckname = selenium.find_element_by_id("name")
     buckname.send_keys("IAMATESTBUCKET")
-    invest = selenium.find_element_by_id("investment")
-    invest.send_keys("5000")
     save = selenium.find_element_by_id("save")
     save.click()
     assert user.profile.owned_bucket.count() == 1
@@ -203,6 +201,7 @@ def test_add_attr_to_bucket(selenium, live_server, client):
     attr_field = selenium.find_element_by_id("name")
     attr_field.send_keys("poooooop")
     attr_field.send_keys(Keys.RETURN)
+    time.sleep(1)
     bucket = user.profile.owned_bucket.get(name="IAMATESTBUCKET")
     assert bucket.description.get(text="poooooop").text == "poooooop"
     assert bucket.description.get(text="poooooop").is_good
@@ -366,6 +365,7 @@ def test_invest_sell_bucket(selenium, live_server, client):
     save_composition = selenium.find_element_by_id("save")
     save_composition.click()
     assert user.profile.trading_accounts.get(account_name='default').buckettrades.count() == 2
+    assert int(user.profile.default_acc().available_buckets(buck)) == 0
 
 
 @mock_plaid_balance_for_trading
