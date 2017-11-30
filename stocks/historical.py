@@ -1,7 +1,7 @@
 """This module is for loading historical data for stocks"""
+import threading
 from yahoo_historical import Fetcher
 import arrow
-import threading
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.db.models import Max
