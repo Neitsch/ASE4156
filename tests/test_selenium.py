@@ -2,24 +2,23 @@
 All selenium tests
 """
 from unittest import mock
+import time
 import pytest
 from django.contrib.auth.models import User
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
-from BuyBitcoin.urls import EXECUTOR
+from selenium.webdriver.common.action_chains import ActionChains
 from authentication.plaid_wrapper import PlaidAPI
 from plaid_test_decorators import mock_plaid_balance, \
-    mock_plaid_accounts, mock_plaid_transactions
-from stocks.models import Stock, InvestmentBucket
+    mock_plaid_accounts, mock_plaid_transactions, \
+    mock_plaid_balance_for_trading
+from stocks.models import Stock, InvestmentBucket, \
+    InvestmentStockConfiguration
 import test_stocks_model as stock_test
-<<<<<<< HEAD
-import time
-=======
-from selenium.webdriver.common.action_chains import ActionChains
 
->>>>>>> 9460a7c1df8b7c0843298fd0fc59de96823b806d
+
 
 def setup_module(module):
     """
@@ -141,7 +140,9 @@ def test_delete_bucket(selenium, live_server, client):
     client.login(username='temporary', password='temporary')
     assert user.profile.owned_bucket.count() == 0
     cookie = client.cookies['sessionid']
-    buck = InvestmentBucket.create_new_bucket(name="IAMATESTBUCKET", public=True, owner=user.profile)
+    buck = InvestmentBucket.create_new_bucket(
+        name="IAMATESTBUCKET", public=True,
+        owner=user.profile)
     buck.save()
     assert user.profile.owned_bucket.count() == 1
     selenium.get('%s%s' % (live_server, '/login'))
@@ -184,7 +185,9 @@ def test_add_attr_to_bucket(selenium, live_server, client):
     client.login(username='temporary', password='temporary')
     assert user.profile.owned_bucket.count() == 0
     cookie = client.cookies['sessionid']
-    buck = InvestmentBucket.create_new_bucket(name="IAMATESTBUCKET", public=True, owner=user.profile)
+    buck = InvestmentBucket.create_new_bucket(
+        name="IAMATESTBUCKET", public=True,
+        owner=user.profile)
     buck.save()
     assert user.profile.owned_bucket.count() == 1
     selenium.get('%s%s' % (live_server, '/login'))
@@ -198,12 +201,13 @@ def test_add_attr_to_bucket(selenium, live_server, client):
     selenium.implicitly_wait(30)
     add_attr = selenium.find_element_by_id("launch-edit")
     add_attr.click()
-    selenium.implicitly_wait(30)
     attr_field = selenium.find_element_by_id("name")
     attr_field.send_keys("poooooop")
     attr_field.send_keys(Keys.RETURN)
     bucket = user.profile.owned_bucket.get(name="IAMATESTBUCKET")
     assert bucket.description.get(text="poooooop").text == "poooooop"
+    assert bucket.description.get(text="poooooop").is_good
+    assert bucket.description.count() == 1
     attr = selenium.find_element_by_id("attr")
     assert "poooooop" in attr.text
 
@@ -233,6 +237,11 @@ def test_bucket_add_stock(selenium, live_server, client):
     )
     client.login(username='temporary', password='temporary')
     cookie = client.cookies['sessionid']
+    buck = InvestmentBucket.create_new_bucket(
+        name="IAMATESTBUCKET", public=True,
+        owner=user.profile)
+    buck.save()
+    assert user.profile.owned_bucket.count() == 1
     selenium.get('%s%s' % (live_server, '/login'))
     selenium.add_cookie({
         'name': 'sessionid',
@@ -242,38 +251,26 @@ def test_bucket_add_stock(selenium, live_server, client):
     })
     selenium.get('%s%s' % (live_server, '/home'))
     selenium.implicitly_wait(30)
-    newbuck = selenium.find_element_by_xpath("//button[contains(.,'New')]")
-    newbuck.click()
-    selenium.implicitly_wait(30)
-    buckname = selenium.find_element_by_id("name")
-    buckname.send_keys("IAMATESTBUCKET")
-    invest = selenium.find_element_by_id("investment")
-    invest.send_keys("5000")
-    save = selenium.find_element_by_id("save")
-    save.click()
-    selenium.implicitly_wait(30)
     bucket = user.profile.owned_bucket.get(name="IAMATESTBUCKET")
     assert bucket.get_stock_configs().count() == 0
     edit_button = selenium.find_element_by_id("edit-comp")
     edit_button.click()
-    selenium.implicitly_wait(30)
     stock_field = selenium.find_element_by_id("stockname")
     stock_field.send_keys("Name1")
     add_stock = selenium.find_element_by_id("add-stock")
     add_stock.click()
     save_composition = selenium.find_element_by_xpath("//button[contains(.,'Save')]")
     save_composition.click()
-    selenium.implicitly_wait(30)
     assert bucket.get_stock_configs().count() == 1
 
 
-@mock_plaid_balance
+@mock_plaid_balance_for_trading
 @mock_plaid_accounts
 @mock_plaid_transactions
 @pytest.mark.django_db(transaction=True)
 def test_invest_buy_bucket(selenium, live_server, client):
     """
-    Test adding attr to bucket
+    Test buying a bucket
     """
     user = User.objects.create_user('temporary', 'temporary@gmail.com', 'temporary')
     user.save()
@@ -292,6 +289,12 @@ def test_invest_buy_bucket(selenium, live_server, client):
     )
     client.login(username='temporary', password='temporary')
     cookie = client.cookies['sessionid']
+    buck = InvestmentBucket.create_new_bucket(
+        name="IAMATESTBUCKET", public=True,
+        owner=user.profile)
+    buck.save()
+    InvestmentStockConfiguration(quantity=1, stock=stock, bucket=buck, start="2016-03-03").save()
+    assert user.profile.owned_bucket.count() == 1
     selenium.get('%s%s' % (live_server, '/login'))
     selenium.add_cookie({
         'name': 'sessionid',
@@ -301,19 +304,6 @@ def test_invest_buy_bucket(selenium, live_server, client):
     })
     selenium.get('%s%s' % (live_server, '/home'))
     selenium.implicitly_wait(10)
-    newbuck = selenium.find_element_by_xpath("//button[contains(.,'New')]")
-    newbuck.click()
-    buckname = selenium.find_element_by_id("name")
-    buckname.send_keys("IAMATESTBUCKET")
-    invest = selenium.find_element_by_id("investment")
-    invest.send_keys("5000")
-    selenium.find_element_by_id("save").click()
-    bucket = user.profile.owned_bucket.get(name="IAMATESTBUCKET")
-    selenium.find_element_by_id("edit-comp").click()
-    stock_field = selenium.find_element_by_id("stockname")
-    stock_field.send_keys("Name1")
-    selenium.find_element_by_id("add-stock").click()
-    selenium.find_element_by_xpath("//button[contains(.,'Save')]").click()
     selenium.find_element_by_xpath("//button[contains(.,'Invest')]").click()
     slider = selenium.find_element_by_class_name("rc-slider-handle")
     actions = ActionChains(selenium)
@@ -321,8 +311,115 @@ def test_invest_buy_bucket(selenium, live_server, client):
     actions.move_by_offset(100, 0)
     actions.release(slider)
     actions.perform()
-    slider = selenium.find_element_by_class_name("rc-resdfs-handle")
+    save_composition = selenium.find_element_by_id("save")
+    save_composition.click()
+    assert user.profile.trading_accounts.get(account_name='default').buckettrades.count() == 1
 
-    EXECUTOR.wait_until_finished()
-    live_server.thread.terminate()
-    live_server.thread.join()
+
+@mock_plaid_balance_for_trading
+@mock_plaid_accounts
+@mock_plaid_transactions
+@pytest.mark.django_db(transaction=True)
+def test_invest_sell_bucket(selenium, live_server, client):
+    """
+    Test selling a bucket
+    """
+    user = User.objects.create_user('temporary', 'temporary@gmail.com', 'temporary')
+    user.save()
+    user.userbank.create(
+        item_id='dummy1', access_token='dummy2',
+        institution_name='dummy3', current_balance_field=0,
+        account_name_field="dummy4", income_field=0,
+        expenditure_field=0
+    )
+    stock = Stock(
+        name="Name1", ticker="poooooop"
+    )
+    stock.save()
+    stock.daily_quote.create(
+        value=1000, date="2016-03-03"
+    )
+    client.login(username='temporary', password='temporary')
+    cookie = client.cookies['sessionid']
+    buck = InvestmentBucket.create_new_bucket(
+        name="IAMATESTBUCKET", public=True,
+        owner=user.profile)
+    buck.save()
+    InvestmentStockConfiguration(quantity=1, stock=stock, bucket=buck, start="2016-03-03").save()
+    assert user.profile.owned_bucket.count() == 1
+    user.profile.default_acc().trade_bucket(buck, .01)
+    selenium.get('%s%s' % (live_server, '/login'))
+    selenium.add_cookie({
+        'name': 'sessionid',
+        'value': cookie.value,
+        'secure': False,
+        'path': '/',
+    })
+    selenium.get('%s%s' % (live_server, '/home'))
+    selenium.implicitly_wait(10)
+    selenium.find_element_by_xpath("//button[contains(.,'Invest')]").click()
+    slider = selenium.find_element_by_class_name("rc-slider-handle")
+    actions = ActionChains(selenium)
+    actions.click_and_hold(slider)
+    actions.move_by_offset(-100, 0)
+    actions.release(slider)
+    actions.perform()
+    save_composition = selenium.find_element_by_id("save")
+    save_composition.click()
+    assert user.profile.trading_accounts.get(account_name='default').buckettrades.count() == 2
+
+
+@mock_plaid_balance_for_trading
+@mock_plaid_accounts
+@mock_plaid_transactions
+@pytest.mark.django_db(transaction=True)
+def test_change_bucket_composition(selenium, live_server, client):
+    """
+    Test selling a bucket
+    """
+    user = User.objects.create_user('temporary', 'temporary@gmail.com', 'temporary')
+    user.save()
+    user.userbank.create(
+        item_id='dummy1', access_token='dummy2',
+        institution_name='dummy3', current_balance_field=0,
+        account_name_field="dummy4", income_field=0,
+        expenditure_field=0
+    )
+    stock = Stock(
+        name="Name1", ticker="poooooop"
+    )
+    stock.save()
+    stock.daily_quote.create(
+        value=1000, date="2016-03-03"
+    )
+    client.login(username='temporary', password='temporary')
+    cookie = client.cookies['sessionid']
+    buck = InvestmentBucket.create_new_bucket(
+        name="IAMATESTBUCKET",
+        public=True,
+        owner=user.profile)
+    buck.save()
+    InvestmentStockConfiguration(quantity=1, stock=stock, bucket=buck, start="2016-03-03").save()
+    assert user.profile.owned_bucket.count() == 1
+    user.profile.default_acc().trade_bucket(buck, .01)
+    selenium.get('%s%s' % (live_server, '/login'))
+    selenium.add_cookie({
+        'name': 'sessionid',
+        'value': cookie.value,
+        'secure': False,
+        'path': '/',
+    })
+    selenium.get('%s%s' % (live_server, '/home'))
+    selenium.implicitly_wait(10)
+    edit_button = selenium.find_element_by_id("edit-comp")
+    edit_button.click()
+    slider = selenium.find_element_by_class_name("rc-slider-handle-2")
+    actions = ActionChains(selenium)
+    actions.click_and_hold(slider)
+    actions.move_by_offset(-100, 0)
+    actions.release(slider)
+    actions.perform()
+    save_composition = selenium.find_element_by_xpath("//button[contains(.,'Save')]")
+    save_composition.click()
+    time.sleep(1)
+    assert buck.stocks.count() == 2

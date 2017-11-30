@@ -7,6 +7,29 @@ from plaid.api.accounts import Balance, Accounts
 from plaid.api.transactions import Transactions
 
 
+def mock_plaid_balance_for_trading(func):
+    """
+    Decorator to mock plaid's balance specifically for positive balance
+    """
+    new_patch = patch.object(
+        Balance,
+        'get',
+        MagicMock(return_value={
+            'accounts': [
+                {
+                    'balances': {'available': 100},
+                    'subtype': 'not credit card'
+                },
+                {
+                    'balances': {'available': 10},
+                    'subtype': 'credit card'
+                }
+            ]
+        })
+    )
+    return new_patch(func)
+
+
 def mock_plaid_balance(func):
     """
     Decorator to mock plaid's balance retrieval
@@ -17,7 +40,7 @@ def mock_plaid_balance(func):
         MagicMock(return_value={
             'accounts': [
                 {
-                    'balances': {'available': 100},
+                    'balances': {'available': 1},
                     'subtype': 'not credit card'
                 },
                 {
