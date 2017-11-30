@@ -322,7 +322,9 @@ def test_invest_buy_bucket(selenium, live_server, client):
     selenium.find_element_by_xpath("//button[contains(.,'Invest')]").click()
     slider = selenium.find_element_by_class_name("rc-slider-handle")
     actions = ActionChains(selenium)
-    actions.drag_and_drop_by_offset(slider, 1000, 0)
+    actions.click_and_hold(slider)
+    actions.move_by_offset(100, 0)
+    actions.release(slider)
     actions.perform()
     slider = selenium.find_element_by_class_name("rc-resdfs-handle")
 
