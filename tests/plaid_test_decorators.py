@@ -17,7 +17,7 @@ def mock_plaid_balance(func):
         MagicMock(return_value={
             'accounts': [
                 {
-                    'balances': {'available': 1},
+                    'balances': {'available': 100},
                     'subtype': 'not credit card'
                 },
                 {
