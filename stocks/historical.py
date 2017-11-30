@@ -1,6 +1,7 @@
 """This module is for loading historical data for stocks"""
 from yahoo_historical import Fetcher
-import arrow, threading
+import arrow
+import threading
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.db.models import Max
@@ -51,15 +52,16 @@ def create_stock(instance, created, **_):
 
 
 def fill_stocks(request):
-    """Function that fills stock data for missing days"""
+    """Function that fills stock data for missing days via GET"""
     if request.method == "GET":
-        t = threading.Thread(target=fill)
-        t.start()
+        thread = threading.Thread(target=fill)
+        thread.start()
         return HttpResponse("Filling Data...", status=200)
     return HttpResponse("405 Method Not Allowed", status=405)
 
 
 def fill():
+    """Function that fills stock data for missing days"""
     stock_id_field = 'stock_id'
     stock_ticker = 'stock__ticker'
     date = 'date'
