@@ -14,6 +14,28 @@ from stocks.models import DailyStockQuote, InvestmentBucket, \
     InvestmentBucketDescription, InvestmentStockConfiguration, Stock
 from stocks.historical import create_stock
 from graphql_relay.node.node import to_global_id
+from plaid_test_decorators import mock_plaid_balance, \
+    mock_plaid_accounts, mock_plaid_transactions
+from yahoo_historical import Fetcher
+
+
+def setup_module(module):
+    """
+    Mock out any externals
+    """
+    post_save.disconnect(receiver=create_stock, sender=Stock)
+    module.original_init_method = Fetcher.__init__
+    module.original_getHistorical_method = Fetcher.getHistorical
+    Fetcher.__init__ = mock.Mock(return_value=None)
+    Fetcher.getHistorical = mock.Mock(return_value=None)
+
+
+def teardown_module(module):
+    """
+    Restore externals
+    """
+    Fetcher.__init__ = module.original_init_method
+    Fetcher.getHistorical = module.original_getHistorical_method
 
 
 def request_create(request):
@@ -400,6 +422,9 @@ def test_mutation_edit_configuration(rf, snapshot):
     assert InvestmentStockConfiguration.objects.all().count() == 2
 
 
+@mock_plaid_balance
+@mock_plaid_accounts
+@mock_plaid_transactions
 @pytest.mark.django_db(transaction=True)
 # pylint: disable=invalid-name
 def test_big_gql(rf, snapshot):
@@ -417,6 +442,7 @@ def test_big_gql(rf, snapshot):
       investSuggestions {
         edges {
           node {
+            ownedAmount
             value
             name
             public
@@ -429,6 +455,9 @@ def test_big_gql(rf, snapshot):
                   isGood
                 }
               }
+            }
+            history(count: 3) {
+              value
             }
             stocks {
               edges {
@@ -448,11 +477,14 @@ def test_big_gql(rf, snapshot):
           }
         }
       }
-      stockFind(text: "GO") {
+      stockFind(text: "GO", first: 1) {
         quoteInRange(start: "2017-05-07", end: "2017-05-11") {
           value
           date
         }
+      }
+      selectedAcc {
+        accountName
       }
       tradingAccounts {
         edges {

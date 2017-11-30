@@ -26,8 +26,20 @@ snapshots['test_big_gql 1'] = {
                                         }
                                     ]
                                 },
+                                'history': [
+                                    {
+                                        'value': 110.0
+                                    },
+                                    {
+                                        'value': 110.0
+                                    },
+                                    {
+                                        'value': 110.0
+                                    }
+                                ],
                                 'isOwner': True,
                                 'name': 'i1',
+                                'ownedAmount': 0.0,
                                 'public': False,
                                 'stocks': {
                                     'edges': [
@@ -50,6 +62,9 @@ snapshots['test_big_gql 1'] = {
                             }
                         }
                     ]
+                },
+                'selectedAcc': {
+                    'accountName': 'testAccount1'
                 },
                 'stockFind': [
                     {
