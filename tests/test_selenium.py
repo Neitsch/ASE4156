@@ -29,6 +29,7 @@ def teardown_module(module):
     """
     stock_test.teardown_module(module)
 
+
 @mock.patch.object(PlaidAPI, 'current_balance', mock.MagicMock(return_value=0.0))
 @mock.patch.object(PlaidAPI, 'account_name', mock.MagicMock(return_value="Acc Name"))
 @mock.patch.object(PlaidAPI, 'income', mock.MagicMock(return_value=0.0))
@@ -66,7 +67,6 @@ def test_signup(selenium, live_server, client):
     )
     elem.click()
     selenium.switch_to.default_content()
-    selenium.find_element_by_id("menu-appbar-button").click()
     WebDriverWait(selenium, 120).until(
         EC.presence_of_element_located((By.ID, "logout"))
     )
@@ -79,7 +79,7 @@ def test_signup(selenium, live_server, client):
 @pytest.mark.django_db(transaction=True)
 def test_add_bucket(selenium, live_server, client):
     """
-    Tests the signup flow
+    Tests adding a bucket
     """
     user = User.objects.create_user('temporary', 'temporary@gmail.com', 'temporary')
     user.save()
@@ -112,6 +112,54 @@ def test_add_bucket(selenium, live_server, client):
     save.click()
     selenium.implicitly_wait(30)
     assert user.profile.owned_bucket.count() == 1
+
+
+@mock_plaid_balance
+@mock_plaid_accounts
+@mock_plaid_transactions
+@pytest.mark.django_db(transaction=True)
+def test_delete_bucket(selenium, live_server, client):
+    """
+    Tests deleting a bucket
+    """
+    user = User.objects.create_user('temporary', 'temporary@gmail.com', 'temporary')
+    user.save()
+    user.userbank.create(
+        item_id='dummy1', access_token='dummy2',
+        institution_name='dummy3', current_balance_field=0,
+        account_name_field="dummy4", income_field=0,
+        expenditure_field=0
+    )
+    client.login(username='temporary', password='temporary')
+    assert user.profile.owned_bucket.count() == 0
+    cookie = client.cookies['sessionid']
+    selenium.get('%s%s' % (live_server, '/login'))
+    selenium.add_cookie({
+        'name': 'sessionid',
+        'value': cookie.value,
+        'secure': False,
+        'path': '/',
+    })
+    selenium.get('%s%s' % (live_server, '/home'))
+    selenium.implicitly_wait(30)
+    newbuck = selenium.find_element_by_xpath("//button[contains(.,'New')]")
+    newbuck.click()
+    selenium.implicitly_wait(30)
+    buckname = selenium.find_element_by_id("name")
+    buckname.send_keys("IAMATESTBUCKET")
+    invest = selenium.find_element_by_id("investment")
+    invest.send_keys("5000")
+    save = selenium.find_element_by_id("save")
+    save.click()
+    selenium.implicitly_wait(30)
+    assert user.profile.owned_bucket.count() == 1
+    delete_button = selenium.find_element_by_id("delete")
+    delete_button.click()
+    selenium.implicitly_wait(30)
+    delete_button = selenium.find_element_by_id("delete2")
+    delete_button.click()
+    selenium.implicitly_wait(30)
+    assert user.profile.owned_bucket.count() == 0
 
 
 @mock_plaid_balance
@@ -167,7 +215,7 @@ def test_add_attr_to_bucket(selenium, live_server, client):
 @pytest.mark.django_db(transaction=True)
 def test_bucket_add_stock(selenium, live_server, client):
     """
-    Test adding attr to bucket
+    Test adding stock to bucket
     """
     user = User.objects.create_user('temporary', 'temporary@gmail.com', 'temporary')
     user.save()
@@ -210,7 +258,7 @@ def test_bucket_add_stock(selenium, live_server, client):
     edit_button = selenium.find_element_by_id("edit-comp")
     edit_button.click()
     selenium.implicitly_wait(30)
-    stock_field = selenium.find_element_by_class_name("MuiInput-inputSingleline-301")
+    stock_field = selenium.find_element_by_id("stockname")
     stock_field.send_keys("Name1")
     add_stock = selenium.find_element_by_id("add-stock")
     add_stock.click()
