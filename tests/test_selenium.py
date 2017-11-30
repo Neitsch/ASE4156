@@ -50,7 +50,7 @@ def test_signup(selenium, live_server, client):
         'secure': False,
         'path': '/',
     })
-    selenium.get('%s%s' % (live_server, '/home'))
+    selenium.get('%s%s' % (live_server, '/'))
     selenium.implicitly_wait(30)
     test = selenium.find_element_by_id('link-button')
     test.click()
@@ -66,6 +66,7 @@ def test_signup(selenium, live_server, client):
     )
     elem.click()
     selenium.switch_to.default_content()
+    selenium.find_element_by_id("menu-appbar-button").click()
     WebDriverWait(selenium, 120).until(
         EC.presence_of_element_located((By.ID, "logout"))
     )
