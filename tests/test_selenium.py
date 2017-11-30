@@ -19,7 +19,6 @@ from stocks.models import Stock, InvestmentBucket, \
 import test_stocks_model as stock_test
 
 
-
 def setup_module(module):
     """
     Mock out any externals
