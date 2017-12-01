@@ -65,11 +65,12 @@ def fill():
     stock_id_field = 'stock_id'
     stock_ticker = 'stock__ticker'
     date = 'date'
+    now = arrow.now()
     data = DailyStockQuote.objects.values(stock_ticker, stock_id_field).annotate(date=Max(date))
     for stock in data:
         last_date = arrow.get(stock[date]).replace(days=+1)
         last_date = get_date_array_for_fetcher(last_date)
-        now = get_date_array_for_fetcher(arrow.now())
+        now = get_date_array_for_fetcher(now)
         ticker = stock[stock_ticker]
         stock_id = stock[stock_id_field]
         fetcher = Fetcher(ticker, last_date, now)
