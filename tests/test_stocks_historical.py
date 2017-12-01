@@ -217,6 +217,9 @@ class StocksViewTests(TestCase):
             arrow.get(2017, 10, 11)
             ]))
     def test_back_fill_helper(self):
+        """
+        Testing fill helper
+        """
         stock = Stock(name="Facebook", ticker="FB")
         stock.save()
         historical.fill()
