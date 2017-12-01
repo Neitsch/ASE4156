@@ -223,5 +223,6 @@ class StocksViewTests(TestCase):
         stock = Stock(name="Facebook", ticker="FB")
         stock.save()
         historical.fill()
-        data = DailyStockQuote.objects.filter(stock_id=1)
+        stock_db = DailyStockQuote.objects.values('stock_id')[0]
+        data = DailyStockQuote.objects.filter(stock_id=stock_db['stock_id'])
         self.assertEqual(4, len(data))
