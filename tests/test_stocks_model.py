@@ -387,6 +387,32 @@ def test_bucket_historical():
     historical = bucket.historical(count=len(value), skip=skip)
     for idx, val in enumerate(value):
         assert historical[idx] == (
-            datetime.datetime.now().date() - datetime.timedelta(days=idx+2),
-            val * quantity + available
+                datetime.datetime.now().date() - datetime.timedelta(days=idx+2),
+                val * quantity + available
+            )
+    stock2 = Stock(
+        name="Name2X",
+        ticker="Testes"
+    )
+    stock2.save()
+    value2 = [i for i in range(1,31)]
+    for idx, val in enumerate(value2):
+        stock2.daily_quote.create(
+            value=val,
+            date=datetime.datetime.now().date() - datetime.timedelta(days=idx)
+        )
+    bucket2 =  InvestmentBucket(name="bucket2", public=True, owner=user.profile, available=0)
+    bucket2.save()
+    config2 = InvestmentStockConfiguration(
+        quantity=1,
+        stock=stock2,
+        bucket=bucket2,
+        start=datetime.datetime.now().date() - datetime.timedelta(days=len(value2))
+        )
+    config2.save()
+    historical2 = bucket2.historical()
+    for idx, val in enumerate(value2):
+        assert historical2[idx] == (
+                datetime.datetime.now().date() - datetime.timedelta(days=idx),
+                val
             )
