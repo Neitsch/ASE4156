@@ -353,6 +353,15 @@ def test_stock_config_value_on():
     with pytest.raises(Exception):
         config.value_on("2016-06-01")
     assert config.value_on("2016-06-08") == quantity * value
+    mock_quote = namedtuple('mock_quote', 'value')
+    with mock.patch.object(
+        Stock,
+        "latest_quote",
+        mock.MagicMock(
+            return_value=mock_quote(float('NaN'))
+            )):
+        with pytest.raises(Exception):
+            config.value_on()
 
 
 @pytest.mark.django_db(transaction=True)
@@ -406,8 +415,9 @@ def test_bucket_historical():
         ticker="Testes"
     )
     stock2.save()
-    value = [i for i in range(1, 31)]
-    for idx, val in enumerate(value):
+    value = list(range(1, 31))
+    for val in value:
+        idx = val - 1
         stock2.daily_quote.create(
             value=val,
             date=datetime.datetime.now().date() - datetime.timedelta(days=idx)
@@ -422,7 +432,8 @@ def test_bucket_historical():
         )
     config2.save()
     historical2 = bucket2.historical()
-    for idx, val in enumerate(value):
+    for val in value:
+        idx = val - 1
         assert historical2[idx] == (
             datetime.datetime.now().date() - datetime.timedelta(days=idx),
             val

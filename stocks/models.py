@@ -3,6 +3,7 @@ Models keeps track of all the persistent data around stocks
 """
 import datetime
 from datetime import date as os_date
+import math
 from django.db.models import Q
 from django.db import models
 from django.db.models.signals import pre_save
@@ -274,6 +275,8 @@ class InvestmentStockConfiguration(models.Model):
         Returns the current value of the stock configuration
         """
         value = self.stock.latest_quote(date).value * self.quantity
+        if math.isnan(value):
+            raise Exception("Not able to calculate value")
         return value
 
 
