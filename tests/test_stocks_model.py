@@ -353,6 +353,19 @@ def test_stock_config_value_on():
     with pytest.raises(Exception):
         config.value_on("2016-06-01")
     assert config.value_on("2016-06-08") == quantity * value
+    Fetcher.__init__ = mock.Mock(return_value=None)
+    
+
+@pytest.mark.django_db(transaction=True)
+def test_bucket_value_on():
+    """
+    Tests to see if bucket properly handles exception
+    """
+    user = User.objects.create(username='user1', password="a")
+    available = 10
+    bucket = InvestmentBucket(name="bucket", public=True, owner=user.profile, available=10)
+    bucket.save()
+    assert bucket.value_on("2016-06-01") == 10
 
 
 @pytest.mark.django_db(transaction=True)

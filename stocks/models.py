@@ -275,8 +275,6 @@ class InvestmentStockConfiguration(models.Model):
         Returns the current value of the stock configuration
         """
         value = self.stock.latest_quote(date).value * self.quantity
-        if math.isnan(value):
-            raise Exception("Not able to calculate value")
         return value
 
 
