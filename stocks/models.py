@@ -3,7 +3,6 @@ Models keeps track of all the persistent data around stocks
 """
 import datetime
 from datetime import date as os_date
-import math
 from django.db.models import Q
 from django.db import models
 from django.db.models.signals import pre_save
