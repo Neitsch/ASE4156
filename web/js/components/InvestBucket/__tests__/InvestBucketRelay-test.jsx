@@ -89,24 +89,83 @@ describe('InvestBucketRelay', () => {
     expect(comp).toMatchSnapshot();
   });
 
-  it('render owner', () => {
+  it('close without delete', () => {
     const comp = mount((
       <CtxProvider>
-        {context => (<InvestBucketRelay
-          relay={context.relay}
-          bucket={
-            {
+        {context => (
+          <InvestBucketRelay
+            relay={context.relay}
+            bucket={{
               __id: '1',
               __fragments: {
                 InvestBucketRelay_bucket: {},
               },
               id: '1',
               name: 'Bucket name',
-              public: false,
+              public: true,
               isOwner: true,
-              description: {
-                edges: [{
-                  node: {
+              description: null,
+            }}
+          />
+        )
+        }
+      </CtxProvider>
+    ));
+    comp.find('#delete').first().simulate('click');
+    expect(comp).toMatchSnapshot();
+    comp.find('#dialog1').first().props().onRequestClose();
+    expect(comp).toMatchSnapshot();
+    comp.find('#delete').first().simulate('click');
+    comp.find('#keep').first().simulate('click');
+    expect(comp).toMatchSnapshot();
+  });
+
+  it('delete click', () => {
+    const comp = mount((
+      <CtxProvider>
+        {context => (
+          <InvestBucketRelay
+            relay={context.relay}
+            bucket={{
+              __id: '1',
+              __fragments: {
+                InvestBucketRelay_bucket: {},
+              },
+              id: '1',
+              name: 'Bucket name',
+              public: true,
+              isOwner: true,
+              description: null,
+            }}
+          />
+        )
+        }
+      </CtxProvider>
+    ));
+    comp.find('#delete').first().simulate('click');
+    expect(comp).toMatchSnapshot();
+    comp.find('#delete2').first().simulate('click');
+  });
+
+  it('render owner', () => {
+    const comp = mount((
+      <CtxProvider>
+        {context => (
+          <InvestBucketRelay
+            relay={context.relay}
+            bucket={
+              {
+                __id: '1',
+                __fragments: {
+                  InvestBucketRelay_bucket: {},
+                },
+                id: '1',
+                name: 'Bucket name',
+                public: false,
+                isOwner: true,
+                description: {
+                  edges: [{
+                    node: {
                     id: '2',
                     text: 'my text',
                     isGood: true,
@@ -122,7 +181,8 @@ describe('InvestBucketRelay', () => {
               },
             }
           }
-        />)
+          />
+        )
         }
       </CtxProvider>
     ));
