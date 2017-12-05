@@ -79,7 +79,8 @@ class GProfile(DjangoObjectType):
         :param info: Information about the user to check which recommendations
             are best for the user.
         :type info: Graphene Request Info.
-        :returns: :py:class:`django.db.models.query.QuerySet` of :py:class:`stocks.models.InvestmentBucket`
+        :returns: :py:class:`django.db.models.query.QuerySet` of
+            :py:class:`stocks.models.InvestmentBucket`
         """
         return InvestmentBucket.accessible_buckets(info.context.user.profile)
 
@@ -90,7 +91,8 @@ class GProfile(DjangoObjectType):
         calls the default account of the profile.
         (see :py:meth:`authentication.models.Profile.default_acc`)
 
-        :returns: :py:class:`django.db.models.query.QuerySet` of :py:class:`trading.models.TradingAccount`
+        :returns: :py:class:`django.db.models.query.QuerySet` of
+            :py:class:`trading.models.TradingAccount`
         """
         return data.default_acc()
 
