@@ -36,6 +36,7 @@ exports[`InvestBucket add attribute 1`] = `
     <withStyles(Button)
       color="primary"
       dense={true}
+      id="invest"
       onClick={[Function]}
     >
       Invest
@@ -80,6 +81,7 @@ exports[`InvestBucket add attribute 2`] = `
     <withStyles(Button)
       color="primary"
       dense={true}
+      id="invest"
       onClick={[Function]}
     >
       Invest
@@ -124,6 +126,7 @@ exports[`InvestBucket add attribute 3`] = `
     <withStyles(Button)
       color="primary"
       dense={true}
+      id="invest"
       onClick={[Function]}
     >
       Invest
@@ -155,6 +158,7 @@ exports[`InvestBucket add attribute 4`] = `
     <withStyles(Button)
       color="primary"
       dense={true}
+      id="invest"
       onClick={[Function]}
     >
       Invest
@@ -180,6 +184,7 @@ exports[`InvestBucket displays bad attributes 1`] = `
         </withStyles(ListItemIcon)>
         <withStyles(ListItemText)
           autoFocus={true}
+          id="attr"
           key="1"
           primary="Attr"
         />
@@ -190,6 +195,7 @@ exports[`InvestBucket displays bad attributes 1`] = `
     <withStyles(Button)
       color="primary"
       dense={true}
+      id="invest"
       onClick={[Function]}
     >
       Invest
@@ -215,6 +221,7 @@ exports[`InvestBucket displays good attributes 1`] = `
         </withStyles(ListItemIcon)>
         <withStyles(ListItemText)
           autoFocus={true}
+          id="attr"
           key="1"
           primary="Attr"
         />
@@ -225,6 +232,7 @@ exports[`InvestBucket displays good attributes 1`] = `
     <withStyles(Button)
       color="primary"
       dense={true}
+      id="invest"
       onClick={[Function]}
     >
       Invest
@@ -247,6 +255,7 @@ exports[`InvestBucket renders 1`] = `
     <withStyles(Button)
       color="primary"
       dense={true}
+      id="invest"
       onClick={[Function]}
     >
       Invest
