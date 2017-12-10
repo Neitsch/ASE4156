@@ -155,7 +155,9 @@ def test_delete_bucket(selenium, live_server, client):
     delete_button.click()
     cancel_delete = selenium.find_element_by_id("keep")
     cancel_delete.click()
-    time.sleep(1)
+    WebDriverWait(selenium, 10).until(
+        EC.invisibility_of_element_located((By.ID, "keep"))
+    )
     assert user.profile.owned_bucket.count() == 1
     delete_button.click()
     confirm_delete = selenium.find_element_by_id("delete2")
