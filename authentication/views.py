@@ -77,5 +77,5 @@ def get_reauth(request):
     access_token = ubank.access_token
     get_pub = client.Item.public_token.create(access_token)
     public_token = get_pub["public_token"]
-    cntxt = {"public_token":public_token}
+    cntxt = {"public_token": public_token}
     return render(request, "reauth.html", cntxt)
