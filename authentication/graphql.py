@@ -155,14 +155,23 @@ class GUserBank(DjangoObjectType):
 
     @staticmethod
     def resolve_balance_date(_data, _info):
+        """
+        Date of the balance
+        """
         return str(datetime.date.today())
 
     @staticmethod
     def resolve_monthly_start(_data, _info):
+        """
+        Start date for measuring the monthly income/expenditure
+        """
         return str(datetime.date.today() - datetime.timedelta(days=30))
 
     @staticmethod
     def resolve_monthly_end(_data, _info):
+        """
+        End date for measuring the monthly income/expenditure
+        """
         return str(datetime.date.today())
 
     @staticmethod
