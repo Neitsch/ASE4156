@@ -13,7 +13,9 @@
     "webpack": "webpack --config webpack.config.js --progress --colors",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "test": "yarn run relay && yarn run eslint && flow && jest"
+    "test": "yarn run relay && yarn run eslint && flow && jest",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
     "@storybook/addon-actions": "^3.2.17",
@@ -78,7 +80,8 @@
     "url-loader": "^0.6.2",
     "webpack": "^3.10.0",
     "webpack-bundle-tracker": "^0.2.0",
-    "whatwg-fetch": "^2.0.3"
+    "whatwg-fetch": "^2.0.3",
+    "snyk": "^1.49.4"
   },
   "devDependencies": {
     "eslint-config-airbnb": "^16.1.0",
@@ -109,5 +112,6 @@
       "<rootDir>/.storybook/raf.js",
       "<rootDir>/.storybook/jest-setup.js"
     ]
-  }
+  },
+  "snyk": true
 }
